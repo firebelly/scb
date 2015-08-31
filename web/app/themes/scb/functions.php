@@ -20,6 +20,13 @@ $sage_includes = [
   'lib/extras.php',                // Custom functions
 ];
 
+$firebelly_includes = [
+  'lib/disable-comments.php',      // Disables WP comments in admin and frontend
+  'lib/fb_init.php',               // FB theme setups
+];
+
+$sage_includes = array_merge($sage_includes, $firebelly_includes);
+
 foreach ($sage_includes as $file) {
   if (!$filepath = locate_template($file)) {
     trigger_error(sprintf(__('Error locating %s for inclusion', 'sage'), $file), E_USER_ERROR);
