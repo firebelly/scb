@@ -24,6 +24,8 @@ $firebelly_includes = [
   'lib/disable-comments.php',      // Disables WP comments in admin and frontend
   'lib/fb_init.php',               // FB theme setups
   'lib/project-post-type.php',     // Projects
+  'lib/project_category-taxonomy.php',     // Project Categories
+  'lib/taxonomy-meta-boxes.php',   // Extra CMB2 Taxonomy fields
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);

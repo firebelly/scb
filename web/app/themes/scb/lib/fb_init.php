@@ -43,7 +43,7 @@ function site_options() {
                 <td><input type="text" id="facebook_id" name="facebook_id" size="45" value="<?php echo get_option('facebook_id'); ?>" /></td>
               </tr>
               <tr>
-                <th scope="row"><label for="linkedin_id">Instagram Account:</label></th>
+                <th scope="row"><label for="linkedin_id">LinkedIn Account:</label></th>
                 <td><input type="text" id="linkedin_id" name="linkedin_id" size="45" value="<?php echo get_option('linkedin_id'); ?>" /></td>
               </tr>
               <tr>
@@ -73,3 +73,64 @@ function add_link_to_admin_bar($wp_admin_bar) {
     'href'   => esc_url(admin_url('options-general.php?page=functions' ) ),
   ));
 }
+
+/*
+ * Tiny MCE options
+ */
+function mce_buttons_2($buttons) {
+  array_unshift($buttons, 'styleselect');
+  return $buttons;
+}
+add_filter('mce_buttons_2', __NAMESPACE__ . '\mce_buttons_2');
+
+function simplify_tinymce($settings) {
+  // What goes into the 'formatselect' list
+  $settings['block_formats'] = 'H2=h2;H3=h3;Paragraph=p';
+
+  $settings['inline_styles'] = 'false';
+  if (!empty($settings['formats']))
+    $settings['formats'] = substr($settings['formats'],0,-1).",underline: { inline: 'u', exact: true} }";
+  else
+    $settings['formats'] = "{ underline: { inline: 'u', exact: true} }";
+  
+  // What goes into the toolbars. Add 'wp_adv' to get the Toolbar toggle button back
+  $settings['toolbar1'] = 'styleselect,bold,italic,underline,strikethrough,formatselect,bullist,numlist,blockquote,link,unlink,hr,wp_more,outdent,indent,AccordionShortcode,AccordionItemShortcode,fullscreen';
+  $settings['toolbar2'] = '';
+  $settings['toolbar3'] = '';
+  $settings['toolbar4'] = '';
+
+  // $settings['autoresize_min_height'] = 250;
+  $settings['autoresize_max_height'] = 1000;
+
+  // Clear most formatting when pasting text directly in the editor
+  $settings['paste_as_text'] = 'true';
+
+  $style_formats = array( 
+    // array( 
+    //   'title' => 'Two Column',
+    //   'block' => 'div',
+    //   'classes' => 'two-column',
+    //   'wrapper' => true,
+    // ),  
+    // array( 
+    //   'title' => 'Three Column',
+    //   'block' => 'div',
+    //   'classes' => 'three-column',
+    //   'wrapper' => true,
+    // ),
+    array( 
+      'title' => 'Button',
+      'block' => 'span',
+      'classes' => 'button',
+    ),
+    // array( 
+    //   'title' => '» Arrow Link',
+    //   'block' => 'span',
+    //   'classes' => 'arrow-link',
+    // ),
+ );  
+  $settings['style_formats'] = json_encode($style_formats);
+
+  return $settings;
+}
+add_filter('tiny_mce_before_init', __NAMESPACE__ . '\simplify_tinymce');
