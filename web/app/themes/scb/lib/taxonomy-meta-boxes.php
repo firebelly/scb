@@ -3,32 +3,33 @@
  * Extra fields for Taxonomies
  */
 
-function cmb2_taxonomy_meta_initiate() {
-  require_once( __DIR__.'/Taxonomy_MetaData/Taxonomy_MetaData_CMB2.php' );
+function taxonomy_metadata_cmb2_init() {
 
-  /**
-   * Semi-standard CMB2 metabox/fields array
-   */
-  $meta_box = array(
-    'id'         => 'cat_options',
-    // 'key' and 'value' should be exactly as follows
-    'show_on'    => array( 'key' => 'options-page', 'value' => array( 'unknown', ), ),
-    'show_names' => true,
-    'fields'     => array(
-      array(
-        'name' => 'Color',
-        'id'   => 'color',
+    // Including Taxonomy_MetaData_CMB2.php. Update to reflect your file structure
+    if ( ! class_exists( 'Taxonomy_MetaData_CMB2' ) ) {
+        require_once( __DIR__.'/Taxonomy_MetaData/Taxonomy_MetaData_CMB2.php' );
+    }
+
+    $metabox_id = 'cat_options';
+
+    /**
+     * Semi-standard CMB metabox/fields registration
+     */
+    $cmb = new_cmb2_box( array(
+        'id'           => $metabox_id,
+        'object_types' => array( 'key' => 'options-page', 'value' => array( 'unknown', ), ),
+    ) );
+
+    $cmb->add_field( array(
+        'name' => __( 'Color', 'taxonomy-metadata' ),
+        'desc' => __( 'Pick color for category', 'taxonomy-metadata' ),
+        'id'   => 'color', // no prefix needed since the options are one option array.
         'type' => 'colorpicker',
-      ),
-      // array(
-      //   'name' => 'Contacts',
-      //   'id'   => 'contacts',
-      //   'type' => 'wysiwyg',
-      //   'options' => [ 'teeny' => true ],
-      // ),
-    )
-  );
+    ) );
 
-  $cats = new Taxonomy_MetaData_CMB2( 'project_category', $meta_box, __( 'Category Settings', 'taxonomy-metadata' ) );
+    /**
+     * Instantiate our taxonomy meta class
+     */
+    $cats = new Taxonomy_MetaData_CMB2( 'project_category', $metabox_id, __( 'Category Settings', 'taxonomy-metadata' ) );
 }
-cmb2_taxonomy_meta_initiate();
+add_action( 'cmb2_init', 'taxonomy_metadata_cmb2_init' );
