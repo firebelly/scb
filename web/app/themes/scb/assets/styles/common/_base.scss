@@ -1,0 +1,91 @@
+// Base styles
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $white;
+  color: $black;
+  font-size: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: sans-serif;
+}
+
+
+// Browser alert
+.old-browser {
+  top: 0;
+  left: 0;
+  right: 0;
+  color: $white;
+  padding: 50px;
+  text-align: center;
+  background: $red;
+}
+
+.smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Utility classes
+.hide {
+  display: none;
+}
+.loading {
+  opacity: .5;
+}
+
+// Visually hide, accessibility-friendly
+.screen-reader-text,
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.cf,
+.clearfix {
+	@include clearfix();
+}
+
+// Visibility classes (borrowing nomenclature from Foundation)
+// .show-for-medium-up {
+//   display: none;
+//   @include tablet {
+//     display: block;
+//   }
+// }
+// .hide-for-medium-up {
+//   @include tablet {
+//     display: none !important;
+//   }
+// }
+
+// Default link styles
+a {
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+address {
+  font-style: normal;
+}

@@ -10,22 +10,24 @@
  * @link https://github.com/roots/sage/pull/1042
  */
 $sage_includes = [
-  'lib/utils.php',                 // Utility functions
-  'lib/init.php',                  // Initial theme setup and constants
-  'lib/wrapper.php',               // Theme wrapper class
-  'lib/conditional-tag-check.php', // ConditionalTagCheck class
-  'lib/config.php',                // Configuration
-  'lib/assets.php',                // Scripts and stylesheets
-  'lib/titles.php',                // Page titles
-  'lib/extras.php',                // Custom functions
+  'lib/utils.php',                     // Utility functions
+  'lib/init.php',                      // Initial theme setup and constants
+  'lib/wrapper.php',                   // Theme wrapper class
+  'lib/conditional-tag-check.php',     // ConditionalTagCheck class
+  'lib/config.php',                    // Configuration
+  'lib/assets.php',                    // Scripts and stylesheets
+  'lib/titles.php',                    // Page titles
+  'lib/extras.php',                    // Custom functions
 ];
 
 $firebelly_includes = [
-  'lib/disable-comments.php',      // Disables WP comments in admin and frontend
-  'lib/fb_init.php',               // FB theme setups
-  'lib/project-post-type.php',     // Projects
-  'lib/project_category-taxonomy.php',     // Project Categories
-  'lib/taxonomy-meta-boxes.php',   // Extra CMB2 Taxonomy fields
+  'lib/disable-comments.php',          // Disables WP comments in admin and frontend
+  'lib/fb_init.php',                   // FB theme setups
+  'lib/media.php',                     // FB media
+  'lib/custom-functions.php',          // Rando utility functions and miscellany
+  'lib/project-post-type.php',         // Projects
+  'lib/project_category-taxonomy.php', // Project Categories
+  'lib/taxonomy-meta-boxes.php',       // Extra CMB2 Taxonomy fields
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);
