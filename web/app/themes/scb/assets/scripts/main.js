@@ -35,28 +35,33 @@ var SCB = (function($) {
         var $li = $(this).parent('li');
         $li.find('ul.children:first').addClass('active');
         if (!$li.hasClass('active')) {
-          var project_category = $(this).text();
-          $.ajax({
-              url: wp_ajax_url,
-              method: 'post',
-              data: {
-                  action: 'load_more_posts',
-                  post_type: 'project',
-                  page: 1,
-                  per_page: 6,
-                  project_category: project_category
-              },
-              success: function(data) {
-                $li.addClass('active');
-                var $data = $(data);
-                if (loadingTimer) { clearTimeout(loadingTimer); }
-                $('section.projects').html($data).removeClass('loading');
-              }
-          });
+          $li.addClass('active');
         } else {
           $li.removeClass('active');
           $li.find('ul.children:first').removeClass('active');
         }
+        var project_categories = [];
+        $('.project-categories li.active>a').each(function() {
+          project_categories.push($(this).text());
+        })
+        console.log(project_categories.join(','));
+        $.ajax({
+            url: wp_ajax_url,
+            method: 'post',
+            data: {
+                action: 'load_more_posts',
+                post_type: 'project',
+                page: 1,
+                per_page: 6,
+                project_category: project_categories.join(',')
+            },
+            success: function(data) {
+              var $data = $(data);
+              if (loadingTimer) { clearTimeout(loadingTimer); }
+              $('section.projects').html($data).removeClass('loading');
+            }
+        });
+
       });
     }
 

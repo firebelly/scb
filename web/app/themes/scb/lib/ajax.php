@@ -35,13 +35,25 @@ function load_more_posts() {
   }
   // Filter by Category?
   if (!empty($_REQUEST['project_category'])) {
-    $args['tax_query'] = array(
-      array(
-        'taxonomy' => 'project_category',
-        'field' => 'slug',
-        'terms' => $_REQUEST['project_category'],
-      )
-    );
+    if (strpos($_REQUEST['project_category'],',') > 0) {
+      $cats = explode(',', $_REQUEST['project_category']);
+      $args['tax_query'] = array();
+      foreach($cats as $cat) {
+        array_push($args['tax_query'], array(
+          'taxonomy' => 'project_category',
+          'field'    => 'slug',
+          'terms'    => sanitize_title($cat),
+        ));
+      }
+    } else {
+      $args['tax_query'] = array(
+        array(
+          'taxonomy' => 'project_category',
+          'field'    => 'slug',
+          'terms'    => sanitize_title($_REQUEST['project_category']),
+        )
+      );
+    }
   }
 
   $posts = get_posts($args);
