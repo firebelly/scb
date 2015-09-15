@@ -24,6 +24,7 @@ $firebelly_includes = [
   'lib/disable-comments.php',          // Disables WP comments in admin and frontend
   'lib/fb_init.php',                   // FB theme setups
   'lib/media.php',                     // FB media
+  'lib/ajax.php',                      // AJAX functions
   'lib/custom-functions.php',          // Rando utility functions and miscellany
   'lib/project-post-type.php',         // Projects
   'lib/project_category-taxonomy.php', // Project Categories

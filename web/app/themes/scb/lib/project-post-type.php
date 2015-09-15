@@ -149,6 +149,17 @@ function metaboxes( array $meta_boxes ) {
           'textarea_rows' => 8,
         ),
       ),
+      array(
+        'name' => 'Project Layout Orientation',
+        'desc' => 'Determines layout based on primary project photos',
+        'id'   => $prefix . 'orientation',
+        'type' => 'radio_inline',
+        'default' => 'horizontal',
+        'options' => array(
+          'horizontal' => __( 'Horizontal', 'cmb' ),
+          'vertical'   => __( 'Vertical', 'cmb' ),
+        ),
+      ),
     ),
   );
 

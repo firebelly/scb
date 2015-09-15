@@ -246,7 +246,7 @@ gulp.task('clean', require('del').bind(null, [path.dist]));
 // `manifest.config.devUrl`. When a modification is made to an asset, run the
 // build step for that asset and inject the changes into the page.
 // See: http://www.browsersync.io
-gulp.task('watch', function() {
+gulp.task('watch', ['styles', 'scripts'], function() {
   browserSync.init({
     files: ['{lib,templates}/**/*.php', '*.php'],
     proxy: config.devUrl,

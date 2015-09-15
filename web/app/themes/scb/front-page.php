@@ -6,6 +6,7 @@
 
 <?= $post->post_content ?>
 
+<div class="project-categories">
 <ul>
 <?php 
 wp_list_categories([ 
@@ -15,13 +16,16 @@ wp_list_categories([
 ]);
 ?>
 </ul>
+</div>
 
+<section class="projects">
 <?php 
 $projects = \Firebelly\PostTypes\Project\get_projects();
 foreach ($projects as $project_post) {
   include(locate_template('templates/article-project.php'));
 }
 ?>
+</section>
 
 <section class="news">
 <?php 
