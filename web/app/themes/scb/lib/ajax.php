@@ -35,7 +35,7 @@ function load_more_posts() {
   }
   // Filter by Category?
   if (!empty($_REQUEST['project_category'])) {
-    if (strpos($_REQUEST['project_category'],',') > 0) {
+    if (strpos($_REQUEST['project_category'], ',') !== false) {
       $cats = explode(',', $_REQUEST['project_category']);
       $args['tax_query'] = array();
       foreach($cats as $cat) {

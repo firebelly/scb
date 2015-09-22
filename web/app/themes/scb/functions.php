@@ -27,6 +27,7 @@ $firebelly_includes = [
   'lib/ajax.php',                      // AJAX functions
   'lib/custom-functions.php',          // Rando utility functions and miscellany
   'lib/project-post-type.php',         // Projects
+  'lib/post-collections.php',          // Post collections
   'lib/project_category-taxonomy.php', // Project Categories
   'lib/taxonomy-meta-boxes.php',       // Extra CMB2 Taxonomy fields
 ];
