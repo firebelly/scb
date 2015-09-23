@@ -18,4 +18,8 @@ endif;
   <?php if ($product_categories): ?>
     <h3 class="categories"><?= $product_categories ?></h3>
   <?php endif ?>
+
+  <p class="actions">
+    <a href="#" class="add-to-collection" data-id="<?= $project_post->ID ?>">Add to Collection</a>
+  </p>
 </article>

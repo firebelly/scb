@@ -65,6 +65,24 @@ var SCB = (function($) {
       });
     }
 
+    $(document).on('click', '.add-to-collection', function() {
+        var id = $(this).data('id');
+        $.ajax({
+            url: wp_ajax_url,
+            method: 'post',
+            data: {
+                action: 'collection_action',
+                do: 'add',
+                post_id: id
+            },
+            success: function(data) {
+              alert('added');
+              // $('.collection').html(data).removeClass('loading');
+            }
+        });
+
+    });
+
     // _initNav();
     // _initSearch();
     // _initMasonry();

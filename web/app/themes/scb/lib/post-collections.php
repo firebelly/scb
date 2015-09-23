@@ -1,6 +1,8 @@
 <?php
 /**
  * Post Collections
+ *
+ * Simple library for storing a collection of WP posts in db
  */
 
 namespace Firebelly\Collections;
@@ -30,12 +32,13 @@ function new_collection() {
  */
 function add_post_to_collection($collection_id, $post_id) {
   global $wpdb;
+  $res = false;
   $post_in_collection = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}collection_posts WHERE collection_id=%d AND post_id=%d", $collection_id, $post_id));
   if ($post_in_collection) return;
   $post = get_post($post_id);
   if ($post) {
     $max_pos = $wpdb->get_var($wpdb->prepare("SELECT MAX(position) FROM {$wpdb->prefix}collection_posts WHERE collection_id=%d", $collection_id));
-    $wpdb->insert(
+    $res = $wpdb->insert(
       $wpdb->prefix.'collection_posts', 
       [
         'collection_id' => $collection_id,
@@ -46,6 +49,7 @@ function add_post_to_collection($collection_id, $post_id) {
       ]
     );
   }
+  return $res;
 }
 
 /**
@@ -57,6 +61,10 @@ function remove_post_from_collection($collection_id, $post_id) {
   return $res;
 }
 
+/**
+ * [get_active_collection description]
+ * @return [type] [description]
+ */
 function get_active_collection() {
   global $wpdb;
   $active_collection = $wpdb->get_row( 
@@ -96,5 +104,25 @@ function get_collection($collection_id) {
 }
 
 /**
- * Show posts in collection
+ * AJAX collection events
  */
+function collection_action() {
+  $collection = empty($_REQUEST['collection_id']) ? get_active_collection() : get_collection((int)$_REQUEST['collection_id']);
+  if ($collection && !empty($_REQUEST['do'])) {
+    $do = $_REQUEST['do'];
+    if ($do=='add')
+      add_post_to_collection($collection->ID, $_REQUEST['post_id']);
+    else if ($do=='remove')
+      remove_post_from_collection($collection->ID, $_REQUEST['post_id']);
+  }
+  
+  // todo: return html of collection template
+  echo json_encode([
+    'status' => 1
+  ]);
+
+  // we use this call outside AJAX calls; WP likes die() after an AJAX call
+  if (is_ajax()) die();
+}
+add_action( 'wp_ajax_collection_action', __NAMESPACE__ . '\\collection_action' );
+add_action( 'wp_ajax_nopriv_collection_action', __NAMESPACE__ . '\\collection_action' );
