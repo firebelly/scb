@@ -45,7 +45,8 @@
     "wpackagist-plugin/akismet": ">=3.1.1",
     "wpackagist-plugin/redirection": ">=2.3.16",
     "wpackagist-plugin/wp-super-cache": ">=1.4.4",
-    "wpackagist-plugin/update-from-bottom": ">=1.0.3"
+    "wpackagist-plugin/update-from-bottom": ">=1.0.3",
+    "wpackagist-plugin/quick-navigation-interface": ">=0.4"
   },
   "extra": {
     "installer-paths": {

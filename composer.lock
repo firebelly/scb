@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "42c62f510444bdbdc1b89dae4378a969",
+    "hash": "f01a22d3ec838b3632ac81cb0bf7545a",
     "packages": [
         {
             "name": "composer/installers",
@@ -373,6 +373,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/multiple-content-blocks/"
+        },
+        {
+            "name": "wpackagist-plugin/quick-navigation-interface",
+            "version": "0.4",
+            "source": {
+                "type": "svn",
+                "url": "http://plugins.svn.wordpress.org/quick-navigation-interface/",
+                "reference": "tags/0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/quick-navigation-interface.0.4.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/quick-navigation-interface/"
         },
         {
             "name": "wpackagist-plugin/redirection",
