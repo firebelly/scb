@@ -65,18 +65,19 @@ var SCB = (function($) {
       });
     }
 
-    $(document).on('click', '.add-to-collection', function() {
+    $(document).on('click', '.collection-action', function() {
         var id = $(this).data('id');
+        var action = $(this).data('action');
         $.ajax({
             url: wp_ajax_url,
             method: 'post',
             data: {
                 action: 'collection_action',
-                do: 'add',
+                do: action,
                 post_id: id
             },
             success: function(data) {
-              alert('added');
+              alert(action+' ok');
               // $('.collection').html(data).removeClass('loading');
             }
         });

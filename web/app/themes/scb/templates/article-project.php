@@ -20,6 +20,10 @@ endif;
   <?php endif ?>
 
   <p class="actions">
-    <a href="#" class="add-to-collection" data-id="<?= $project_post->ID ?>">Add to Collection</a>
+    <?php if (\Firebelly\Collections\post_in_collection($collection,$project_post->ID)): ?>
+      <a href="#" class="collection-action" data-action="remove" data-id="<?= $project_post->ID ?>">Remove from Collection</a>
+    <?php else: ?>
+      <a href="#" class="collection-action" data-action="add" data-id="<?= $project_post->ID ?>">Add to Collection</a>
+    <?php endif; ?>
   </p>
 </article>

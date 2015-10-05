@@ -2,6 +2,7 @@
 /**
  * Template Name: Homepage
  */
+$collection = \Firebelly\Collections\get_active_collection();
 ?>
 
 <?= $post->post_content ?>

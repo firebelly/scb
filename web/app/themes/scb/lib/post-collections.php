@@ -16,6 +16,7 @@ if (!session_id()) {
  */
 function new_collection() {
   global $wpdb;
+
   session_regenerate_id(TRUE);
 
   // check for existing
@@ -68,11 +69,12 @@ function remove_post_from_collection($collection_id, $post_id) {
 }
 
 /**
- * [get_active_collection description]
- * @return [type] [description]
+ * Get user's active collection
+ * @return object $collection
  */
 function get_active_collection() {
   global $wpdb;
+
   $active_collection = $wpdb->get_row( 
     $wpdb->prepare("SELECT * FROM {$wpdb->prefix}collections WHERE session_id = %s", session_id())
   );
@@ -101,8 +103,7 @@ function get_collection($collection_id) {
         LEFT JOIN {$wpdb->prefix}collection_posts cp ON cp.post_id = p.ID
         WHERE cp.collection_id = %d
         AND post_status = 'publish'
-        GROUP BY cp.post_type
-        ORDER BY cp.position ASC
+        ORDER BY cp.post_type, cp.position ASC
         ",
         $collection_id
       )
@@ -110,6 +111,19 @@ function get_collection($collection_id) {
   }
 
   return $collection;
+}
+
+/**
+ * Is post in collection?
+ */
+function post_in_collection($collection, $post_id) {
+  $in_collection = false;
+  foreach ($collection->posts as $post) {
+    if ($post->ID==$post_id)
+      $in_collection = true;
+  }
+
+  return $in_collection;
 }
 
 /**
