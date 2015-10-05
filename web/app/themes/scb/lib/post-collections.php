@@ -94,7 +94,7 @@ function get_collection($collection_id) {
   );
 
   if ($collection) {
-    $collection->posts = $wpdb->get_results( 
+    $collection->posts = $wpdb->get_results(
       $wpdb->prepare(
         "
         SELECT * FROM {$wpdb->posts} p
