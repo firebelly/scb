@@ -43,7 +43,7 @@ var SCB = (function($) {
         var project_categories = [];
         $('.project-categories li.active>a').each(function() {
           project_categories.push($(this).text());
-        })
+        });
         console.log(project_categories.join(','));
         $.ajax({
             url: wp_ajax_url,

@@ -16,6 +16,12 @@ if (!session_id()) {
  */
 function new_collection() {
   global $wpdb;
+  session_regenerate_id(TRUE);
+
+  // check for existing
+  $collection_id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}collections WHERE session_id=%s", session_id()));
+  if ($collection_id) return $collection_id;
+
   $wpdb->insert( 
     $wpdb->prefix.'collections', 
     [ 
@@ -72,6 +78,9 @@ function get_active_collection() {
   );
   if ($active_collection) {
     return get_collection($active_collection->ID);
+  } else {
+    $id = new_collection();
+    return get_collection($id);
   }
  } 
 
@@ -126,3 +135,21 @@ function collection_action() {
 }
 add_action( 'wp_ajax_collection_action', __NAMESPACE__ . '\\collection_action' );
 add_action( 'wp_ajax_nopriv_collection_action', __NAMESPACE__ . '\\collection_action' );
+
+/**
+ * Collection page
+ */
+function collection_rewrites() {
+  add_rewrite_rule(
+    'collection/(\d+)/?$',
+    'index.php?pagename=collection&collection_id=$matches[1]',
+    'top' 
+  );
+}
+add_action('init', __NAMESPACE__.'\collection_rewrites');
+
+function collection_query_vars($query_vars) {
+  $query_vars[] = 'collection_id';
+  return $query_vars;
+}
+add_filter('query_vars', __NAMESPACE__.'\collection_query_vars');

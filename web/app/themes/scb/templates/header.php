@@ -7,8 +7,8 @@
         wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']);
       endif;
       ?>
-      <a class="collection" href="/collection">Collection</a>
-      <a class="search" href="/search">Search</a>
+      <a class="collection" href="/collection/">Collection</a>
+      <a class="search" href="/search/">Search</a>
     </nav>
   </div>
 </header>

@@ -221,14 +221,14 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 /**
  * Get Projects matching category
  */
-function get_projects($category='') {
+function get_projects($filters=[]) {
   $output = '';
   $args = array(
     'numberposts' => -1,
     'post_type' => 'project',
     'orderby' => ['title' => 'ASC'],
     );
-  if ($category != '') {
+  if (!empty($filters['category'])) {
     $args['tax_query'] = array(
       array(
         'taxonomy' => 'project_category',
