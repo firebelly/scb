@@ -7,7 +7,7 @@ if ($categories):
     $product_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name."</a> /<br />";
 endif;
 ?>
-<article class="project">
+<article class="project" data-id="<?= $project_post->ID ?>">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($project_post->ID)): ?>
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
   <?php endif; ?>

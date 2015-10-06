@@ -12,7 +12,7 @@ if ($collection_id = get_query_var('collection_id')) {
 
 <?php if ($collection): ?>
 
-  <section class="collection">
+  <section class="collection" data-id="<?= $collection->ID ?>">
     <?php include(locate_template('templates/collection.php')); ?>
   </section>
 

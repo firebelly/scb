@@ -3,17 +3,32 @@
     .actions {
       display: none;
     }
+    width: 250px;
+    height: 250px;
+    float: left;
+    &.placeholder {
+      background: #ccc;
+    }
+    &.dragged {
+      position: absolute;
+      z-index: 200;
+      margin: -125px 0 0 -125px;
+    }
   }
   &.mini {
-  	display: none;
-  	position: absolute;
-  	top: 50px;
-  	right: 50px;
-  	padding: 20px;
-  	background: #eee;
-  	z-index: 100;
-  	&.active {
-  		display: block;
-  	}
+    display: none;
+    position: absolute;
+    max-width: 800px;
+    top: 50px;
+    right: 50px;
+    padding: 20px;
+    background: #eee;
+    z-index: 100;
+    &.active {
+      display: block;
+    }
   }
+}
+body.dragging * {
+  cursor: move;
 }

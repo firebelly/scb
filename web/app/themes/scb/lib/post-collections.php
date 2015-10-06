@@ -139,23 +139,36 @@ function collection_action() {
       remove_post_from_collection($collection->ID, $_REQUEST['post_id']);
   }
 
-  // Reload collection
+  // Reload collection to add/remove & group posts
   $collection = get_collection($collection->ID);
 
-  // Capture partial output to return with AJAX call
+  // Capture template output to return with AJAX call
   ob_start();
   $collection_html = include(locate_template('templates/collection.php'));;
   $collection_html = ob_get_clean();
 
-  echo json_encode([
-    'status' => 1,
-    'collection_html' => $collection_html
-  ]);
-  // we use this call outside AJAX calls; WP likes die() after an AJAX call
-  if (\Firebelly\Ajax\is_ajax()) die();
+  wp_send_json_success(['collection_html' => $collection_html]);
 }
 add_action('wp_ajax_collection_action', __NAMESPACE__ . '\\collection_action');
 add_action('wp_ajax_nopriv_collection_action', __NAMESPACE__ . '\\collection_action');
+
+function collection_sort() {
+  global $wpdb;
+  $collection = empty($_REQUEST['collection_id']) ? get_active_collection() : get_collection((int)$_REQUEST['collection_id']);
+  if ($collection && !empty($_REQUEST['post_array'])) {
+    $post_array = $_REQUEST['post_array'];
+    $i = 0;
+    foreach ($post_array as $post_data) {
+      $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}collection_posts SET position=%d WHERE collection_id=%d AND post_id=%d", $i, $collection->ID, $post_data['id']));
+      $i++;
+    }
+    wp_send_json_success();
+  } else {
+    wp_send_json_error(['message' => 'Unable to get collection']);
+  }
+}
+add_action('wp_ajax_collection_sort', __NAMESPACE__ . '\\collection_sort');
+add_action('wp_ajax_nopriv_collection_sort', __NAMESPACE__ . '\\collection_sort');
 
 /**
  * Collection page URLs

@@ -14,7 +14,8 @@
     "respond": "~1.4.2",
     "velocity": "~1.2.2",
     "masonry": "~3.2.2",
-    "fastclick": "~1.0.6"
+    "fastclick": "~1.0.6",
+    "jquery-sortable": "~0.9.13"
   },
   "overrides": {
     "modernizr": {

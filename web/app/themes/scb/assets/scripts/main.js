@@ -46,7 +46,7 @@ var SCB = (function($) {
         $('.project-categories li.active>a').each(function() {
           project_categories.push($(this).text());
         });
-        console.log(project_categories.join(','));
+        // console.log(project_categories.join(','));
         $.ajax({
             url: wp_ajax_url,
             method: 'post',
@@ -79,37 +79,30 @@ var SCB = (function($) {
 
     // Add/Remove from collection links
     $(document).on('click', '.collection-action', function(e) {
-        e.preventDefault();
-        var $link = $(this);
-        var id = $link.data('id');
-        var action = $link.data('action');
-        $.ajax({
-            url: wp_ajax_url,
-            method: 'post',
-            dataType: 'json',
-            data: {
-                action: 'collection_action',
-                do: action,
-                post_id: id
-            }
-        }).done(function(data) {
-          if (action=='add') {
-            $link.data('action', 'remove').text('Remove from Collection');
-          } else {
-            $link.data('action', 'add').text('Add to Collection');
-          }
-          $collection.html(data.collection_html);
-          _showCollection();
-        });
+      e.preventDefault();
+      var $link = $(this);
+      var id = $link.data('id');
+      var action = $link.data('action');
+      $.ajax({
+        url: wp_ajax_url,
+        method: 'post',
+        dataType: 'json',
+        data: {
+          action: 'collection_action',
+          do: action,
+          post_id: id
+        }
+      }).done(function(response) {
+        if (action==='add') {
+          $link.data('action', 'remove').text('Remove from Collection');
+        } else {
+          $link.data('action', 'add').text('Add to Collection');
+        }
+        $collection.html(response.data.collection_html);
+        _initCollectionSorting();
+        _showCollection();
+      });
     });
-
-    function _showCollection() {
-      $collection.addClass('active');
-    }
-
-    function _hideCollection() {
-      $collection.removeClass('active');
-    }
 
     // _initNav();
     // _initSearch();
@@ -140,6 +133,49 @@ var SCB = (function($) {
       }
     });
 
+    _initCollectionSorting();
+
+  } // end init()
+
+  function _showCollection() {
+    $collection.addClass('active');
+  }
+
+  function _hideCollection() {
+    $collection.removeClass('active');
+  }
+
+  // Init collection sorting
+  function _initCollectionSorting() {
+    $('section.collection').each(function() {
+      var collection_sort = $(this).sortable({
+        containerSelector: 'section',
+        placeholder: '<article class="project placeholder"/>',
+        itemSelector: 'article',
+        vertical: false,
+        onDrop: function ($item, container, _super) {
+          var data = collection_sort.sortable('serialize').get();
+          var collection_id = $(container.el[0]).data('id');
+          $.ajax({
+              url: wp_ajax_url,
+              method: 'post',
+              dataType: 'json',
+              data: {
+                action: 'collection_sort',
+                collection_id: collection_id,
+                post_array: data[0]
+              }
+          }).done(function(response) {
+            $(container.el[0]).addClass('updated');
+            setTimeout(function() { $(container.el[0]).addClass('updated'); }, 500);
+          }).fail(function(response) {
+            alert(response.data.message);
+          });
+
+          _super($item, container);
+        }
+      });
+    });
   }
 
   function _initBigClicky() {

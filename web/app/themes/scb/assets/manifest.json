@@ -17,6 +17,16 @@
         "styles/editor-style.scss"
       ]
     },
+    "admin.js": {
+      "files": [
+        "scripts/admin.js"
+      ]
+    },
+    "admin.css": {
+      "files": [
+        "styles/admin.scss"
+      ]
+    },
     "jquery.js": {
       "bower": ["jquery"]
     },
@@ -25,6 +35,6 @@
     }
   },
   "config": {
-    "devUrl": "http://example.dev"
+    "devUrl": "http://scb.dev"
   }
 }
