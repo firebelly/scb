@@ -93,11 +93,7 @@ var SCB = (function($) {
           post_id: id
         }
       }).done(function(response) {
-        if (action==='add') {
-          $link.data('action', 'remove').text('Remove from Collection');
-        } else {
-          $link.data('action', 'add').text('Add to Collection');
-        }
+        _updatePostCollectionLinks(id,action);
         $collection.html(response.data.collection_html);
         _initCollectionSorting();
         _showCollection();
@@ -136,6 +132,17 @@ var SCB = (function($) {
     _initCollectionSorting();
 
   } // end init()
+
+  function _updatePostCollectionLinks(id,action) {
+    $('.project[data-id='+id+'] .collection-action').each(function() {
+      if (action==='add') {
+        $(this).data('action', 'remove').text('Remove from Collection');
+      } else {
+        $(this).data('action', 'add').text('Add to Collection');
+      }
+    });
+
+  }
 
   function _showCollection() {
     $collection.addClass('active');
