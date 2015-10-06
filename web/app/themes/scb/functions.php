@@ -27,10 +27,12 @@ $firebelly_includes = [
   'lib/media.php',                     // FB media
   'lib/ajax.php',                      // AJAX functions
   'lib/custom-functions.php',          // Rando utility functions and miscellany
-  'lib/project-post-type.php',         // Projects
+  'lib/project-post-type.php',         // Project post type
+  'lib/person-post-type.php',          // Person post type
   'lib/post-collections.php',          // Post collections
   'lib/project_category-taxonomy.php', // Project Categories
   'lib/taxonomy-meta-boxes.php',       // Extra CMB2 Taxonomy fields
+  'lib/cmb2-custom-fields.php',        // Custom CMB2
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);

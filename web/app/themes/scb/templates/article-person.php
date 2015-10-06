@@ -7,7 +7,7 @@ if ($categories):
     $product_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name."</a> /<br />";
 endif;
 ?>
-<article class="person">
+<article class="person" data-id="<?= $person_post->ID ?>">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($person_post->ID)): ?>
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
   <?php endif; ?>
@@ -20,6 +20,10 @@ endif;
   <?php endif ?>
 
   <p class="actions">
-    <a href="#" class="add-to-collection" data-id="<?= $person_post->ID ?>">Add to Collection</a>
+    <?php if (\Firebelly\Collections\post_in_collection($collection,$person_post->ID)): ?>
+      <a href="#" class="collection-action" data-action="remove" data-id="<?= $person_post->ID ?>">Remove from Collection</a>
+    <?php else: ?>
+      <a href="#" class="collection-action" data-action="add" data-id="<?= $person_post->ID ?>">Add to Collection</a>
+    <?php endif; ?>
   </p>
 </article>

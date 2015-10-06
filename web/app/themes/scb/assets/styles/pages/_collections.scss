@@ -1,6 +1,9 @@
 .collection {
   @include clearfix();
-  .project {
+  h2 {
+    clear: left;
+  }
+  article {
     .actions {
       // display: none;
     }

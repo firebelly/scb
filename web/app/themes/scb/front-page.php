@@ -28,6 +28,15 @@ foreach ($projects as $project_post) {
 ?>
 </section>
 
+<section class="people">
+<?php 
+$people = \Firebelly\PostTypes\person\get_people();
+foreach ($people as $person_post) {
+  include(locate_template('templates/article-person.php'));
+}
+?>
+</section>
+
 <section class="news">
 <?php 
   // Recent Blog & News posts
