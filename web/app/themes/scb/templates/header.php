@@ -7,8 +7,13 @@
         wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']);
       endif;
       ?>
-      <a class="collection" href="/collection/">Collection</a>
-      <a class="search" href="/search/">Search</a>
+      <a class="show-collection" href="/collection/">Collection</a>
+      <a class="show-search" href="/search/">Search</a>
     </nav>
   </div>
+
+  <?php global $collection; $collection = \Firebelly\Collections\get_active_collection(); ?>
+  <section class="collection mini">
+    <?php include(locate_template('templates/collection.php')); ?>
+  </section>
 </header>

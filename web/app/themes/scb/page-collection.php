@@ -5,8 +5,6 @@
 
 if ($collection_id = get_query_var('collection_id')) {
   $collection = \Firebelly\Collections\get_collection($collection_id);
-} else {
-  $collection = \Firebelly\Collections\get_active_collection();
 }
 ?>
 
@@ -14,7 +12,9 @@ if ($collection_id = get_query_var('collection_id')) {
 
 <?php if ($collection): ?>
 
-  <?php include(locate_template('templates/collection.php')); ?>
+  <section class="collection">
+    <?php include(locate_template('templates/collection.php')); ?>
+  </section>
 
 <?php else: ?>
 

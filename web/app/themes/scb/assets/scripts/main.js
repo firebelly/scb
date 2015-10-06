@@ -10,6 +10,7 @@ var SCB = (function($) {
       breakpoint_array = [480,1000,1200],
       $document,
       $sidebar,
+      $collection,
       loadingTimer,
       page_at;
 
@@ -19,6 +20,7 @@ var SCB = (function($) {
 
     // Cache some common DOM queries
     $document = $(document);
+    $collection = $('.collection.mini');
     $('body').addClass('loaded');
 
     // Set screen size vars
@@ -65,24 +67,49 @@ var SCB = (function($) {
       });
     }
 
-    $(document).on('click', '.collection-action', function() {
-        var id = $(this).data('id');
-        var action = $(this).data('action');
+    // Show/hide mini collection in nav
+    $(document).on('click', '.show-collection', function(e) {
+      e.preventDefault();
+      if ($collection.hasClass('active')) {
+        _hideCollection();
+      } else {
+        _showCollection();
+      }
+    });
+
+    // Add/Remove from collection links
+    $(document).on('click', '.collection-action', function(e) {
+        e.preventDefault();
+        var $link = $(this);
+        var id = $link.data('id');
+        var action = $link.data('action');
         $.ajax({
             url: wp_ajax_url,
             method: 'post',
+            dataType: 'json',
             data: {
                 action: 'collection_action',
                 do: action,
                 post_id: id
-            },
-            success: function(data) {
-              alert(action+' ok');
-              // $('.collection').html(data).removeClass('loading');
             }
+        }).done(function(data) {
+          if (action=='add') {
+            $link.data('action', 'remove').text('Remove from Collection');
+          } else {
+            $link.data('action', 'add').text('Add to Collection');
+          }
+          $collection.html(data.collection_html);
+          _showCollection();
         });
-
     });
+
+    function _showCollection() {
+      $collection.addClass('active');
+    }
+
+    function _hideCollection() {
+      $collection.removeClass('active');
+    }
 
     // _initNav();
     // _initSearch();
@@ -94,6 +121,7 @@ var SCB = (function($) {
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
         _hideSearch();
+        _hideCollection();
         _hideMobileNav();
       }
     });

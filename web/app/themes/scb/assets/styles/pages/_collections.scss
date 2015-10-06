@@ -4,4 +4,16 @@
       display: none;
     }
   }
+  &.mini {
+  	display: none;
+  	position: absolute;
+  	top: 50px;
+  	right: 50px;
+  	padding: 20px;
+  	background: #eee;
+  	z-index: 100;
+  	&.active {
+  		display: block;
+  	}
+  }
 }

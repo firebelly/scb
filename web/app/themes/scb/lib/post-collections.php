@@ -138,20 +138,27 @@ function collection_action() {
     else if ($do=='remove')
       remove_post_from_collection($collection->ID, $_REQUEST['post_id']);
   }
-  
-  // todo: return html of collection template
-  echo json_encode([
-    'status' => 1
-  ]);
 
+  // Reload collection
+  $collection = get_collection($collection->ID);
+
+  // Capture partial output to return with AJAX call
+  ob_start();
+  $collection_html = include(locate_template('templates/collection.php'));;
+  $collection_html = ob_get_clean();
+
+  echo json_encode([
+    'status' => 1,
+    'collection_html' => $collection_html
+  ]);
   // we use this call outside AJAX calls; WP likes die() after an AJAX call
-  if (is_ajax()) die();
+  if (\Firebelly\Ajax\is_ajax()) die();
 }
-add_action( 'wp_ajax_collection_action', __NAMESPACE__ . '\\collection_action' );
-add_action( 'wp_ajax_nopriv_collection_action', __NAMESPACE__ . '\\collection_action' );
+add_action('wp_ajax_collection_action', __NAMESPACE__ . '\\collection_action');
+add_action('wp_ajax_nopriv_collection_action', __NAMESPACE__ . '\\collection_action');
 
 /**
- * Collection page
+ * Collection page URLs
  */
 function collection_rewrites() {
   add_rewrite_rule(
@@ -162,6 +169,9 @@ function collection_rewrites() {
 }
 add_action('init', __NAMESPACE__.'\collection_rewrites');
 
+/**
+ * Add query var collection_id
+ */
 function collection_query_vars($query_vars) {
   $query_vars[] = 'collection_id';
   return $query_vars;
