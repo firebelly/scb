@@ -31,6 +31,7 @@ $firebelly_includes = [
   'lib/person-post-type.php',          // Person post type
   'lib/post-collections.php',          // Post collections
   'lib/project_category-taxonomy.php', // Project Categories
+  'lib/person_category-taxonomy.php',  // Person Categories
   'lib/taxonomy-meta-boxes.php',       // Extra CMB2 Taxonomy fields
   'lib/cmb2-custom-fields.php',        // Custom CMB2
 ];
