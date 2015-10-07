@@ -233,7 +233,7 @@ function get_projects($filters=[]) {
       array(
         'taxonomy' => 'project_category',
         'field' => 'slug',
-        'terms' => $category
+        'terms' => $filters['category']
       )
     );
   }

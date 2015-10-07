@@ -94,7 +94,8 @@ var SCB = (function($) {
         }
       }).done(function(response) {
         _updatePostCollectionLinks(id,action);
-        $collection.html(response.data.collection_html);
+        // repopulate all collections
+        $('section.collection').html(response.data.collection_html);
         _initCollectionSorting();
         _showCollection();
       });
@@ -174,7 +175,7 @@ var SCB = (function($) {
               }
           }).done(function(response) {
             $(container.el[0]).addClass('updated');
-            setTimeout(function() { $(container.el[0]).addClass('updated'); }, 500);
+            setTimeout(function() { $(container.el[0]).addClass('updated'); }, 1500);
           }).fail(function(response) {
             alert(response.data.message);
           });

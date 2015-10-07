@@ -173,12 +173,12 @@ function get_people($filters=[]) {
     'post_type' => 'person',
     'orderby' => ['title' => 'ASC'],
     );
-  if (!empty($filters['category'])) {
+  if (!empty($filters['person_category'])) {
     $args['tax_query'] = array(
       array(
-        'taxonomy' => 'project_category',
+        'taxonomy' => 'person_category',
         'field' => 'slug',
-        'terms' => $category
+        'terms' => $filters['person_category']
       )
     );
   }
