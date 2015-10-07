@@ -134,7 +134,7 @@ var SCB = (function($) {
   } // end init()
 
   function _updatePostCollectionLinks(id,action) {
-    $('.project[data-id='+id+'] .collection-action').each(function() {
+    $('article[data-id='+id+'] .collection-action').each(function() {
       if (action==='add') {
         $(this).data('action', 'remove').text('Remove from Collection');
       } else {
@@ -154,9 +154,9 @@ var SCB = (function($) {
 
   // Init collection sorting
   function _initCollectionSorting() {
-    $('section.collection').each(function() {
+    $('.sortable').each(function() {
       var collection_sort = $(this).sortable({
-        containerSelector: 'section',
+        containerSelector: 'div.sortable',
         placeholder: '<article class="project placeholder"/>',
         itemSelector: 'article',
         vertical: false,

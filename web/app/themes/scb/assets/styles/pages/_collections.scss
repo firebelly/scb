@@ -1,12 +1,12 @@
 .collection {
   @include clearfix();
+  .post-group {
+    @include clearfix();
+  }
   h2 {
     clear: left;
   }
   article {
-    .actions {
-      // display: none;
-    }
     width: 250px;
     height: 250px;
     float: left;
