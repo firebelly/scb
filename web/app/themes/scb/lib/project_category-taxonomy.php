@@ -19,7 +19,7 @@ add_action('switch_theme', __NAMESPACE__ . '\add_capabilities');
 
 // Custom taxonomy Project Categories
 register_taxonomy( 'project_category', 
-  array('project', 'person', ),
+  array('project', 'person', 'position', ),
   array('hierarchical' => true, // if this is true, it acts like categories
     'labels' => array(
       'name' => 'Project Categories',

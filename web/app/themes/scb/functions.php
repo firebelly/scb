@@ -29,11 +29,15 @@ $firebelly_includes = [
   'lib/custom-functions.php',          // Rando utility functions and miscellany
   'lib/project-post-type.php',         // Project post type
   'lib/person-post-type.php',          // Person post type
+  'lib/office-post-type.php',          // Office post type
+  'lib/position-post-type.php',        // Position post type
+  'lib/applicant-post-type.php',       // Applicant post type
   'lib/post-collections.php',          // Post collections
   'lib/project_category-taxonomy.php', // Project Categories
   'lib/person_category-taxonomy.php',  // Person Categories
   'lib/taxonomy-meta-boxes.php',       // Extra CMB2 Taxonomy fields
   'lib/cmb2-custom-fields.php',        // Custom CMB2
+  'lib/post-meta-boxes.php',           // Various tweaks for multiple post types
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);
