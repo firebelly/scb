@@ -44,7 +44,7 @@ function post_type() {
     'menu_icon'           => 'dashicons-admin-post',
     'can_export'          => false,
     'has_archive'         => false,
-    'exclude_from_search' => false,
+    'exclude_from_search' => true,
     'publicly_queryable'  => true,
     'rewrite'             => $rewrite,
     'capability_type'     => 'applicant',
@@ -84,6 +84,7 @@ function edit_columns($columns){
     'title' => 'Title',
     '_cmb2_related_position' => 'Position',
     // 'featured_image' => 'Image',
+    'date' => 'Date',
   );
   return $columns;
 }
@@ -94,7 +95,13 @@ function custom_columns($column){
   if ( $post->post_type == 'applicant' ) {
     if ( $column == 'featured_image' )
       echo the_post_thumbnail('thumbnail');
-    else {
+    elseif ( $column == '_cmb2_related_position' ) {
+      $custom = get_post_custom();
+      if (!empty($custom[$column])) {
+        $position = get_post($custom[$column][0]);
+        echo $position->post_title;
+      }
+    } else {
       $custom = get_post_custom();
       if (array_key_exists($column, $custom))
         echo $custom[$column][0];
@@ -164,11 +171,13 @@ function metaboxes( array $meta_boxes ) {
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 function new_applicant() {
+  $errors = [];
   $name = $_POST['application_first_name'] .' '. $_POST['application_last_name'];
   $applicant_post = array(
     'post_title'    => 'Application from ' . $name,
     'post_type'     => 'applicant',
     'post_author'   => 1,
+    'post_status'   => 'draft',
   );
   $post_id = wp_insert_post($applicant_post);
   if ($post_id) {
@@ -178,20 +187,45 @@ function new_applicant() {
     update_post_meta($post_id, '_cmb2_email', $_POST['application_email']);
     update_post_meta($post_id, '_cmb2_phone', $_POST['application_phone']);
 
-    // todo: loop here
+    $attachments = [];
     if (!empty($_FILES['application_files'])) {
       require_once(ABSPATH . 'wp-admin/includes/image.php');
       require_once(ABSPATH . 'wp-admin/includes/file.php');
       require_once(ABSPATH . 'wp-admin/includes/media.php');
 
-      $attachment_id = media_handle_upload('application_files', $post_id);
-      
-      if ( is_wp_error( $attachment_id ) ) {
-        $output = 'There was an error uploading files.';
-      } else {
-        // attach files
+      $files = $_FILES['application_files'];
+      foreach ($files['name'] as $key => $value) {
+        if ($files['name'][$key]) {
+          $file = array(
+            'name' => $files['name'][$key],
+            'type' => $files['type'][$key],
+            'tmp_name' => $files['tmp_name'][$key],
+            'error' => $files['error'][$key],
+            'size' => $files['size'][$key]
+          );
+          $_FILES = array('application_files' => $file);
+          $attachment_id = media_handle_upload('application_files', $post_id);
+
+          if (is_wp_error($attachment_id)) {
+            $errors[] = 'There was an error uploading '.$file['name'];
+          } else {
+            $attachment_url = wp_get_attachment_url($attachment_id);
+            $attachments[$attachment_id] = $attachment_url;
+          }
+        }
+      }
+      if (!empty($attachments)) {
+        update_post_meta($post_id, '_cmb2_attachments', $attachments);
       }
     }
 
+  } else {
+    $errors[] = 'Error inserting post';
+  }
+
+  if (empty($errors)) {
+    return true;
+  } else {
+    return $errors;
   }
 }
