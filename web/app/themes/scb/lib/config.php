@@ -33,6 +33,9 @@ if (!defined('DIST_DIR')) {
  */
 function display_sidebar() {
   static $display;
+  
+  // no sidebars
+  return false;
 
   if (!isset($display)) {
     $conditionalCheck = new ConditionalTagCheck(

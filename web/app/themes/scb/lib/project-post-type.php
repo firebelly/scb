@@ -237,6 +237,9 @@ function get_projects($filters=[]) {
       )
     );
   }
+  if (!empty($filters['search'])) {
+    $args['s'] = $filters['search'];
+  }
 
   $project_posts = get_posts($args);
   return $project_posts;
