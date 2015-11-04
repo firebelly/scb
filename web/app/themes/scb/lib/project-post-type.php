@@ -219,6 +219,14 @@ function metaboxes( array $meta_boxes ) {
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
+ * Get num active Projects
+ */
+function get_num_projects() {
+  global $wpdb;
+  return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}posts WHERE post_type = 'project' AND post_status = 'publish'" );
+}
+
+/**
  * Get Projects matching category
  */
 function get_projects($filters=[]) {

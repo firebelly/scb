@@ -3,15 +3,15 @@
 namespace Firebelly\Utils;
 
 /**
- * Bump up # search results
+ * Adjust search query posts
  */
-function search_queries( $query ) {
-  if ( !is_admin() && is_search() ) {
-    $query->set( 'posts_per_page', 40 );
-  }
-  return $query;
-}
-add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_queries' );
+// function search_queries( $query ) {
+//   if ( !is_admin() && is_search() ) {
+//     $query->set( 'posts_per_page', 40 );
+//   }
+//   return $query;
+// }
+// add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_queries' );
 
 /**
  * Custom li'l excerpt function
@@ -63,20 +63,11 @@ function get_page_content($slug) {
 }
 
 /**
- * Get focus area for post
+ * Get office for post
  */
-function get_focus_area($post) {
-  if ($focus_areas = get_the_terms($post->ID, 'focus_area')) {
-    return $focus_areas[0]->name;
-  } else return false;
-}
-
-/**
- * Get related Program
- */
-function get_program($post) {
-  if ($program = get_post_meta($post->ID, '_cmb2_related_program', true)) {
-    return get_post($program);
+function get_office($post) {
+  if ($office_id = get_post_meta($post->ID, '_cmb2_related_office', true)) {
+    return get_post($office_id);
   } else return false;
 }
 
@@ -96,38 +87,6 @@ function get_total_pages($category, $per_page) {
   $cat_info = get_category_by_slug($category);
   $num_pages = ceil($cat_info->count / $per_page);
   return $num_pages;
-}
-
-/**
- * Get Related Event
- * @param  [Object or String] $post_or_focus_area [$post object or $focus_area slug]
- */
-function get_related_event_post($post_or_focus_area) {
-  $output = $event = false;
-  
-  if (is_object($post_or_focus_area)) {
-    // If post_type is Program see if there's a directly related Event
-    if ($post_or_focus_area->post_type == 'program') {
-      $event = \Firebelly\PostTypes\Event\get_events(['num_posts' => 1, 'program' => $post_or_focus_area->ID, 'show_view_all_button' => true]);
-    }
-    // Can't find one? Get the Focus Area for query below
-    if (!$event)
-      $focus_area = get_focus_area($post_or_focus_area);
-  } else {
-    $focus_area = $post_or_focus_area;
-  }
-
-  // If we didn't find a directly related event above, try to find one by Focus Area
-  if (!$event)
-    $event = \Firebelly\PostTypes\Event\get_events(['num_posts' => 1, 'focus_area' => $focus_area, 'show_view_all_button' => true]);
-  
-  if ($event) {
-    $output = '<div class="related related-events">';
-    $output .= '<h2 class="flag">Attend an Event</h2>';
-    $output .= $event;
-    $output .= '</div>';
-  }
-  return $output;
 }
 
 /**

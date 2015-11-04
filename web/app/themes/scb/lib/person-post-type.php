@@ -130,10 +130,20 @@ function metaboxes( array $meta_boxes ) {
         'type' => 'text',
       ),
       array(
-        'name' => 'Studied At',
-        'desc' => '',
-        'id'   => $prefix . 'studied_at',
-        'type' => 'text',
+        'name' => 'Contact',
+        'id'   => $prefix . 'position',
+        'type' => 'wysiwyg',
+        'options' => array(
+          'textarea_rows' => 4,
+        ),
+     ),
+      array(
+        'name' => 'Education',
+        'id'   => $prefix . 'education',
+        'type' => 'wysiwyg',
+        'options' => array(
+          'textarea_rows' => 4,
+        ),
       ),
     ),
   );
@@ -185,4 +195,12 @@ function get_people($filters=[]) {
 
   $person_posts = get_posts($args);
   return $person_posts;
+}
+
+/**
+ * Get num active People
+ */
+function get_num_people() {
+  global $wpdb;
+  return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}posts WHERE post_type = 'person' AND post_status = 'publish'" );
 }

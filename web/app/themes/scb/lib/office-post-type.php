@@ -172,3 +172,11 @@ function geocode_address($post_id, $post='') {
   endif;
 }
 add_action('save_post_office', __NAMESPACE__ . '\\geocode_address', 20, 2);
+
+/**
+ * Get num active Offices
+ */
+function get_num_offices() {
+  global $wpdb;
+  return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}posts WHERE post_type = 'office' AND post_status = 'publish'" );
+}
