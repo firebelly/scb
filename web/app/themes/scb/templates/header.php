@@ -1,6 +1,6 @@
 <header class="banner" role="banner">
   <div class="container">
-    <a class="brand" href="<?= esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
+    <a class="brand" href="<?= esc_url(home_url('/')); ?>"><svg class="icon icon-logo"><use xlink:href="#icon-logo"/></svg><span class="sr-only"><?php bloginfo('name'); ?></span></a>
     <nav role="navigation">
       <?php
       if (has_nav_menu('primary_navigation')) :
