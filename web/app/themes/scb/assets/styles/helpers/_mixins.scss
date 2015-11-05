@@ -1,0 +1,106 @@
+// Mixins
+
+// Clearfix
+@mixin clearfix {
+  *zoom: 1;
+  &:before, &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// Support for styling input placeholder text
+@mixin placeholder {
+  &.placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+// retina.scss
+// Defaults to png but can be overwritten to jpg or gif
+// $image name is equal to the image name with out it's extention - 'example.png' would be defined as 'example'
+// A helper mixin for applying high-resolution background images (http://www.retinajs.com)
+
+@mixin at2x($image_name, $w: auto, $h: auto, $extention: '.png') {
+  background-image: image_url($image_name + $extention);
+  $x2img : $image_name + '@2x' + $extention;
+
+  @media all and (-webkit-min-device-pixel-ratio : 1.5) {
+    background-image: image_url($x2img);
+    background-size: $w auto;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+//
+//  Author: Rafal Bromirski
+//  www: http://paranoida.com/
+//  twitter: http://twitter.com/paranoida
+//  dribbble: http://dribbble.com/paranoida
+//
+//  Licensed under a MIT License
+//
+// ---------------------------------------------------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --- screen ----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+@mixin screen($res-min, $res-max)
+{
+  @media screen and ( min-width: $res-min ) and ( max-width: $res-max )
+  {
+    @content;
+  }
+}
+
+@mixin max-screen($res)
+{
+  @media screen and ( max-width: $res )
+  {
+    @content;
+  }
+}
+
+@mixin min-screen($res)
+{
+  @media screen and ( min-width: $res )
+  {
+    @content;
+  }
+}
+
+@mixin screen-height($res-min, $res-max)
+{
+  @media screen and ( min-height: $res-min ) and ( max-height: $res-max )
+  {
+    @content;
+  }
+}
+
+@mixin max-screen-height($res)
+{
+  @media screen and ( max-height: $res )
+  {
+    @content;
+  }
+}
+
+@mixin min-screen-height($res)
+{
+  @media screen and ( min-height: $res )
+  {
+    @content;
+  }
+}

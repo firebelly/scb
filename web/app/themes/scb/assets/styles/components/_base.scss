@@ -1,0 +1,88 @@
+// Base styles
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  color: $black;
+  font-size: 16px; //Em base unit
+  font-size: 100%;
+  overflow-x: hidden;
+  font-family: $sans;
+  background: $white;
+}
+
+h2 {
+  font-size: .75em;
+}
+
+p {
+  em {
+    font-style: italic;
+  }
+}
+
+a {
+  color: $brand-primary;
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+	max-width: 100%;
+  height: auto;
+}
+
+address {
+  font-style: normal;
+}
+
+// Browser alert
+.old-browser {
+  top: 0;
+  left: 0;
+  right: 0;
+  color: $white;
+  padding: 50px;
+  text-align: center;
+  background: $red;
+}
+
+.smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Utility classes
+.hide {
+  display: none;
+}
+.loading {
+  opacity: .5;
+}
+.cf,
+.clearfix {
+  @include clearfix();
+}
+
+.wrap {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+  position: relative;
+  @include clearfix();
+  @include min-screen($breakpoint-medium) {
+  }
+}
+
+.content {
+  z-index: 1;
+  width: 100%;
+  position: relative;
+}

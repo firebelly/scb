@@ -1,0 +1,9 @@
+// Header
+
+.site-header {
+  @include min-screen($breakpoint-small) {
+  }
+
+  @include min-screen($breakpoint-medium) {
+  }
+}

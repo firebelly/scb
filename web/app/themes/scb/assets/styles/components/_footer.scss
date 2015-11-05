@@ -1,0 +1,12 @@
+// Footer
+
+.site-footer {
+  .contact {
+    @include min-screen($breakpoint-small) {}
+  }
+
+  .secondary-nav {
+    @include min-screen($breakpoint-small) {}
+    @include min-screen($breakpoint-medium) {}
+  }
+}
