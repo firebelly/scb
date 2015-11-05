@@ -45,6 +45,9 @@
     "gulp-rev": "^3.0.1",
     "gulp-sass": "^2.0.0",
     "gulp-sourcemaps": "^1.5.1",
+    "gulp-svg2png": "^0.3.0",
+    "gulp-svgmin": "^1.1.1",
+    "gulp-svgstore": "^5.0.0",
     "gulp-uglify": "^1.1.0",
     "imagemin-pngcrush": "^4.0.0",
     "jshint-stylish": "^1.0.1",
@@ -52,6 +55,7 @@
     "merge-stream": "^0.1.7",
     "minimist": "^1.1.1",
     "run-sequence": "^1.0.2",
+    "svg2png": "^1.1.1",
     "traverse": "^0.6.6",
     "wiredep": "^2.2.2"
   }
