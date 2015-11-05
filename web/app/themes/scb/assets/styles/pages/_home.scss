@@ -1,4 +1,9 @@
 // Home page
 
 .home.page {
+  .content {
+    h2 {
+      @include h2();
+    }
+  }
 }

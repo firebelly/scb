@@ -14,6 +14,8 @@ body {
   overflow-x: hidden;
   font-family: $sans;
   background: $white;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
 }
 
 h2 {
@@ -21,6 +23,9 @@ h2 {
 }
 
 p {
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 1.428571429em;
   em {
     font-style: italic;
   }

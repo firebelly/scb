@@ -10,7 +10,18 @@
 .menu-toggle {
 }
 
-// Nav
+.site-nav {
+  .nav {
+    margin: 0;
+    padding: 0;
+    @include clearfix();
+    li {
+      float: left;
+    }
+  }
+}
+
+// Project Nav
 .project-categories {
   @include clearfix();
   li {

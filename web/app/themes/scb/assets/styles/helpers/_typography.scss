@@ -1,7 +1,7 @@
 // Typography
 
 // Fonts
-$sans: Helvetica, sans-serif;
+$sans: 'Circular Std', sans-serif;
 $serif: Georgia, serif;
 
 // Sans-specific styles to chunk into one include
@@ -18,5 +18,16 @@ $serif: Georgia, serif;
 
 //sizes
 $small: 0.5em;
-$med: 1em;
+$med: 1em; 
 $big: 3em;
+
+@mixin h1() {
+  font-size: 84px;
+  font-weight: 500;
+  line-height: .952380952em;
+}
+
+@mixin h2() {
+  font-size: 28px;
+  line-height: 1.428571429em;
+}
