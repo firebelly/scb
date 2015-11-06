@@ -32,3 +32,12 @@ $big: 3em;
   font-weight: 200;
   line-height: 1.428571429em;
 }
+
+// Small Caps style
+@mixin sc() {
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  line-height: 1.818181818em;
+  font-feature-settings: "smcp" on;
+}

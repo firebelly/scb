@@ -14,6 +14,22 @@
   }
 }
 
+// Faux link underlines
+@mixin underline($color) {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  &::after {
+    left: 0;
+    height: 2px;
+    width: 100%;
+    bottom: 2px;
+    content: '';
+    position: absolute;
+    background: $color;
+  }
+}
+
 // Support for styling input placeholder text
 @mixin placeholder {
   &.placeholder {
