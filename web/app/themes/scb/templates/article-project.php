@@ -11,19 +11,21 @@ endif;
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($project_post->ID)): ?>
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
   <?php endif; ?>
-  <h1 class="article-title"><a href="<?= get_permalink($project_post) ?>"><?= $project_post->post_title ?></a></h1>
-  <?php if ($location): ?>
-    <h3 class="location"><?= $location ?></h3>
-  <?php endif ?>
-  <?php if ($product_categories): ?>
-    <h3 class="categories"><?= $product_categories ?></h3>
-  <?php endif ?>
+  <div class="wrap">
+    <h1 class="article-title"><a href="<?= get_permalink($project_post) ?>"><?= $project_post->post_title ?></a></h1>
+    <?php if ($location): ?>
+      <h3 class="location"><?= $location ?></h3>
+    <?php endif ?>
+    <?php if ($product_categories): ?>
+      <h3 class="categories"><?= $product_categories ?></h3>
+    <?php endif ?>
 
-  <p class="actions">
-    <?php if (\Firebelly\Collections\post_in_collection($collection,$project_post->ID)): ?>
-      <a href="#" class="collection-action" data-action="remove" data-id="<?= $project_post->ID ?>">Remove from Collection</a>
-    <?php else: ?>
-      <a href="#" class="collection-action" data-action="add" data-id="<?= $project_post->ID ?>">Add to Collection</a>
-    <?php endif; ?>
-  </p>
+    <p class="actions">
+      <?php if (\Firebelly\Collections\post_in_collection($collection,$project_post->ID)): ?>
+        <a href="#" class="collection-action" data-action="remove" data-id="<?= $project_post->ID ?>">Remove from Collection</a>
+      <?php else: ?>
+        <a href="#" class="collection-action" data-action="add" data-id="<?= $project_post->ID ?>">Add to Collection</a>
+      <?php endif; ?>
+    </p>
+  </div>
 </article>

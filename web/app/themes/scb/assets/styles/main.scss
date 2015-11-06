@@ -11,6 +11,7 @@
 @import "helpers/variables";
 @import "helpers/typography";
 @import "helpers/animations";
+@import "helpers/grid";
 @import "helpers/accessibility";
 @import "helpers/ie";
 
@@ -28,6 +29,7 @@
 @import "components/footer";
 
 // Pages
+@import "pages/page";
 @import "pages/home";
 @import "pages/single-post";
 @import "pages/search-results";

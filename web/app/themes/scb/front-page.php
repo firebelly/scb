@@ -6,7 +6,9 @@ $collection = \Firebelly\Collections\get_active_collection();
 $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
 ?>
 
-<?= $post->post_content ?>
+<div class="page-intro">
+  <?= $post->post_content ?>
+</div>
 
 <div class="project-categories">
 <ul>

@@ -1,6 +1,37 @@
 // Header
 
 .site-header {
+  padding-top: 20px;
+  @include clearfix();
+  @include min-screen($breakpoint-medium) {
+    padding-top: 40px;
+  }
+
+  .logo {
+    margin: 0;
+    font-weight: 200;
+    a {
+      top: -2px;
+      left: -2px;
+      position: relative;
+      display: inline-block;
+    }
+    .icon {
+      width: 74px;
+      height: 74px;
+      vertical-align: top;
+    }
+    .sub-title {
+      font-size: 21px;
+      margin-bottom: 7px;
+      display: inline-block;
+      color: $brand-primary;
+      vertical-align: bottom;
+      line-height: 1.428571429em;
+    }
+  }
+  
+
   @include min-screen($breakpoint-small) {
   }
 

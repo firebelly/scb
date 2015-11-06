@@ -29,5 +29,6 @@ $big: 3em;
 
 @mixin h2() {
   font-size: 28px;
+  font-weight: 200;
   line-height: 1.428571429em;
 }
