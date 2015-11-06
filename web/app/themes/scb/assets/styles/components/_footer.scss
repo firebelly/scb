@@ -7,7 +7,7 @@
   }
   
   > .wrap > .one-half.-left {
-    padding-top: 22px;
+    padding-top: 20px;
     .container {
       border-top: 2px solid $black;
     }
@@ -35,14 +35,36 @@
       @include h2();
       text-decoration: none;
       @include underline($brand-primary);
+      &::after {
+        z-index: -1;
+        transition: height .1s cubic-bezier(1,.5,.5,1);
+      }
+      &:hover, &:focus {
+        &::after {
+          height: 100%;
+        }
+      }
     }
   }
 
   .contact-group {
+    margin-top: 40px;
+
+    .address, .contact {
+      float: left;
+      width: 50%;
+    }
+
     @include min-screen($breakpoint-medium) {
-      padding-left: 20px;
-      &:first-of-type {
-        padding-left: 0;
+      margin-top: 0;
+
+      + .contact-group {
+        padding-left: 20px;
+      }
+
+      .address, .contact {
+        float: none;
+        width: 100%;
       }
     }
 
@@ -55,6 +77,7 @@
     ul {
       margin: 0;
       padding: 0;
+      @include clearfix();
       .address {
         margin-bottom: 30px;
       }
@@ -84,7 +107,8 @@
   }
 
   .contact {
-    @include min-screen($breakpoint-small) {}
+    @include min-screen($breakpoint-small) {
+    }
   }
 
   .secondary-nav {
