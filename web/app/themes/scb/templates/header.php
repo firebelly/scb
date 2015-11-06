@@ -1,6 +1,6 @@
 <header class="site-header" role="banner">
   <div class="wrap grid">
-    <h1 class="logo grid-item one-half"><a class="brand" href="<?= esc_url(home_url('/')); ?>"><svg class="icon icon-logo"><use xlink:href="#icon-logo"/></svg><span class="sr-only"><?php bloginfo('name'); ?></span></a> <span class="sub-title">— Designers for a changing world.</span></h1>
+    <h1 class="logo grid-item one-half"><a class="brand" href="<?= esc_url(home_url('/')); ?>"><svg class="icon icon-logo"><use xlink:href="#icon-logo"/></svg><span class="sr-only"><?php bloginfo('name'); ?></span></a> <span class="sub-title">— Design for a changing world.</span></h1>
     <nav class="site-nav grid-item one-half" role="navigation">
       <?php
       if (has_nav_menu('primary_navigation')) :

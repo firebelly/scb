@@ -1,9 +1,67 @@
 // Home page
 
 .home.page {
+  .page-intro {
+    padding-top: 10px;
+  }
+
   .content {
     h2 {
       @include h2();
     }
+  }
+
+  .-top {
+    margin-bottom: 50px;
+  }
+}
+
+// Project Categories
+.project-categories {
+  ul {
+    margin: 0;
+    padding: 20px 0 0;
+    display: inline-block;
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      content: '';
+      position: absolute;
+    }
+    li + li {
+      margin-top: 20px;
+    }
+    li {
+      a {
+        display: block;
+        position: relative;
+      }
+    }
+  }
+  > ul {
+    padding-left: 0;
+    position: relative;
+    width: 100% * (1 / 3);
+    &::before {
+      background: $black;
+    }
+  }
+  .children {
+    top: 0;
+    left: 100%;
+    width: 100%;
+    padding-left: 20px;
+    position: absolute;
+    &::before {
+      left: 20px;
+      background: $gray;
+    }
+  }
+  a {
+    color: $black;
+    line-height: 1em;
+    text-decoration: none;
   }
 }
