@@ -6,7 +6,7 @@
     
     <div class="grid-item one-half -left">
       <div class="container">
-        <p class="email-link"><a href="mailto:hello@scb.com">hello@scb.com</a></p>
+        <p class="email-link"><a href="mailto:<?= \Firebelly\SiteOptions\get_option( 'contact_email', 'hello@scb.com' ); ?>"><?= \Firebelly\SiteOptions\get_option( 'contact_email', 'hello@scb.com' ); ?></a></p>
 
         <ul class="social">
           <li><a target="_blank" href="https://www.facebook.com/<?php echo \Firebelly\SiteOptions\get_option( 'facebook_id', 'SolomonCordwellBuenz' ); ?>">Facebook</a></li>
