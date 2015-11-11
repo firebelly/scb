@@ -6,18 +6,22 @@ $collection = \Firebelly\Collections\get_active_collection();
 $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
 ?>
 
-<?= $post->post_content ?>
+<div class="grid wrap -top">
+  <div class="page-intro grid-item one-half -left">
+    <?= $post->post_content ?>
+  </div>
 
-<div class="project-categories">
-<ul>
-<?php 
-wp_list_categories([ 
-  'taxonomy' => 'project_category', 
-  'hide_empty' => 0,
-  'title_li' => '',
-]);
-?>
-</ul>
+  <div class="project-categories grid-item one-half -right">
+    <ul>
+    <?php 
+    wp_list_categories([ 
+      'taxonomy' => 'project_category', 
+      'hide_empty' => 0,
+      'title_li' => '',
+    ]);
+    ?>
+    </ul>
+  </div>
 </div>
 
 <section class="projects">

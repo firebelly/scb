@@ -19,6 +19,10 @@ var runSequence  = require('run-sequence');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var uglify       = require('gulp-uglify');
+var rename       = require('gulp-rename');
+var svgstore     = require('gulp-svgstore');
+var svgmin       = require('gulp-svgmin');
+var svg2png      = require('gulp-svg2png');
 
 // See https://github.com/austinpray/asset-builder
 var manifest = require('asset-builder')('./assets/manifest.json');
@@ -225,6 +229,32 @@ gulp.task('images', function() {
     .pipe(browserSync.stream());
 });
 
+// ### SVG time!
+gulp.task('svgs', function() {
+  return gulp.src(path.source + 'svgs/*.svg')
+    .pipe(svgmin({
+        plugins: [{
+            removeViewBox: false
+        }, {
+            removeEmptyAttrs: false
+        },{
+            mergePaths: false
+        },{
+            cleanupIDs: false
+        }]
+    }))
+    .pipe(gulp.dest(path.source + 'svgs'))
+    .pipe(svgstore({ inlineSvg: true }))
+    .pipe(rename({suffix: '-defs'}))
+    .pipe(gulp.dest(path.source + 'svgs/build'));
+});
+// convert to png for fallback
+gulp.task('svgfallback', function() {
+  return gulp.src(path.source + 'svgs/*.svg')
+    .pipe(svg2png())
+    .pipe(gulp.dest('assets/images'));
+});
+
 // ### JSHint
 // `gulp jshint` - Lints configuration JSON and project JS.
 gulp.task('jshint', function() {
@@ -260,6 +290,7 @@ gulp.task('watch', ['styles', 'scripts'], function() {
   gulp.watch([path.source + 'scripts/**/*'], ['jshint', 'scripts']);
   gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
   gulp.watch([path.source + 'images/**/*'], ['images']);
+  gulp.watch([path.source + 'svgs/*.svg'], ['svgs', 'svgfallback']);
   gulp.watch(['bower.json', 'assets/manifest.json'], ['build']);
 });
 

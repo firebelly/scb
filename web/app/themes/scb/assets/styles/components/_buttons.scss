@@ -1,0 +1,44 @@
+// Buttons
+
+.btn {
+  color: $black;
+  padding: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  position: relative;
+  letter-spacing: .2em;
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: 1.818181818em;
+  background: $brand-primary;
+  &:hover, &:focus {
+    &::before {
+      width: 100%;
+    }
+    &::after {
+      height: 100%;
+    }
+  }
+  &::before, &::after {
+    top: 0;
+    left: 0;
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-color: $black;
+    box-sizing: content-width;
+    transition: width .2s ease-out, height .2s ease-out;
+  }
+  &::before {
+    width: 0;
+    height: 100%;
+    border-width: 1px 0 1px 0;
+  }
+  &::after {
+    height: 0;
+    width: 100%;
+    transition-delay: .1s;
+    border-width: 0 1px 0 1px;
+  }
+}

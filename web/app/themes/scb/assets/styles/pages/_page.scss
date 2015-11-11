@@ -1,0 +1,14 @@
+// General page elements
+
+.page-intro {
+  @include h2();
+  @include min-screen($breakpoint-medium) {
+    h2 {
+      max-width: 500px;
+    }
+  }
+  
+  h2 {
+    @include h2();
+  }
+}

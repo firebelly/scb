@@ -1,0 +1,107 @@
+// Nav
+
+// wp admin bar push
+.admin-bar {}
+
+#menu-main-nav {
+}
+
+// mobile menu toggle
+.menu-toggle {
+}
+
+.site-nav {
+  position: relative;
+  @include clearfix();
+  @include min-screen($breakpoint-medium) {
+    padding-right: 75px;
+  }
+
+  .nav {
+    margin: 0;
+    padding: 0;
+    float: left;
+    @include clearfix();
+    li {
+      float: left;
+      line-height: 74px;
+      margin-left: 15px;
+      &:first-of-type {
+        margin-left: 0;
+      }
+    }
+
+    a {
+      color: $black;
+      font-size: 21px;
+      margin-bottom: 7px;
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+      vertical-align: bottom;
+      line-height: 1.428571429em;
+      &:hover, &:focus {
+        &::after {
+          opacity: 1;
+        }
+      }
+      &::after {
+        left: 0;
+        opacity: 0;
+        bottom: 2px;
+        width: 100%;
+        content: '';
+        height: 2px;
+        position: absolute;
+        background: $brand-primary;
+        transition: opacity .2s ease-out;
+      }
+    }
+  }
+
+  .nav-actions {
+    right: 0;
+    bottom: 11px;
+    position: absolute;
+
+    a {
+      &:first-of-type {
+        margin-right: 15px;
+      }
+      &:hover, &:focus {
+        .icon {
+          fill: $brand-primary;
+        }
+      }
+    }
+    .icon {
+      fill: $black;
+      transition: fill .2s ease-out;
+    }
+    .icon-collection {
+      width: 22px;
+      height: 18px;
+    }
+    .icon-search {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+}
+
+// Project Nav
+.project-categories {
+  @include clearfix();
+  li {
+    &.active > a {
+      background: yellow;
+    }
+    > ul {
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+  }
+}

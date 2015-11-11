@@ -131,8 +131,14 @@ var SCB = (function($) {
     });
 
     _initCollectionSorting();
+    // Init SVG Injection
+    _injectSvgSprite();
 
   } // end init()
+
+  function _injectSvgSprite() {
+    boomsvgloader.load('/app/themes/scb/assets/svgs/build/svgs-defs.svg'); 
+  }
 
   function _updatePostCollectionLinks(id,action) {
     $('article[data-id='+id+'] .collection-action').each(function() {

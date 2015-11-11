@@ -1,0 +1,43 @@
+// Typography
+
+// Fonts
+$sans: 'Circular Std', sans-serif;
+$serif: Georgia, serif;
+
+// Sans-specific styles to chunk into one include
+@mixin font-sans() {
+}
+// Serif-specific styles to chunk into one include
+@mixin font-sans() {
+}
+
+// Hide fonts while loading from Typekit
+.wf-loading {
+  visibility: hidden;
+}
+
+//sizes
+$small: 0.5em;
+$med: 1em; 
+$big: 3em;
+
+@mixin h1() {
+  font-size: 84px;
+  font-weight: 500;
+  line-height: .952380952em;
+}
+
+@mixin h2() {
+  font-size: 28px;
+  font-weight: 200;
+  line-height: 1.428571429em;
+}
+
+// Small Caps style
+@mixin sc() {
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  line-height: 1.818181818em;
+  font-feature-settings: "smcp" on;
+}
