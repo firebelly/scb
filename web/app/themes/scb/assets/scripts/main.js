@@ -35,13 +35,26 @@ var SCB = (function($) {
       $('.project-categories').on('click', 'a', function(e) {
         e.preventDefault();
         var $li = $(this).parent('li');
+        // match height of absolutely-positing children lists
+        var childHeight = $li.find('ul.children:first').outerHeight();
+        $('.project-categories').outerHeight(childHeight);
         $li.find('ul.children:first').addClass('active');
         if (!$li.hasClass('active')) {
           $li.addClass('active');
         } else {
           $li.removeClass('active');
-          $li.find('ul.children:first').removeClass('active');
+          $li.find('ul.children').removeClass('active');
         }
+        // Activate/deactivate the parent ul
+        var $parentUl = $li.parent('ul');
+        if (!$parentUl.hasClass('children')) {
+          if (!$parentUl.is('.active')) {
+            $li.parent('ul').addClass('active');
+          } else if ($parentUl.hasClass('active') && !$li.siblings('.active').length) {
+            $parentUl.removeClass('active');
+          }
+        }
+
         var project_categories = [];
         $('.project-categories li.active>a').each(function() {
           project_categories.push($(this).text());
