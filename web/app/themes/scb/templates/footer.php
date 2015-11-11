@@ -6,9 +6,9 @@
   <p class="email-link"><a href="mailto:hello@scb.com">hello@scb.com</a></p>
 
   <ul class="social">
-    <li><a target="_blank" href="https://www.facebook.com/<?php echo get_option( 'facebook_id', 'SolomonCordwellBuenz' ); ?>"><span class="icon-facebook"></span> Facebook</a></li>
-    <li><a target="_blank" href="https://twitter.com/<?php echo get_option( 'twitter_id', 'SoloCordBuenz' ); ?>"><span class="icon-twitter"></span> Twitter</a></li>
-    <li><a target="_blank" href="http://linkedin.com/company/<?php echo get_option( 'linkedin_id', 'solomon-cordwell-buenz' ); ?>"><span class="icon-linkedin"></span> LinkedIn</a></li>
+    <li><a target="_blank" href="https://www.facebook.com/<?php echo \Firebelly\SiteOptions\get_option( 'facebook_id', 'SolomonCordwellBuenz' ); ?>"><span class="icon-facebook"></span> Facebook</a></li>
+    <li><a target="_blank" href="https://twitter.com/<?php echo \Firebelly\SiteOptions\get_option( 'twitter_id', 'SoloCordBuenz' ); ?>"><span class="icon-twitter"></span> Twitter</a></li>
+    <li><a target="_blank" href="http://linkedin.com/company/<?php echo \Firebelly\SiteOptions\get_option( 'linkedin_id', 'solomon-cordwell-buenz' ); ?>"><span class="icon-linkedin"></span> LinkedIn</a></li>
   </ul>
 
   <div class="contact-group">
