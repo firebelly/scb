@@ -103,29 +103,26 @@ function custom_columns($column){
 add_action('manage_posts_custom_column',  __NAMESPACE__ . '\custom_columns');
 
 // Custom CMB2 fields for post type
-// function metaboxes( array $meta_boxes ) {
-//   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
+function metaboxes( array $meta_boxes ) {
+  $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-//   $meta_boxes['position_metabox'] = array(
-//     'id'            => 'position_metabox',
-//     'title'         => __( 'Position Details', 'cmb2' ),
-//     'object_types'  => array( 'position', ),
-//     'context'       => 'normal',
-//     'priority'      => 'high',
-//     'show_names'    => true,
-//     'fields'        => array(
-//       array(
-//         'name' => 'Intro',
-//         'desc' => 'Brief description',
-//         'id'   => $prefix . 'intro',
-//         'type' => 'wysiwyg',
-//         'options' => array(
-//           'textarea_rows' => 8,
-//         ),
-//       ),
-//     ),
-//   );
+  $meta_boxes['position_metabox'] = array(
+    'id'            => 'position_metabox',
+    'title'         => __( 'Position Details', 'cmb2' ),
+    'object_types'  => array( 'position', ),
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    'fields'        => array(
+      array(
+        'name' => 'Open for Applications',
+        'desc' => 'If checked, allows people to submit applications',
+        'id'   => $prefix . 'open_for_applications',
+        'type' => 'checkbox',
+      ),
+    ),
+  );
 
-//   return $meta_boxes;
-// }
-// add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+  return $meta_boxes;
+}
+add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );

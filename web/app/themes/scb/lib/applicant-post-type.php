@@ -187,6 +187,11 @@ function new_applicant() {
     update_post_meta($post_id, '_cmb2_email', $_POST['application_email']);
     update_post_meta($post_id, '_cmb2_phone', $_POST['application_phone']);
 
+    // Relate to Position post?
+    if (!empty($_POST['position_id']) && is_numeric($_POST['position_id'])) {
+      update_post_meta($post_id, '_cmb2_related_position', (int)$_POST['position_id']);
+    }
+
     $attachments = [];
     if (!empty($_FILES['application_files'])) {
       require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -229,3 +234,23 @@ function new_applicant() {
     return $errors;
   }
 }
+
+
+/**
+ * AJAX Application submissions
+ */
+function application_submission() {
+  if($_SERVER['REQUEST_METHOD']==='POST' && !empty($_POST['application_form_nonce'])) {
+    if (wp_verify_nonce($_POST['application_form_nonce'], 'application_form')) {
+      $return = new_applicant();
+      if (is_array($return)) {
+        wp_send_json_error('Error saving application: '.implode("\n", $return));
+      } else {
+        wp_send_json_success('Application was saved OK');
+      }
+    }
+  }
+  wp_send_json_error('Invalid post');
+}
+add_action('wp_ajax_application_submission', __NAMESPACE__ . '\\application_submission');
+add_action('wp_ajax_nopriv_application_submission', __NAMESPACE__ . '\\application_submission');
