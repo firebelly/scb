@@ -1,11 +1,35 @@
 // Header
 
 .site-header {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  position: fixed;
   padding-top: 20px;
+  background: $white;
   @include clearfix();
+  transition: padding .35s ease-out;
+
   @include min-screen($breakpoint-medium) {
-    padding-top: 40px;
-    margin-bottom: 50px;
+    padding: 40px 0 50px;
+    &.shrink {
+      padding: 20px 0;
+      .logo {
+        .icon {
+          width: 56px;
+          height: 56px;
+        }
+      }
+
+      .site-nav {
+        .nav {
+          li {
+            line-height: 56px;
+          }
+        }
+      }
+    }
   }
 
   .logo {
@@ -21,6 +45,7 @@
       width: 74px;
       height: 74px;
       vertical-align: top;
+      transition: width .35s ease-out, height .35s ease-out;
     }
     .sub-title {
       font-size: 21px;
