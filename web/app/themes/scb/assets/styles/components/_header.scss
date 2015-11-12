@@ -1,17 +1,17 @@
 // Header
 
 .site-header {
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  position: fixed;
   padding-top: 20px;
   background: $white;
   @include clearfix();
   transition: padding .35s ease-out;
 
   @include min-screen($breakpoint-medium) {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    position: fixed;
     padding: 40px 0 50px;
     &.shrink {
       padding: 20px 0;
