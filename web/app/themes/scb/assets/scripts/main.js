@@ -146,11 +146,18 @@ var SCB = (function($) {
     _initCollectionSorting();
     // Init SVG Injection
     _injectSvgSprite();
+    _plusButtons();
 
   } // end init()
 
   function _injectSvgSprite() {
     boomsvgloader.load('/app/themes/scb/assets/svgs/build/svgs-defs.svg'); 
+  }
+
+  function _plusButtons() {
+    $('.plus-button').on('click', function(e) {
+      $(this).toggleClass('expanded');
+    });
   }
 
   function _updatePostCollectionLinks(id,action) {

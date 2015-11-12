@@ -14,3 +14,40 @@
     }
   }
 }
+
+// Plus buttons
+.plus-button {
+  border: none;
+  background: none;
+  -webkit-appearence: none;
+  &:focus {
+    outline: none;
+  }
+  &.expanded .plus {
+    &::after {
+      transform: translateY(-50%) rotate(0);
+    }
+  }
+  .plus {
+    width: 12px;
+    height: 12px;
+    position: relative;
+    &::before,
+    &::after {
+      left: 0;
+      top: 50%;
+      content: '';
+      width: 12px;
+      height: 2px;
+      position: absolute;
+      background: $brand-primary;
+      transition: transform .2s ease-out;
+    }
+    &::before {
+      transform: translateY(-50%); 
+    }
+    &::after {
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
+}

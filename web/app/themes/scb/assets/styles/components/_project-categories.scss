@@ -1,16 +1,13 @@
 // Project Categories Nav
 
 .project-categories {
+  background: $white;
   position: relative;
   transition: height .2s ease-out;
-  &::after {
-    top: 0;
-    height: 2px;
-    width: 12px;
-    content: '';
+  .plus-button {
+    top: -7px;
     right: -28px;
     position: absolute;
-    background: $brand-primary;
   }
 
   .categories-parent {
@@ -23,6 +20,9 @@
         }
         a {
           color: $gray;
+          &:hover {
+            color: $black;
+          }
         }
       }
     }
@@ -77,6 +77,9 @@
       background: $gray;
     }
     &.active {
+      &::before {
+        background: $black;
+      }
       > li {
         > a {
           opacity: 1;

@@ -21,6 +21,7 @@ $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
     ]);
     ?>
     </ul>
+    <button class="plus-button categories-toggle expanded"><div class="plus"></div></button>
   </div>
 </div>
 
