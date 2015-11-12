@@ -27,7 +27,7 @@ $categories = wp_get_post_terms($post->ID, 'people_category');
     <?php endif; ?>
 
     <?php if ($contact): ?>
-      <h3 class="contact">Contact</h3>h3>
+      <h3 class="contact">Contact</h3>
       <?= apply_filters('the_content', $contact) ?>
     <?php endif ?>
     

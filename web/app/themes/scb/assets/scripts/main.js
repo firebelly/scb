@@ -46,7 +46,6 @@ var SCB = (function($) {
         $('.project-categories li.active>a').each(function() {
           project_categories.push($(this).text());
         });
-        // console.log(project_categories.join(','));
         $.ajax({
             url: wp_ajax_url,
             method: 'post',
@@ -101,12 +100,6 @@ var SCB = (function($) {
       });
     });
 
-    // _initNav();
-    // _initSearch();
-    // _initMasonry();
-    // _initLoadMore();
-    // _initBigClicky();
-
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
@@ -130,11 +123,53 @@ var SCB = (function($) {
       }
     });
 
+    // _initNav();
+    // _initSearch();
+    // _initMasonry();
+    // _initLoadMore();
+    // _initBigClicky();
+
+    // AJAX form submissions
+    _initApplicationForms();
+
+    // Drag-sorting of Collections
     _initCollectionSorting();
+
     // Init SVG Injection
     _injectSvgSprite();
 
   } // end init()
+
+  // AJAX Application form submissions
+  function _initApplicationForms() {
+    // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
+    if( window.FormData !== undefined ) {
+      $('.application-form').on('submit', function(e) {
+        e.preventDefault();
+        var $form = $(this);
+        var formData = new FormData(this);
+        formData.append('action', 'application_submission');
+        $.ajax({
+          url: wp_ajax_url,
+          method: 'POST',
+          // data: data + '&action=application_submission',
+          data: formData,
+          dataType: 'json',
+          mimeType: 'multipart/form-data',
+          processData: false,
+          contentType: false,
+          cache: false,
+          success: function(response) {
+            $form[0].reset();
+            alert(response['data']);
+          },
+          error: function(response) {
+            alert(response['data']);
+          }
+        });
+      });
+    }
+  }
 
   function _injectSvgSprite() {
     boomsvgloader.load('/app/themes/scb/assets/svgs/build/svgs-defs.svg'); 
