@@ -1,0 +1,106 @@
+// Project Categories Nav
+
+.project-categories {
+  position: relative;
+  transition: height .2s ease-out;
+  &::after {
+    top: 0;
+    height: 2px;
+    width: 12px;
+    content: '';
+    right: -28px;
+    position: absolute;
+    background: $brand-primary;
+  }
+
+  .categories-parent {
+    &.active {
+      li {
+        &.active {
+          > a {
+            color: $black;
+          }
+        }
+        a {
+          color: $gray;
+        }
+      }
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 20px 0 0;
+    display: inline-block;
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      content: '';
+      position: absolute;
+    }
+    li + li {
+      margin-top: 20px;
+    }
+    li {
+      a {
+        display: block;
+        position: relative;
+      }
+    }
+  }
+
+  > ul {
+    padding-left: 0;
+    position: relative;
+    width: 100% * (1 / 3);
+    &::before {
+      background: $black;
+    }
+  }
+
+  li {
+    &.active > a {
+      color: $black;
+    }
+  }
+
+  .children {
+    top: 0;
+    left: 100%;
+    width: 100%;
+    padding-left: 20px;
+    position: absolute;
+    &::before {
+      left: 20px;
+      background: $gray;
+    }
+    &.active {
+      > li {
+        > a {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateX(0);
+        }
+      }
+    }
+
+    li {
+      overflow: hidden;
+    }
+
+    a {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-100%);
+      transition: opacity .2s ease-out, transform .2s cubic-bezier(1,.5,.5,1);
+    }
+  }
+
+  a {
+    color: $black;
+    line-height: 1em;
+    text-decoration: none;
+  }
+}
