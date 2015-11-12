@@ -6,7 +6,7 @@
     
     <div class="grid-item one-half -left">
       <div class="container">
-        <p class="email-link"><a href="mailto:hello@scb.com">hello@scb.com</a></p>
+        <p class="email-link"><a href="mailto:hello@scb.com" class="highlight-hover">hello@scb.com</a></p>
 
         <ul class="social">
           <li><a target="_blank" href="https://www.facebook.com/<?php echo get_option( 'facebook_id', 'SolomonCordwellBuenz' ); ?>">Facebook</a></li>

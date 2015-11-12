@@ -49,17 +49,6 @@
     a {
       color: $black;
       @include h2();
-      text-decoration: none;
-      @include underline($brand-primary);
-      &::after {
-        z-index: -1;
-        transition: height .1s cubic-bezier(1,.5,.5,1);
-      }
-      &:hover, &:focus {
-        &::after {
-          height: 100%;
-        }
-      }
     }
   }
 

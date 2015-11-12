@@ -1,0 +1,16 @@
+// UI Components
+
+// Fancy highlight hover links
+.highlight-hover {
+  @include underline($brand-primary);
+  &::after {
+    z-index: -1;
+    transition: height .1s cubic-bezier(1,.5,.5,1), bottom .1s cubic-bezier(1,.5,.5,1);
+  }
+  &:hover, &:focus {
+    &::after {
+      height: .75em;
+      bottom: .35em;
+    }
+  }
+}
