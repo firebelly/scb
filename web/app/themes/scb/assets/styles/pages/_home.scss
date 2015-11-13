@@ -1,6 +1,14 @@
 // Home page
 
 .home.page {
+
+  // Show the project category toggle button
+  .header-bars {
+    .categories-toggle {
+      display: block;
+    }
+  }
+
   .page-intro {
     padding-top: 10px;
   }

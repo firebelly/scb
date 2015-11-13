@@ -12,16 +12,17 @@ $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
   </div>
 
   <div class="project-categories grid-item one-half -right">
-    <ul class="categories-parent">
-    <?php 
-    wp_list_categories([ 
-      'taxonomy' => 'project_category', 
-      'hide_empty' => 0,
-      'title_li' => '',
-    ]);
-    ?>
-    </ul>
-    <button class="plus-button categories-toggle expanded"><div class="plus"></div></button>
+    <div class="-inner">
+      <ul class="categories-parent">
+      <?php 
+      wp_list_categories([ 
+        'taxonomy' => 'project_category', 
+        'hide_empty' => 0,
+        'title_li' => '',
+      ]);
+      ?>
+      </ul>
+    </div>
   </div>
 </div>
 
