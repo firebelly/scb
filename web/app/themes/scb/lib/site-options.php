@@ -4,7 +4,6 @@ namespace Firebelly\SiteOptions;
 
 /**
  * Site Options page in admin with CMB2 fields
- * @version 0.1.0
  */
 class FbSiteOptions {
 
@@ -34,7 +33,6 @@ class FbSiteOptions {
 
 	/**
 	 * Constructor
-	 * @since 0.1.0
 	 */
 	public function __construct() {
 		// Set our title
@@ -43,7 +41,6 @@ class FbSiteOptions {
 
 	/**
 	 * Initiate our hooks
-	 * @since 0.1.0
 	 */
 	public function hooks() {
 		add_action( 'admin_init', array( $this, 'init' ) );
@@ -54,7 +51,6 @@ class FbSiteOptions {
 
 	/**
 	 * Register our setting to WP
-	 * @since  0.1.0
 	 */
 	public function init() {
 		register_setting( $this->key, $this->key );
@@ -62,7 +58,6 @@ class FbSiteOptions {
 
 	/**
 	 * Add menu options page
-	 * @since 0.1.0
 	 */
 	public function add_options_page() {
 		$this->options_page = add_menu_page( $this->title, $this->title, 'manage_options', $this->key, array( $this, 'admin_page_display' ) );
@@ -73,7 +68,6 @@ class FbSiteOptions {
 
 	/**
 	 * Admin page markup. Mostly handled by CMB2
-	 * @since  0.1.0
 	 */
 	public function admin_page_display() {
 		?>
@@ -86,7 +80,6 @@ class FbSiteOptions {
 
 	/**
 	 * Add the options metabox to the array of metaboxes
-	 * @since  0.1.0
 	 */
 	function add_options_page_metabox() {
 
@@ -139,7 +132,6 @@ class FbSiteOptions {
 	/**
 	 * Register settings notices for display
 	 *
-	 * @since  0.1.0
 	 * @param  int   $object_id Option key
 	 * @param  array $updated   Array of updated fields
 	 * @return void
@@ -155,7 +147,6 @@ class FbSiteOptions {
 
 	/**
 	 * Public getter method for retrieving protected/private variables
-	 * @since  0.1.0
 	 * @param  string  $field Field to retrieve
 	 * @return mixed          Field value or exception is thrown
 	 */
@@ -172,7 +163,6 @@ class FbSiteOptions {
 
 /**
  * Helper function to get/return the FbSiteOptions object
- * @since  0.1.0
  * @return FbSiteOptions object
  */
 function fb_site_options_admin() {
@@ -187,8 +177,8 @@ function fb_site_options_admin() {
 
 /**
  * Wrapper function around cmb2_get_option
- * @since  0.1.0
  * @param  string  $key Options array key
+ * @param  string  $default Optional default if key is not set
  * @return mixed        Option value
  */
 function get_option( $key='', $default='' ) {
@@ -196,5 +186,5 @@ function get_option( $key='', $default='' ) {
 	return (empty($option)) ? $default : $option;
 }
 
-// Get it started
+// Fire it up
 fb_site_options_admin();

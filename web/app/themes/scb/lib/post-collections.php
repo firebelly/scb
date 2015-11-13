@@ -6,6 +6,7 @@
  */
 
 namespace Firebelly\Collections;
+use mikehaertl\wkhtmlto\Pdf;
 
 if (!session_id()) {
   session_start();
@@ -17,7 +18,7 @@ if (!session_id()) {
 function new_collection() {
   global $wpdb;
 
-  session_regenerate_id(TRUE);
+  // session_regenerate_id(TRUE);
 
   // check for existing
   $collection_id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}collections WHERE session_id=%s", session_id()));
@@ -137,6 +138,10 @@ function collection_action() {
       add_post_to_collection($collection->ID, $_REQUEST['post_id']);
     else if ($do=='remove')
       remove_post_from_collection($collection->ID, $_REQUEST['post_id']);
+    else if ($do=='pdf') {
+      collection_to_pdf($collection->ID);
+      wp_send_json_success();
+    }
   }
 
   // Reload collection to add/remove & group posts
@@ -190,3 +195,34 @@ function collection_query_vars($query_vars) {
   return $query_vars;
 }
 add_filter('query_vars', __NAMESPACE__.'\collection_query_vars');
+
+/**
+ * Export a collection as PDF
+ */
+function collection_to_pdf($id) {
+  $pdf = new Pdf([
+    'quiet',
+    'no-outline',
+    'print-media-type',
+    'encoding' => 'UTF-8',
+    'load-error-handling' => 'ignore',
+    'margin-bottom' => '.25in',
+    'margin-top' => '.25in',
+    'margin-left' => '.25in',
+    'margin-right' => '.25in',
+    'viewport-size' => '1280x1024',
+    'orientation' => 'Landscape',
+    'page-size' => 'Letter',
+    // 'cookie' => array('name'=>'value'),
+  ]);
+  $pdf->binary = '/usr/local/bin/wkhtmltopdf';
+  $pdf->addPage('http://scb.dev/collection/'.$id.'/');
+  // $pdf->send();
+  if (!$pdf->saveAs('/Users/nate/Desktop/code-test.pdf')) {
+    echo $pdf->getError();
+  }
+  // $cover = \Firebelly\SiteOptions\get_option('cover_letter_pdf');
+  // if ($cover) {
+  //   todo: merge cover PDF with generated PDF 
+  // }
+}
