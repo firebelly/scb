@@ -199,10 +199,13 @@ add_filter('query_vars', __NAMESPACE__.'\collection_query_vars');
  * Export a collection as PDF
  */
 function collection_to_pdf($id) {
+  $collection_pdf = [];
   // Get upload dir
   $upload_dir = wp_upload_dir();
   $base_dir = $upload_dir['basedir'];
-  $collection_pdf_abspath = $base_dir . '/collections/' . 'collection-' . $id . '.pdf';
+  $collection_pdf['name'] = '/collections/' . 'collection-' . $id . '.pdf';
+  $collection_pdf['url'] = $upload_dir['baseurl'] . $collection_pdf['name'];
+  $collection_pdf['abspath'] = $base_dir . $collection_pdf['name'];
   // Create /collections/ dir in uploads if not present
   if(!file_exists($base_dir)) {
     mkdir($base_dir);
@@ -243,15 +246,30 @@ function collection_to_pdf($id) {
       $m = new \iio\libmergepdf\Merger();
       $m->addFromFile($cover_abspath);
       $m->addFromFile($tmp_pdf);
-      file_put_contents($collection_pdf_abspath, $m->merge());
+      file_put_contents($collection_pdf['abspath'], $m->merge());
       // Remove tmp pdf file after merging
       unlink($tmp_pdf);
     }
   } else {
     // Otherwise, just output collection PDF
-    if (!$pdf->saveAs($collection_pdf_abspath)) {
+    if (!$pdf->saveAs($collection_pdf['abspath'])) {
       echo $pdf->getError();
     }
   }
   // $pdf->send();
+  return $collection_pdf;
+}
+
+/**
+ * Email a user with collection attached
+ */
+function email_collection($id, $email, $message) {
+  if ($collection_pdf = collection_to_pdf($id)) {
+    $attachments = [ $collection_pdf['abspath'] ];
+    $headers = 'From: SCB Bot <no-reply@scb.com>' . "\r\n";
+    wp_mail( $email, 'Collection from SCB', $message, $headers, $attachments );
+  } else {
+    echo 'Unable to make PDF';
+  }
+
 }
