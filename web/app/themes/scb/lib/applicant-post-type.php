@@ -143,6 +143,27 @@ function metaboxes( array $meta_boxes ) {
         'id'   => $prefix . 'attachments',
         'type' => 'file_list',
       ),
+    ),
+  );
+
+  $meta_boxes['applicant_details'] = array(
+    'id'            => 'applicant_details',
+    'title'         => __( 'Details', 'cmb2' ),
+    'object_types'  => array( 'applicant', ),
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    'fields'        => array(
+      array(
+        'name'   => 'Type',
+        'id'   => $prefix . 'application_type',
+        'type' => 'select',
+        'options' => [ 
+          'position' => 'Position', 
+          'internship' => 'Internship', 
+          'portfolio' => 'Portfolio',
+        ],
+      ),
       array(
         'name' => 'First Name',
         'id'   => $prefix . 'first_name',
@@ -163,6 +184,15 @@ function metaboxes( array $meta_boxes ) {
         'id'   => $prefix . 'phone',
         'type' => 'text',
       ),
+      array(
+        'name' => 'Staff Notes',
+        'desc' => 'Not shown on front end of site',
+        'id'   => $prefix . 'notes',
+        'type' => 'wysiwyg',
+        'options' => array(
+          'textarea_rows' => 6,
+        ),
+      ),
     ),
   );
 
@@ -182,6 +212,7 @@ function new_applicant() {
   $post_id = wp_insert_post($applicant_post);
   if ($post_id) {
 
+    update_post_meta($post_id, '_cmb2_application_type', $_POST['application_type']);
     update_post_meta($post_id, '_cmb2_first_name', $_POST['application_first_name']);
     update_post_meta($post_id, '_cmb2_last_name', $_POST['application_last_name']);
     update_post_meta($post_id, '_cmb2_email', $_POST['application_email']);

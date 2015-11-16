@@ -19,4 +19,7 @@ if('POST'===$_SERVER['REQUEST_METHOD'] && !empty($_POST['application_form_nonce'
 
 <header><?= $post->post_content ?></header>
 
-<?php include(locate_template('templates/application-form.php')); ?>
+<?php 
+$application_type = 'portfolio';
+include(locate_template('templates/application-form.php')); 
+?>

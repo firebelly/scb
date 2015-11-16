@@ -6,8 +6,10 @@
   <div><input type="text" name="application_phone" placeholder="Phone Number"></div>
 
   <?php if (!empty($position_id)): ?>
-	  <input type="hidden" name="position_id" value="<?= $position_id ?>">
-	<?php endif ?>
+    <input type="hidden" name="position_id" value="<?= $position_id ?>">
+  <?php endif ?>
+
+  <input type="hidden" name="application_type" value="<?= !empty($application_type) ? $application_type : !empty($position_id) ? 'position' : 'portfolio' ?>">
 
   <input type="file" name="application_files[]" multiple>
   <?php wp_nonce_field( 'application_form', 'application_form_nonce' ); ?>
