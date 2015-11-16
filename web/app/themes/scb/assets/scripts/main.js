@@ -150,6 +150,8 @@ var SCB = (function($) {
 
     // Init SVG Injection
     _injectSvgSprite();
+    _plusButtons();
+    _shrinkHeader();
 
   } // end init()
 
@@ -186,6 +188,25 @@ var SCB = (function($) {
 
   function _injectSvgSprite() {
     boomsvgloader.load('/app/themes/scb/assets/svgs/build/svgs-defs.svg'); 
+  }
+
+  function _plusButtons() {
+    $('.plus-button').on('click', function(e) {
+      $(this).toggleClass('expanded');
+    });
+  }
+
+  function _shrinkHeader() {
+    if ($(document).scrollTop() > 100) {
+      $('.site-header').addClass('shrink');
+    }
+    $(document).on("scroll", function(){
+      if ($(document).scrollTop() > 100) {
+        $('.site-header').addClass('shrink');
+      } else {
+        $('.site-header').removeClass('shrink');
+      }
+    });
   }
 
   function _updatePostCollectionLinks(id,action) {

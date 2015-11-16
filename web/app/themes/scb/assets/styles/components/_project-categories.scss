@@ -1,16 +1,12 @@
 // Project Categories Nav
 
 .project-categories {
+  background: $white;
   position: relative;
   transition: height .2s ease-out;
-  &::after {
-    top: 0;
-    height: 2px;
-    width: 12px;
-    content: '';
-    right: -28px;
-    position: absolute;
-    background: $brand-primary;
+
+  .-inner {
+    width: calc(100% + 20px);
   }
 
   .categories-parent {
@@ -23,6 +19,9 @@
         }
         a {
           color: $gray;
+          &:hover {
+            color: $black;
+          }
         }
       }
     }
@@ -31,15 +30,9 @@
   ul {
     margin: 0;
     padding: 20px 0 0;
+    position: relative;
     display: inline-block;
-    &::before {
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      content: '';
-      position: absolute;
-    }
+    width: 100% * (1 / 3);
     li + li {
       margin-top: 20px;
     }
@@ -54,10 +47,6 @@
   > ul {
     padding-left: 0;
     position: relative;
-    width: 100% * (1 / 3);
-    &::before {
-      background: $black;
-    }
   }
 
   li {
@@ -70,12 +59,7 @@
     top: 0;
     left: 100%;
     width: 100%;
-    padding-left: 20px;
     position: absolute;
-    &::before {
-      left: 20px;
-      background: $gray;
-    }
     &.active {
       > li {
         > a {

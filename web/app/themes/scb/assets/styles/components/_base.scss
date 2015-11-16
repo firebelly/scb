@@ -16,6 +16,10 @@ body {
   background: $white;
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern" 1;
+
+  @include min-screen($breakpoint-medium) {
+    padding-top: 164px;
+  }
 }
 
 h1, h2, h3, h4, h5 {

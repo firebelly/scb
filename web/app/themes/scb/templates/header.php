@@ -18,4 +18,12 @@
   <section class="collection mini" data-id="<?= $collection->ID ?>">
     <?php include(locate_template('templates/collection.php')); ?>
   </section>
+
+  <div class="header-bars">
+    <div class="bar -one" data-bar="bar1"></div>
+    <div class="bar -two" data-bar="bar2"></div>
+    <div class="bar -three" data-bar="bar3"></div>
+    
+    <button class="plus-button categories-toggle expanded"><div class="plus"></div></button>
+  </div>
 </header>
