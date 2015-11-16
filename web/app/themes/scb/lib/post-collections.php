@@ -6,7 +6,6 @@
  */
 
 namespace Firebelly\Collections;
-use mikehaertl\wkhtmlto\Pdf;
 
 if (!session_id()) {
   session_start();
@@ -200,29 +199,59 @@ add_filter('query_vars', __NAMESPACE__.'\collection_query_vars');
  * Export a collection as PDF
  */
 function collection_to_pdf($id) {
-  $pdf = new Pdf([
+  // Get upload dir
+  $upload_dir = wp_upload_dir();
+  $base_dir = $upload_dir['basedir'];
+  $collection_pdf_abspath = $base_dir . '/collections/' . 'collection-' . $id . '.pdf';
+  // Create /collections/ dir in uploads if not present
+  if(!file_exists($base_dir)) {
+    mkdir($base_dir);
+  }
+  // PDF options
+  $pdf = new \mikehaertl\wkhtmlto\Pdf([
     'quiet',
     'no-outline',
     'print-media-type',
     'encoding' => 'UTF-8',
     'load-error-handling' => 'ignore',
-    'margin-bottom' => '.25in',
-    'margin-top' => '.25in',
-    'margin-left' => '.25in',
-    'margin-right' => '.25in',
+    // 'margin-bottom' => '.25in',
+    // 'margin-top' => '.25in',
+    // 'margin-left' => '.25in',
+    // 'margin-right' => '.25in',
     'viewport-size' => '1280x1024',
     'orientation' => 'Landscape',
     'page-size' => 'Letter',
-    // 'cookie' => array('name'=>'value'),
   ]);
+
+  // Set binary location of wkhtmltopdf (must be installed manually on server)
   $pdf->binary = '/usr/local/bin/wkhtmltopdf';
+
+  // build collection PDF from URL
   $pdf->addPage('http://scb.dev/collection/'.$id.'/');
-  // $pdf->send();
-  if (!$pdf->saveAs('/Users/nate/Desktop/code-test.pdf')) {
-    echo $pdf->getError();
+
+  // Check if there's a cover PDF specified in Site Options and merge with collection PDF
+  $cover = \Firebelly\SiteOptions\get_option('cover_letter_pdf');
+  if ($cover) {
+    $tmp_pdf = $base_dir . '/collections/' . 'collection-tmp-' . $id . '.pdf';
+    if (!$pdf->saveAs($tmp_pdf)) {
+      echo $pdf->getError();
+    } else {
+      // Extract relative path of cover PDF
+      preg_match('/.*\/uploads(.*)$/',$cover,$m);
+      $cover_abspath = $base_dir . $m[1];
+      // Merge cover PDF + collection PDF and save
+      $m = new \iio\libmergepdf\Merger();
+      $m->addFromFile($cover_abspath);
+      $m->addFromFile($tmp_pdf);
+      file_put_contents($collection_pdf_abspath, $m->merge());
+      // Remove tmp pdf file after merging
+      unlink($tmp_pdf);
+    }
+  } else {
+    // Otherwise, just output collection PDF
+    if (!$pdf->saveAs($collection_pdf_abspath)) {
+      echo $pdf->getError();
+    }
   }
-  // $cover = \Firebelly\SiteOptions\get_option('cover_letter_pdf');
-  // if ($cover) {
-  //   todo: merge cover PDF with generated PDF 
-  // }
+  // $pdf->send();
 }
