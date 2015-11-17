@@ -14,7 +14,6 @@
     </nav>
   </div>
 
-  <?php // global $collection; $collection = \Firebelly\Collections\get_active_collection(); ?>
   <section class="collection mini" data-id="<?= $collection->ID ?>">
     <?php include(locate_template('templates/collection.php')); ?>
   </section>
