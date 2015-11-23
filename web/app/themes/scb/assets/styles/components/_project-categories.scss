@@ -60,7 +60,9 @@
     left: 100%;
     width: 100%;
     position: absolute;
+    pointer-events:none;
     &.active {
+      pointer-events: auto;
       > li {
         > a {
           opacity: 1;

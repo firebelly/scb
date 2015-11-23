@@ -22,9 +22,13 @@ $med: 1em;
 $big: 3em;
 
 @mixin h1() {
-  font-size: 84px;
+  font-size: 56px;
   font-weight: 500;
-  line-height: .952380952em;
+  line-height: 1.071428571em;
+  @include min-screen($breakpoint-medium) {
+    font-size: 84px;
+    line-height: .952380952em;
+  }
 }
 
 @mixin h2() {
