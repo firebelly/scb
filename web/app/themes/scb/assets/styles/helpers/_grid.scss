@@ -9,6 +9,13 @@ $column: 100% * (1 / 12);
   @include clearfix();
 }
 
+.column {
+  position: relative;
+  @include min-screen($breakpoint-medium) {
+    float: left;
+  }
+}
+
 .one-half-right, .two-thirds-right, .one-third-right, .one-third-middle, .one-fourth-right  {margin-top: $margin;}
 
 @include min-screen($breakpoint-medium) {
