@@ -58,7 +58,7 @@ add_action( 'init', __NAMESPACE__ . '\post_type', 0 );
 /**
  * Add capabilities to control permissions of Post Type via roles
  */
-// function add_capabilities() {
+function add_capabilities() {
   $role_admin = get_role('administrator');
   $role_admin->add_cap('edit_applicant');
   $role_admin->add_cap('read_applicant');
@@ -74,8 +74,8 @@ add_action( 'init', __NAMESPACE__ . '\post_type', 0 );
   $role_admin->add_cap('edit_private_applicants');
   $role_admin->add_cap('edit_published_applicants');
   $role_admin->add_cap('create_applicants');
-// }
-// add_action('switch_theme', __NAMESPACE__ . '\add_capabilities');
+}
+add_action('switch_theme', __NAMESPACE__ . '\add_capabilities');
 
 // Custom admin columns for post type
 function edit_columns($columns){
@@ -116,7 +116,7 @@ function metaboxes( array $meta_boxes ) {
 
   $meta_boxes['related_position'] = array(
     'id'            => 'related_position',
-    'title'         => __( 'Related Positon', 'cmb2' ),
+    'title'         => __( 'Related Position', 'cmb2' ),
     'object_types'  => array( 'applicant', ),
     'context'       => 'side',
     'priority'      => 'default',
