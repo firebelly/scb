@@ -42,3 +42,8 @@
 
 // WP specifics
 @import 'helpers/wp-classes';
+
+// Print
+@media print {
+	@import "components/print";
+}

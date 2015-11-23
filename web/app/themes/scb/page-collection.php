@@ -10,7 +10,7 @@ if ($collection_id = get_query_var('collection_id')) {
 
 <?= $post->post_content ?>
 
-<?php if ($collection): ?>
+<?php if (!empty($collection)): ?>
 
   <section class="collection" data-id="<?= $collection->ID ?>">
     <?php include(locate_template('templates/collection.php')); ?>

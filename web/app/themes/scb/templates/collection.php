@@ -1,14 +1,11 @@
 <?php 
-if (!$collection) {
-  die('No collection');
-}
 $post_type = '';
 $post_type_titles = [
   'person' => 'Bios',
   'project' => 'Projects'
 ];
 
-if (empty($collection->posts)):
+if (!isset($collection) || empty($collection->posts)):
 
   echo '<p>Your collection is empty</p>';
 
@@ -33,6 +30,7 @@ else:
     }
 
   endforeach;
+  echo '<a href="#" class="collection-action" data-action="pdf">PDF</a>';
   echo '</div>';
 
 endif;

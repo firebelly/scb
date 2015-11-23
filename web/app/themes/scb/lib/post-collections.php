@@ -17,7 +17,7 @@ if (!session_id()) {
 function new_collection() {
   global $wpdb;
 
-  session_regenerate_id(TRUE);
+  // session_regenerate_id(TRUE);
 
   // check for existing
   $collection_id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}collections WHERE session_id=%s", session_id()));
@@ -137,6 +137,10 @@ function collection_action() {
       add_post_to_collection($collection->ID, $_REQUEST['post_id']);
     else if ($do=='remove')
       remove_post_from_collection($collection->ID, $_REQUEST['post_id']);
+    else if ($do=='pdf') {
+      collection_to_pdf($collection->ID);
+      wp_send_json_success();
+    }
   }
 
   // Reload collection to add/remove & group posts
@@ -190,3 +194,106 @@ function collection_query_vars($query_vars) {
   return $query_vars;
 }
 add_filter('query_vars', __NAMESPACE__.'\collection_query_vars');
+
+/**
+ * Export a collection as PDF
+ */
+function collection_to_pdf($id) {
+  $collection_pdf = [];
+  // Get upload dir
+  $upload_dir = wp_upload_dir();
+  $base_dir = $upload_dir['basedir'];
+  $collection_pdf['name'] = '/collections/' . 'collection-' . $id . '.pdf';
+  $collection_pdf['url'] = $upload_dir['baseurl'] . $collection_pdf['name'];
+  $collection_pdf['abspath'] = $base_dir . $collection_pdf['name'];
+  // Create /collections/ dir in uploads if not present
+  if(!file_exists($base_dir)) {
+    mkdir($base_dir);
+  }
+  // PDF options
+  $pdf = new \mikehaertl\wkhtmlto\Pdf([
+    'quiet',
+    'no-outline',
+    'print-media-type',
+    'encoding' => 'UTF-8',
+    'load-error-handling' => 'ignore',
+    // 'margin-bottom' => '.25in',
+    // 'margin-top' => '.25in',
+    // 'margin-left' => '.25in',
+    // 'margin-right' => '.25in',
+    'viewport-size' => '1280x1024',
+    'orientation' => 'Landscape',
+    'page-size' => 'Letter',
+  ]);
+
+  // Set binary location of wkhtmltopdf (must be installed manually on server)
+  $pdf->binary = '/usr/local/bin/wkhtmltopdf';
+
+  // build collection PDF from URL
+  $pdf->addPage('http://scb.dev/collection/'.$id.'/');
+
+  // Check if there's a cover PDF specified in Site Options and merge with collection PDF
+  $cover = \Firebelly\SiteOptions\get_option('cover_letter_pdf');
+  if ($cover) {
+    $tmp_pdf = $base_dir . '/collections/' . 'collection-tmp-' . $id . '.pdf';
+    if (!$pdf->saveAs($tmp_pdf)) {
+      echo $pdf->getError();
+    } else {
+      // Extract relative path of cover PDF
+      preg_match('/.*\/uploads(.*)$/',$cover,$m);
+      $cover_abspath = $base_dir . $m[1];
+      // Merge cover PDF + collection PDF and save
+      $m = new \iio\libmergepdf\Merger();
+      $m->addFromFile($cover_abspath);
+      $m->addFromFile($tmp_pdf);
+      file_put_contents($collection_pdf['abspath'], $m->merge());
+      // Remove tmp pdf file after merging
+      unlink($tmp_pdf);
+    }
+  } else {
+    // Otherwise, just output collection PDF
+    if (!$pdf->saveAs($collection_pdf['abspath'])) {
+      echo $pdf->getError();
+    }
+  }
+  // $pdf->send();
+  return $collection_pdf;
+}
+
+/**
+ * Email a user with collection attached
+ */
+function email_collection($id, $email, $message) {
+  if ($collection_pdf = collection_to_pdf($id)) {
+    $attachments = [ $collection_pdf['abspath'] ];
+    $headers = 'From: SCB Bot <no-reply@scb.com>' . "\r\n";
+    wp_mail( $email, 'Collection from SCB', $message, $headers, $attachments );
+  } else {
+    echo 'Unable to make PDF';
+  }
+
+}
+
+/**
+ * Daily cronjob to clean out old, empty collections
+ */
+if (WP_ENV == 'production') add_action('wp', __NAMESPACE__ . '\activate_collection_clean_cron');
+function activate_collection_clean_cron() {
+  if (!wp_next_scheduled('collection_clean_cron')) {
+    wp_schedule_event(current_time('timestamp'), 'twicedaily', __NAMESPACE__ . '\collection_clean_cron');
+  }
+}
+if (WP_ENV == 'production') add_action( 'collection_clean_cron', __NAMESPACE__ . '\collection_clean_cron' );
+function collection_clean_cron() {
+ $moldy_collections = $wpdb->get_results(
+   "
+   SELECT ID FROM {$wpdb->prefix}collections c
+   LEFT JOIN {$wpdb->prefix}collection_posts cp ON cp.collection_id = c.ID
+   WHERE c.created_at < NOW() - INTERVAL 1 DAY
+   AND cp.collection_id IS NULL
+   "
+ );
+ foreach($moldy_collections as $row) {
+    $wpdb->delete( $wpdb->prefix.'collections', [ 'ID' => $row['ID'] ] );
+  }  
+}

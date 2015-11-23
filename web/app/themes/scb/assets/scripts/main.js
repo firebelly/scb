@@ -176,10 +176,10 @@ var SCB = (function($) {
           cache: false,
           success: function(response) {
             $form[0].reset();
-            alert(response['data']);
+            alert(response.data);
           },
           error: function(response) {
-            alert(response['data']);
+            alert(response.data);
           }
         });
       });
