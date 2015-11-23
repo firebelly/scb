@@ -167,44 +167,74 @@ function metaboxes( array $meta_boxes ) {
    * Repeating blocks
    */
   $cmb_group = new_cmb2_box( array(
-      'id'           => $prefix . 'metabox',
-      'title'        => __( 'Page Blocks', 'cmb2' ),
-      'priority'      => 'low',
-      'object_types' => array( 'project', ),
-    )
-  );
+    'id'           => $prefix . 'metabox',
+    'title'        => __( 'Extra Project Detail Blocks', 'cmb2' ),
+    'priority'      => 'low',
+    'object_types' => array( 'project', ),
+  ) );
 
   $group_field_id = $cmb_group->add_field( array(
-      'id'          => $prefix . 'page_blocks',
-      'type'        => 'group',
-      'description' => __( 'Note that you must be in Text mode to reorder the Page Blocks', 'cmb' ),
-      'options'     => array(
-          'group_title'   => __( 'Block {#}', 'cmb' ),
-          'add_button'    => __( 'Add Another Block', 'cmb' ),
-          'remove_button' => __( 'Remove Block', 'cmb' ),
-          'sortable'      => true, // beta
-      ),
-  ) );
-
-  $cmb_group->add_group_field( $group_field_id, array(
-      'name' => 'Block Title',
-      'id'   => 'title',
-      'type' => 'text',
-  ) );
-
-  $cmb_group->add_group_field( $group_field_id, array(
-      'name' => 'Body',
-      'id'   => 'body',
-      'type' => 'wysiwyg',
-      'options' => array(
-        'textarea_rows' => 8,
-      ),
+    'id'          => $prefix . 'project_blocks',
+    'type'        => 'group',
+    // 'description' => __( 'Note that you must be in Text mode to reorder the Page Blocks', 'cmb' ),
+    'options'     => array(
+        'group_title'   => __( 'Block {#}', 'cmb' ),
+        'add_button'    => __( 'Add Another Block', 'cmb' ),
+        'remove_button' => __( 'Remove Block', 'cmb' ),
+        // 'sortable'      => true, // beta
+    ),
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
       'name' => 'Images',
       'id'   => 'images',
       'type' => 'file_list',
+  ) );
+
+  $cmb_group->add_group_field( $group_field_id, array(
+    'name' => 'Emphasis Block',
+    'id'   => 'emphasis_block',
+    'type' => 'checkbox',
+  ) );
+
+  $cmb_group->add_group_field( $group_field_id, array(
+    'name' => 'Stat Number',
+    'id'   => 'stat_number',
+    'type' => 'text',
+  ) );
+
+  $cmb_group->add_group_field( $group_field_id, array(
+    'name' => 'Stat Label',
+    'id'   => 'stat_label',
+    'type' => 'text',
+  ) );
+
+  $cmb_group->add_group_field( $group_field_id, array(
+    'name' => 'Intro',
+    'id'   => 'intro',
+    'type' => 'wysiwyg',
+    'options' => array(
+      'textarea_rows' => 4,
+    ),
+  ) );
+
+  $cmb_group->add_group_field( $group_field_id, array(
+    'name' => 'Additional Info',
+    'desc' => 'e.g. stats, awards',
+    'id'   => 'addl_info',
+    'type' => 'wysiwyg',
+    'options' => array(
+      'textarea_rows' => 4,
+    ),
+  ) );
+
+  $cmb_group->add_group_field( $group_field_id, array(
+    'name' => 'Body',
+    'id'   => 'body',
+    'type' => 'wysiwyg',
+    'options' => array(
+      'textarea_rows' => 4,
+    ),
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
@@ -251,4 +281,32 @@ function get_projects($filters=[]) {
 
   $project_posts = get_posts($args);
   return $project_posts;
+}
+
+
+/**
+ * Get Project Blocks
+ */
+function get_project_blocks($post) {
+  $output = '';
+  $project_blocks = get_post_meta($post->ID, '_cmb2_project_blocks', true);
+  if ($project_blocks) {
+    foreach ($project_blocks as $page_block) {
+      if (empty($page_block['hide_block'])) {
+        $block_title = $block_body = '';
+        if (!empty($page_block['title']))
+          $block_title = $page_block['title'];
+        if (!empty($page_block['body'])) {
+          $block_body = apply_filters('the_content', $page_block['body']);
+          $output .= '<div class="page-block">';
+          if ($block_title) {
+            $output .= '<h2 class="flag">' . $block_title . '</h2>';
+          }
+          $output .= '<div class="user-content">' . $block_body . '</div>';
+          $output .= '</div>';
+        }
+      }
+    }
+  }
+  return $output;
 }
