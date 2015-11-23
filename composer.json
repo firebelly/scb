@@ -49,11 +49,12 @@
     "wpackagist-plugin/quick-navigation-interface": ">=0.4",
     "wpackagist-plugin/parent-category-toggler": "1.3.2",
     "mikehaertl/phpwkhtmltopdf": "^2.1",
-    "iio/libmergepdf": "^2.4"
+    "iio/libmergepdf": "^2.4",
+    "wpackagist-plugin/category-checklist-tree": "1.3.2"
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/parent-category-toggler"],
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/parent-category-toggler", "wpackagist-plugin/category-checklist-tree"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },
