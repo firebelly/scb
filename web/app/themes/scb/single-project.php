@@ -4,10 +4,10 @@ $client = get_post_meta($post->ID, '_cmb2_client', true);
 $location = get_post_meta($post->ID, '_cmb2_location', true);
 $intro = get_post_meta($post->ID, '_cmb2_intro', true);
 $categories = wp_get_post_terms($post->ID, 'project_category');
-$product_categories = '';
+$project_categories = '';
 if ($categories):
   foreach($categories as $cat)
-    $product_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name."</a> /<br />";
+    $project_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name."</a> /<br />";
 endif;
 ?>
 <article class="project <?= $orientation ?>" data-id="<?= $post->ID ?>">
@@ -18,6 +18,7 @@ endif;
       <a href="#" class="collection-action" data-action="add" data-id="<?= $post->ID ?>">Add to Collection</a>
     <?php endif; ?>
   </div>
+
   <?php if ($orientation == 'vertical') { ?>
 
     <div class="project-intro grid">
@@ -46,16 +47,17 @@ endif;
             </div>
             <div class="grid-item one-half -right">
               <div class="-inner">
-                <?php if ($product_categories): ?>
+                <?php if ($project_categories): ?>
                   <h3>Category</h3>
-                  <h4 class="categories"><?= $product_categories ?></h4>
+                  <h4 class="categories"><?= $project_categories ?></h4>
                 <?php endif ?>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <?= \Firebelly\PostTypes\Project\get_project_blocks($post); ?>
 
 
   <?php } else { ?>
@@ -75,9 +77,9 @@ endif;
               <h3>Location</h3>
               <h4><?= $location ?></h4>
             <?php endif ?>
-            <?php if ($product_categories): ?>
+            <?php if ($project_categories): ?>
               <h3>Category</h3>
-              <h4 class="categories"><?= $product_categories ?></h4>
+              <h4 class="categories"><?= $project_categories ?></h4>
             <?php endif ?>
           </div>
         </div>
@@ -91,6 +93,8 @@ endif;
         </div>
       </div>
     </div>
+
+    <?= \Firebelly\PostTypes\Project\get_project_blocks($post); ?>
 
   <?php } ?>
 
