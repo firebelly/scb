@@ -289,7 +289,7 @@ function collection_clean_cron() {
    "
    SELECT ID FROM {$wpdb->prefix}collections c
    LEFT JOIN {$wpdb->prefix}collection_posts cp ON cp.collection_id = c.ID
-   WHERE c.created_at < NOW() - INTERVAL 1 DAY
+   WHERE c.created_at < NOW() - INTERVAL 30 DAY
    AND cp.collection_id IS NULL
    "
  );
