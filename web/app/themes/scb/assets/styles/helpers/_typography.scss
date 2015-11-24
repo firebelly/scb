@@ -1,8 +1,18 @@
 // Typography
 
+@font-face {
+  font-family: 'GT-Haptik-Lazer';
+  src: url('../fonts/GT-Haptik-Lazer.eot');
+  src: url('../fonts/GT-Haptik-Lazer.eot?#iefix') format('embedded-opentype'), 
+       url('../fonts/GT-Haptik-Lazer.woff') format('woff'),
+       url('../fonts/GT-Haptik-Lazer.ttf')  format('truetype'),
+       url('../fonts/GT-Haptik-Lazer.svg#98e876e8342e12fd75b1ff67643f380f') format('svg'); 
+}
+
 // Fonts
 $sans: 'Circular Std', sans-serif;
 $serif: Georgia, serif;
+$lazer: 'GT-Haptik-Lazer', serif;
 
 // Sans-specific styles to chunk into one include
 @mixin font-sans() {
@@ -44,4 +54,11 @@ $big: 3em;
   text-transform: uppercase;
   line-height: 1.818181818em;
   font-feature-settings: "smcp" on;
+}
+
+@mixin lazer() {
+  font-size: 208px;
+  font-family: $lazer;
+  line-height: .961538462em;
+  font-feature-settings: "tnum";
 }

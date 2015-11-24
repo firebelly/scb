@@ -166,3 +166,20 @@
     @include h2();
   }
 }
+
+// Project Blocks
+.project-blocks {
+  .page-block {
+
+    // Emphasized block
+    .emphasis-block {
+      color: $white;
+      background: $gray;
+      h3 {
+        color: $black;
+        @include sc();
+      }
+    }
+
+  }
+}
