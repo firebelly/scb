@@ -192,6 +192,18 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
+    'name' => 'Image Layout',
+    'id'   => 'image_layout',
+    'type' => 'radio_inline',
+    'options' => [
+      1 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-1.png">', 
+      2 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-2.png">', 
+      3 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-3.png">', 
+      4 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-4.png">', 
+    ]
+  ) );
+
+  $cmb_group->add_group_field( $group_field_id, array(
     'name' => 'Emphasis Block',
     'id'   => 'emphasis_block',
     'type' => 'checkbox',
@@ -235,13 +247,6 @@ function metaboxes( array $meta_boxes ) {
     'options' => array(
       'textarea_rows' => 4,
     ),
-  ) );
-
-  $cmb_group->add_group_field( $group_field_id, array(
-      'name' => 'Hide Block',
-      // 'desc' => 'Check this to hide Page Block from the front end',
-      'id'   => 'hide_block',
-      'type' => 'checkbox',
   ) );
 
   return $meta_boxes;
@@ -291,21 +296,34 @@ function get_project_blocks($post) {
   $output = '';
   $project_blocks = get_post_meta($post->ID, '_cmb2_project_blocks', true);
   if ($project_blocks) {
-    foreach ($project_blocks as $page_block) {
-      if (empty($page_block['hide_block'])) {
-        $block_title = $block_body = '';
-        if (!empty($page_block['title']))
-          $block_title = $page_block['title'];
-        if (!empty($page_block['body'])) {
-          $block_body = apply_filters('the_content', $page_block['body']);
-          $output .= '<div class="page-block">';
-          if ($block_title) {
-            $output .= '<h2 class="flag">' . $block_title . '</h2>';
-          }
-          $output .= '<div class="user-content">' . $block_body . '</div>';
-          $output .= '</div>';
+    foreach ($project_blocks as $project_block) {
+      $output .= '<div class="project-block image-layout-' . $project_block['image_layout'] . (!empty($project_block['emphasis_block']) ? ' emphasis-block' : '') . '">';
+
+      if (!empty($project_block['images'])) {
+        foreach ($project_block['images'] as $image) {
+          $output .= '<div class="image"><img src="' . $image . '"></div>';
         }
       }
+      if (!empty($project_block['stat_number']) || !empty($project_block['stat_label'])) {
+        $output .= '<div class="stat">';
+        $output .= !empty($project_block['stat_number']) ? '<div class="stat-number">' . $project_block['stat_number'] . '</div>' : '';
+        $output .= !empty($project_block['stat_label']) ? '<div class="stat-label">' . $project_block['stat_label'] . '</div>' : '';
+        $output .= '</div>';
+      }
+
+      if (!empty($project_block['intro'])) {
+        $output .= '<div class="intro user-content">' . apply_filters('the_content', $project_block['intro']) . '</div>';
+      }
+
+      if (!empty($project_block['addl_info'])) {
+        $output .= '<div class="addl-info user-content">' . apply_filters('the_content', $project_block['addl_info']) . '</div>';
+      }
+
+      if (!empty($project_block['body'])) {
+        $output .= '<div class="body user-content">' . apply_filters('the_content', $project_block['body']) . '</div>';
+      }
+
+      $output .= '</div>';
     }
   }
   return $output;
