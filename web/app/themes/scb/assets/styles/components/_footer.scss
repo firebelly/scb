@@ -1,9 +1,9 @@
 // Footer
 
 .site-footer {
-  padding: 20px 0;
+  padding: 20px;
   @include min-screen($breakpoint-medium) {
-    padding: 40px 0;
+    padding: 40px 10px;
   }
   
   > .wrap > .one-half.-left {

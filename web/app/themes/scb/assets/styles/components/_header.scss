@@ -1,7 +1,7 @@
 // Header
 
 .site-header {
-  padding-top: 20px;
+  padding: 20px 10px;
   background: $white;
   @include clearfix();
   transition: padding .35s ease-out;
@@ -12,9 +12,9 @@
     right: 0;
     z-index: 10;
     position: fixed;
-    padding: 40px 0 50px;
+    padding: 40px 30px 50px;
     &.shrink {
-      padding: 20px 0;
+      padding: 20px 30px;
       .logo {
         .icon {
           width: 56px;
@@ -30,6 +30,10 @@
         }
       }
     }
+  }
+
+  .wrap {
+    padding: 0 10px;
   }
 
   .logo {
@@ -95,4 +99,21 @@
     display: none; // show in _home.scss
     position: absolute;
   }
+}
+
+// Different logo color for different page cats
+@mixin siteSubTitleColor($color) {
+  .site-header {
+    .logo {
+      .sub-title {
+        color: $color;
+      }
+    }
+  }
+}
+body.architecture {
+  @include siteSubTitleColor($blue);
+}
+body.interior-design {
+  @include siteSubTitleColor($red);
 }

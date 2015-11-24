@@ -43,6 +43,20 @@ function get_top_ancestor($post){
 }
 
 /**
+ * Get top parent cat slug
+ */
+function get_top_parent_cat($post){
+  $return = false; 
+  $categories = wp_get_post_terms($post->ID, 'project_category');
+  if ($categories) {
+    $parent_cat = $categories[0];
+    $cat_class= $parent_cat->slug;
+    $return = $cat_class;
+  }
+  return $return;
+}
+
+/**
  * Get first term for post
  */
 function get_first_term($post, $taxonomy='category') {

@@ -318,7 +318,7 @@ function get_project_blocks($post) {
   $project_blocks = get_post_meta($post->ID, '_cmb2_project_blocks', true);
   if ($project_blocks) {
     foreach ($project_blocks as $project_block) {
-      $output .= '<div class="project-block image-layout-' . $project_block['image_layout'] . (!empty($project_block['emphasis_block']) ? ' emphasis-block' : '') . '">';
+      $output .= '<div class="project-block' . (!empty($project_block['images']) ? ' image-layout-' . $project_block['image_layout'] : '') . (!empty($project_block['emphasis_block']) ? ' emphasis-block' : '') . '">';
 
       if (!empty($project_block['images'])) {
         foreach ($project_block['images'] as $image) {
@@ -337,11 +337,11 @@ function get_project_blocks($post) {
       }
 
       if (!empty($project_block['addl_info'])) {
-        $output .= '<div class="addl-info user-content">' . apply_filters('the_content', $project_block['addl_info']) . '</div>';
+        $output .= '<div class="addl-info user-content column -left">' . apply_filters('the_content', $project_block['addl_info']) . '</div>';
       }
 
       if (!empty($project_block['body'])) {
-        $output .= '<div class="body user-content">' . apply_filters('the_content', $project_block['body']) . '</div>';
+        $output .= '<div class="body user-content column -right">' . apply_filters('the_content', $project_block['body']) . '</div>';
       }
 
       $output .= '</div>';

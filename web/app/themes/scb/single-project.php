@@ -57,9 +57,6 @@ endif;
         </div>
       </div>
 
-      <?= \Firebelly\PostTypes\Project\get_project_blocks($post); ?>
-
-
   <?php } else { ?>
 
     <div class="project-intro grid">
@@ -94,8 +91,10 @@ endif;
       </div>
     </div>
 
-    <?= \Firebelly\PostTypes\Project\get_project_blocks($post); ?>
-
   <?php } ?>
+
+  <div class="project-blocks">
+    <?= \Firebelly\PostTypes\Project\get_project_blocks($post); ?>
+  </div>
 
 </article>
