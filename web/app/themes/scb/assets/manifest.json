@@ -2,8 +2,14 @@
   "dependencies": {
     "main.js": {
       "files": [
-        "scripts/main.js"
+        "scripts/main.js",
+        "scripts/map.js"
       ],
+      "vendor": [
+        "bower_components/leaflet/dist/leaflet-src.js",
+        "bower_components/masonry/dist/masonry.pkgd.js"
+      ],
+      
       "main": true
     },
     "main.css": {

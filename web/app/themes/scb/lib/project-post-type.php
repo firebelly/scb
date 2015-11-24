@@ -120,12 +120,6 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true,
     'fields'        => array(
       array(
-        'name' => 'Location',
-        // 'desc' => '',
-        'id'   => $prefix . 'location',
-        'type' => 'text',
-      ),
-      array(
         'name' => 'Client',
         'desc' => '',
         'id'   => $prefix . 'client',
@@ -159,6 +153,28 @@ function metaboxes( array $meta_boxes ) {
           'horizontal' => __( 'Horizontal', 'cmb' ),
           'vertical'   => __( 'Vertical', 'cmb' ),
         ),
+      ),
+    ),
+  );
+
+  $meta_boxes['project_location'] = array(
+    'id'            => 'project_location',
+    'title'         => __( 'Project Location', 'cmb2' ),
+    'object_types'  => array( 'project', ),
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    'fields'        => array(
+      array(
+        'name' => 'Location Title',
+        'desc' => 'e.g. Tempe, Arizona — shown on single Project pages',
+        'id'   => $prefix . 'location',
+        'type' => 'text',
+      ),
+      array(
+          'name'    => 'Address',
+          'id'      => $prefix . 'address',
+          'type'    => 'address',
       ),
     ),
   );
@@ -252,6 +268,11 @@ function metaboxes( array $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+/**
+ * Geocode address and save in custom fields
+ */
+add_action('save_post_project', '\Firebelly\Map\geocode_address', 20, 2);
 
 /**
  * Get num active Projects
