@@ -18,7 +18,7 @@ body {
   font-feature-settings: "kern" 1;
 
   @include min-screen($breakpoint-medium) {
-    padding-top: 164px;
+    padding-top: 174px;
   }
 }
 
