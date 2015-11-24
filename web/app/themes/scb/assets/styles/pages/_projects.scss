@@ -36,7 +36,8 @@
   .main {
     background: $white;
     @include min-screen($breakpoint-medium) {
-      margin-left: 100px;
+      margin-right: -40px;
+      margin-left: $column;
 
       .column {
         &.-left {
@@ -54,6 +55,32 @@
   }
 
   .project {
+    padding-bottom: 20px;
+
+    @include min-screen($breakpoint-medium) {
+      padding-bottom: 40px;
+    }
+
+    // Columns
+    .column {
+      // special column vars here
+      $project-col: 100% * 1/11;
+      $project-padding: (10% * 11/12);
+
+      @include min-screen($breakpoint-medium) {      
+        &.-left {
+          width: 5 * $project-col;
+          padding: 0 $project-padding 0 calc($project-padding + 40px);
+        }
+        &.-right {
+          width: 6 * $project-col;
+        }
+      }
+    }
+    // Adjusted wrap for inner project grid
+    .wrap {
+      padding-right: 40px;
+    }
 
     // Horizontal orientation
     &.horizontal {
@@ -64,8 +91,11 @@
       }
 
       .project-intro {
-        .column.-left {
-          padding: 0 $column;
+
+        @include min-screen($breakpoint-medium) {        
+          .column.-left {
+            padding: 0 $project-padding;
+          }
         }
       }
 
@@ -87,14 +117,19 @@
           &.-right {
             padding: 0 20px;
           }
+        }
 
-          @include min-screen($breakpoint-medium) {
-            &.-left {
-              width: 44.8275862%;
-            }
+        @include min-screen($breakpoint-medium) {
+          padding-right: 40px;
+          
+          .image-wrap {
+            border-right: 20px solid $white;
+          }
+
+          .column {
             &.-right {
-              width: 55.1724138%;
-              padding: 60px 40px 0 20px;
+              background: $white;
+              padding: 60px 0 0 0;
             }
           }
         }
@@ -128,7 +163,6 @@
     }
 
     .article-title {
-      color: $blue;
       @include h1();
       margin-bottom: 30px;
       @include min-screen($breakpoint-medium) {
@@ -166,18 +200,117 @@
     @include h2();
   }
 }
+// Project color mixin
+@mixin projectCatColor($color) {
+  .project {
+    .article-title {
+      color: $color;
+    }
+    .stat-number {
+      color: $color;
+    }
+    a {
+      &:hover, &:focus {
+        color: $color;
+      }
+    }
+  }
+  .project-blocks {
+    .project-block {
+      &.emphasis-block {
+        blockquote {
+          &:before {
+            background: $color;
+          }
+        }
+      }
+    }
+  }
+}
+// Project category color changes
+.single-project.architecture {
+  @include projectCatColor($blue);
+}
+.single-project.interior-design {
+  @include projectCatColor($red);
+}
 
 // Project Blocks
 .project-blocks {
-  .page-block {
+  .project-block {
+    @include clearfix();
+    margin: 20px 20px 0;
+
+    @include min-screen($breakpoint-medium) {
+      margin: 40px 40px 0;
+    }
 
     // Emphasized block
-    .emphasis-block {
+    &.emphasis-block {
       color: $white;
+      overflow: hidden;
       background: $gray;
+      padding: 40px 20px;
+
       h3 {
         color: $black;
         @include sc();
+      }
+
+      blockquote {
+        &:before {
+          top: 1.2em;
+          width: 10px;
+          height: 2px;
+          left: -20px;
+          content: '';
+          position: absolute;
+        }
+      }
+
+      @include min-screen($breakpoint-medium) {
+        padding: 80px 9.16666667%;
+
+        .column {
+          padding: 0;
+          float: none;
+          width: 100%;
+        }
+
+        .user-content > * {
+          padding: 0 20px;
+        }
+
+        blockquote {
+          &:before {
+            left: auto;
+            width: 20%;
+            right: 100%;
+          }
+        }
+      }
+    }
+
+    .addl-info {
+
+      h3 {
+        @include sc();
+        margin-bottom: 20px;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          color: $gray;
+          margin-top: 20px;
+          &:first-of-type {
+            margin-top: 0;
+          }
+          a {
+            color: inherit;
+          }
+        }
       }
     }
 

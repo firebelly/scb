@@ -18,7 +18,19 @@ body {
   font-feature-settings: "kern" 1;
 
   @include min-screen($breakpoint-medium) {
-    padding-top: 174px;
+    padding: 174px 30px 0;
+  }
+
+  // Body color classes
+  &.architecture {
+    a {
+      color: $blue;
+    }
+  }
+  &.interior-design {
+    a {
+      color: $red;
+    }
   }
 }
 
@@ -27,7 +39,7 @@ h1, h2, h3, h4, h5 {
   font-weight: normal;
 }
 
-p {
+p, ul {
   font-size: 14px;
   font-weight: 200;
   line-height: 1.428571429em;
@@ -84,13 +96,18 @@ address {
   @include clearfix();
 }
 
+.site-container {
+  @include min-screen($breakpoint-medium) {
+    padding: 0 10px;
+  }
+}
+
 .wrap {
+  padding: 0;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
   position: relative;
   @include clearfix();
   @include min-screen($breakpoint-medium) {
-    padding: 0 40px;
   }
 }

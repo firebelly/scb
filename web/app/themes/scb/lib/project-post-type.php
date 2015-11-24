@@ -316,11 +316,11 @@ function get_project_blocks($post) {
       }
 
       if (!empty($project_block['addl_info'])) {
-        $output .= '<div class="addl-info user-content">' . apply_filters('the_content', $project_block['addl_info']) . '</div>';
+        $output .= '<div class="addl-info user-content column -left">' . apply_filters('the_content', $project_block['addl_info']) . '</div>';
       }
 
       if (!empty($project_block['body'])) {
-        $output .= '<div class="body user-content">' . apply_filters('the_content', $project_block['body']) . '</div>';
+        $output .= '<div class="body user-content column -right">' . apply_filters('the_content', $project_block['body']) . '</div>';
       }
 
       $output .= '</div>';

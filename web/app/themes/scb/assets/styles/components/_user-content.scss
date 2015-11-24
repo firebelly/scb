@@ -31,4 +31,12 @@
   }
   a {
   }
+  blockquote {
+    margin: 0;
+    position: relative;
+    p {
+      margin: 0;
+      @include h2();
+    }
+  }
 }

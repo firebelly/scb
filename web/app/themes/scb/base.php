@@ -19,7 +19,7 @@ $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
       do_action('get_header');
       get_template_part('templates/header');
     ?>
-    <div class="container" role="document">
+    <div class="site-container" role="document">
       <div class="content row">
         <main class="main" role="main">
           <?php include Wrapper\template_path(); ?>
