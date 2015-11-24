@@ -2,13 +2,14 @@
 
 use Roots\Sage\Config;
 use Roots\Sage\Wrapper;
+$parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
 
 ?>
 
 <!doctype html>
 <html class="no-js" <?php language_attributes(); ?>>
   <?php get_template_part('templates/head'); ?>
-  <body <?php body_class(); ?>>
+  <body <?php body_class($parent_cat); ?>>
     <!--[if lt IE 9]>
       <div class="alert alert-warning">
         <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'sage'); ?>
