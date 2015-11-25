@@ -26,6 +26,7 @@ $firebelly_includes = [
   'lib/fb_assets.php',                 // FB assets
   'lib/media.php',                     // FB media
   'lib/ajax.php',                      // AJAX functions
+  'lib/map.php',                       // Map functions
   'lib/custom-functions.php',          // Rando utility functions and miscellany
   'lib/project-post-type.php',         // Project post type
   'lib/person-post-type.php',          // Person post type

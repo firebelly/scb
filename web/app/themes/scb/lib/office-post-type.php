@@ -147,31 +147,7 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 /**
  * Geocode address and save in custom fields
  */
-function geocode_address($post_id, $post='') {
-  $address = get_post_meta($post_id, '_cmb2_address', 1);
-  $address = wp_parse_args($address, array(
-      'address-1' => '',
-      'address-2' => '',
-      'city'      => '',
-      'state'     => '',
-      'zip'       => '',
-   ));
-
-  if (!empty($address['address-1'])):
-    $address_combined = $address['address-1'] . ' ' . $address['address-1'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
-    $request_url = "http://maps.google.com/maps/api/geocode/xml?sensor=false&address=" . urlencode($address_combined);
-
-    $xml = simplexml_load_file($request_url);
-    $status = $xml->status;
-    if(strcmp($status, 'OK')===0):
-      $lat = $xml->result->geometry->location->lat;
-      $lng = $xml->result->geometry->location->lng;
-      update_post_meta($post_id, '_cmb2_lat', (string)$lat);
-      update_post_meta($post_id, '_cmb2_lng', (string)$lng);
-    endif;
-  endif;
-}
-add_action('save_post_office', __NAMESPACE__ . '\\geocode_address', 20, 2);
+add_action('save_post_office', '\Firebelly\Map\geocode_address', 20, 2);
 
 /**
  * Get num active Offices
