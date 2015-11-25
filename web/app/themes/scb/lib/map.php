@@ -8,6 +8,14 @@
 namespace Firebelly\Map;
 
 /**
+ * Add map token variable to global js scope
+ */
+function mapbox_key() {
+  wp_localize_script('sage_js', 'MAPBOX_KEY', getenv('MAPBOX_KEY'));
+}
+add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\mapbox_key', 100);
+
+/**
  * Geocode address and save in custom fields
  */
 function geocode_address($post_id) {

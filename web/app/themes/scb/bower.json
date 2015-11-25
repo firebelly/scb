@@ -17,7 +17,7 @@
     "fastclick": "~1.0.6",
     "jquery-sortable": "~0.9.13",
     "boomsvgloader": "~0.0.2",
-    "leaflet": "~0.7.7"
+    "mapbox.js": "~2.2.3"
   },
   "overrides": {
     "modernizr": {
