@@ -26,11 +26,11 @@
       text-decoration: none;
       @include underline($black);
       &:hover, &:focus {
-        &::before {
-          height: 100%;
+        &:before {
+          height: 1.1em;
         }
       }
-      &::before {
+      &:before {
         left: 0;
         height: 0;
         z-index: -1;
@@ -121,3 +121,4 @@
     @include min-screen($breakpoint-medium) {}
   }
 }
+

@@ -1,0 +1,98 @@
+// Site-wide color changes based on body class
+
+@mixin colorScheme($color) {
+  // Header
+  .site-header {
+    .logo {
+      .sub-title {
+        color: $color;
+      }
+    }
+  }
+
+  // Nav
+  .site-nav {
+    .nav {
+      a:after {
+        background: $color;
+      }
+    }
+
+    .nav-actions {
+      a {
+        &:hover, &:focus {
+          .icon {
+            fill: $color;
+          }
+        }
+      }
+    }
+  }
+
+  // UI Components
+  .highlight-hover {
+    @include underline($color);
+    &:hover, &:focus {
+      &::after {
+        height: .75em;
+        bottom: .35em;
+      }
+    }
+  }
+  .plus-button {
+    .plus {
+      &:before,
+      &:after {
+        background: $color;
+      }
+    }
+  }
+
+  // Project pages
+  .project {
+    .article-title {
+      color: $color;
+    }
+    .stat-number {
+      color: $color;
+    }
+    a {
+      &:hover, &:focus {
+        color: $color;
+      }
+    }
+  }
+  .project-blocks {
+    .project-block {
+      &.emphasis-block {
+        blockquote {
+          &:before {
+            background: $color;
+          }
+        }
+      }
+    }
+  }
+
+  // Footer
+  .site-footer {
+    .social {
+      a:before {
+        background: $color;
+      }
+    }
+  }
+}
+
+// Custom color based on body class
+body {
+  &.architecture {
+    @include colorScheme($blue);
+  }
+  &.interior-design {
+    @include colorScheme($red);
+  }
+  &.planning {
+    @include colorScheme($yellow);
+  }
+}
