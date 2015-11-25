@@ -47,6 +47,11 @@
       }
     }
   }
+  .stat {
+    .stat-number {
+      color: $color;
+    }
+  }
 
   // Project pages
   .project {
@@ -64,7 +69,8 @@
   }
   .project-blocks {
     .project-block {
-      &.emphasis-block {
+      &.emphasis-block,
+      .intro {
         blockquote {
           &:before {
             background: $color;

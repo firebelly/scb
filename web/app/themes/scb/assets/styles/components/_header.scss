@@ -77,9 +77,13 @@
   bottom: 0;
   width: auto;
   right: 30px;
-  display: flex;
+  display: none;
   margin-left: -10px;
   position: absolute;
+  @include min-screen($breakpoint-medium) {
+    display: flex;
+  }
+
   .bar {
     height: 2px;
     margin: 0 10px;

@@ -216,6 +216,7 @@ function metaboxes( array $meta_boxes ) {
       2 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-2.png">', 
       3 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-3.png">', 
       4 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-4.png">', 
+      5 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-5.png">', 
     ]
   ) );
 
@@ -318,11 +319,12 @@ function get_project_blocks($post) {
   $project_blocks = get_post_meta($post->ID, '_cmb2_project_blocks', true);
   if ($project_blocks) {
     foreach ($project_blocks as $project_block) {
-      $output .= '<div class="project-block' . (!empty($project_block['images']) ? ' image-layout-' . $project_block['image_layout'] : '') . (!empty($project_block['emphasis_block']) ? ' emphasis-block' : '') . '">';
+      $output .= '<div class="project-block' . (!empty($project_block['images']) ? ' image-block image-layout-' . $project_block['image_layout'] : '') . (!empty($project_block['emphasis_block']) ? ' emphasis-block' : '') . (!empty($project_block['stat_number']) ? ' has-stat' : '') . '">';
 
       if (!empty($project_block['images'])) {
+        $i = 1;
         foreach ($project_block['images'] as $image) {
-          $output .= '<div class="image"><img src="' . $image . '"></div>';
+          $output .= '<div class="image image-' . $i++ . '"><img src="' . $image . '"></div>';
         }
       }
       if (!empty($project_block['stat_number']) || !empty($project_block['stat_label'])) {
