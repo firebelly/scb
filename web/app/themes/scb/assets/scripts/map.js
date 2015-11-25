@@ -138,29 +138,14 @@ SCB.Map = (function() {
 			// initialize marker
 			marker = new L.Marker(latlng, { icon: icon });
 
-			// retrieve ich template for marker popup
-			popup_content = ich.popup(m, true);
-
-			marker.bindPopup(popup_content, _popup_options);
+			// retrieve icanhaz template for marker popup
+			// popup_content = ich.popup(m, true);
+			// marker.bindPopup(popup_content, _popup_options);
 
 			ms.push(marker);
 
 			// if initial load of map, do some set up
 			if (!_map_loaded) {
-				// pre-activate all goal filters
-				// if ($.inArray(m.gt_community_goal_desc, _filters['goals']) === -1) {
-				// 	_filters['goals'].push(m.gt_community_goal_desc);
-				// }
-
-				// store available year ranges
-				// if (m.year > _year_high) {
-				// 	_year_high = m.year;
-				// }
-
-				// if (m.year < _year_low) {
-				// 	_year_low = m.year;
-				// }
-
 				// add the markers lat/lng to the bounds
 				bounds.extend(latlng);
 			}

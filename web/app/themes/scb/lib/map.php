@@ -20,19 +20,19 @@ function geocode_address($post_id) {
       'zip'       => '',
    ));
 
-  if (!empty($address['address-1'])):
+  if (!empty($address['address-1'])) {
     $address_combined = $address['address-1'] . ' ' . $address['address-1'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
     $request_url = "http://maps.google.com/maps/api/geocode/xml?sensor=false&address=" . urlencode($address_combined);
 
     $xml = simplexml_load_file($request_url);
     $status = $xml->status;
-    if(strcmp($status, 'OK')===0):
+    if(strcmp($status, 'OK')===0) {
       $lat = $xml->result->geometry->location->lat;
       $lng = $xml->result->geometry->location->lng;
       update_post_meta($post_id, '_cmb2_lat', (string)$lat);
       update_post_meta($post_id, '_cmb2_lng', (string)$lng);
-    endif;
-  endif;
+    }
+  }
 }
 
 /**
@@ -52,7 +52,7 @@ function get_map_points() {
     $lat = get_post_meta($post->ID, '_cmb2_lat', true);
     $lng = get_post_meta($post->ID, '_cmb2_lng', true);
     $url = get_permalink($post->ID);
-    $desc = $post->post_content; // todo: get appropriate content for desc for various post types
+    $desc = \Firebelly\Utils\get_excerpt($post);
     $output .= '<span class="map-point" data-url="' . $url . '" data-lat="' . $lat . '" data-lng="' . $lng . '" data-title="' . $post->post_title . '" data-desc="' . $desc . '" data-id="' . $post->ID . '"></span>';
   }
   return $output;
