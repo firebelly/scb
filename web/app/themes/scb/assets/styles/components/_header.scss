@@ -100,20 +100,3 @@
     position: absolute;
   }
 }
-
-// Different logo color for different page cats
-@mixin siteSubTitleColor($color) {
-  .site-header {
-    .logo {
-      .sub-title {
-        color: $color;
-      }
-    }
-  }
-}
-body.architecture {
-  @include siteSubTitleColor($blue);
-}
-body.interior-design {
-  @include siteSubTitleColor($red);
-}

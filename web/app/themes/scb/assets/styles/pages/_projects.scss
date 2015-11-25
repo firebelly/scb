@@ -25,6 +25,10 @@
   }
 }
 
+// special column vars for the project view
+$project-col: 100% * 1/11;
+$project-padding: (10% * 11/12);
+
 // Single Project Page
 .single-project {
   background: $gray-light;
@@ -63,14 +67,11 @@
 
     // Columns
     .column {
-      // special column vars here
-      $project-col: 100% * 1/11;
-      $project-padding: (10% * 11/12);
 
       @include min-screen($breakpoint-medium) {      
         &.-left {
           width: 5 * $project-col;
-          padding: 0 $project-padding 0 calc($project-padding + 40px);
+          padding: 0 $project-padding 0 calc(9.166666667% + 40px);
         }
         &.-right {
           width: 6 * $project-col;
@@ -79,7 +80,10 @@
     }
     // Adjusted wrap for inner project grid
     .wrap {
-      padding-right: 40px;
+      padding: 0 20px;
+      @include min-screen($breakpoint-medium) {
+        padding: 0 40px 0 0;
+      }
     }
 
     // Horizontal orientation
@@ -88,15 +92,6 @@
         height: 0;
         width: 100%;
         padding-bottom: 62.8571429%;
-      }
-
-      .project-intro {
-
-        @include min-screen($breakpoint-medium) {        
-          .column.-left {
-            padding: 0 $project-padding;
-          }
-        }
       }
 
       .project-meta {
@@ -176,11 +171,6 @@
       padding-top: 30px;
     }
 
-    h3 {
-      @include sc();
-      margin-bottom: 20px;
-    }
-
     h4 {
       color: $gray;
       margin-bottom: 60px;
@@ -200,40 +190,6 @@
     @include h2();
   }
 }
-// Project color mixin
-@mixin projectCatColor($color) {
-  .project {
-    .article-title {
-      color: $color;
-    }
-    .stat-number {
-      color: $color;
-    }
-    a {
-      &:hover, &:focus {
-        color: $color;
-      }
-    }
-  }
-  .project-blocks {
-    .project-block {
-      &.emphasis-block {
-        blockquote {
-          &:before {
-            background: $color;
-          }
-        }
-      }
-    }
-  }
-}
-// Project category color changes
-.single-project.architecture {
-  @include projectCatColor($blue);
-}
-.single-project.interior-design {
-  @include projectCatColor($red);
-}
 
 // Project Blocks
 .project-blocks {
@@ -242,7 +198,14 @@
     margin: 20px 20px 0;
 
     @include min-screen($breakpoint-medium) {
-      margin: 40px 40px 0;
+      margin: 40px 40px 0 0;
+    }
+
+    .user-content {
+      h3 {
+        @include sc();
+        margin-bottom: 20px;
+      }
     }
 
     // Emphasized block
@@ -269,7 +232,8 @@
       }
 
       @include min-screen($breakpoint-medium) {
-        padding: 80px 9.16666667%;
+        margin-left: 40px;
+        padding: 80px $project-padding;
 
         .column {
           padding: 0;
@@ -277,15 +241,11 @@
           width: 100%;
         }
 
-        .user-content > * {
-          padding: 0 20px;
-        }
-
         blockquote {
           &:before {
             left: auto;
             width: 20%;
-            right: 100%;
+            right: calc(100% + 20px);
           }
         }
       }
