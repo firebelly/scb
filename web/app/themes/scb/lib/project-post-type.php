@@ -239,8 +239,9 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Intro',
-    'id'   => 'intro',
+    'name' => 'Full-width Text',
+    'desc' => 'Full-width text area (no columns); e.g. blockquotes',
+    'id'   => 'full_width_text',
     'type' => 'wysiwyg',
     'options' => array(
       'textarea_rows' => 4,
@@ -248,9 +249,9 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Additional Info',
-    'desc' => 'e.g. stats, awards',
-    'id'   => 'addl_info',
+    'name' => 'Left Column Text',
+    'desc' => 'e.g. stats, awards; always paired with Right Column Text',
+    'id'   => 'left_column_text',
     'type' => 'wysiwyg',
     'options' => array(
       'textarea_rows' => 4,
@@ -258,8 +259,9 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Body',
-    'id'   => 'body',
+    'name' => 'Right Column Text',
+    'desc' => 'e.g. design; always paired with Left Column Text',
+    'id'   => 'right_column_text',
     'type' => 'wysiwyg',
     'options' => array(
       'textarea_rows' => 4,
@@ -334,16 +336,16 @@ function get_project_blocks($post) {
         $output .= '</div>';
       }
 
-      if (!empty($project_block['intro'])) {
-        $output .= '<div class="intro user-content">' . apply_filters('the_content', $project_block['intro']) . '</div>';
+      if (!empty($project_block['full_width_text'])) {
+        $output .= '<div class="full-width-text user-content">' . apply_filters('the_content', $project_block['full_width_text']) . '</div>';
       }
 
-      if (!empty($project_block['addl_info'])) {
-        $output .= '<div class="addl-info user-content column -left">' . apply_filters('the_content', $project_block['addl_info']) . '</div>';
+      if (!empty($project_block['left_column_text'])) {
+        $output .= '<div class="left-column-text user-content column -left">' . apply_filters('the_content', $project_block['left_column_text']) . '</div>';
       }
 
-      if (!empty($project_block['body'])) {
-        $output .= '<div class="body user-content column -right">' . apply_filters('the_content', $project_block['body']) . '</div>';
+      if (!empty($project_block['right_column_text'])) {
+        $output .= '<div class="right-column-text user-content column -right">' . apply_filters('the_content', $project_block['right_column_text']) . '</div>';
       }
 
       $output .= '</div>';

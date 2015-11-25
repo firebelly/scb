@@ -226,18 +226,18 @@ $project-padding: (10% * 11/12);
     }
 
     .user-content {
-      h3 {
+      h2, h3 {
         @include sc();
         margin-bottom: 20px;
       }
     }
 
     // Emphasized block
-    .intro {
+    .full-width-text {
       overflow: hidden;
       padding: 0 20px;
 
-      h3 {
+      h2, h3 {
         color: $black;
         @include sc();
       }
@@ -283,7 +283,7 @@ $project-padding: (10% * 11/12);
         margin-left: 40px;
         margin-right: 40px;
 
-        .intro {
+        .full-width-text {
           margin-left: 0;
         }
 
@@ -298,7 +298,7 @@ $project-padding: (10% * 11/12);
         }
       }
 
-      .addl-info {
+      .left-column-text {
         ul {
           li {
             color: $white;
@@ -307,15 +307,15 @@ $project-padding: (10% * 11/12);
       }
 
       .user-content {
-        h3 {
+        h2, h3 {
           color: $black;
         }
       }
     }
 
-    .addl-info {
+    .left-column-text {
 
-      h3 {
+      h2, h3 {
         @include sc();
         margin-bottom: 20px;
       }
