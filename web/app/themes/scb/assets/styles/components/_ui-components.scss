@@ -51,3 +51,15 @@
     }
   }
 }
+
+// Stats
+.stat {
+  text-align: center;
+  .stat-number {
+    @include lazer();
+    color: $brand-primary;
+  }
+  .stat-label {
+    @include sc();
+  }
+}

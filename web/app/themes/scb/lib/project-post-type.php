@@ -216,6 +216,7 @@ function metaboxes( array $meta_boxes ) {
       2 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-2.png">', 
       3 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-3.png">', 
       4 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-4.png">', 
+      5 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-5.png">', 
     ]
   ) );
 
@@ -238,8 +239,9 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Intro',
-    'id'   => 'intro',
+    'name' => 'Full-width Text',
+    'desc' => 'Full-width text area (no columns); e.g. blockquotes',
+    'id'   => 'full_width_text',
     'type' => 'wysiwyg',
     'options' => array(
       'textarea_rows' => 4,
@@ -247,9 +249,9 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Additional Info',
-    'desc' => 'e.g. stats, awards',
-    'id'   => 'addl_info',
+    'name' => 'Left Column Text',
+    'desc' => 'e.g. stats, awards; always paired with Right Column Text',
+    'id'   => 'left_column_text',
     'type' => 'wysiwyg',
     'options' => array(
       'textarea_rows' => 4,
@@ -257,8 +259,9 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Body',
-    'id'   => 'body',
+    'name' => 'Right Column Text',
+    'desc' => 'e.g. design; always paired with Left Column Text',
+    'id'   => 'right_column_text',
     'type' => 'wysiwyg',
     'options' => array(
       'textarea_rows' => 4,
@@ -318,11 +321,12 @@ function get_project_blocks($post) {
   $project_blocks = get_post_meta($post->ID, '_cmb2_project_blocks', true);
   if ($project_blocks) {
     foreach ($project_blocks as $project_block) {
-      $output .= '<div class="project-block' . (!empty($project_block['images']) ? ' image-layout-' . $project_block['image_layout'] : '') . (!empty($project_block['emphasis_block']) ? ' emphasis-block' : '') . '">';
+      $output .= '<div class="project-block' . (!empty($project_block['images']) ? ' image-block image-layout-' . $project_block['image_layout'] : '') . (!empty($project_block['emphasis_block']) ? ' emphasis-block' : '') . (!empty($project_block['stat_number']) ? ' has-stat' : '') . '">';
 
       if (!empty($project_block['images'])) {
+        $i = 1;
         foreach ($project_block['images'] as $image) {
-          $output .= '<div class="image"><img src="' . $image . '"></div>';
+          $output .= '<div class="image image-' . $i++ . '"><img src="' . $image . '"></div>';
         }
       }
       if (!empty($project_block['stat_number']) || !empty($project_block['stat_label'])) {
@@ -332,16 +336,16 @@ function get_project_blocks($post) {
         $output .= '</div>';
       }
 
-      if (!empty($project_block['intro'])) {
-        $output .= '<div class="intro user-content">' . apply_filters('the_content', $project_block['intro']) . '</div>';
+      if (!empty($project_block['full_width_text'])) {
+        $output .= '<div class="full-width-text user-content">' . apply_filters('the_content', $project_block['full_width_text']) . '</div>';
       }
 
-      if (!empty($project_block['addl_info'])) {
-        $output .= '<div class="addl-info user-content column -left">' . apply_filters('the_content', $project_block['addl_info']) . '</div>';
+      if (!empty($project_block['left_column_text'])) {
+        $output .= '<div class="left-column-text user-content column -left">' . apply_filters('the_content', $project_block['left_column_text']) . '</div>';
       }
 
-      if (!empty($project_block['body'])) {
-        $output .= '<div class="body user-content column -right">' . apply_filters('the_content', $project_block['body']) . '</div>';
+      if (!empty($project_block['right_column_text'])) {
+        $output .= '<div class="right-column-text user-content column -right">' . apply_filters('the_content', $project_block['right_column_text']) . '</div>';
       }
 
       $output .= '</div>';

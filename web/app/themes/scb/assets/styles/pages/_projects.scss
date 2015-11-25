@@ -35,6 +35,9 @@ $project-padding: (10% * 11/12);
   
   .site-header {
     background: $gray-light;
+    .header-bars .bar {
+      background: $black;
+    }
   }
 
   .main {
@@ -144,6 +147,27 @@ $project-padding: (10% * 11/12);
           }
         }
       }
+
+      // Image layout mods
+      .project-blocks {
+        .project-block {
+          &.image-block {
+            &.image-layout-1 {
+              @include min-screen($breakpoint-medium) {              
+                .image-1 {
+                  flex-basis: 5 * $project-col;
+                }
+                .image-2 {
+                  flex-basis: 6 * $project-col;
+                }
+                .stat {
+                  width: 6 * $project-col;
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
     .image-wrap {
@@ -202,20 +226,18 @@ $project-padding: (10% * 11/12);
     }
 
     .user-content {
-      h3 {
+      h2, h3 {
         @include sc();
         margin-bottom: 20px;
       }
     }
 
     // Emphasized block
-    &.emphasis-block {
-      color: $white;
+    .full-width-text {
       overflow: hidden;
-      background: $gray;
-      padding: 40px 20px;
+      padding: 0 20px;
 
-      h3 {
+      h2, h3 {
         color: $black;
         @include sc();
       }
@@ -233,12 +255,13 @@ $project-padding: (10% * 11/12);
 
       @include min-screen($breakpoint-medium) {
         margin-left: 40px;
-        padding: 80px $project-padding;
+        padding: 0 $project-padding;
 
         .column {
           padding: 0;
-          float: none;
-          width: 100%;
+          &.-right {
+            margin-left: -30px;
+          }
         }
 
         blockquote {
@@ -250,10 +273,49 @@ $project-padding: (10% * 11/12);
         }
       }
     }
+    &.emphasis-block {
+      color: $white;
+      margin: 20px 0;
+      background: $gray;
+      padding: 40px 20px;
+      @include min-screen($breakpoint-medium) {
+        padding: 80px 0;
+        margin-left: 40px;
+        margin-right: 40px;
 
-    .addl-info {
+        .full-width-text {
+          margin-left: 0;
+        }
 
-      h3 {
+        .column {
+          &.-left {
+            padding-left: $project-padding;
+          }
+          &.-right {
+            margin-left: -20px;
+            padding-right: 20px;
+          }
+        }
+      }
+
+      .left-column-text {
+        ul {
+          li {
+            color: $white;
+          }
+        }
+      }
+
+      .user-content {
+        h2, h3 {
+          color: $black;
+        }
+      }
+    }
+
+    .left-column-text {
+
+      h2, h3 {
         @include sc();
         margin-bottom: 20px;
       }
@@ -270,6 +332,76 @@ $project-padding: (10% * 11/12);
           a {
             color: inherit;
           }
+        }
+      }
+    }
+
+    // Image block layouts
+    &.image-block {
+      position: relative;
+      &:not(.image-layout-5) {
+        margin: 20px;
+      }
+
+      @include min-screen($breakpoint-medium) {
+        display: flex;
+        &:not(.image-layout-5) {
+          margin: 40px;
+        }
+      }
+
+      .image {
+        margin-bottom: 20px;
+
+        img {
+          width: 100%;
+          vertical-align: top;
+        }
+      }
+
+      &.image-layout-1 {
+
+        @include min-screen($breakpoint-medium) {
+          margin-left: 0;
+          &.has-stat {
+            margin-bottom: 80px;
+          }
+
+          .image-1 {
+            padding-left: 40px;
+            flex-basis: 8 * $project-col;
+            border-right: 20px solid $white;
+          }
+          .image-2 {
+            flex-basis: 3 * $project-col;
+          }
+          .stat {
+            right: 0;
+            bottom: -60px;
+            position: absolute;
+            width: 3 * $project-col;
+            .stat-number {
+              font-size: 15vw;
+            }
+          }
+        }
+      }
+
+      // Full-width
+      &.image-layout-5 {
+        margin-right: 0;
+
+        @include min-screen($breakpoint-medium) {
+          display: block;
+        }
+        .image {
+          width: 100%;
+        }
+        .stat {
+          top: 50%;
+          right: $column;
+          position: absolute;
+          transform: translate(-40px, -50%);
         }
       }
     }
