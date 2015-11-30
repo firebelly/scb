@@ -340,12 +340,18 @@ function get_project_blocks($post) {
         $output .= '<div class="full-width-text user-content">' . apply_filters('the_content', $project_block['full_width_text']) . '</div>';
       }
 
-      if (!empty($project_block['left_column_text'])) {
-        $output .= '<div class="left-column-text user-content column -left">' . apply_filters('the_content', $project_block['left_column_text']) . '</div>';
-      }
+      if (!empty($project_block['left_column_text']) || !empty($project_block['right_column_text'])) {
+        $output .= '<div class="column-text-wrap">';
 
-      if (!empty($project_block['right_column_text'])) {
-        $output .= '<div class="right-column-text user-content column -right">' . apply_filters('the_content', $project_block['right_column_text']) . '</div>';
+          if (!empty($project_block['left_column_text'])) {
+            $output .= '<div class="left-column-text user-content column -left">' . apply_filters('the_content', $project_block['left_column_text']) . '</div>';
+          }
+
+          if (!empty($project_block['right_column_text'])) {
+            $output .= '<div class="right-column-text user-content column -right">' . apply_filters('the_content', $project_block['right_column_text']) . '</div>';
+          }
+
+        $output .= '</div>';
       }
 
       $output .= '</div>';
