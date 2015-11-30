@@ -3,33 +3,28 @@
  * Extra fields for Taxonomies
  */
 
-function taxonomy_metadata_cmb2_init() {
+/**
+ * Hook in and add a metabox to add fields to taxonomy terms (needs Wordpress 4.4)
+ */
+// function register_taxonomy_metabox() {
+//     $prefix = 'cmb2_term_';
 
-    // Including Taxonomy_MetaData_CMB2.php. Update to reflect your file structure
-    if ( ! class_exists( 'Taxonomy_MetaData_CMB2' ) ) {
-        require_once( __DIR__.'/Taxonomy_MetaData/Taxonomy_MetaData_CMB2.php' );
-    }
+//     /**
+//     * Metabox to add fields to categories and tags
+//     */
+//     $cmb_term = new_cmb2_box( array(
+//        'id'               => $prefix . 'edit',
+//        'title'            => __( 'Category Options', 'cmb2' ),
+//        'object_types'     => array( 'term' ), // Tells CMB2 to use term_meta vs post_meta
+//        'taxonomies'       => array( 'project_category' ), // Tells CMB2 which taxonomies should have these fields
+//        // 'new_term_section' => true, // Will display in the "Add New Category" section
+//     ) );
 
-    $metabox_id = 'cat_options';
-
-    /**
-     * Semi-standard CMB metabox/fields registration
-     */
-    $cmb = new_cmb2_box( array(
-        'id'           => $metabox_id,
-        'object_types' => array( 'key' => 'options-page', 'value' => array( 'unknown', ), ),
-    ) );
-
-    $cmb->add_field( array(
-        'name' => __( 'Color', 'taxonomy-metadata' ),
-        'desc' => __( 'Pick color for category', 'taxonomy-metadata' ),
-        'id'   => 'color', // no prefix needed since the options are one option array.
-        'type' => 'colorpicker',
-    ) );
-
-    /**
-     * Instantiate our taxonomy meta class
-     */
-    $cats = new Taxonomy_MetaData_CMB2( 'project_category', $metabox_id, __( 'Category Settings', 'taxonomy-metadata' ) );
-}
-add_action( 'cmb2_init', 'taxonomy_metadata_cmb2_init' );
+//     $cmb_term->add_field( array(
+//        'name' => __( 'Color', 'cmb2' ),
+//        'desc' => __( 'Pick color for category', 'cmb2' ),
+//        'id'   => $prefix . 'color',
+//        'type' => 'colorpicker',
+//     ) );
+// }
+// add_action( 'cmb2_admin_init', __NAMESPACE__ . '\register_taxonomy_metabox' );
