@@ -45,7 +45,7 @@ end
 # GULP! compile production assets and copy to server, then UNGULP! to dev mode
 # borrowing from https://gist.github.com/christhesoul/3c38053971a7b786eff2 & https://gist.github.com/nateroling/22b51c0cfbe210b00698
 
-set :theme_path, Pathname.new('web/app/themes/#{fetch(:theme)}')
+set :theme_path, Pathname.new('web/app/themes/').join(fetch(:theme))
 set :local_app_path, Pathname.new(File.dirname(__FILE__)).join('../')
 set :local_theme_path, fetch(:local_app_path).join(fetch(:theme_path))
 
