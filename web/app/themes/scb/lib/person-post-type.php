@@ -148,6 +148,23 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['person_pdf'] = array(
+    'id'            => 'person_pdf',
+    'title'         => __( 'Collection PDF', 'cmb2' ),
+    'object_types'  => array( 'person', ),
+    'context'       => 'side',
+    'priority'      => 'low',
+    'show_names'    => false,
+    'fields'        => array(
+      array(
+          'name'    => 'PDF',
+          // 'desc'    => 'Used when generating Collections',
+          'id'      => $prefix . 'pdf',
+          'type'    => 'file',
+      ),
+    ),
+  );
+
   $meta_boxes['related_office'] = array(
     'id'            => 'related_office',
     'title'         => __( 'Related Office', 'cmb2' ),

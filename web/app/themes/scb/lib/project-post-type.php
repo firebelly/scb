@@ -37,7 +37,7 @@ function post_type() {
     'label'               => 'project',
     'description'         => 'Projects',
     'labels'              => $labels,
-    'supports'            => array( 'title', 'editor', 'thumbnail', ),
+    'supports'            => array( 'title', 'thumbnail', ),
     'hierarchical'        => false,
     'public'              => true,
     'show_ui'             => true,
@@ -134,15 +134,15 @@ function metaboxes( array $meta_boxes ) {
           'textarea_rows' => 8,
         ),
       ),
-      array(
-        'name' => 'Additional Info',
-        'desc' => 'e.g. stats, awards',
-        'id'   => $prefix . 'addl_info',
-        'type' => 'wysiwyg',
-        'options' => array(
-          'textarea_rows' => 8,
-        ),
-      ),
+      // array(
+      //   'name' => 'Additional Info',
+      //   'desc' => 'e.g. stats, awards',
+      //   'id'   => $prefix . 'addl_info',
+      //   'type' => 'wysiwyg',
+      //   'options' => array(
+      //     'textarea_rows' => 8,
+      //   ),
+      // ),
       array(
         'name' => 'Project Layout Orientation',
         'desc' => 'Determines layout based on primary project photos',
@@ -179,12 +179,29 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['project_pdf'] = array(
+    'id'            => 'project_pdf',
+    'title'         => __( 'Collection PDF', 'cmb2' ),
+    'object_types'  => array( 'project', ),
+    'context'       => 'side',
+    'priority'      => 'low',
+    'show_names'    => false,
+    'fields'        => array(
+      array(
+          'name'    => 'PDF',
+          // 'desc'    => 'Used when generating Collections',
+          'id'      => $prefix . 'pdf',
+          'type'    => 'file',
+      ),
+    ),
+  );
+
   /**
    * Repeating blocks
    */
   $cmb_group = new_cmb2_box( array(
     'id'           => $prefix . 'metabox',
-    'title'        => __( 'Extra Project Detail Blocks', 'cmb2' ),
+    'title'        => __( 'Project Detail Blocks', 'cmb2' ),
     'priority'      => 'low',
     'object_types' => array( 'project', ),
   ) );
@@ -192,12 +209,12 @@ function metaboxes( array $meta_boxes ) {
   $group_field_id = $cmb_group->add_field( array(
     'id'          => $prefix . 'project_blocks',
     'type'        => 'group',
-    // 'description' => __( 'Note that you must be in Text mode to reorder the Page Blocks', 'cmb' ),
+    'description' => __( 'Note that you must switch Text mode and refresh to reorder the Project Blocks', 'cmb' ),
     'options'     => array(
         'group_title'   => __( 'Block {#}', 'cmb' ),
         'add_button'    => __( 'Add Another Block', 'cmb' ),
         'remove_button' => __( 'Remove Block', 'cmb' ),
-        // 'sortable'      => true, // beta
+        'sortable'      => true, // beta
     ),
   ) );
 
