@@ -184,7 +184,7 @@ function metaboxes( array $meta_boxes ) {
    */
   $cmb_group = new_cmb2_box( array(
     'id'           => $prefix . 'metabox',
-    'title'        => __( 'Extra Project Detail Blocks', 'cmb2' ),
+    'title'        => __( 'Project Detail Blocks', 'cmb2' ),
     'priority'      => 'low',
     'object_types' => array( 'project', ),
   ) );
@@ -192,7 +192,7 @@ function metaboxes( array $meta_boxes ) {
   $group_field_id = $cmb_group->add_field( array(
     'id'          => $prefix . 'project_blocks',
     'type'        => 'group',
-    'description' => __( 'Note that you must switch Text mode and refresh to reorder the Page Blocks', 'cmb' ),
+    'description' => __( 'Note that you must switch Text mode and refresh to reorder the Project Blocks', 'cmb' ),
     'options'     => array(
         'group_title'   => __( 'Block {#}', 'cmb' ),
         'add_button'    => __( 'Add Another Block', 'cmb' ),
