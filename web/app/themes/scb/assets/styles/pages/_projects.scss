@@ -385,6 +385,87 @@ $project-padding: (10% * 11/12);
             }
           }
         }
+
+      }
+
+      &.image-layout-2 {
+
+        @include min-screen($breakpoint-medium) {
+          margin-left: 0;
+          flex-wrap: wrap;
+
+          .image-1 {
+            flex-basis: 100%;
+            padding-left: 40px;
+          }
+
+          .image-2 {
+            padding-left: 40px;
+            flex-basis: 5 * $project-col;
+            border-right: 20px solid $white;
+          }
+
+          .image-3 {
+            flex-basis: 6 * $project-col;
+          }
+
+        }
+
+      }
+
+      &.image-layout-3 {
+
+        @include min-screen($breakpoint-medium) {
+          margin-left: 0;
+          flex-wrap: wrap;
+
+          .image-1 {
+            padding-left: 40px;
+            flex-basis: 5 * $project-col;
+            border-right: 20px solid $white;
+          }
+
+          .image-2 {
+            flex-basis: 6 * $project-col;
+          }
+
+          .image-3 {
+            flex-basis: 100%;
+            padding-left: 40px;
+          }
+
+        }
+
+      }
+
+      &.image-layout-4 {
+
+        @include min-screen($breakpoint-medium) {
+          margin-left: 0;
+          flex-wrap: wrap;
+
+          .image-1 {
+            padding-left: 40px;
+            flex-basis: 5 * $project-col;
+            border-right: 20px solid $white;
+          }
+
+          .image-2 {
+            flex-basis: 6 * $project-col;
+          }
+
+          .image-3 {
+            padding-left: 40px;
+            flex-basis: 6 * $project-col;
+            border-right: 20px solid $white;
+          }
+
+          .image-4 {
+            flex-basis: 5 * $project-col;
+          }
+
+        }
+
       }
 
       // Full-width
