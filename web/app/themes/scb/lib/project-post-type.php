@@ -179,6 +179,23 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['project_pdf'] = array(
+    'id'            => 'project_pdf',
+    'title'         => __( 'Collection PDF', 'cmb2' ),
+    'object_types'  => array( 'project', ),
+    'context'       => 'side',
+    'priority'      => 'low',
+    'show_names'    => false,
+    'fields'        => array(
+      array(
+          'name'    => 'PDF',
+          // 'desc'    => 'Used when generating Collections',
+          'id'      => $prefix . 'pdf',
+          'type'    => 'file',
+      ),
+    ),
+  );
+
   /**
    * Repeating blocks
    */
