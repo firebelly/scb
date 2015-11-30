@@ -11,6 +11,7 @@ SCB.Map = (function() {
   function _init() {
     // Only init Mapbox if > breakpoint_medium, or on a body.single page (small sidebar maps)
     // if ($('#map').length && (breakpoint_medium || $('body.single').length)) {
+    return;
     if ($('#map').length) {
       _initMap();
     }
