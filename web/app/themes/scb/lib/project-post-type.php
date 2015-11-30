@@ -192,12 +192,12 @@ function metaboxes( array $meta_boxes ) {
   $group_field_id = $cmb_group->add_field( array(
     'id'          => $prefix . 'project_blocks',
     'type'        => 'group',
-    // 'description' => __( 'Note that you must be in Text mode to reorder the Page Blocks', 'cmb' ),
+    'description' => __( 'Note that you must switch Text mode and refresh to reorder the Page Blocks', 'cmb' ),
     'options'     => array(
         'group_title'   => __( 'Block {#}', 'cmb' ),
         'add_button'    => __( 'Add Another Block', 'cmb' ),
         'remove_button' => __( 'Remove Block', 'cmb' ),
-        // 'sortable'      => true, // beta
+        'sortable'      => true, // beta
     ),
   ) );
 
