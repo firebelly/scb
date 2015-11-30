@@ -37,7 +37,7 @@ function post_type() {
     'label'               => 'project',
     'description'         => 'Projects',
     'labels'              => $labels,
-    'supports'            => array( 'title', 'editor', 'thumbnail', ),
+    'supports'            => array( 'title', 'thumbnail', ),
     'hierarchical'        => false,
     'public'              => true,
     'show_ui'             => true,
@@ -134,15 +134,15 @@ function metaboxes( array $meta_boxes ) {
           'textarea_rows' => 8,
         ),
       ),
-      array(
-        'name' => 'Additional Info',
-        'desc' => 'e.g. stats, awards',
-        'id'   => $prefix . 'addl_info',
-        'type' => 'wysiwyg',
-        'options' => array(
-          'textarea_rows' => 8,
-        ),
-      ),
+      // array(
+      //   'name' => 'Additional Info',
+      //   'desc' => 'e.g. stats, awards',
+      //   'id'   => $prefix . 'addl_info',
+      //   'type' => 'wysiwyg',
+      //   'options' => array(
+      //     'textarea_rows' => 8,
+      //   ),
+      // ),
       array(
         'name' => 'Project Layout Orientation',
         'desc' => 'Determines layout based on primary project photos',
