@@ -7,7 +7,7 @@ namespace Firebelly\PostTypes\Project;
 // use Firebelly\Utils;
 
 // Custom image size for post type?
-// add_image_size( 'projects-thumb', 300, 300, true );
+add_image_size( 'project-large', 1600, 1200 );
 
 // Register Custom Post Type
 function post_type() {
@@ -342,8 +342,9 @@ function get_project_blocks($post) {
 
       if (!empty($project_block['images'])) {
         $i = 1;
-        foreach ($project_block['images'] as $image) {
-          $output .= '<div class="image image-' . $i++ . '"><img src="' . $image . '"></div>';
+        foreach ($project_block['images'] as $image_id => $image_src) {
+          $image = wp_get_attachment_image_src($image_id, 'large');
+          $output .= '<div class="image image-' . $i++ . '"><img src="' . $image[0] . '"></div>';
         }
       }
       if (!empty($project_block['stat_number']) || !empty($project_block['stat_label'])) {

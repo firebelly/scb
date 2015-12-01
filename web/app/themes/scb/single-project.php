@@ -22,7 +22,7 @@ endif;
   <?php if ($orientation == 'vertical') { ?>
 
     <div class="project-intro grid">
-      <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID, 'full')): ?>
+      <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID, 'project-large')): ?>
         <div class="image-wrap column -left" style="background-image:url(<?= $thumb ?>);"></div>
       <?php endif; ?>
       <div class="column -right">
@@ -60,7 +60,7 @@ endif;
   <?php } else { ?>
 
     <div class="project-intro grid">
-      <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID, 'full')): ?>
+      <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID, 'project-large')): ?>
         <div class="image-wrap" style="background-image:url(<?= $thumb ?>);"></div>
       <?php endif; ?>
       <div class="wrap">
