@@ -253,6 +253,11 @@ $project-padding: (10% * 11/12);
         }
       }
 
+      // If left/right column text is added in the same block
+      + .column-text-wrap {
+        margin-top: 20px;
+      }
+
       @include min-screen($breakpoint-medium) {
         margin-left: 40px;
         padding: 0 $project-padding;
@@ -271,8 +276,15 @@ $project-padding: (10% * 11/12);
             right: calc(100% + 20px);
           }
         }
+
+        // If left/right column text is added in the same block
+        + .column-text-wrap {
+          margin-top: 40px;
+        }
       }
     }
+
+    // Gray-background emphasis block
     &.emphasis-block {
       color: $white;
       margin: 20px 0;
@@ -311,6 +323,10 @@ $project-padding: (10% * 11/12);
           color: $black;
         }
       }
+    }
+
+    .column-text-wrap {
+      @include clearfix();
     }
 
     .left-column-text {
