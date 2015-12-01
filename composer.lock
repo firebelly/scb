@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a9f65b0e52340b201f01eaf76d036069",
-    "content-hash": "67a8d60e8246de02b00de68c174887aa",
+    "hash": "96256c01d8788fa7bc7f0f5c7bed380e",
+    "content-hash": "5d9d14ae6cb2c369ddeb3045508e587f",
     "packages": [
         {
             "name": "composer/installers",
@@ -524,11 +524,11 @@
         },
         {
             "name": "webdevstudios/cmb2",
-            "version": "dev-wysiwyg-repeater",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/arkytn/CMB2",
-                "reference": "47f985b51067de699be4a465cc874d918e01ce81"
+                "url": "https://github.com/firebelly/CMB2",
+                "reference": "6a4d281d59c076957c370b3ef06b35e12f7a1ee0"
             },
             "require": {
                 "php": ">5.2.4"
@@ -562,7 +562,7 @@
                 "issues": "https://github.com/WebDevStudios/CMB2/issues",
                 "source": "http://wordpress.org/support/plugin/cmb2"
             },
-            "time": "2015-08-14 22:18:07"
+            "time": "2015-12-01 18:08:46"
         },
         {
             "name": "wpackagist-plugin/akismet",
