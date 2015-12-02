@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c46b2d228919755decf3f7337c9a2997",
-    "content-hash": "e95e55ec410c8165b08c33ab03f0d215",
+    "hash": "21db21765a639d960450be396e8aa134",
+    "content-hash": "98b9d26d4b0b2193875d45386571d909",
     "packages": [
         {
             "name": "composer/installers",
@@ -523,6 +523,48 @@
             "time": "2015-10-28 18:53:35"
         },
         {
+            "name": "webdevstudios/cmb2",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/firebelly/CMB2",
+                "reference": "6a4d281d59c076957c370b3ef06b35e12f7a1ee0"
+            },
+            "require": {
+                "php": ">5.2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "WebDevStudios",
+                    "email": "contact@webdevstudios.com",
+                    "homepage": "https://github.com/WebDevStudios",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CMB2 is a metabox, custom fields, and forms library for WordPress that will blow your mind.",
+            "homepage": "https://github.com/WebDevStudios/CMB2",
+            "keywords": [
+                "metabox",
+                "plugin",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/WebDevStudios/CMB2/issues",
+                "source": "http://wordpress.org/support/plugin/cmb2"
+            },
+            "time": "2015-12-01 18:08:46"
+        },
+        {
             "name": "wpackagist-plugin/akismet",
             "version": "3.1.5",
             "source": {
@@ -561,26 +603,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/category-checklist-tree/"
-        },
-        {
-            "name": "wpackagist-plugin/cmb2",
-            "version": "2.1.2",
-            "source": {
-                "type": "svn",
-                "url": "http://plugins.svn.wordpress.org/cmb2/",
-                "reference": "trunk"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cmb2.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/cmb2/"
         },
         {
             "name": "wpackagist-plugin/intuitive-custom-post-order",
@@ -703,6 +725,26 @@
             "homepage": "https://wordpress.org/plugins/redirection/"
         },
         {
+            "name": "wpackagist-plugin/regenerate-thumbnails",
+            "version": "2.2.4",
+            "source": {
+                "type": "svn",
+                "url": "http://plugins.svn.wordpress.org/regenerate-thumbnails/",
+                "reference": "tags/2.2.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.2.2.4.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/regenerate-thumbnails/"
+        },
+        {
             "name": "wpackagist-plugin/update-from-bottom",
             "version": "1.0.3",
             "source": {
@@ -746,7 +788,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "webdevstudios/cmb2": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
