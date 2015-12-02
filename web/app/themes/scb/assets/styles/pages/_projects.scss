@@ -329,6 +329,13 @@ $project-padding: (10% * 11/12);
       @include clearfix();
     }
 
+    .left-column-text,
+    .right-column-text {
+      @include min-screen($breakpoint-medium) {
+        min-height: 1px;
+      }
+    }
+
     .left-column-text {
 
       h2, h3 {

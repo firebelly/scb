@@ -362,9 +362,15 @@ function get_project_blocks($post) {
 
           if (!empty($project_block['left_column_text'])) {
             $output .= '<div class="left-column-text user-content column -left">' . apply_filters('the_content', $project_block['left_column_text']) . '</div>';
+            if (empty($project_block['right_column_text'])) {
+              $output .='<div class="right-column-text user-content column -right"></div>';
+            }
           }
 
           if (!empty($project_block['right_column_text'])) {
+            if (empty($project_block['left_column_text'])) {
+              $output .='<div class="left-column-text user-content column -left"></div>';
+            }
             $output .= '<div class="right-column-text user-content column -right">' . apply_filters('the_content', $project_block['right_column_text']) . '</div>';
           }
 
