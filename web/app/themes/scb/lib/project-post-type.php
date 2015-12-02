@@ -341,11 +341,13 @@ function get_project_blocks($post) {
       $output .= '<div class="project-block' . (!empty($project_block['images']) ? ' image-block image-layout-' . $project_block['image_layout'] : '') . (!empty($project_block['emphasis_block']) ? ' emphasis-block' : '') . (!empty($project_block['stat_number']) ? ' has-stat' : '') . '">';
 
       if (!empty($project_block['images'])) {
+        $output .= '<div class="image-grid">';
         $i = 1;
         foreach ($project_block['images'] as $image_id => $image_src) {
           $image = wp_get_attachment_image_src($image_id, 'large');
           $output .= '<div class="image image-' . $i++ . '"><img src="' . $image[0] . '"></div>';
         }
+        $output .= '</div><!-- .image-grid -->';
       }
       if (!empty($project_block['stat_number']) || !empty($project_block['stat_label'])) {
         $output .= '<div class="stat">';
