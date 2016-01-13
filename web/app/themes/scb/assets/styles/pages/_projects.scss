@@ -329,6 +329,13 @@ $project-padding: (10% * 11/12);
       @include clearfix();
     }
 
+    .left-column-text,
+    .right-column-text {
+      @include min-screen($breakpoint-medium) {
+        min-height: 1px;
+      }
+    }
+
     .left-column-text {
 
       h2, h3 {
@@ -359,10 +366,17 @@ $project-padding: (10% * 11/12);
         margin: 20px;
       }
 
+      .image-grid {
+        position: relative;
+      }
+
       @include min-screen($breakpoint-medium) {
-        display: flex;
         &:not(.image-layout-5) {
           margin: 40px;
+        }
+
+        .image-grid {
+          display: flex;
         }
       }
 
@@ -408,7 +422,10 @@ $project-padding: (10% * 11/12);
 
         @include min-screen($breakpoint-medium) {
           margin-left: 0;
-          flex-wrap: wrap;
+
+          .image-grid {
+            flex-wrap: wrap;
+          }
 
           .image-1 {
             flex-basis: 100%;
@@ -433,7 +450,10 @@ $project-padding: (10% * 11/12);
 
         @include min-screen($breakpoint-medium) {
           margin-left: 0;
-          flex-wrap: wrap;
+
+          .image-grid {
+            flex-wrap: wrap;
+          }
 
           .image-1 {
             padding-left: 40px;
@@ -458,7 +478,10 @@ $project-padding: (10% * 11/12);
 
         @include min-screen($breakpoint-medium) {
           margin-left: 0;
-          flex-wrap: wrap;
+
+          .image-grid {
+            flex-wrap: wrap;
+          }
 
           .image-1 {
             padding-left: 40px;
@@ -489,7 +512,9 @@ $project-padding: (10% * 11/12);
         margin-right: 0;
 
         @include min-screen($breakpoint-medium) {
-          display: block;
+          .image-grid {
+            display: block;
+          }
         }
         .image {
           width: 100%;
