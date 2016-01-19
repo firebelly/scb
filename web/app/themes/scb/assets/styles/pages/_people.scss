@@ -1,4 +1,4 @@
-.person {
+.article-list .person {
   position: relative;
   .image-wrap {
     position: absolute;
@@ -18,5 +18,14 @@
   a {
     color: #ccc;
     text-decoration: none;
+  }
+}
+.single .person {
+  .image-wrap {
+    max-width: 700px;
+    height: 400px;
+    background: 50% 50% no-repeat scroll;
+    background-size: cover;
+    @include clearfix;
   }
 }

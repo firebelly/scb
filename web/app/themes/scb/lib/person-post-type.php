@@ -118,8 +118,14 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true,
     'fields'        => array(
       array(
+        'name' => 'Display Title',
+        'desc' => 'e.g. Drew Ranieri, AIA — if not set, uses Title in single person popup',
+        'id'   => $prefix . 'display_title',
+        'type' => 'text',
+      ),
+      array(
         'name' => 'Subtitle',
-        'desc' => 'e.g. Drew Ranieri, AIA',
+        'desc' => 'e.g. Associate — if not set, uses singular version of People Category',
         'id'   => $prefix . 'subtitle',
         'type' => 'text',
       ),
