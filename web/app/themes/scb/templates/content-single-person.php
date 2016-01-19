@@ -4,8 +4,6 @@ $display_title = get_post_meta($post->ID, '_cmb2_display_title', true);
 $subtitle = get_post_meta($post->ID, '_cmb2_subtitle', true);
 $education = get_post_meta($post->ID, '_cmb2_education', true);
 $office = \Firebelly\Utils\get_office($post);
-if (!$subtitle && $category = wp_get_post_terms($post->ID, 'person_category'))
-  $subtitle = preg_replace('/s$/','',$category[0]->name);
 ?>
 <article class="person" data-id="<?= $post->ID ?>">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>

@@ -125,7 +125,7 @@ function metaboxes( array $meta_boxes ) {
       ),
       array(
         'name' => 'Subtitle',
-        'desc' => 'e.g. Associate — if not set, uses singular version of People Category',
+        'desc' => 'e.g. Associate',
         'id'   => $prefix . 'subtitle',
         'type' => 'text',
       ),
