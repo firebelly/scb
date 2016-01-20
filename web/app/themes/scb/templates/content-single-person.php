@@ -1,22 +1,17 @@
 <?php 
 $contact = get_post_meta($post->ID, '_cmb2_contact', true);
+$display_title = get_post_meta($post->ID, '_cmb2_display_title', true);
 $subtitle = get_post_meta($post->ID, '_cmb2_subtitle', true);
 $education = get_post_meta($post->ID, '_cmb2_education', true);
 $office = \Firebelly\Utils\get_office($post);
-$categories = wp_get_post_terms($post->ID, 'people_category');
-// $people_categories = '';
-// if ($categories):
-//   foreach($categories as $cat)
-//     $people_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name."</a> /<br />";
-// endif;
 ?>
 <article class="person" data-id="<?= $post->ID ?>">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
   <?php endif; ?>
   
-  <h1 class="article-title"><a href="<?= get_permalink($post) ?>"><?= $post->post_title ?></a></h1>
-  <?php if ($subtitle): ?>
+  <h1 class="article-title"><?= !empty($display_title) ? $display_title : $post->post_title ?></h1>
+  <?php if (!empty($subtitle)): ?>
     <h3><?= $subtitle ?></h3>
   <?php endif; ?>
 

@@ -1,4 +1,5 @@
 // SCB - Firebelly 2015
+// jshint ignore: start
 
 // Good Design for Good Reason for Good Namespace
 var SCB = (function($) {
