@@ -86,7 +86,6 @@ function edit_columns($columns){
     'cb' => '<input type="checkbox" />',
     'title' => 'Title',
     '_cmb2_display_title' => 'Display Title',
-    '_cmb2_subtitle' => 'Subtitle',
     'taxonomy-person_category' => 'Category',
     'related_office' => 'Office',
     'date' => 'Date',
