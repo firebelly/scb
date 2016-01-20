@@ -52,7 +52,6 @@
     "wpackagist-plugin/update-from-bottom": ">=1.0.3",
     "wpackagist-plugin/quick-navigation-interface": ">=0.4",
     "wpackagist-plugin/parent-category-toggler": "1.3.2",
-    "mikehaertl/phpwkhtmltopdf": "^2.1",
     "iio/libmergepdf": "^2.4",
     "wpackagist-plugin/category-checklist-tree": ">=1.3.2",
     "wpackagist-plugin/regenerate-thumbnails": ">=2.2.4"

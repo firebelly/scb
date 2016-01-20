@@ -86,6 +86,10 @@ function edit_columns($columns){
   $columns = array(
     'cb' => '<input type="checkbox" />',
     'title' => 'Title',
+    '_cmb2_client' => 'Client',
+    '_cmb2_location' => 'Location',
+    '_cmb2_pdf' => 'PDF',
+    'date' => 'Date',
     // 'taxonomy-focus_area' => 'Focus Area',
     // 'featured_image' => 'Image',
   );
@@ -98,6 +102,10 @@ function custom_columns($column){
   if ( $post->post_type == 'project' ) {
     if ( $column == 'featured_image' )
       echo the_post_thumbnail('thumbnail');
+    elseif ( $column == '_cmb2_pdf' ) {
+      $custom = get_post_custom();
+      echo array_key_exists($column, $custom) ? '&#9989;' : ''; 
+    }
     else {
       $custom = get_post_custom();
       if (array_key_exists($column, $custom))

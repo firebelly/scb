@@ -85,7 +85,11 @@ function edit_columns($columns){
   $columns = array(
     'cb' => '<input type="checkbox" />',
     'title' => 'Title',
-    // 'featured_image' => 'Image',
+    '_cmb2_display_title' => 'Display Title',
+    '_cmb2_subtitle' => 'Subtitle',
+    'taxonomy-person_category' => 'Category',
+    'related_office' => 'Office',
+    'date' => 'Date',
   );
   return $columns;
 }
@@ -94,9 +98,13 @@ add_filter('manage_person_posts_columns', __NAMESPACE__ . '\edit_columns');
 function custom_columns($column){
   global $post;
   if ( $post->post_type == 'person' ) {
-    if ( $column == 'featured_image' )
+    if ( $column == 'featured_image' ) {
       echo the_post_thumbnail('thumbnail');
-    else {
+    } elseif ( $column == 'related_office' ) {
+      if ($office = \Firebelly\Utils\get_office($post)) {
+        echo $office->post_title;
+      }
+    } else {
       $custom = get_post_custom();
       if (array_key_exists($column, $custom))
         echo $custom[$column][0];
