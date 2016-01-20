@@ -88,6 +88,7 @@ function edit_columns($columns){
     '_cmb2_display_title' => 'Display Title',
     'taxonomy-person_category' => 'Category',
     'related_office' => 'Office',
+    '_cmb2_pdf' => 'PDF',
     'date' => 'Date',
   );
   return $columns;
@@ -99,6 +100,9 @@ function custom_columns($column){
   if ( $post->post_type == 'person' ) {
     if ( $column == 'featured_image' ) {
       echo the_post_thumbnail('thumbnail');
+    } elseif ( $column == '_cmb2_pdf' ) {
+      $custom = get_post_custom();
+      echo array_key_exists($column, $custom) ? '&#9989;' : ''; 
     } elseif ( $column == 'related_office' ) {
       if ($office = \Firebelly\Utils\get_office($post)) {
         echo $office->post_title;
