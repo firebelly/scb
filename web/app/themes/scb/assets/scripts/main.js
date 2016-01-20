@@ -140,7 +140,7 @@ var SCB = (function($) {
     // _initSearch();
     // _initMasonry();
     // _initLoadMore();
-    // _initBigClicky();
+    _initBigClicky();
 
     // AJAX form submissions
     _initApplicationForms();
@@ -262,7 +262,7 @@ var SCB = (function($) {
   }
 
   function _initBigClicky() {
-    $(document).on('click', '.article-list article, .bigclicky .flex-item', function(e) {
+    $(document).on('click', '.bigclicky', function(e) {
       if (!$(e.target).is('a')) {
         e.preventDefault();
         var link = $(this).find('h1:first a,h2:first a');

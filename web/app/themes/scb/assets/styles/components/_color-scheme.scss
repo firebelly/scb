@@ -53,6 +53,15 @@
     }
   }
 
+  // Home page
+  .home.page .project a {
+    transition: color .2s ease-out;
+    &:hover,
+    &:focus {
+      color: $color;
+    }
+  }
+
   // Project pages
   .project {
     .article-title {
@@ -92,6 +101,9 @@
 
 // Custom color based on body class
 body {
+  &.home {
+    @include colorScheme($brand-primary);
+  }
   &.architecture {
     @include colorScheme($blue);
   }
