@@ -96,6 +96,24 @@ address {
   @include clearfix();
 }
 
+// Page overlay active
+#page-overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: 1;
+  content: '';
+  position: fixed;
+  transition: opacity .5s ease-out;
+  background: rgba(240,240,240,.95);
+  &.active {
+    opacity: 1;
+    transition: opacity .5s ease-out;
+  }
+}
+
 .site-container {
   @include min-screen($breakpoint-medium) {
     padding: 0 10px;
