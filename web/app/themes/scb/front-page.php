@@ -2,7 +2,6 @@
 /**
  * Template Name: Homepage
  */
-$collection = \Firebelly\Collections\get_active_collection();
 $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
 ?>
 
@@ -35,7 +34,7 @@ foreach ($projects as $project_post) {
 ?>
 </section>
 
-<section class="people article-list">
+<section class="people">
 <?php 
 $people = \Firebelly\PostTypes\person\get_people();
 foreach ($people as $person_post) {

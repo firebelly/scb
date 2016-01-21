@@ -59,9 +59,6 @@ function load_more_posts() {
   $posts = get_posts($args);
 
   if ($posts): 
-    // init $collection used in templates
-    $collection = \Firebelly\Collections\get_active_collection();
-
     foreach ($posts as $post) {
       // set local var for post type — avoiding using $post in global namespace
       if ($post_type == 'project')

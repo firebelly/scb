@@ -4,12 +4,16 @@ $post_type_titles = [
   'person' => 'Bios',
   'project' => 'Projects'
 ];
+$post_type_plurals = [
+  'person' => 'people',
+  'project' => 'projects'
+];
 
 echo '<button class="plus-button close hide-collection"><div class="plus"></div></button>';
 
 echo '<div class="feedback-container"></div>';
 
-if (!isset($collection) || empty($collection->posts)):
+if (empty($collection) || empty($collection->posts)):
 
   echo '<p>Your collection is empty. Add Something 👍</p>';
 
@@ -18,12 +22,13 @@ else:
   echo '<h1 class="collection-name">Collection <span class="collection-id" contentEditable="true">'.$collection->ID.'</span></h1>';
 
   echo '<div class="post-group sortable" data-id="'.$collection->ID.'">';
+
   foreach ($collection->posts as $collection_post):
 
 
     // Show header above each group of post types
     if ($post_type != $collection_post->post_type) {
-      if ($post_type) echo '</div><div class="post-group sortable" data-id="'.$collection->ID.'">';
+      echo (!empty($post_type) ? '</div>' : '') . '<div class="'.$post_type_plurals[$collection_post->post_type].' post-group sortable" data-id="'.$collection->ID.'">';
       echo '<h2>'.$post_type_titles[$collection_post->post_type].'</h2>';
       $post_type = $collection_post->post_type;
     }
