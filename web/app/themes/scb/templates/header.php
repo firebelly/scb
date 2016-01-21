@@ -14,7 +14,7 @@
     </nav>
   </div>
 
-  <section class="collection mini" data-id="<?= $collection->ID ?>">
+  <section class="collection mini" data-id="<?= !empty($collection) ? $collection->ID : '' ?>">
     <?php include(locate_template('templates/collection.php')); ?>
   </section>
 
