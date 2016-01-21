@@ -39,7 +39,7 @@
       }
     }
   }
-  .plus-button {
+  .plus-button:not(.close) {
     .plus {
       &:before,
       &:after {
