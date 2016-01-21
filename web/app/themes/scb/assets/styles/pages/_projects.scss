@@ -1,7 +1,9 @@
 // Projects list
 .projects {
+  @include clearfix();
   .project {
-    width: 50%;
+    width: 50%; // temporary
+    float: left; // temporary
     padding: 20px;
     position: relative;
     &::before {

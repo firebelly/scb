@@ -89,6 +89,12 @@ var SCB = (function($) {
         _showCollection();
       }
     });
+    $(document).on('click', '.hide-collection', function(e) {
+      e.preventDefault();
+      if ($collection.hasClass('active')) {
+        _hideCollection();
+      }
+    });
 
     // Add/Remove from collection links
     $(document).on('click', '.collection-action', function(e) {
@@ -114,12 +120,19 @@ var SCB = (function($) {
       });
     });
 
+    // Hide page overlay when clicked
+    $(document).on('click', '#page-overlay', function() {
+      _hidePageOverlay();
+      _hideCollection();
+    });
+
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
         _hideSearch();
         _hideCollection();
         _hideMobileNav();
+        _hidePageOverlay();
       }
     });
 
@@ -192,7 +205,7 @@ var SCB = (function($) {
   }
 
   function _plusButtons() {
-    $('.plus-button').on('click', function(e) {
+    $('.plus-button.-expandable').on('click', function(e) {
       $(this).toggleClass('expanded');
     });
   }
@@ -222,10 +235,18 @@ var SCB = (function($) {
   }
 
   function _showCollection() {
+    _showPageOverlay(); 
+    $('body').addClass('collection-active');
     $collection.addClass('active');
+    _scrollBody($('body'), 250);
+     if ($collection.find('article').length) {
+      $collection.removeClass('empty');
+     }
   }
 
   function _hideCollection() {
+    _hidePageOverlay();
+    $('body').removeClass('collection-active');
     $collection.removeClass('active');
   }
 
@@ -260,6 +281,15 @@ var SCB = (function($) {
         }
       });
     });
+  }
+
+  function _showPageOverlay() {
+    $('body').prepend('<div id="page-overlay"></div>');
+    $('#page-overlay').addClass('active');
+  }
+
+  function _hidePageOverlay() {
+    $('#page-overlay').remove();
   }
 
   function _initBigClicky() {

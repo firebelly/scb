@@ -1,10 +1,41 @@
-.collection {
+section.collection {
+  position: relative;
   @include clearfix();
+
+  .close {
+    top: -2px;
+    left: -60px;
+    position: absolute;
+    .plus::before,
+    .plus::after {
+      width: 20px;
+      height: 1px;
+      background: $black;
+    }
+  }
+
+  h1 {
+    margin-bottom: 30px;
+    @include sc();
+    .collection-id {
+      @include h1();
+      display: block;
+      text-transform: none;
+      color: $brand-primary();
+      &:focus {
+        outline: none;
+      }
+    }
+  }
   .post-group {
     @include clearfix();
   }
   h2 {
     clear: left;
+    @include sc();
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid $black;
   }
   article {
     width: 250px;
@@ -20,16 +51,40 @@
     }
   }
   &.mini {
-    display: none;
-    position: fixed;
-    max-width: 800px;
-    top: 50px;
-    right: 50px;
-    padding: 20px;
-    background: #eee;
+    right: 0;
+    top: 164px;
+    width: 100%;
     z-index: 100;
+    display: none;
+    padding: 40px;
+    position: absolute;
+    background: $white;
     &.active {
       display: block;
+    }
+    // Empty state
+    &.empty {
+      bottom: auto;
+      background: $brand-primary;
+      p {
+        @include h2();
+      }
+    }
+
+    .collection-actions {
+      display: flex;
+      margin-top: 40px;
+      a {
+        flex-grow: 1;
+        margin-left: 10px;
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+
+    @include min-screen($breakpoint-medium) {
+      width: 50%;
     }
   }
 }

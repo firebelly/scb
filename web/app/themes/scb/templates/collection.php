@@ -5,14 +5,19 @@ $post_type_titles = [
   'project' => 'Projects'
 ];
 
+echo '<button class="plus-button close hide-collection"><div class="plus"></div></button>';
+
 if (!isset($collection) || empty($collection->posts)):
 
-  echo '<p>Your collection is empty</p>';
+  echo '<p>Your collection is empty. Add Something 👍</p>';
 
 else:
 
+  echo '<h1>Collection <span class="collection-id" contentEditable="true">'.$collection->ID.'</span></h1>';
+
   echo '<div class="post-group sortable" data-id="'.$collection->ID.'">';
   foreach ($collection->posts as $collection_post):
+
 
     // Show header above each group of post types
     if ($post_type != $collection_post->post_type) {
@@ -30,7 +35,10 @@ else:
     }
 
   endforeach;
-  echo '<a href="#" class="collection-action" data-action="pdf">PDF</a>';
+
   echo '</div>';
+  echo '<div class="collection-actions"><a href="#" class="button collection-action" data-action="email">Email</a>';
+  echo '<a href="#" class="button collection-action" data-action="pdf">Save as pdf</a>';
+  echo '<a href="#" class="button collection-action" data-action="print">print</a></div>';
 
 endif;
