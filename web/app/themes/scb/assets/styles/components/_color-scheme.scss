@@ -39,7 +39,7 @@
       }
     }
   }
-  .plus-button {
+  .plus-button:not(.close) {
     .plus {
       &:before,
       &:after {
@@ -49,6 +49,15 @@
   }
   .stat {
     .stat-number {
+      color: $color;
+    }
+  }
+
+  // Home page
+  .home.page .project a {
+    transition: color .2s ease-out;
+    &:hover,
+    &:focus {
       color: $color;
     }
   }
@@ -92,6 +101,9 @@
 
 // Custom color based on body class
 body {
+  &.home {
+    @include colorScheme($brand-primary);
+  }
   &.architecture {
     @include colorScheme($blue);
   }

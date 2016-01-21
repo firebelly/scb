@@ -19,13 +19,18 @@
 .plus-button {
   border: none;
   background: none;
-  -webkit-appearence: none;
+  -webkit-appearance: none;
   &:focus {
     outline: none;
   }
-  &.expanded .plus {
+  &.-expandable.expanded .plus {
     &::after {
       transform: translateY(-50%) rotate(0);
+    }
+  }
+  &.close {
+    .plus {
+      transform: rotate(45deg);
     }
   }
   .plus {
@@ -61,5 +66,21 @@
   }
   .stat-label {
     @include sc();
+  }
+}
+
+// Buttons
+.button {
+  color: $black;
+  @include sc();
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  background: $brand-primary;
+  transition: background .2s ease-out;
+  &:hover,
+  &:focus {
+    background: darken($brand-primary, 10%);
   }
 }

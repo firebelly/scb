@@ -1,13 +1,35 @@
 // Projects list
 .projects {
+  @include clearfix();
   .project {
+    width: 50%; // temporary
+    float: left; // temporary
+    padding: 20px;
     position: relative;
-    .image-wrap {
-      position: absolute;
+    &::before {
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
+      opacity: 0;
+      content: '';
+      position: absolute;
+      background: rgba(0,0,0,.75);
+      transition: opacity .2s ease-out;
+    }
+    &:hover,
+    &:focus {
+      &::before, .overlay-content {
+        opacity: 1;
+      }
+    }
+    .image-wrap {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      position: absolute;
       background: 50% 50% no-repeat scroll;
       background-size: cover;
       @include clearfix;
@@ -15,12 +37,80 @@
     h1,
     h3,
     p {
+      z-index: 1;
+      color: $white;
+      font-size: 14px;
       position: relative;
+      line-height: 1.428571429em;
     }
-    color: $white;
+    h1, .location {
+      margin-bottom: 10px;
+      padding-bottom: 30px;
+      &::after {
+        left: 0;
+        bottom: 4px;
+        width: 10px;
+        content: '';
+        height: 2px;
+        position: absolute;
+        background: $white;
+      }
+    }
+    .categories {
+      line-height: 24px;
+    }
     a {
       color: $white;
       text-decoration: none;
+    }
+    .overlay-content {
+      opacity: 0;
+      transition: opacity .2s ease-out;
+    }
+    .icon-download {
+      width: 23px;
+      height: 21px;
+      fill: $white;
+      margin-right: 20px;
+    }
+    .big-plus {
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      &:hover,
+      &:focus {
+        &::before,
+        &::after {
+          background: $brand-primary;
+        }
+      }
+      &::before,
+      &::after {
+        top: 0;
+        left: 50%;
+        z-index: 0;
+        width: 2px;
+        content: '';
+        height: 100px;
+        position: absolute;
+        background: $white;
+        transform: tranlsateX(-50%);
+        transition: background .2s ease-out;
+      }
+      &::after {
+        transform: translateX(-50%) rotate(90deg);
+      }
+      a {
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        display: block;
+        position: relative;
+      }
     }
   }
 }
