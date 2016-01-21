@@ -99,7 +99,7 @@ function get_collection($collection_id) {
     $collection->posts = $wpdb->get_results(
       $wpdb->prepare(
         "
-        SELECT * FROM {$wpdb->posts} p
+        SELECT p.* FROM {$wpdb->posts} p
         LEFT JOIN {$wpdb->prefix}collection_posts cp ON cp.post_id = p.ID
         WHERE cp.collection_id = %d
         AND post_status = 'publish'
