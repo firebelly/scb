@@ -35,7 +35,7 @@ foreach ($projects as $project_post) {
 ?>
 </section>
 
-<section class="people article-list">
+<section class="people">
 <?php 
 $people = \Firebelly\PostTypes\person\get_people();
 foreach ($people as $person_post) {
