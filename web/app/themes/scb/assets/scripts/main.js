@@ -95,6 +95,7 @@ var SCB = (function($) {
       e.preventDefault();
       var $link = $(this);
       var id = $link.data('id');
+      var collection_id = $link.parents('section.collection:first').data('id');
       var action = $link.data('action');
       $.ajax({
         url: wp_ajax_url,
@@ -103,14 +104,18 @@ var SCB = (function($) {
         data: {
           action: 'collection_action',
           do: action,
-          post_id: id
+          post_id: id,
+          collection_id: collection_id
         }
       }).done(function(response) {
-        _updatePostCollectionLinks(id,action);
-        // repopulate all collections
-        $('section.collection').html(response.data.collection_html);
-        _initCollectionSorting();
-        _showCollection();
+        // if add/remove, repopulate collection & reinit behavior
+        if (action.match(/add|remove/)) {
+          _updatePostCollectionLinks(id,action);
+          // repopulate all collections
+          $('section.collection').html(response.data.collection_html);
+          _initCollectionSorting();
+          _showCollection();
+        }
       });
     });
 
