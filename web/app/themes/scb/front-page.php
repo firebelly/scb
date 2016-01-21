@@ -2,7 +2,6 @@
 /**
  * Template Name: Homepage
  */
-$collection = \Firebelly\Collections\get_active_collection();
 $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
 ?>
 

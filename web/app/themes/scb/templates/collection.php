@@ -11,7 +11,7 @@ $post_type_plurals = [
 
 echo '<button class="plus-button close hide-collection"><div class="plus"></div></button>';
 
-if (!isset($collection) || empty($collection->posts)):
+if (empty($collection) || empty($collection->posts)):
 
   echo '<p>Your collection is empty. Add Something 👍</p>';
 
