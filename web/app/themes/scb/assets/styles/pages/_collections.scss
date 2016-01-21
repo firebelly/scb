@@ -2,18 +2,6 @@ section.collection {
   position: relative;
   @include clearfix();
 
-  .close {
-    top: -2px;
-    left: -60px;
-    position: absolute;
-    .plus::before,
-    .plus::after {
-      width: 20px;
-      height: 1px;
-      background: $black;
-    }
-  }
-
   h1 {
     margin-bottom: 30px;
     @include sc();
@@ -50,6 +38,8 @@ section.collection {
       margin: -125px 0 0 -125px;
     }
   }
+
+  // The modal version
   &.mini {
     right: 0;
     top: 164px;
@@ -86,6 +76,36 @@ section.collection {
     @include min-screen($breakpoint-medium) {
       width: 50%;
     }
+  }
+
+  // Close modal button
+  .close {
+    top: -2px;
+    left: -60px;
+    position: absolute;
+    .plus::before,
+    .plus::after {
+      width: 20px;
+      height: 1px;
+      background: $black;
+    }
+  }
+
+  // Feedback dialog
+  .feedback-container {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    overflow: hidden;
+    position: absolute;
+  }
+  .feedback {
+    top: 0;
+    left: 0;
+    right: 0;
+    position: relative;
+    transition: opacity .35s ease-out, transform .35s ease-out;
   }
 }
 body.dragging * {

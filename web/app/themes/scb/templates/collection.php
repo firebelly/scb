@@ -7,13 +7,15 @@ $post_type_titles = [
 
 echo '<button class="plus-button close hide-collection"><div class="plus"></div></button>';
 
+echo '<div class="feedback-container"></div>';
+
 if (!isset($collection) || empty($collection->posts)):
 
   echo '<p>Your collection is empty. Add Something 👍</p>';
 
 else:
 
-  echo '<h1>Collection <span class="collection-id" contentEditable="true">'.$collection->ID.'</span></h1>';
+  echo '<h1 class="collection-name">Collection <span class="collection-id" contentEditable="true">'.$collection->ID.'</span></h1>';
 
   echo '<div class="post-group sortable" data-id="'.$collection->ID.'">';
   foreach ($collection->posts as $collection_post):

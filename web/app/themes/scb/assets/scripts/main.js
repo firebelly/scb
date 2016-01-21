@@ -117,6 +117,7 @@ var SCB = (function($) {
         $('section.collection').html(response.data.collection_html);
         _initCollectionSorting();
         _showCollection();
+        _collectionMessage(action);
       });
     });
 
@@ -248,6 +249,34 @@ var SCB = (function($) {
     _hidePageOverlay();
     $('body').removeClass('collection-active');
     $collection.removeClass('active');
+  }
+
+  // Show collection message dialog
+  function _collectionMessage(messageType) {
+    var message,
+        feedbackTimer;
+
+    if (messageType==="remove") {
+      message = "Your selection has been removed from the collection.";
+    } if (messageType==="add") {
+      message = "Your selection has been added to the collection.";
+    }
+
+    function _hideFeedback() {
+      $collection.find('.feedback').addClass('fadeOutUp'); 
+      $collection.find('.feedback').remove;
+    }
+
+    $collection.find('.feedback-container').prepend('<div class="feedback"><p>'+message+'<p></div>');
+
+    feedbackTimer = setTimeout(_hideFeedback, 3000);
+
+    $collection.find('.feedback').on('mouseenter', function() {
+      clearTimeout(feedbackTimer);
+    }).on('mouseout', function() {
+      setTimeout(_hideFeedback, 1000);
+    });
+    
   }
 
   // Init collection sorting

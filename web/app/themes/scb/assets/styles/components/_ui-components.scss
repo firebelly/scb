@@ -1,5 +1,16 @@
 // UI Components
 
+// Feedback dialog
+.feedback {
+  padding: 40px;
+  background: $brand-primary;
+  p {
+    margin: 0;
+    @include h2();
+    text-transform: none;
+  }
+}
+
 // Fancy highlight hover links
 .highlight-hover {
   @include underline($brand-primary);
