@@ -55,14 +55,14 @@
         <h3>Media</h3>
         <ul>
           <li class="address">
-            <span>Brook Rosini</span>
-            <span>Communications</span>
-            <span>Specialist</span>
+            <span>Rebekah Cole</span>
+            <span>Public Relations</span>
+            <span>Manager</span>
           </li>
           <li class="contact">
-            <span class="tel"><b>T</b> +1 312 896 1190</span>
-            <span class="tel"><b>F</b> +1 860 318 6161</span>
-            <span class="email"><b>E</b> <a href="mailto:brook.rosini@scb.com">brook.rosini@scb.com</a></span>
+            <span class="tel"><b>T</b> +1 312 896 1129</span>
+            <span class="tel"><b>F</b> +1 708 595 9099</span>
+            <span class="email"><b>E</b> <a href="mailto:rebekah.cole@scb.com">rebekah.cole@scb.com</a></span>
           </li>
         </ul>
       </div>
