@@ -29,3 +29,47 @@
     @include clearfix;
   }
 }
+
+// People page
+body.people {
+
+  .page-content {
+    h3 {
+      @include h2();
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    @include min-screen($breakpoint-medium) {
+      padding-right: $column;
+    }
+  }
+
+  .people {
+    @include min-screen($breakpoint-medium) {
+      columns: 3;
+      column-gap: 20px;
+    }
+
+    h2 {
+      @include sc();
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid $black;
+    }
+
+    ul {
+      padding: 0;
+      margin: 0 0 60px;
+    }
+
+    a {
+      color: $black;
+      padding-bottom: 2px;
+      @include underline($gray-light);
+    }
+  }
+
+}
