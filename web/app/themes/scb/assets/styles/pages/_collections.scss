@@ -15,9 +15,13 @@ section.collection {
       }
     }
   }
+
   .post-group {
+    position: relative;
     @include clearfix();
+    margin-bottom: 40px;
   }
+
   h2 {
     clear: left;
     @include sc();
@@ -25,17 +29,23 @@ section.collection {
     margin-bottom: 10px;
     border-bottom: 2px solid $black;
   }
+
   article {
     width: 250px;
     height: 250px;
     float: left;
+    &.remove {
+      animation: fadeOutUp .2s both;
+    }
+    &.add {
+      animation: fadeInDown .2s both;
+    }
     &.placeholder {
-      background: #ccc;
+      background: #e6e6e6;
     }
     &.dragged {
-      position: absolute;
       z-index: 200;
-      margin: -125px 0 0 -125px;
+      position: absolute;
     }
   }
 
@@ -44,13 +54,18 @@ section.collection {
     right: 0;
     top: 164px;
     width: 100%;
-    z-index: 100;
-    display: none;
+    z-index: 100; 
     padding: 40px;
     position: absolute;
     background: $white;
+    transform: translateX(100%);
+    transition: transform .5s cubic-bezier(1,.25,.5,1);
     &.active {
-      display: block;
+      transform: translateX(0);
+      .close {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
     // Empty state
     &.empty {
@@ -73,16 +88,131 @@ section.collection {
       }
     }
 
+    article {
+      width: 100%;
+      float: none;
+      cursor: move;
+
+      .close {
+        .plus {
+          &::before,
+          &::after {
+            background: $black;
+          }
+        }
+      }
+    }
+
+    .people {
+      .placeholder {
+        height: 30px;
+      }
+    }
+
+    .person {
+      width: 100%;
+      height: 30px;
+      position: relative;
+      &.dragged {
+        position: absolute;
+      }
+      .article-title {
+        margin: 0;
+        font-size: 14px;
+        letter-spacing: 0;
+        text-transform: none;
+        a {
+          color: $black;
+          position: relative;
+          &::after {
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: '';
+            height: 1px;
+            background: $gray;
+            position: absolute;
+          }
+        }
+      }
+      .actions {
+        top: 0;
+        right: 0;
+        margin: 0;
+        position: absolute;
+      }
+      .collection-action {
+        &:hover {
+          color: $brand-primary;
+          .close .plus {
+            &::before,
+            &::after {
+              background: $brand-primary;
+            }
+          }
+        }
+      }
+    }
+
+    .project {
+      &:hover {
+        .article-title::after {
+          opacity: 1;
+        }
+      }
+      .article-title{
+        padding-right: 30px;      
+        &::after {
+          opacity: 0;
+          transition: opacity .2s ease-out;
+        }
+      }
+      .location, .big-plus {
+        display: none;
+      }
+      .actions {
+        top: 0;
+        right: 0;
+        margin: 0;
+        position: absolute;
+        .remove-text {
+          @extend .sr-only;
+        }
+        .collection-action {
+          .close {
+            display: block;
+            .plus {
+              &::before,
+              &::after {
+                height: 1px;
+                width: 20px;
+                background: $white;
+              }
+            }
+          }
+        }
+      }
+    }
+
     @include min-screen($breakpoint-medium) {
       width: 50%;
+
+      .projects .placeholder,
+      .project {
+        width: 50%;
+        float: left;
+      }
     }
   }
 
   // Close modal button
-  .close {
+  .hide-collection {
     top: -2px;
+    opacity: 0;
     left: -60px;
     position: absolute;
+    pointer-events: none;
+    transition: opacity .5s eaes-out;
     .plus::before,
     .plus::after {
       width: 20px;

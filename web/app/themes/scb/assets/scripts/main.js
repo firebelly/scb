@@ -103,6 +103,12 @@ var SCB = (function($) {
       var id = $link.data('id');
       var collection_id = $link.parents('section.collection:first').data('id');
       var action = $link.data('action');
+
+      // Add action class to article for styling perposes
+      if ($link.parents('section.collection').length) {
+        $(this).closest('article').addClass(action);
+      }
+
       $.ajax({
         url: wp_ajax_url,
         method: 'post',
@@ -245,7 +251,9 @@ var SCB = (function($) {
     $('body').addClass('collection-active');
     $collection.addClass('active');
     _scrollBody($('body'), 250);
-     if ($collection.find('article').length) {
+     if (!$collection.find('article').length) {
+      $collection.addClass('empty');
+     } else {
       $collection.removeClass('empty');
      }
   }
@@ -289,9 +297,26 @@ var SCB = (function($) {
     $('.sortable').each(function() {
       var collection_sort = $(this).sortable({
         containerSelector: 'div.sortable',
-        placeholder: '<article class="project placeholder"/>',
         itemSelector: 'article',
-        vertical: false,
+        placeholder: '<article class="placeholder"/>',
+        // vertical: false,
+        onDragStart: function ($item, container, _super) {
+          var offset = $item.offset(),
+              pointer = container.rootGroup.pointer;
+
+          adjustment = {
+            left: pointer.left - offset.left,
+            top: pointer.top - offset.top
+          };
+
+          _super($item, container);
+        },
+        onDrag: function ($item, position) {
+          $item.css({
+            left: position.left - adjustment.left,
+            top: position.top - adjustment.top
+          });
+        },
         onDrop: function ($item, container, _super) {
           var data = collection_sort.sortable('serialize').get();
           var collection_id = $(container.el[0]).data('id');
