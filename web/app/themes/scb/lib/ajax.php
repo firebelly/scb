@@ -20,6 +20,11 @@ function is_ajax() {
  * AJAX load more posts (news or events)
  */
 function load_more_posts() {
+  global $collection;
+  if (!isset($collection)) {
+    $collection = \Firebelly\Collections\get_active_collection();
+  }
+
   // news or projects?
   $post_type = (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='project') ? 'project' : 'news';
   // get page offsets
