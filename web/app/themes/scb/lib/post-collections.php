@@ -115,7 +115,7 @@ function get_collection($collection_id) {
         LEFT JOIN {$wpdb->prefix}collection_posts cp ON cp.post_id = p.ID
         WHERE cp.collection_id = %d
         AND post_status = 'publish'
-        ORDER BY cp.post_type, cp.position ASC
+        ORDER BY cp.post_type DESC, cp.position ASC
         ",
         $collection_id
       )
