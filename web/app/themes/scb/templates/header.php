@@ -1,5 +1,6 @@
 <?php 
   if (!isset($collection)) {
+    global $collection;
     $collection = \Firebelly\Collections\get_active_collection();
   }
 ?><section class="collection mini <?= (empty($collection) || empty($collection->posts)) ? 'empty' : '' ?>" data-id="<?= !empty($collection) ? $collection->ID : '' ?>">
