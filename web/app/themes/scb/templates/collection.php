@@ -21,7 +21,7 @@ else:
 
   echo '<h1 class="collection-name">Collection <span class="collection-id" contentEditable="true">'.$collection->ID.'</span></h1>';
 
-  echo '<div class="post-group sortable" data-id="'.$collection->ID.'">';
+  echo '<div class="post-group" data-id="'.$collection->ID.'">';
 
   foreach ($collection->posts as $collection_post):
 
@@ -38,7 +38,7 @@ else:
     }
     if ($post_type=='person') {
       $person_post = $collection_post;
-      include(locate_template('templates/article-person.php'));
+      include(locate_template('templates/collection-article-person.php'));
     }
 
   endforeach;
