@@ -100,7 +100,7 @@ var SCB = (function($) {
     $(document).on('click', '.collection-action', function(e) {
       e.preventDefault();
       var $link = $(this);
-      var id = $link.data('id');
+      var id = $link.data('id') || '';
       var collection_id = $link.parents('section.collection:first').data('id');
       var action = $link.data('action');
 
@@ -128,6 +128,32 @@ var SCB = (function($) {
           _initCollectionSorting();
           _showCollection();
           _collectionMessage(action);
+        } else if (action.match(/pdf/)) {
+          var buttonText = $(e.target).text();
+          if (response.success) {
+            if (buttonText.match('print')) {
+              // Make tmp iframe with PDF and trigger print()
+              $('<iframe id="pdf-print"></iframe>').appendTo('body')
+                .attr('src', response.data.pdf.url)
+                .hide()
+                .load(function(){
+                  this.focus();
+                  this.contentWindow.print();
+                 });
+            } else if (buttonText.match('email')) {
+              _showEmailForm();
+            } else {
+              // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
+              var link = document.createElement('a');
+              link.href = response.data.pdf.url;
+              link.download = response.data.pdf.name;
+              link.click();
+              // Perhaps this is needed for <=IE10?
+              // window.location = response.data.pdf.url;
+            }
+          } else {
+            alert(response.data.message);
+          }
         }
       });
     });
@@ -145,6 +171,7 @@ var SCB = (function($) {
         _hideCollection();
         _hideMobileNav();
         _hidePageOverlay();
+        _hideEmailForm();
       }
     });
 
@@ -181,6 +208,12 @@ var SCB = (function($) {
 
   } // end init()
 
+  function _showEmailForm() {
+    $('#email-collection').show();
+  }
+  function _hideEmailForm() {
+    $('#email-collection').hide();
+  }
   // AJAX Application form submissions
   function _initApplicationForms() {
     // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)

@@ -7,13 +7,8 @@
 
 namespace Firebelly\Collections;
 
-function init_session() {
-  // We need a session for collections
-  if (!session_id()) {
-    session_start();
-  }
-}
-add_action('init', __NAMESPACE__.'\init_session');
+// Set WP_Session expiration to 2 hours
+add_filter( 'wp_session_expiration', function() { return 2 * 60 * 60; } );
 
 /**
  * Create a new collection
@@ -25,7 +20,7 @@ function new_collection() {
     $wpdb->prefix.'collections', 
     [ 
       'created_at' => current_time('mysql'),
-      'session_id' => session_id(),
+      'session_id' => get_session_id(),
       'user_id' => get_current_user_id(),
     ] 
   );
@@ -38,10 +33,9 @@ function new_collection() {
 function add_post_to_collection($collection_id, $post_id) {
   global $wpdb;
   $res = false;
+
   $post_in_collection = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}collection_posts WHERE collection_id=%d AND post_id=%d", $collection_id, $post_id));
-  if ($post_in_collection) return;
-  $post = get_post($post_id);
-  if ($post) {
+  if (!$post_in_collection && $post = get_post($post_id)) {
     $max_pos = $wpdb->get_var($wpdb->prepare("SELECT MAX(position) FROM {$wpdb->prefix}collection_posts WHERE collection_id=%d", $collection_id));
     $res = $wpdb->insert(
       $wpdb->prefix.'collection_posts', 
@@ -74,7 +68,7 @@ function get_active_collection() {
   global $wpdb;
 
   $active_collection = $wpdb->get_row( 
-    $wpdb->prepare("SELECT * FROM {$wpdb->prefix}collections WHERE session_id = %s", session_id())
+    $wpdb->prepare("SELECT * FROM {$wpdb->prefix}collections WHERE session_id = %s", get_session_id())
   );
   if ($active_collection) {
     return get_collection($active_collection->ID);
@@ -156,8 +150,11 @@ function collection_action() {
       $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}collection SET title=%s WHERE ID=%d", $post_data['title'], $collection->ID));
       wp_send_json_success();
     } else if ($do=='pdf') {
-      collection_to_pdf($collection->ID);
-      wp_send_json_success();
+      if ($collection_pdf = collection_to_pdf($collection->ID)) {
+        wp_send_json_success(['pdf' => $collection_pdf]);
+      } else {
+        wp_send_json_error(['message' => 'Unable to generate PDF']);
+      }
     }
   }
 
@@ -174,6 +171,35 @@ function collection_action() {
 add_action('wp_ajax_collection_action', __NAMESPACE__ . '\\collection_action');
 add_action('wp_ajax_nopriv_collection_action', __NAMESPACE__ . '\\collection_action');
 
+/**
+ * Send an email with collection PDF attached
+ */
+function email_collection() {
+  $to = $_REQUEST['to_email'];
+  if (!is_email($to)) {
+    wp_send_json_error(['message' => 'Invalid email']);
+  } else if (empty($_REQUEST['pdf']) || !preg_match('/pdf$/',$_REQUEST['pdf'])) {
+    wp_send_json_error(['message' => 'Invalid Collection PDF']);
+  } else {
+    $subject = !empty($_REQUEST['subject']) ? $_REQUEST['subject'] : 'A collection of projects from SCB';
+    $message = !empty($_REQUEST['message']) ? $_REQUEST['message'] : 'Please see attached PDF.';
+    $headers[] = 'From: SCB <hello@scb.org>';
+    if (!empty($_REQUEST['reply-to']))
+      $headers[] = 'Reply-to: ' . $_REQUEST['reply-to'];
+     
+    if (wp_mail($to, $subject, $message, $headers, [$_REQUEST['pdf']])) {
+      wp_send_json_success();
+    } else {
+      wp_send_json_error(['message' => 'Error sending email']);
+    }
+  }
+}
+add_action('wp_ajax_email_collection', __NAMESPACE__ . '\\email_collection');
+add_action('wp_ajax_nopriv_email_collection', __NAMESPACE__ . '\\email_collection');
+
+/**
+ * Sort a collection after dragged around
+ */
 function collection_sort() {
   global $wpdb;
   $collection = empty($_REQUEST['collection_id']) ? get_active_or_new_collection() : get_collection((int)$_REQUEST['collection_id']);
@@ -230,15 +256,16 @@ function collection_to_pdf($id) {
   if (!empty($collection->title)) {
     $collection_filename .= '-' . sanitize_title($collection->title);
   }
-  $collection_pdf['name'] = '/collections/' . $collection_filename . '.pdf';
-  $collection_pdf['url'] = $upload_dir['baseurl'] . $collection_pdf['name'];
-  $collection_pdf['abspath'] = $base_dir . $collection_pdf['name'];
+  $collection_pdf['name'] = $collection_filename . '.pdf';
+  $collection_pdf['url'] = $upload_dir['baseurl'] . '/collections/' . $collection_pdf['name'];
+  $collection_pdf['abspath'] = $base_dir . '/collections/' . $collection_pdf['name'];
   // Create /collections/ dir in uploads if not present
   if(!file_exists($base_dir)) {
     mkdir($base_dir);
   }
 
-  $m = new \iio\libmergepdf\Merger();
+  $pdf_merge = new \iio\libmergepdf\Merger();
+  $num_pdfs = 0;
 
   // Check if there's a cover PDF specified in Site Options
   $cover = \Firebelly\SiteOptions\get_option('cover_letter_pdf');
@@ -247,10 +274,11 @@ function collection_to_pdf($id) {
     preg_match('/.*\/uploads(.*)$/',$cover,$m);
     $cover_abspath = $base_dir . $m[1];
     // Merge cover PDF + collection PDF and save
-    $m->addFromFile($cover_abspath);
-    file_put_contents($collection_pdf['abspath'], $m->merge());
+    $pdf_merge->addFromFile($cover_abspath);
+    $num_pdfs++;
+    // file_put_contents($collection_pdf['abspath'], $pdf_merge->merge());
     // Remove tmp pdf file after merging
-    unlink($tmp_pdf);
+    // unlink($tmp_pdf);
   }
 
   $post_type = '';
@@ -261,30 +289,22 @@ function collection_to_pdf($id) {
     //   echo '<h2>'.$post_type_titles[$collection_post->post_type].'</h2>';
     //   $post_type = $collection_post->post_type;
     // }
-    if ($post_pdf = get_post_meta($collection_post->ID, '_cmb2_pdf')) {
+    if ($post_pdf = get_post_meta($collection_post->ID, '_cmb2_pdf', true)) {
       preg_match('/.*\/uploads(.*)$/',$post_pdf,$m);
       $post_pdf_abspath = $base_dir . $m[1];
-      $m->addFromFile($post_pdf_abspath);
+      if (preg_match('/pdf$/',$post_pdf_abspath) && file_exists($post_pdf_abspath)) {
+        $pdf_merge->addFromFile($post_pdf_abspath);
+        $num_pdfs++;
+      }
     }
 
   }
-
-  file_put_contents($collection_pdf['abspath'], $m->merge());
-  return $collection_pdf;
-}
-
-/**
- * Email a user with collection attached
- */
-function email_collection($id, $email, $message) {
-  if ($collection_pdf = collection_to_pdf($id)) {
-    $attachments = [ $collection_pdf['abspath'] ];
-    $headers = 'From: SCB Bot <no-reply@scb.com>' . "\r\n";
-    wp_mail( $email, 'Collection from SCB', $message, $headers, $attachments );
+  if ($num_pdfs>0) {
+    file_put_contents($collection_pdf['abspath'], $pdf_merge->merge());
+    return $collection_pdf;
   } else {
-    echo 'Unable to make PDF';
+    return false;
   }
-
 }
 
 /**
@@ -309,4 +329,11 @@ function collection_clean_cron() {
  foreach($moldy_collections as $row) {
     $wpdb->delete( $wpdb->prefix.'collections', [ 'ID' => $row['ID'] ] );
   }  
+}
+
+/**
+ * Kludgy way to get session_id (from https://github.com/ericmann/wp-session-manager/issues/24)
+ */
+function get_session_id() {
+  return substr( filter_input( INPUT_COOKIE, WP_SESSION_COOKIE, FILTER_SANITIZE_STRING ), 0, 32 );
 }

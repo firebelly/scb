@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "97a4372ebd921aa6808915df77e0ab1e",
-    "content-hash": "54ace4edf5ec7394e7743841ad6f37cc",
+    "hash": "f9a640d1cfd276d33331bc24f2640ccb",
+    "content-hash": "7f89b18cd0c8349d11ad4dad00bee2ca",
     "packages": [
         {
             "name": "composer/installers",
@@ -642,6 +642,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/update-from-bottom/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-session-manager",
+            "version": "1.1.2",
+            "source": {
+                "type": "svn",
+                "url": "http://plugins.svn.wordpress.org/wp-session-manager/",
+                "reference": "tags/1.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-session-manager.1.1.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-session-manager/"
         },
         {
             "name": "wpackagist-plugin/wp-super-cache",

@@ -54,11 +54,12 @@
     "wpackagist-plugin/parent-category-toggler": ">=1.3.2",
     "iio/libmergepdf": ">=2.4",
     "wpackagist-plugin/category-checklist-tree": ">=1.3.2",
-    "wpackagist-plugin/regenerate-thumbnails": ">=2.2.4"
+    "wpackagist-plugin/regenerate-thumbnails": ">=2.2.4",
+    "wpackagist-plugin/wp-session-manager": ">=1.1.2"
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/parent-category-toggler", "wpackagist-plugin/category-checklist-tree"],
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/parent-category-toggler", "wpackagist-plugin/category-checklist-tree", "wpackagist-plugin/wp-session-manager"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },

@@ -27,19 +27,19 @@ $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
 
 <section class="projects">
 <?php 
-$projects = \Firebelly\PostTypes\Project\get_projects();
-foreach ($projects as $project_post) {
-  include(locate_template('templates/article-project.php'));
-}
+// $projects = \Firebelly\PostTypes\Project\get_projects();
+// foreach ($projects as $project_post) {
+//   include(locate_template('templates/article-project.php'));
+// }
 ?>
 </section>
 
 <section class="people">
 <?php 
-$people = \Firebelly\PostTypes\person\get_people();
-foreach ($people as $person_post) {
-  include(locate_template('templates/article-person.php'));
-}
+// $people = \Firebelly\PostTypes\person\get_people();
+// foreach ($people as $person_post) {
+//   include(locate_template('templates/article-person.php'));
+// }
 ?>
 </section>
 

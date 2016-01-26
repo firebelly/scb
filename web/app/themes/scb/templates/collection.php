@@ -8,24 +8,22 @@ $post_type_plurals = [
   'person' => 'people',
   'project' => 'projects'
 ];
+?>
 
-echo '<button class="plus-button close hide-collection"><div class="plus"></div></button>';
+<button class="plus-button close hide-collection"><div class="plus"></div></button>
+<div class="feedback-container"></div>
 
-echo '<div class="feedback-container"></div>';
+<?php if (empty($collection) || empty($collection->posts)): ?>
 
-if (empty($collection) || empty($collection->posts)):
+  <p class="empty-message">Your collection is empty. Add Something 👍</p>
 
-  echo '<p>Your collection is empty. Add Something 👍</p>';
+<?php else: ?>
 
-else:
+  <h1 class="collection-name">Collection <span class="collection-id" contentEditable="true"><?= $collection->ID ?></span></h1>
+  <div class="post-group" data-id="<?= $collection->ID ?>">
 
-  echo '<h1 class="collection-name">Collection <span class="collection-id" contentEditable="true">'.$collection->ID.'</span></h1>';
-
-  echo '<div class="post-group" data-id="'.$collection->ID.'">';
-
+  <?php 
   foreach ($collection->posts as $collection_post):
-
-
     // Show header above each group of post types
     if ($post_type != $collection_post->post_type) {
       echo (!empty($post_type) ? '</div>' : '') . '<div class="'.$post_type_plurals[$collection_post->post_type].' post-group sortable" data-id="'.$collection->ID.'">';
@@ -42,10 +40,11 @@ else:
     }
 
   endforeach;
+  ?>
 
-  echo '</div>';
-  echo '<div class="collection-actions"><a href="#" class="button collection-action" data-action="email">Email</a>';
-  echo '<a href="#" class="button collection-action" data-action="pdf">Save as pdf</a>';
-  echo '<a href="#" class="button collection-action" data-action="print">print</a></div>';
+  </div>
+  <div class="collection-actions"><a href="#" class="button collection-action" data-action="email">Email</a>
+  <a href="#" class="button collection-action" data-action="pdf">Save as pdf</a>
+  <a href="#" class="button collection-action" data-action="pdf">print</a></div>
 
-endif;
+<?php endif; ?>
