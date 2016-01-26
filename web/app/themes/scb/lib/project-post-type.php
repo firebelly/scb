@@ -4,7 +4,6 @@
  */
 
 namespace Firebelly\PostTypes\Project;
-// use Firebelly\Utils;
 
 // Custom image size for post type?
 add_image_size( 'project-large', 1600, 1200 );
@@ -392,4 +391,50 @@ function get_project_blocks($post) {
     }
   }
   return $output;
+}
+
+
+add_action( 'wp_ajax_sort_projects', __NAMESPACE__ . '\sort_projects' );
+function sort_projects() {
+  global $wpdb;
+
+
+  // Spits out json-encoded $return & die()s
+  wp_send_json($return);
+}
+
+/**
+ * Show link to Sort Projects page
+ */
+add_action('admin_menu', __NAMESPACE__ . '\sort_projects_admin_menu');
+function sort_projects_admin_menu() {
+  add_submenu_page('edit.php?post_type=project', 'Sort Projects', 'Sort Projects', 'manage_options', 'sort_projects', __NAMESPACE__ . '\sort_projects_form');
+}
+
+/**
+ * Basic Sort Projects admin page
+ */
+function sort_projects_form() {
+?>
+  <div class="wrap">
+    <h2>Sort Projects</h2>
+    <div id="sort-projects-form">
+      <ul>
+      <?php 
+      $projects = \Firebelly\PostTypes\Project\get_projects();
+      foreach ($projects as $project_post):
+      ?>
+        <li class="project" id="post-<?= $project_post->ID ?>">
+          <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($project_post->ID)): ?>
+            <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
+          <?php endif; ?>
+          <div class="wrap">
+            <h1 class="article-title"><a target="_blank" href="<?= get_edit_post_link($project_post->ID) ?>"><?= $project_post->post_title ?></a></h1>
+          </div>
+        </li>
+      <?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+<?php
 }

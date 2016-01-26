@@ -20,6 +20,19 @@ var SCB_admin = (function($) {
       }, 250);
     });
 
+    if($('#sort-projects-form').length) {
+      $('#sort-projects-form ul').sortable({
+        'update' : function(e, ui) {
+          $.post( ajaxurl, {
+            action: 'update-menu-order',
+            order: $('#sort-projects-form ul').sortable('serialize'),
+          });
+        }
+      });
+
+    }
+
+
   }
   // public functions
   return {
