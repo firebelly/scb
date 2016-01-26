@@ -1,5 +1,15 @@
 // General page elements
 
+.page {
+  &:not(.home) main {
+    padding: 0 20px;
+
+    @include min-screen($breakpoint-medium) {
+      padding: 0;
+    }
+  }
+}
+
 .page-intro {
   @include h2();
   @include min-screen($breakpoint-medium) {

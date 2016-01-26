@@ -29,3 +29,63 @@
     @include clearfix;
   }
 }
+
+// People page
+body.people {
+
+  .page-content {
+    h3 {
+      @include h2();
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    @include min-screen($breakpoint-medium) {
+      padding-right: $column;
+    }
+  }
+
+  .people {
+    .category-group {
+      margin-top: 30px;
+    }
+
+    h2 {
+      @include sc();
+      display: block;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid $black;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: $black;
+      padding-bottom: 2px;
+      @include underline($gray-light, link, $black);
+    }
+
+    @include min-screen($breakpoint-medium) {
+      columns: 3;
+      column-gap: 20px;
+
+      .category-group,
+      .category-group ul {
+        width: 100%;
+        display: inline-block;
+      }
+
+      .category-group {
+        margin-top: 0;
+        margin-bottom: 60px;
+      }
+    }
+  }
+
+}
