@@ -15,7 +15,7 @@
 }
 
 // Faux link underlines
-@mixin underline($color) {
+@mixin underline($color, $link:"", $hoverColor:"") {
   position: relative;
   text-decoration: none;
   display: inline-block;
@@ -27,6 +27,29 @@
     content: '';
     position: absolute;
     background: $color;
+  }
+
+  // If this is a link, add a hover state
+  @if $link != "" {
+    &::before {
+      left: 0;
+      z-index: 1;
+      height: 2px;
+      width: 100%;
+      bottom: 2px;
+      content: '';
+      position: absolute;
+      transform: scaleY(0);
+      background: $hoverColor;
+      transform-origin: bottom; 
+      transition: transform .2s ease-out;
+    }
+    &:hover,
+    &:focus {
+      &::before {
+        transform: scaleY(1);
+      }
+    }
   }
 }
 

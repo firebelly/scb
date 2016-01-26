@@ -15,7 +15,7 @@ $person_categories = get_terms('person_category');
   <section class="people grid-item one-half">
     <?php 
     foreach($person_categories as $person_category) {
-    	echo '<h2>'.$person_category->name.'</h2>';
+    	echo '<div class="category-group"><h2>'.$person_category->name.'</h2>';
     	if ($people_posts = Firebelly\PostTypes\Person\get_people(['person_category' => $person_category->slug])) {
     		echo '<ul>';
     		foreach($people_posts as $people_post) {
@@ -24,7 +24,7 @@ $person_categories = get_terms('person_category');
   	  		else
   	  			echo '<li>'.$people_post->post_title.'</li>';
     		}
-    		echo '</ul>';
+    		echo '</ul></div>';
     	}
     }
     ?>
