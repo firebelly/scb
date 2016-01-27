@@ -184,15 +184,15 @@ function email_collection() {
   } else if (!($collection_pdf = collection_to_pdf($_REQUEST['collection_id']))) {
     wp_send_json_error(['message' => 'Unable to generate Collection PDF']);
   } else {
-    $subject = !empty($_REQUEST['subject']) ? $_REQUEST['subject'] : 'A collection of projects from SCB';
-    $message = !empty($_REQUEST['message']) ? $_REQUEST['message'] : 'Please see attached PDF.';
+    $subject = !empty($_REQUEST['subject']) ? stripslashes($_REQUEST['subject']) : 'A collection of projects from SCB';
+    $message = !empty($_REQUEST['message']) ? stripslashes($_REQUEST['message']) : 'Please see attached PDF.';
     $headers[] = 'From: SCB <hello@scb.org>';
     // Add Reply-to header?
     if (!empty($_REQUEST['replyto_email']) && is_email($_REQUEST['replyto_email'])) {
-      $headers[] = 'Reply-to: ' . $_REQUEST['replyto_email'];
-      // Send user email also?
+      // Send user email?
       if (!empty($_REQUEST['cc_me']))
         wp_mail($_REQUEST['replyto_email'], $subject, $message, $headers, [$collection_pdf['abspath']]);
+      $headers[] = 'Reply-to: ' . $_REQUEST['replyto_email'];
     }
     // Try sending email with PDF attached
     if (wp_mail($to, $subject, $message, $headers, [$collection_pdf['abspath']])) {
