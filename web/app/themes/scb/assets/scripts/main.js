@@ -125,7 +125,7 @@ var SCB = (function($) {
           _updatePostCollectionLinks(id,action);
           // repopulate all collections
           $('section.collection').html(response.data.collection_html);
-          _initCollectionSorting();
+          _initCollectionBehavior();
           _showCollection();
           _collectionMessage(action);
         } else if (action.match(/pdf/)) {
@@ -199,7 +199,7 @@ var SCB = (function($) {
     _initApplicationForms();
 
     // Drag-sorting of Collections
-    _initCollectionSorting();
+    _initCollectionBehavior();
 
     // Init SVG Injection
     _injectSvgSprite();
@@ -325,8 +325,31 @@ var SCB = (function($) {
     
   }
 
-  // Init collection sorting
-  function _initCollectionSorting() {
+  // Init collection sorting, title editing, etc
+  function _initCollectionBehavior() {
+    // Update collection title
+    $('.collection-title').on('change', function() {
+      var title = $('.collection-title').val();
+      var collection_id = $('.collection-title').data('id');
+      $.ajax({
+          url: wp_ajax_url,
+          method: 'post',
+          dataType: 'json',
+          data: {
+            action: 'collection_action',
+            do: 'title',
+            title: title,
+            collection_id: collection_id
+          }
+      }).done(function(response) {
+        $('.collection-title').addClass('updated');
+        setTimeout(function() { $('.collection-title').addClass('updated'); }, 1500);
+      }).fail(function(response) {
+        alert(response.data.message);
+      });
+    });
+
+    // Sort collection objects
     $('.sortable').each(function() {
       var collection_sort = $(this).sortable({
         containerSelector: 'div.sortable',

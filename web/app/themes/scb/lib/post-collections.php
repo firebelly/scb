@@ -7,8 +7,8 @@
 
 namespace Firebelly\Collections;
 
-// Set WP_Session expiration to 2 hours
-add_filter( 'wp_session_expiration', function() { return 2 * 60 * 60; } );
+// Set WP_Session expiration to 24 hours
+add_filter( 'wp_session_expiration', function() { return 24 * 60 * 60; } );
 
 /**
  * Create a new collection
@@ -137,6 +137,8 @@ function post_in_collection($collection, $post_id) {
  * AJAX collection events
  */
 function collection_action() {
+  global $wpdb;
+
   $collection = empty($_REQUEST['collection_id']) ? get_active_or_new_collection() : get_collection((int)$_REQUEST['collection_id']);
   if (!$collection) return;
 
@@ -147,7 +149,7 @@ function collection_action() {
     } else if ($do=='remove') {
       remove_post_from_collection($collection->ID, $_REQUEST['post_id']);
     } else if ($do=='title') {
-      $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}collection SET title=%s WHERE ID=%d", $post_data['title'], $collection->ID));
+      $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}collections SET title=%s WHERE ID=%d", $_REQUEST['title'], $collection->ID));
       wp_send_json_success();
     } else if ($do=='pdf') {
       if ($collection_pdf = collection_to_pdf($collection->ID)) {

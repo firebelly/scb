@@ -5,11 +5,17 @@ section.collection {
   h1 {
     margin-bottom: 30px;
     @include sc();
-    .collection-id {
+    .collection-title {
       @include h1();
       display: block;
       text-transform: none;
-      color: $brand-primary();
+      color: $brand-primary;
+      border: none;
+      padding: 0;
+      max-width: 100%;
+      &::placeholder {
+        color: $brand-primary;
+      }
       &:focus {
         outline: none;
       }
