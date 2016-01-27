@@ -29,6 +29,11 @@
       &:first-of-type {
         margin-left: 0;
       }
+      &.active {
+        a::after {
+          opacity: 1;
+        }
+      }
     }
 
     a {
@@ -41,11 +46,11 @@
       vertical-align: bottom;
       line-height: 1.428571429em;
       &:hover, &:focus {
-        &:after {
+        &::after {
           opacity: 1;
         }
       }
-      &:after {
+      &::after {
         left: 0;
         opacity: 0;
         bottom: 2px;
