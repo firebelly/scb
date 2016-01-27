@@ -155,7 +155,7 @@ function collection_action() {
       if ($collection_pdf = collection_to_pdf($collection->ID)) {
         wp_send_json_success(['pdf' => $collection_pdf]);
       } else {
-        wp_send_json_error(['message' => 'Unable to generate PDF']);
+        wp_send_json_error(['message' => 'Unable to generate Collection PDF']);
       }
     }
   }
@@ -178,19 +178,32 @@ add_action('wp_ajax_nopriv_collection_action', __NAMESPACE__ . '\\collection_act
  */
 function email_collection() {
   $to = $_REQUEST['to_email'];
+  // Check if valid email
   if (!is_email($to)) {
     wp_send_json_error(['message' => 'Invalid email']);
-  } else if (empty($_REQUEST['pdf']) || !preg_match('/pdf$/',$_REQUEST['pdf'])) {
-    wp_send_json_error(['message' => 'Invalid Collection PDF']);
+  } else if (!($collection_pdf = collection_to_pdf($_REQUEST['collection_id']))) {
+    wp_send_json_error(['message' => 'Unable to generate Collection PDF']);
   } else {
     $subject = !empty($_REQUEST['subject']) ? $_REQUEST['subject'] : 'A collection of projects from SCB';
     $message = !empty($_REQUEST['message']) ? $_REQUEST['message'] : 'Please see attached PDF.';
     $headers[] = 'From: SCB <hello@scb.org>';
-    if (!empty($_REQUEST['reply-to']))
-      $headers[] = 'Reply-to: ' . $_REQUEST['reply-to'];
-     
-    if (wp_mail($to, $subject, $message, $headers, [$_REQUEST['pdf']])) {
-      wp_send_json_success();
+    // Add Reply-to header?
+    if (!empty($_REQUEST['replyto_email']) && is_email($_REQUEST['replyto_email'])) {
+      $headers[] = 'Reply-to: ' . $_REQUEST['replyto_email'];
+      // Send user email also?
+      if (!empty($_REQUEST['cc_me']))
+        wp_mail($_REQUEST['replyto_email'], $subject, $message, $headers, [$collection_pdf['abspath']]);
+    }
+    // Try sending email with PDF attached
+    if (wp_mail($to, $subject, $message, $headers, [$collection_pdf['abspath']])) {
+      // If AJAX request, return JSON
+      if (\Firebelly\Ajax\is_ajax()) {
+        wp_send_json_success();
+      } else {
+        // If not AJAX, redirect
+        wp_safe_redirect(esc_url_raw(get_permalink($_REQUEST['collection_id'])), 303);
+        die();
+      }
     } else {
       wp_send_json_error(['message' => 'Error sending email']);
     }
@@ -275,22 +288,12 @@ function collection_to_pdf($id) {
     // Extract relative path of cover PDF
     preg_match('/.*\/uploads(.*)$/',$cover,$m);
     $cover_abspath = $base_dir . $m[1];
-    // Merge cover PDF + collection PDF and save
+    // Add cover PDF to Collection
     $pdf_merge->addFromFile($cover_abspath);
     $num_pdfs++;
-    // file_put_contents($collection_pdf['abspath'], $pdf_merge->merge());
-    // Remove tmp pdf file after merging
-    // unlink($tmp_pdf);
   }
-
   $post_type = '';
   foreach ($collection->posts as $collection_post) {
-
-    // if ($post_type != $collection_post->post_type) {
-    //   if ($post_type) echo '</div><div class="post-group sortable" data-id="'.$collection->ID.'">';
-    //   echo '<h2>'.$post_type_titles[$collection_post->post_type].'</h2>';
-    //   $post_type = $collection_post->post_type;
-    // }
     if ($post_pdf = get_post_meta($collection_post->ID, '_cmb2_pdf', true)) {
       preg_match('/.*\/uploads(.*)$/',$post_pdf,$m);
       $post_pdf_abspath = $base_dir . $m[1];
