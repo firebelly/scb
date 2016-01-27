@@ -19,7 +19,7 @@ $post_type_plurals = [
 
 <?php else: ?>
 
-  <h1 class="collection-name">Collection <input type="text" class="collection-title" data-id="<?= $collection->ID ?>" placeholder="<?= $collection->ID ?>" value="<?= $collection->title ?>"></h1>
+  <h1 class="collection-name">Collection <span class="collection-title" contentEditable data-id="<?= $collection->ID ?>"><?= !empty($collection->title) ? stripslashes($collection->title) : $collection->ID ?></span></h1>
   <div class="post-group" data-id="<?= $collection->ID ?>">
 
   <?php 

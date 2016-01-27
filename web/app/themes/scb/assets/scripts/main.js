@@ -328,8 +328,8 @@ var SCB = (function($) {
   // Init collection sorting, title editing, etc
   function _initCollectionBehavior() {
     // Update collection title
-    $('.collection-title').on('change', function() {
-      var title = $('.collection-title').val();
+    $('.collection-title').on('blur', function() {
+      var title = $('.collection-title').text();
       var collection_id = $('.collection-title').data('id');
       $.ajax({
           url: wp_ajax_url,
