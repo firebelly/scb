@@ -10,6 +10,10 @@ $person_categories = get_terms('person_category');
   
   <section class="page-content grid-item one-half">
     <?= $post->post_content ?>
+    <div class="stat">
+      <div class="stat-number">77</div>
+      <div class="stat-label">Universities studied at</div>
+    </div>
   </section>
 
   <section class="people grid-item one-half">
