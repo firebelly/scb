@@ -12,6 +12,7 @@ var SCB = (function($) {
       $document,
       $sidebar,
       $collection,
+      $modal,
       loadingTimer,
       page_at;
 
@@ -22,6 +23,7 @@ var SCB = (function($) {
     // Cache some common DOM queries
     $document = $(document);
     $collection = $('.collection.mini');
+    $modal = $('.global-modal');
     $('body').addClass('loaded');
 
     // Set screen size vars
@@ -93,6 +95,22 @@ var SCB = (function($) {
       e.preventDefault();
       if ($collection.hasClass('active')) {
         _hideCollection();
+      }
+    });
+
+    // Show/hide mini collection in nav
+    $(document).on('click', '.show-modal', function(e) {
+      e.preventDefault();
+      if ($modal.hasClass('active')) {
+        _hideModal();
+      } else {
+        _showModal();
+      }
+    });
+    $(document).on('click', '.hide-modal', function(e) {
+      e.preventDefault();
+      if ($modal.hasClass('active')) {
+        _hideModal();
       }
     });
 
@@ -169,6 +187,7 @@ var SCB = (function($) {
       if (e.keyCode === 27) {
         _hideSearch();
         _hideCollection();
+        _hideModal();
         _hideMobileNav();
         _hidePageOverlay();
         _hideEmailForm();
@@ -193,6 +212,7 @@ var SCB = (function($) {
     // _initSearch();
     // _initMasonry();
     // _initLoadMore();
+    _initModalPosts();
     _initBigClicky();
 
     // AJAX form submissions
@@ -203,6 +223,7 @@ var SCB = (function($) {
 
     // Init SVG Injection
     _injectSvgSprite();
+
     _plusButtons();
     _shrinkHeader();
 
@@ -277,6 +298,24 @@ var SCB = (function($) {
       }
     });
 
+  }
+
+  function _showModal() {
+    _showPageOverlay(); 
+    $('body').addClass('modal-active');
+    $modal.addClass('active');
+    _scrollBody($('body'), 250);
+     if (!$modal.find('article').length) {
+      $modal.addClass('empty');
+     } else {
+      $modal.removeClass('empty');
+     }
+  }
+
+  function _hideModal() {
+    _hidePageOverlay();
+    $('body').removeClass('modal-active');
+    $modal.removeClass('active');
   }
 
   function _showCollection() {
@@ -394,6 +433,25 @@ var SCB = (function($) {
 
           _super($item, container);
         }
+      });
+    });
+  }
+
+  function _initModalPosts() {
+    $(document).on('click', 'body.people .people a', function(e) {
+      e.preventDefault();
+      var thisUrl = $(this).attr('href');
+
+
+      var postModal = $('.site-header').before('<div class="post-modal global-modal"><button class="plus-button close hide-modal"><div class="plus"></div></button></div>');
+
+      $.ajax({
+          url: thisUrl,
+          dataType: 'html',
+          success: function(data) {
+            var $personData = $(data).find('article.person');
+            $('.post-modal').addClass('active').append($personData);
+          }
       });
     });
   }

@@ -3,7 +3,7 @@
     global $collection;
     $collection = \Firebelly\Collections\get_active_collection();
   }
-?><section class="collection mini <?= (empty($collection) || empty($collection->posts)) ? 'empty' : '' ?>" data-id="<?= !empty($collection) ? $collection->ID : '' ?>">
+?><section class="collection mini global-modal <?= (empty($collection) || empty($collection->posts)) ? 'empty' : '' ?>" data-id="<?= !empty($collection) ? $collection->ID : '' ?>">
   <?php include(locate_template('templates/collection.php')); ?>
 </section>
 
