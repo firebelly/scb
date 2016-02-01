@@ -1,5 +1,5 @@
 // SCB - Firebelly 2015
-// jshint ignore: start
+/*jshint latedef:false*/
 
 // Good Design for Good Reason for Good Namespace
 var SCB = (function($) {
@@ -158,8 +158,6 @@ var SCB = (function($) {
                   this.focus();
                   this.contentWindow.print();
                  });
-            } else if (buttonText.match('email')) {
-              _showEmailForm();
             } else {
               // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
               var link = document.createElement('a');
@@ -231,10 +229,10 @@ var SCB = (function($) {
   } // end init()
 
   function _showEmailForm() {
-    $('#email-collection').show();
+    $('#email-collection-form').addClass('active');
   }
   function _hideEmailForm() {
-    $('#email-collection').hide();
+    $('#email-collection-form').removeClass('active');
   }
   // AJAX Application form submissions
   function _initApplicationForms() {
@@ -344,13 +342,15 @@ var SCB = (function($) {
 
     if (messageType==="remove") {
       message = "Your selection has been removed from the collection.";
-    } if (messageType==="add") {
+    } else if (messageType==="add") {
       message = "Your selection has been added to the collection.";
+    } else {
+      message = messageType;
     }
 
     function _hideFeedback() {
       $collection.find('.feedback').addClass('fadeOutUp'); 
-      $collection.find('.feedback').remove;
+      $collection.find('.feedback').remove();
     }
 
     $collection.find('.feedback-container').prepend('<div class="feedback"><p>'+message+'<p></div>');
@@ -367,6 +367,31 @@ var SCB = (function($) {
 
   // Init collection sorting, title editing, etc
   function _initCollectionBehavior() {
+    // Email collection
+    $('.email-collection').on('click', function(e) {
+      e.preventDefault();
+      _showEmailForm();
+    });
+    $('#email-collection-form form').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+          url: wp_ajax_url,
+          method: 'post',
+          dataType: 'json',
+          data: $(this).serialize()
+      }).done(function(response) {
+        if (response.success) {
+          _hideEmailForm();
+          _collectionMessage('Your email was sent successfully.');
+        } else {
+          _collectionMessage('There was an error sending your email: ' + response.data.message);
+        }
+      }).fail(function(response) {
+        _collectionMessage('There was an error sending your email.');
+      });
+
+
+    });
     // Update collection title
     $('.collection-title').on('blur', function() {
       var title = $('.collection-title').text();
@@ -382,10 +407,10 @@ var SCB = (function($) {
             collection_id: collection_id
           }
       }).done(function(response) {
-        $('.collection-title').addClass('updated');
-        setTimeout(function() { $('.collection-title').addClass('updated'); }, 1500);
-      }).fail(function(response) {
-        alert(response.data.message);
+        if (response.success) {
+          $('.collection-title').addClass('updated');
+          setTimeout(function() { $('.collection-title').addClass('updated'); }, 1500);
+        }
       });
     });
 

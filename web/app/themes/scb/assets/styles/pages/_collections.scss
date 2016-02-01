@@ -6,6 +6,13 @@ section.collection {
   }
 
 
+  #email-collection-form {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+
   h1 {
     margin-bottom: 30px;
     @include sc();
