@@ -98,7 +98,7 @@ var SCB = (function($) {
       }
     });
 
-    // Show/hide mini collection in nav
+    // Show/hide glabal modal in nav
     $(document).on('click', '.show-modal', function(e) {
       e.preventDefault();
       if ($modal.hasClass('active')) {
@@ -180,6 +180,7 @@ var SCB = (function($) {
     $(document).on('click', '#page-overlay', function() {
       _hidePageOverlay();
       _hideCollection();
+      _hideModal();
     });
 
     // Esc handlers
@@ -212,7 +213,7 @@ var SCB = (function($) {
     // _initSearch();
     // _initMasonry();
     // _initLoadMore();
-    _initModalPosts();
+    _initPostModals();
     _initBigClicky();
 
     // AJAX form submissions
@@ -305,11 +306,11 @@ var SCB = (function($) {
     $('body').addClass('modal-active');
     $modal.addClass('active');
     _scrollBody($('body'), 250);
-     if (!$modal.find('article').length) {
+    if ($modal.find('.modal-content').is(':empty')) {
       $modal.addClass('empty');
-     } else {
+    } else {
       $modal.removeClass('empty');
-     }
+    }
   }
 
   function _hideModal() {
@@ -437,20 +438,21 @@ var SCB = (function($) {
     });
   }
 
-  function _initModalPosts() {
-    $(document).on('click', 'body.people .people a', function(e) {
+  function _initPostModals() {
+    $(document).on('click', '.show-post-modal', function(e) {
       e.preventDefault();
       var thisUrl = $(this).attr('href');
+      var $postModal = $modal.addClass('post-modal');
 
-
-      var postModal = $('.site-header').before('<div class="post-modal global-modal"><button class="plus-button close hide-modal"><div class="plus"></div></button></div>');
+      $postModal.find('.modal-content').empty();
 
       $.ajax({
           url: thisUrl,
           dataType: 'html',
           success: function(data) {
             var $personData = $(data).find('article.person');
-            $('.post-modal').addClass('active').append($personData);
+            $('.post-modal .modal-content').append($personData);
+            _showModal();
           }
       });
     });
