@@ -1,7 +1,9 @@
 set :application, 'scb'
+set :domain, 'scb.firebelly.co'
 set :theme, 'scb'
 set :login, 'firebelly'
 set :repo_url, 'git@github.com:firebelly/scb.git'
+set :php, 'php54'
 
 # Hardcodes branch to always be master
 # This could be overridden in a stage config file
@@ -37,7 +39,7 @@ end
 namespace :deploy do
   before :starting, :map_composer_command do
       on roles(:app) do |server|
-          SSHKit.config.command_map[:composer] = "php54 /home/#{fetch(:login)}/bin/composer.phar"
+          SSHKit.config.command_map[:composer] = "#{fetch(:php)} /home/#{fetch(:login)}/bin/composer.phar"
       end
   end
 end
@@ -47,7 +49,10 @@ end
 
 set :theme_path, Pathname.new('web/app/themes/').join(fetch(:theme))
 set :local_app_path, Pathname.new(File.dirname(__FILE__)).join('../')
+set :local_abs_path, Pathname.new(File.expand_path File.dirname(__FILE__)).join('../')
 set :local_theme_path, fetch(:local_app_path).join(fetch(:theme_path))
+
+require "#{fetch(:local_abs_path)}/config/webfaction.rb"
 
 namespace :deploy do
   task :compile_assets do
@@ -77,4 +82,4 @@ namespace :deploy do
   end
 end
 
-before "deploy:updated", "deploy:copy_assets"
+before "deploy:updated", "deploy:copy_assets" unless ENV['NOASS']

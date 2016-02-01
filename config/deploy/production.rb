@@ -1,4 +1,7 @@
 set :stage, :production
+set :domain, 'scb.com'
+set :php, 'php70'
+set :login, 'scbmarketing'
 
 # Simple Role Syntax
 # ==================
@@ -8,7 +11,7 @@ set :stage, :production
 
 # Extended Server Syntax
 # ======================
-server 'scb.com', user: fetch(:login), roles: %w{web app db}
+server fetch(:domain), user: fetch(:login), roles: %w{web app db}
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
