@@ -12,6 +12,7 @@ var SCB = (function($) {
       $document,
       $sidebar,
       $collection,
+      $modal,
       loadingTimer,
       page_at;
 
@@ -22,6 +23,7 @@ var SCB = (function($) {
     // Cache some common DOM queries
     $document = $(document);
     $collection = $('.collection.mini');
+    $modal = $('.global-modal');
     $('body').addClass('loaded');
 
     // Set screen size vars
@@ -96,6 +98,22 @@ var SCB = (function($) {
       }
     });
 
+    // Show/hide glabal modal in nav
+    $(document).on('click', '.show-modal', function(e) {
+      e.preventDefault();
+      if ($modal.hasClass('active')) {
+        _hideModal();
+      } else {
+        _showModal();
+      }
+    });
+    $(document).on('click', '.hide-modal', function(e) {
+      e.preventDefault();
+      if ($modal.hasClass('active')) {
+        _hideModal();
+      }
+    });
+
     // Add/Remove from collection links
     $(document).on('click', '.collection-action', function(e) {
       e.preventDefault();
@@ -160,6 +178,7 @@ var SCB = (function($) {
     $(document).on('click', '#page-overlay', function() {
       _hidePageOverlay();
       _hideCollection();
+      _hideModal();
     });
 
     // Esc handlers
@@ -167,6 +186,7 @@ var SCB = (function($) {
       if (e.keyCode === 27) {
         _hideSearch();
         _hideCollection();
+        _hideModal();
         _hideMobileNav();
         _hidePageOverlay();
         _hideEmailForm();
@@ -191,6 +211,7 @@ var SCB = (function($) {
     // _initSearch();
     // _initMasonry();
     // _initLoadMore();
+    _initPostModals();
     _initBigClicky();
 
     // AJAX form submissions
@@ -201,6 +222,7 @@ var SCB = (function($) {
 
     // Init SVG Injection
     _injectSvgSprite();
+
     _plusButtons();
     _shrinkHeader();
 
@@ -275,6 +297,24 @@ var SCB = (function($) {
       }
     });
 
+  }
+
+  function _showModal() {
+    _showPageOverlay(); 
+    $('body').addClass('modal-active');
+    $modal.addClass('active');
+    _scrollBody($('body'), 250);
+    if ($modal.find('.modal-content').is(':empty')) {
+      $modal.addClass('empty');
+    } else {
+      $modal.removeClass('empty');
+    }
+  }
+
+  function _hideModal() {
+    _hidePageOverlay();
+    $('body').removeClass('modal-active');
+    $modal.removeClass('active');
   }
 
   function _showCollection() {
@@ -419,6 +459,26 @@ var SCB = (function($) {
 
           _super($item, container);
         }
+      });
+    });
+  }
+
+  function _initPostModals() {
+    $(document).on('click', '.show-post-modal', function(e) {
+      e.preventDefault();
+      var thisUrl = $(this).attr('href');
+      var $postModal = $modal.addClass('post-modal');
+
+      $postModal.find('.modal-content').empty();
+
+      $.ajax({
+          url: thisUrl,
+          dataType: 'html',
+          success: function(data) {
+            var $personData = $(data).find('article.person');
+            $('.post-modal .modal-content').append($personData);
+            _showModal();
+          }
       });
     });
   }

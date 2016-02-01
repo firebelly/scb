@@ -10,7 +10,7 @@ $post_type_plurals = [
 ];
 ?>
 
-<button class="plus-button close hide-collection"><div class="plus"></div></button>
+<button class="plus-button close hide-modal hide-collection"><div class="plus"></div></button>
 <div class="feedback-container"></div>
 
 <?php if (empty($collection) || empty($collection->posts)): ?>

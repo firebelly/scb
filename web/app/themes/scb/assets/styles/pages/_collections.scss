@@ -1,6 +1,10 @@
 section.collection {
-  position: relative;
   @include clearfix();
+  
+  &:not(.mini) {
+    position: relative;
+  }
+
 
   #email-collection-form {
     display: none;
@@ -64,22 +68,8 @@ section.collection {
 
   // The modal version
   &.mini {
-    right: 0;
-    top: 164px;
-    width: 100%;
-    z-index: 100; 
-    padding: 40px;
-    position: absolute;
-    background: $white;
-    transform: translateX(100%);
-    transition: transform .5s cubic-bezier(1,.25,.5,1);
-    &.active {
-      transform: translateX(0);
-      .close {
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
+    // see _modal.scss for global modal styles
+
     // Empty state
     &.empty {
       bottom: auto;
@@ -215,22 +205,6 @@ section.collection {
         width: 50%;
         float: left;
       }
-    }
-  }
-
-  // Close modal button
-  .hide-collection {
-    top: -2px;
-    opacity: 0;
-    left: -60px;
-    position: absolute;
-    pointer-events: none;
-    transition: opacity .5s eaes-out;
-    .plus::before,
-    .plus::after {
-      width: 20px;
-      height: 1px;
-      background: $black;
     }
   }
 

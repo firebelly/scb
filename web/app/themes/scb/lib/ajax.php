@@ -79,3 +79,16 @@ function load_more_posts() {
 }
 add_action( 'wp_ajax_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
 add_action( 'wp_ajax_nopriv_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
+
+/**
+ * Load post in modal
+ */
+function load_post_modal() {
+
+  // not sure what the hell I'm doing...
+
+  // we use this call outside AJAX calls; WP likes die() after an AJAX call
+  if (is_ajax()) die();
+}
+add_action( 'wp_ajax_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );
+add_action( 'wp_ajax_nopriv_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );
