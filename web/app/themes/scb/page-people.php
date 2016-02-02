@@ -24,7 +24,7 @@ $person_categories = get_terms('person_category');
     		echo '<ul>';
     		foreach($people_posts as $people_post) {
     			if (!empty($people_post->post_content))
-  	  			echo '<li><a href="'.get_permalink($people_post).'" data-postid="'.$people_post->ID.'" class="show-post-modal">'.$people_post->post_title.'</a></li>';
+  	  			echo '<li><a href="'.get_permalink($people_post).'" data-id="'.$people_post->ID.'" class="show-post-modal">'.$people_post->post_title.'</a></li>';
   	  		else
   	  			echo '<li>'.$people_post->post_title.'</li>';
     		}

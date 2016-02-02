@@ -118,6 +118,14 @@
   }
 }
 
+// Project modal settings
+.modal.project-modal.active {
+  @include min-screen($breakpoint-medium) {
+    width: 100%;
+    transform: translateX(100px);
+  }
+}
+
 // special column vars for the project view
 $project-col: 100% * 1/11;
 $project-padding: (10% * 11/12);

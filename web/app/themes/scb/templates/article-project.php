@@ -28,7 +28,7 @@ endif;
           <a href="#" class="collection-action" data-action="add" data-id="<?= $project_post->ID ?>"><svg class="icon icon-download"><use xlink:href="#icon-download"></svg> Add to Collection</a>
         <?php endif; ?>
       </p>
-      <div class="big-plus"><a href="<?= get_permalink($project_post) ?>"><span class="sr-only">view project</span></a></div>
+      <div class="big-plus"><a href="<?= get_permalink($project_post) ?>" class="show-post-modal" data-id="<?= $project_post->ID; ?>" data-modal-type="project-modal"><span class="sr-only">view project</span></a></div>
     </div>
   </div>
 </article>
