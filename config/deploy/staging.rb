@@ -1,7 +1,7 @@
 set :stage, :staging
-set :domain, 'scbmarketing.webfactional.com'
-set :php, 'php70'
-set :login, 'scbmarketing'
+set :domain, 'scb.firebelly.co'
+set :php, 'php54'
+set :login, 'firebelly'
 
 # Simple Role Syntax
 # ==================
