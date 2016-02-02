@@ -267,7 +267,7 @@ function collection_to_pdf($id) {
   $upload_dir = wp_upload_dir();
   $base_dir = $upload_dir['basedir'];
   $collection_filename = 'collection-' . $id;
-  // append $collection->title to filename if set
+  // Append $collection->title to filename if set
   if (!empty($collection->title)) {
     $collection_filename .= '-' . sanitize_title($collection->title);
   }
@@ -275,8 +275,8 @@ function collection_to_pdf($id) {
   $collection_pdf['url'] = $upload_dir['baseurl'] . '/collections/' . $collection_pdf['name'];
   $collection_pdf['abspath'] = $base_dir . '/collections/' . $collection_pdf['name'];
   // Create /collections/ dir in uploads if not present
-  if(!file_exists($base_dir)) {
-    mkdir($base_dir);
+  if(!file_exists($base_dir . '/collections/')) {
+    mkdir($base_dir . '/collections/');
   }
 
   $pdf_merge = new \iio\libmergepdf\Merger();

@@ -1,4 +1,7 @@
 set :stage, :staging
+set :domain, 'scb.firebelly.co'
+set :php, 'php54'
+set :login, 'firebelly'
 
 # Simple Role Syntax
 # ==================
@@ -8,7 +11,7 @@ set :stage, :staging
 
 # Extended Server Syntax
 # ======================
-server 'scb.firebelly.co', user: fetch(:login), roles: %w{web app db}
+server fetch(:domain), user: fetch(:login), roles: %w{web app db}
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
