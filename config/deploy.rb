@@ -52,6 +52,7 @@ set :local_app_path, Pathname.new(File.dirname(__FILE__)).join('../')
 set :local_abs_path, Pathname.new(File.expand_path File.dirname(__FILE__)).join('../')
 set :local_theme_path, fetch(:local_app_path).join(fetch(:theme_path))
 
+# WebFaction-specific deploy methods, deploy:wf_setup and deploy:wf_delete
 require "#{fetch(:local_abs_path)}/config/webfaction.rb"
 
 namespace :deploy do
