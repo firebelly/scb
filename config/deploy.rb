@@ -82,4 +82,4 @@ namespace :deploy do
   end
 end
 
-before "deploy:updated", "deploy:copy_assets" unless ENV['NOASS']
+before "deploy:updated", "deploy:copy_assets"
