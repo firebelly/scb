@@ -26,9 +26,68 @@ function metaboxes(array $meta_boxes) {
     ),
   );
 
+  $meta_boxes['featured'] = array(
+    'id'            => 'featured',
+    'title'         => __( 'Featured Post', 'cmb2' ),
+    'object_types'  => array( 'post', ),
+    'context'       => 'side',
+    'priority'      => 'default',
+    'show_names'    => false,
+    'fields'        => array(
+      array(
+          'id'       => '_featured',
+          'type'     => 'checkbox',
+          'desc'     => 'Show at top of homepage',
+          'name'     => 'Yes',
+      ),
+    ),
+  );
+
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+add_filter('manage_edit-post_columns', __NAMESPACE__.'\my_columns');
+function my_columns($columns) {
+    $columns['featured'] = 'Featured';
+    return $columns;
+}
+add_action('manage_posts_custom_column',  __NAMESPACE__.'\my_show_columns');
+function my_show_columns($name) {
+    global $post;
+    switch ($name) {
+        case 'featured':
+            $featured = get_post_meta($post->ID, '_featured', true);
+            echo $featured ? '✓' : '';
+    }
+}
+
+/**
+ * Move Featured posts to top of query
+ */
+function featured_orderby($orderby) {
+  global $wpdb;
+
+  $sticky_posts = array();
+  $results = $wpdb->get_results("SELECT post_id FROM wp_postmeta WHERE meta_key='_featured' AND meta_value='on'");
+  if ($results) {
+    $i = count($results);
+    $sql = ' CASE';
+    foreach($results as $result) {
+      $sql .= " WHEN $wpdb->posts.ID = {$result->post_id} THEN {$i}";
+      $i--;
+    }
+    $sql .= ' ELSE 0 END DESC, ';
+    $orderby = $sql . $orderby;
+  }
+  return $orderby;
+}
+add_action('pre_get_posts', __NAMESPACE__.'\init_featured_orderby');
+function init_featured_orderby($query) {
+  if($query->is_main_query() && !$query->is_feed()) {
+    add_filter('posts_orderby', __NAMESPACE__.'\featured_orderby');
+  }
+}
 
 /**
  * Hide unused/redundant UI in admin

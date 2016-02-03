@@ -46,7 +46,7 @@ $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
 <section class="news">
 <?php 
   // Recent Blog & News posts
-  $news_posts = get_posts(['numberposts' => 3]);
+  $news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false]);
   if ($news_posts):
     foreach ($news_posts as $news_post) {
       include(locate_template('templates/article-news.php'));
