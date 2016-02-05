@@ -1,7 +1,7 @@
 // Header
 
 .site-header {
-  z-index: 2;
+  z-index: 200;
   position: relative;
   padding: 20px 10px;
   background: $white;
@@ -85,7 +85,6 @@ body.collection-active .site-header {
   width: auto;
   right: 30px;
   display: none;
-  margin-left: -10px;
   position: absolute;
   @include min-screen($breakpoint-medium) {
     display: flex;
