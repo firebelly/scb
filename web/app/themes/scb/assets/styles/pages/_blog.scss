@@ -17,6 +17,7 @@ body.blog {
     article {
       color: $white;
       margin-bottom: 20px;
+      transition: color 1s ease-out;
       -webkit-font-smoothing: antialiased;
 
       &:hover {
@@ -54,14 +55,25 @@ body.blog {
       &.resource-list {
         color: $black;
         position: relative;
+        padding-left: 20px;
+        padding-right: 20px;
         &::before {
           top: 0;
-          left: 10px;
-          right: 10px;
+          left: 20px;
+          right: 20px;
           height: 2px;
           content: '';
           background: $black;
           position: absolute;
+        }
+
+        @include min-screen($breakpoint-medium) {
+          padding-left: 0;
+          padding-right: 0;
+          &::before {
+            left: 10px;
+            right: 10px;
+          }
         }
 
         h3 {
@@ -94,7 +106,7 @@ body.blog {
 
         .background-image-wrap {
           background: none;
-          padding: 36px 0 0;
+          padding-top: 36px;
         }
       }
 
@@ -148,6 +160,7 @@ body.blog {
 
       a {
         color: $white;
+        transition: color 1s ease-out;
       }
     }
 
@@ -262,11 +275,16 @@ body.blog {
         }
 
         .background-image {
-          transition: transform .5s ease-out;
+          transition: transform .8s ease-out;
         }
 
         // Hover
         &:hover {
+          color: $black;
+          a {
+            color: $black;
+          }
+
           .background-image-wrap {
             &::before {
               transform: translate3d(-49%,0,0) skewX(35deg);
@@ -277,10 +295,6 @@ body.blog {
             .background-image {
               transform: scale(1.15);
             }
-          }
-
-          .read-more-link {
-            color: $black;
           }
         }
       }
