@@ -419,9 +419,17 @@ function sort_projects_form() {
   <div class="wrap">
     <h2>Sort Projects</h2>
     <div id="sort-projects-form">
+    <select name="category_id" class="filter-projects">
+    <option value=''>All Categories</option>
+    <?php 
+    $project_cats = get_terms('project_category', [ 'parent' => 0 ]);
+    foreach ($project_cats as $cat)
+      echo '<option value="'.$cat->slug.'" '.($_GET['category_name']==$cat->slug ? 'selected' : '').'>'.$cat->name.'</option>';
+    ?>
+    </select>
       <ul>
       <?php 
-      $projects = \Firebelly\PostTypes\Project\get_projects();
+      $projects = \Firebelly\PostTypes\Project\get_projects(['category' => $_GET['category_name']]);
       foreach ($projects as $project_post):
       ?>
         <li class="project" id="post-<?= $project_post->ID ?>">

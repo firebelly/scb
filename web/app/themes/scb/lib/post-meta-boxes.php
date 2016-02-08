@@ -37,7 +37,7 @@ function metaboxes(array $meta_boxes) {
       array(
           'id'       => '_featured',
           'type'     => 'checkbox',
-          'desc'     => 'Show at top of homepage',
+          'desc'     => 'Stick post to top',
           'name'     => 'Yes',
       ),
     ),

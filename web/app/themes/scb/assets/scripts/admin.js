@@ -29,6 +29,10 @@ var SCB_admin = (function($) {
           });
         }
       });
+      $('select.filter-projects').on('change', function(e) {
+        var slug = $(this).val();
+        location.href = '/wp/wp-admin/edit.php?post_type=project&page=sort_projects&category_name='+slug;
+      });
 
     }
 
