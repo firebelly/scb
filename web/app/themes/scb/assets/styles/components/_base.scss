@@ -18,7 +18,7 @@ body {
   font-feature-settings: "kern" 1;
 
   @include min-screen($breakpoint-medium) {
-    padding: 174px 30px 0;
+    padding: 194px 30px 0;
   }
 
   // Body color classes
