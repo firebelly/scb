@@ -466,21 +466,31 @@ var SCB = (function($) {
   function _initPostModals() {
     $(document).on('click', '.show-post-modal', function(e) {
       e.preventDefault();
-      var thisUrl = $(this).attr('href');
-      var $postModal = $modal.addClass('post-modal');
+      var post_id = $(this).data('id'),
+          modal_type = $(this).data('modal-type'),
+          $postModal = $modal.addClass('post-modal ' + modal_type);
 
       $postModal.find('.modal-content').empty();
 
       $.ajax({
-          url: thisUrl,
-          dataType: 'html',
-          success: function(data) {
-            var $personData = $(data).find('article.person');
-            $('.post-modal .modal-content').append($personData);
-            _showModal();
-          }
-      });
-    });
+        url: wp_ajax_url,
+        method: 'post',
+        dataType: 'html',
+        data: {
+            'action': 'load_post_modal',
+            'post_id': post_id
+        },
+        success: function(response) {
+          var $postData = $(response);
+          $('.post-modal .modal-content').append($postData);
+          _showModal();
+        },
+        error: function(error){
+          console.log(error);
+        }
+      }); 
+
+    });       
   }
 
   function _showPageOverlay() {

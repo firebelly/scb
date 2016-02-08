@@ -17,6 +17,12 @@
     }
   }
 
+    > .wrap > .one-half.-right {
+    @include min-screen($breakpoint-medium) {
+      padding-left: 10px;
+    }
+  }
+
   .social {
     margin: 0;
     padding: 0;

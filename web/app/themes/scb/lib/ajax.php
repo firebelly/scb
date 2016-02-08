@@ -85,7 +85,25 @@ add_action( 'wp_ajax_nopriv_load_more_posts', __NAMESPACE__ . '\\load_more_posts
  */
 function load_post_modal() {
 
-  // not sure what the hell I'm doing...
+  global $collection;
+  if (!isset($collection)) {
+    $collection = \Firebelly\Collections\get_active_collection();
+  }
+
+  if(!empty($_POST['post_id'])) {
+    $post = get_post($_POST['post_id']);
+    $post_type= get_post_type($post);
+
+    if ($post_type == 'post') {
+      $news_post = $post;
+      include(locate_template('templates/article-news.php'));
+    } else {
+      include(locate_template('single-'.get_post_type($post).'.php'));
+    }
+
+  } else {
+    echo 'empty request';
+  }
 
   // we use this call outside AJAX calls; WP likes die() after an AJAX call
   if (is_ajax()) die();
