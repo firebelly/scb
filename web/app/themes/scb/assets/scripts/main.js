@@ -179,6 +179,7 @@ var SCB = (function($) {
       _hidePageOverlay();
       _hideCollection();
       _hideModal();
+      _hideMobileNav();
     });
 
     // Esc handlers
@@ -207,7 +208,7 @@ var SCB = (function($) {
       }
     });
 
-    // _initNav();
+    _initNav();
     // _initSearch();
     // _initMasonry();
     // _initLoadMore();
@@ -322,11 +323,15 @@ var SCB = (function($) {
     $('body').addClass('collection-active');
     $collection.addClass('active');
     _scrollBody($('body'), 250);
-     if (!$collection.find('article').length) {
+    if (!$collection.find('article').length) {
       $collection.addClass('empty');
-     } else {
+    } else {
       $collection.removeClass('empty');
-     }
+    }
+    // Hide mobile nav
+    if($('.site-nav').is('.active')) {
+      _hideMobileNav();
+    }
   }
 
   function _hideCollection() {
@@ -555,13 +560,24 @@ var SCB = (function($) {
   // Handles main nav
   function _initNav() {
     // SEO-useless nav toggler
-    $('<div class="menu-toggle"><div class="menu-bar"><span class="sr-only">Menu</span></div></div>')
-      .prependTo('header.banner')
+    $('<button class="menu-toggle"><span class="lines"></span></button>')
+      .prependTo('.site-header .wrap')
       .on('click', function(e) {
-        _showMobileNav();
+        if($('.site-nav').is('active')) {
+          _hideMobileNav();
+          _hidePageOverlay();
+        } else {
+          _showMobileNav();
+          _showPageOverlay();
+        }
       });
-    var mobileSearch = $('.search-form').clone().addClass('mobile-search');
-    mobileSearch.prependTo('.site-nav');
+
+    $('<button class="plus-button close hide-nav"><div class="plus"></div></button>')
+      .prependTo('.site-nav')
+      .on('click', function(e) {
+        _hideMobileNav();
+        _hidePageOverlay();
+      });
   }
 
   function _showMobileNav() {

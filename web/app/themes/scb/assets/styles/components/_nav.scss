@@ -1,34 +1,143 @@
 // Nav
 
 // wp admin bar push
-.admin-bar {}
+.admin-bar {
+  .site-nav {
+    top: 46px;
+  }
+
+  @include min-screen(783px) {
+    padding-top: 224px;
+
+    .site-nav,
+    .site-header {
+      top: 32px;
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    .site-nav {
+      top: 0;
+    }
+  }
+}
 
 #menu-main-nav {
 }
 
 // mobile menu toggle
 .menu-toggle {
+  top: 43px;
+  padding: 0;
+  width: 22px;
+  float: right;
+  border: none;
+  height: 18px;
+  background: none;
+  position: relative;
+  .lines {
+    top: 50%;
+    left: 50%;
+    width: 100%; 
+    height: 2px;
+    position: absolute;
+    background: $black;
+    transform: translate(-50%, -50%);
+    &::before,
+    &::after {
+      left: 0;
+      height: 2px;
+      width: 100%;
+      content: '';
+      background: $black;
+      position: absolute;
+      transition: transform .2s ease-out;
+    }
+    &::before {
+      top: -6px;
+    }
+    &::after {
+      bottom: -6px;
+    }
+  }
+
+  // States
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    .lines {
+      &::before {
+        transform: translateY(-2px);
+      }
+      &::after {
+        transform: translateY(2px);
+      }
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    top: auto;
+    display: none;
+  }
 }
 
 .site-nav {
-  position: relative;
+  top: 0;
+  right: 0;
+  z-index: 200;
+  position: fixed;
+  max-width: 300px;
+  min-height: 100%;
+  background: $white;
   @include clearfix();
-  @include min-screen($breakpoint-medium) {
-    padding-left: 10px;
-    padding-right: 75px;
+  width: calc(100% - 97px);
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(1,.25,.25,1);
+  &.active {
+    transform: translateX(0);
+  }
+
+  @include min-screen($breakpoint-nav) {
+    top: auto;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    right: auto;
+    max-width: none;
+    background: none;
+    position: relative;
+    transform: translate(0);
+  }
+
+  .hide-nav {
+    top: 51px;
+    right: 10px;
+    padding: 10px;
+    position: absolute;
+    .plus {
+      width: 22px;
+      height: 22px;
+      &::before,
+      &::after {
+        width: 22px;
+        background: $black;
+      }
+    }
+
+    @include min-screen($breakpoint-nav) {
+      display: none;
+    }
   }
 
   .nav {
-    margin: 0;
-    padding: 0;
-    float: left;
     @include clearfix();
+    padding: 43px 30px 10px;
+
     li {
-      float: left;
-      line-height: 74px;
-      margin-left: 15px;
+      margin-top: 5px;
       &:first-of-type {
-        margin-left: 0;
+        margin-top: 0;
       }
       &.active {
         a::after {
@@ -63,12 +172,33 @@
         transition: opacity .2s ease-out;
       }
     }
+
+    @include min-screen($breakpoint-nav) {
+      float: left;
+      margin-top: 0;
+      padding: 0 75px 0 10px;
+
+      li {
+        float: left;
+        margin-top: 0;
+        margin-left: 15px;
+        line-height: 74px;
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
   }
 
   .nav-actions {
-    right: 0;
-    bottom: 11px;
-    position: absolute;
+    padding: 0 0 20px 30px;
+
+    @include min-screen($breakpoint-nav) {
+      right: 0;
+      padding: 0;
+      bottom: 25px;
+      position: absolute;
+    }
 
     a {
       &:first-of-type {

@@ -1,7 +1,7 @@
 // Header
 
 .site-header {
-  z-index: 200;
+  z-index: 50;
   position: relative;
   padding: 20px 10px;
   background: $white;
@@ -40,9 +40,11 @@
   .logo {
     margin: 0;
     font-weight: 200;
+    @include clearfix();
     a {
       top: -2px;
       left: -2px;
+      float: left;
       position: relative;
       display: inline-block;
     }
@@ -53,22 +55,35 @@
       transition: width .35s ease-out, height .35s ease-out;
     }
     .sub-title {
+      float: left;
+      width: 200px;
+      display: flex;
       font-size: 21px;
       font-weight: 200;
+      padding-top: 37px;
       margin-bottom: 7px;
-      display: inline-block;
       color: $brand-primary;
       vertical-align: bottom;
       line-height: 1.428571429em;
       -webkit-font-smoothing: antialiased;
+      .dash {
+        padding: 0 4px 0 2px;
+        display: inline-block;
+      }
     }
-  }
-  
 
-  @include min-screen($breakpoint-small) {
-  }
+    @include min-screen($breakpoint-nav) {
+      a {
+        float: none;
+      }
 
-  @include min-screen($breakpoint-medium) {
+      .sub-title {
+        width: auto;
+        float: none;
+        padding-top: 0;
+        display: inline-block;
+      }
+    }
   }
 }
 
