@@ -30,6 +30,23 @@ function get_excerpt( $post, $length=15, $force_content=false ) {
 }
 
 /**
+ * Pulls X <li> items from $post->post_content
+ */
+function get_li_excerpt($post, $length=4) {
+  if (!is_object($post)) return;
+  $excerpt = '';
+  $dom = new \DOMDocument();
+  $dom->loadHTML($post->post_content);
+  $list_items = $dom->getElementsByTagName('li');
+  $i = 0;
+  foreach ($list_items as $item) {
+    $excerpt .= '<li>' . $item->nodeValue . '</li>';
+    if (++$i >= $length) break;
+  }
+  return $excerpt;
+}
+
+/**
  * Get top ancestor for post
  */
 function get_top_ancestor($post){
