@@ -105,8 +105,14 @@ body.blog {
         }
 
         .background-image-wrap {
+          padding-left: 0;
+          padding-right: 0;
           background: none;
-          padding-top: 36px;
+        }
+
+        .article-inner {
+          padding-top: 16px;
+          padding-bottom: 0;
         }
       }
 
