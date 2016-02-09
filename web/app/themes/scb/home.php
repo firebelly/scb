@@ -15,7 +15,8 @@
   if ($news_posts):
     foreach ($news_posts as $news_post) {
       $i++;
-      if ($i===7) {
+      include(locate_template('templates/article-news.php'));
+      if (count($news_posts)>=6 && $i===6) {
         echo '<article class="resource-list">
           <div class="background-image-wrap">
             <div class="article-inner">
@@ -29,7 +30,7 @@
             </div>
           </div>
         </article>';
-      } elseif ($i===8) {
+      } elseif (count($news_posts)>=6 && $i===7) {
         echo '<article class="resource-list">
           <div class="background-image-wrap">
             <div class="article-inner">
@@ -44,7 +45,6 @@
           </div>
         </article>';
       }
-      include(locate_template('templates/article-news.php'));
     }
   endif;
 ?>
