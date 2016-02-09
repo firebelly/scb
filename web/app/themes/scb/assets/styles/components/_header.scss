@@ -87,8 +87,9 @@
   }
 }
 
-// When Collection is active, remove background
-body.collection-active .site-header {
+// When Collection/Modal is active, remove background
+body.collection-active .site-header,
+body.modal-active .site-header {
   background: transparent;
 }
 
