@@ -40,7 +40,7 @@ function get_li_excerpt($post, $length=4) {
   $list_items = $dom->getElementsByTagName('li');
   $i = 0;
   foreach ($list_items as $item) {
-    $excerpt .= '<li>' . $item->nodeValue . '</li>';
+    $excerpt .= '<li>' . $item->ownerDocument->saveHtml($item) . '</li>';
     if (++$i >= $length) break;
   }
   return $excerpt;

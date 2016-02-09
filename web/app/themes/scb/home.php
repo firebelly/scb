@@ -19,12 +19,13 @@
         echo '<article class="resource-list">
           <div class="background-image-wrap">
             <div class="article-inner">
-              <h3>White Pages</h3>
-              <ul>
-                <li><a href="">Article Title</a></li>
-                <li><a href="">Article Title</a></li>
-                <li><a href="">Article Title</a></li>
-              </ul>
+              <h3>White Pages</h3>';
+
+                $page = get_page_by_path('news/white-pages');
+                $lis = \Firebelly\Utils\get_li_excerpt($page);
+                echo '<ul>'.$lis.'</ul>
+                <a href="'.get_permalink($page).'">View all</a>
+
             </div>
           </div>
         </article>';
@@ -32,12 +33,13 @@
         echo '<article class="resource-list">
           <div class="background-image-wrap">
             <div class="article-inner">
-              <h3>Project Brochures</h3>
-              <ul>
-                <li><a href="">Article Title</a></li>
-                <li><a href="">Article Title</a></li>
-                <li><a href="">Article Title</a></li>
-              </ul>
+              <h3>Project Brochures</h3>';
+
+                $page = get_page_by_path('news/project-brochures');
+                $lis = \Firebelly\Utils\get_li_excerpt($page);
+                echo '<ul>'.$lis.'</ul>
+                <a href="'.get_permalink($page).'">View all</a>
+
             </div>
           </div>
         </article>';
