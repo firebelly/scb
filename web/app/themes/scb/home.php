@@ -15,7 +15,7 @@
   if ($news_posts):
     foreach ($news_posts as $news_post) {
       $i++;
-      include(locate_template('templates/article-news.php'));
+      include(locate_template('templates/article-news-excerpt.php'));
       if (count($news_posts)>=6 && $i===6) {
         echo '<article class="resource-list">
           <div class="background-image-wrap">

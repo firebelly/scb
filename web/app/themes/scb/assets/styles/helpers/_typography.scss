@@ -10,6 +10,15 @@
 }
 
 @font-face {
+  font-family: 'GT-Haptik-Thin';
+  src: url('../fonts/GT-Haptik-Thin.eot');
+  src: url('../fonts/GT-Haptik-Thin.eot?#iefix') format('embedded-opentype'), 
+       url('../fonts/GT-Haptik-Thin.woff') format('woff'),
+       url('../fonts/GT-Haptik-Thin.ttf')  format('truetype'),
+       url('../fonts/GT-Haptik-Thin.svg#cff6a11d93bb5107eb35cf946ebfef34') format('svg'); 
+}
+
+@font-face {
     font-family: "Circular-Mediumitalic";
     src:url("../fonts/lineto-circular-mediumitalic.eot");
     src:url("../fonts/lineto-circular-mediumitalic.eot?#iefix") format("embedded-opentype"),
@@ -85,6 +94,7 @@
 $sans: 'Circular-Book', sans-serif;
 $serif: Georgia, serif;
 $lazer: 'GT-Haptik-Lazer', serif;
+$thin: 'GT-Haptik-Thin', serif;
 
 // Sans-specific styles to chunk into one include
 @mixin font-sans() {
@@ -133,4 +143,11 @@ $big: 3em;
   font-family: $lazer;
   line-height: .961538462em;
   font-feature-settings: "tnum";
+}
+
+@mixin thin() {
+  font-family: $thin;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum","ss01" 1;
 }

@@ -1,12 +1,12 @@
 // Off-canvas modal
 .modal {
   right: 0;
-  top: 164px;
-  width: 100%;
+  top: 144px;
   z-index: 100; 
   padding: 40px;
   position: absolute;
   background: $white;
+  width: calc(100% - 40px);
   transform: translateX(100%);
   transition: transform .5s cubic-bezier(1,.25,.5,1);
   &.active {
@@ -19,21 +19,26 @@
 
   @include min-screen($breakpoint-medium) {
     width: 50%;
+    top: 194px;
   }
 
   // Close modal button
   .hide-modal {
     top: -2px;
     opacity: 0;
-    left: -60px;
+    left: -35px;
     position: absolute;
     pointer-events: none;
-    transition: opacity .5s eaes-out;
+    transition: opacity .5s ease-out;
     .plus::before,
     .plus::after {
       width: 20px;
       height: 1px;
       background: $black;
+    }
+
+    @include min-screen($breakpoint-medium) {
+      left: -60px;
     }
   }
 }

@@ -15,11 +15,15 @@
 // Single Person
 .person.single {
   .image-wrap {
-    height: 400px;
+    height: 200px;
     max-width: 700px;
     background: 50% 50% no-repeat scroll;
     background-size: cover;
     @include clearfix;
+
+    @include min-screen($breakpoint-medium) {
+      height: 400px;
+    }
   }
 
   .article-header {

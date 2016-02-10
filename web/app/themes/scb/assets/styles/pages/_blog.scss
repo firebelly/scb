@@ -254,6 +254,8 @@ body.blog {
 .no-touch body.blog {
   .article-list {
     article:not(.resource-list) {
+      cursor: pointer;
+      
       @include min-screen($breakpoint-medium) {
         .background-image-wrap {
           overflow: hidden;
@@ -305,9 +307,4 @@ body.blog {
       }
     }
   }
-}
-
-// News Modal mods
-.modal.news-modal.active {
-  width: calc(50% + 30px);
 }
