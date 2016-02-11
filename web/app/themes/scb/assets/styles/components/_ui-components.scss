@@ -78,6 +78,25 @@
   .stat-label {
     @include sc();
   }
+  .stat-link {
+    @include sc();
+    margin-top: 15px;
+    padding-top: 15px;
+    position: relative;
+    &::before {
+      top: 0;
+      left: 50%;
+      width: 10px;
+      content: '';
+      height: 1px;
+      position: absolute;
+      background: $black;
+      transform: translateX(-50%);
+    }
+    a {
+      
+    }
+  }
 }
 
 // Buttons

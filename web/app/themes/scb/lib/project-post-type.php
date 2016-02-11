@@ -315,9 +315,9 @@ function get_num_projects() {
 function get_projects($filters=[]) {
   $output = '';
   $args = array(
-    'numberposts' => -1,
+    'numberposts' => 6, // temporary
     'post_type' => 'project',
-    'orderby' => ['title' => 'ASC'],
+    'orderby' => ['date' => 'ASC'],
     );
   if (!empty($filters['category'])) {
     $args['tax_query'] = array(

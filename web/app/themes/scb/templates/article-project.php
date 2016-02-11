@@ -8,10 +8,10 @@ if ($categories):
 endif;
 ?>
 <article class="project" data-id="<?= $project_post->ID ?>">
-  <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($project_post->ID)): ?>
-    <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
-  <?php endif; ?>
   <div class="wrap">
+    <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($project_post->ID)): ?>
+      <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
+    <?php endif; ?>
     <h1 class="article-title"><a href="<?= get_permalink($project_post) ?>"><?= $project_post->post_title ?></a></h1>
     <div class="overlay-content">
       <?php if ($location): ?>

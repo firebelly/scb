@@ -1,120 +1,174 @@
 // Projects list
 .projects {
   @include clearfix();
-  .project {
-    width: 50%; // temporary
-    float: left; // temporary
-    padding: 20px;
-    position: relative;
-    &::before {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      content: '';
-      position: absolute;
-      background: rgba(0,0,0,.75);
-      transition: opacity .2s ease-out;
-    }
-    &:hover,
-    &:focus {
-      &::before, .overlay-content {
-        opacity: 1;
-      }
-    }
-    .image-wrap {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
-      position: absolute;
-      background: 50% 50% no-repeat scroll;
-      background-size: cover;
-      @include clearfix;
-    }
-    h1,
-    h3,
-    p {
-      z-index: 1;
-      color: $white;
-      font-size: 14px;
+
+  .project,
+  .news {
+    @include min-screen($breakpoint-medium) {
+      width: 50%;
       position: relative;
-      line-height: 1.428571429em;
     }
-    h1, .location {
-      margin-bottom: 10px;
-      padding-bottom: 30px;
-      &::after {
-        left: 0;
-        bottom: 4px;
-        width: 10px;
-        content: '';
-        height: 2px;
-        position: absolute;
-        background: $white;
-      }
+  }
+
+  .project {
+
+    @include min-screen($breakpoint-medium) {
+      padding: 0 20px;
     }
-    .categories {
-      line-height: 24px;
-    }
-    a {
-      color: $white;
-      text-decoration: none;
-    }
-    .overlay-content {
-      opacity: 0;
-      transition: opacity .2s ease-out;
-    }
-    .icon-download {
-      width: 23px;
-      height: 21px;
-      fill: $white;
-      margin-right: 20px;
-    }
-    .collection-action .close {
-      display: none;
-    }
-    .big-plus {
-      top: 50%;
-      left: 50%;
-      z-index: 1;
-      width: 100px;
-      height: 100px;
-      position: absolute;
-      transform: translate(-50%, -50%);
-      &:hover,
-      &:focus {
-        &::before,
-        &::after {
-          background: $brand-primary;
+
+    // Project-only styles
+    &:not(.stat) {
+
+      .wrap {
+        &::before {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          opacity: 0;
+          content: '';
+          height: 100%;
+          position: absolute;
+          background: rgba(0,0,0,.75);
+          transition: opacity .2s ease-out;
         }
       }
-      &::before,
-      &::after {
-        top: 0;
-        left: 50%;
-        z-index: 0;
-        width: 2px;
-        content: '';
-        height: 100px;
-        position: absolute;
-        background: $white;
-        transform: tranlsateX(-50%);
-        transition: background .2s ease-out;
+      &:hover,
+      &:focus {
+        .wrap {
+          &::before, .overlay-content {
+            opacity: 1;
+          }
+        }
       }
-      &::after {
-        transform: translateX(-50%) rotate(90deg);
+      .image-wrap {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        position: absolute;
+        background: 50% 50% no-repeat scroll;
+        background-size: cover;
+        @include clearfix;
+      }
+      h1,
+      h3,
+      p {
+        z-index: 1;
+        color: $white;
+        font-size: 14px;
+        position: relative;
+        line-height: 1.428571429em;
+      }
+      h1, .location {
+        margin-bottom: 10px;
+        padding-bottom: 30px;
+        &::after {
+          left: 0;
+          bottom: 4px;
+          width: 10px;
+          content: '';
+          height: 2px;
+          position: absolute;
+          background: $white;
+        }
+      }
+      .categories {
+        line-height: 24px;
       }
       a {
+        color: $white;
+        text-decoration: none;
+      }
+      .overlay-content {
+        opacity: 0;
+        transition: opacity .2s ease-out;
+
+        @include min-screen($breakpoint-medium) {   
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          position: absolute;
+          padding: 90px 20px 20px;
+        }
+      }
+      .actions {
+        margin-bottom: 0;
+
+        @include min-screen($breakpoint-medium) {
+          left: 20px;
+          right: 20px;
+          bottom: 20px;
+          margin-top: 0;
+          position: absolute;
+        }
+      }
+      .icon-download {
+        width: 23px;
+        height: 21px;
+        fill: $white;
+        margin-right: 20px;
+      }
+      .collection-action .close {
+        display: none;
+      }
+      .big-plus {
+        top: 50%;
+        left: 50%;
         z-index: 1;
         width: 100px;
         height: 100px;
-        display: block;
-        position: relative;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        &:hover,
+        &:focus {
+          &::before,
+          &::after {
+            background: $brand-primary;
+          }
+        }
+        &::before,
+        &::after {
+          top: 0;
+          left: 50%;
+          z-index: 0;
+          width: 2px;
+          content: '';
+          height: 100px;
+          position: absolute;
+          background: $white;
+          transform: tranlsateX(-50%);
+          transition: background .2s ease-out;
+        }
+        &::after {
+          transform: translateX(-50%) rotate(90deg);
+        }
+        a {
+          z-index: 1;
+          width: 100px;
+          height: 100px;
+          display: block;
+          position: relative;
+        }
       }
     }
+  }
+
+  .load-more {
+    clear: both;
+
+    a {
+      color: $black;
+      @include h2();
+      text-decoration: none;
+    }
+  
+    @include min-screen($breakpoint-medium) {
+      padding-left: 10px;
+    }
+
   }
 }
 

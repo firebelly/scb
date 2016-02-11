@@ -211,7 +211,7 @@ var SCB = (function($) {
     _initNav();
     // _initSearch();
     // _initMasonry();
-    // _initLoadMore();
+    _initLoadMore();
     _initPostModals();
     _initBigClicky();
 

@@ -17,7 +17,7 @@
     </div>
 
     <div class="grid grid-item one-half -right">
-      <div class="contact-group grid-item one-third">
+      <div class="contact-group">
         <h3>Chicago</h3>
         <ul>
           <li class="address">
@@ -34,7 +34,7 @@
         </ul>
       </div>
 
-      <div class="contact-group grid-item one-third">
+      <div class="contact-group">
         <h3>San Francisco</h3>
         <ul>
           <li class="address">
@@ -51,7 +51,7 @@
         </ul>
       </div>
 
-      <div class="contact-group grid-item one-third">
+      <div class="contact-group">
         <h3>Media</h3>
         <ul>
           <li class="address">
