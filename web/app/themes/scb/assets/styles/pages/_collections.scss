@@ -47,22 +47,45 @@ section.collection {
     border-bottom: 2px solid $black;
   }
 
-  article {
-    width: 250px;
-    height: 250px;
+  // Project grid wrapper
+  .grid-wrapper {
+    // Offset the grid for the padding of the items
+    @include min-screen($breakpoint-medium) {
+      margin-left: -10px;
+      width: calc(100% + 20px);
+
+      .project {
+        padding: 10px;
+      }
+    }
+  }
+
+  .project {
+    width: 50%;
+    padding: 0;
     float: left;
+    
+    .wrap {
+      padding: 20px;
+    }
+
     &.remove {
       animation: fadeOutUp .2s both;
     }
     &.add {
       animation: fadeInDown .2s both;
     }
-    &.placeholder {
-      background: #e6e6e6;
-    }
     &.dragged {
       z-index: 200;
       position: absolute;
+    }
+  }
+
+  .projects {
+    .placeholder {
+      width: 50%;
+      margin: 10px;
+      background: #e6e6e6;
     }
   }
 
@@ -80,13 +103,27 @@ section.collection {
     }
 
     .collection-actions {
-      display: flex;
-      margin-top: 40px;
       a {
-        flex-grow: 1;
-        margin-left: 10px;
+        display: block;
+        margin-top: 20px;
+        transition: color .2s ease-out;
         &:first-of-type {
-          margin-left: 0;
+          margin-top: 0;
+        }
+        &:hover {
+          color: $white;
+        }
+      }
+
+      @include min-screen($breakpoint-medium) {
+        display: flex;
+        a {
+          flex-grow: 1;
+          margin-top: 0;
+          margin-left: 10px;
+          &:first-of-type {
+            margin-left: 0;
+          }
         }
       }
     }
@@ -193,35 +230,52 @@ section.collection {
               }
             }
           }
+          .collection-text {
+            display: none;
+          }
         }
       }
     }
 
     @include min-screen($breakpoint-medium) {
       width: 50%;
-
+  
       .projects .placeholder,
       .project {
         width: 50%;
         float: left;
+      }
+
+      .projects .placeholder {
+        height: 0;
+        overflow: hidden;
+        padding-bottom: 71.4285714%;
+      }
+
+      .project {
+        .wrap {      
+          height: 0;
+          overflow: hidden;
+          padding-bottom: 71.4285714%;
+        }
       }
     }
   }
 
   // Feedback dialog
   .feedback-container {
-    top: 0;
-    left: 0;
-    right: 0;
+    height: 0;
     z-index: 1;
     overflow: hidden;
-    position: absolute;
+    &.show-feedback {
+      height: auto;
+      .feedback {
+        transform: translateY(0);
+      }
+    }
   }
   .feedback {
-    top: 0;
-    left: 0;
-    right: 0;
-    position: relative;
+    transform: translateY(-100%);
     transition: opacity .35s ease-out, transform .35s ease-out;
   }
 }

@@ -4,10 +4,10 @@ $categories = wp_get_post_terms($project_post->ID, 'project_category');
 $project_categories = '';
 if ($categories):
   foreach($categories as $cat)
-    $project_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name."</a> /<br />";
+    $project_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name.'</a> <span class="slash">/</span><br />';
 endif;
 ?>
-<article class="project" data-id="<?= $project_post->ID ?>">
+<article class="project grid-item show-post-modal" data-id="<?= $project_post->ID ?>" data-modal-type="project-modal">
   <div class="wrap">
     <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($project_post->ID)): ?>
       <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
@@ -23,9 +23,9 @@ endif;
 
       <p class="actions">
         <?php if (\Firebelly\Collections\post_in_collection($collection,$project_post->ID)): ?>
-          <a href="#" class="collection-action" data-action="remove" data-id="<?= $project_post->ID ?>"><span class="remove-text">Remove from Collection</span> <button class="plus-button close"><div class="plus"></div></button></a>
+          <a href="#" class="collection-action collection-remove no-ajaxy" data-action="remove" data-id="<?= $project_post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><button class="plus-button close"><div class="plus"></div></button> <span class="collection-text">Remove from Collection</span></a>
         <?php else: ?>
-          <a href="#" class="collection-action" data-action="add" data-id="<?= $project_post->ID ?>"><svg class="icon icon-download"><use xlink:href="#icon-download"></svg> Add to Collection</a>
+          <a href="#" class="collection-action collection-add no-ajaxy" data-action="add" data-id="<?= $project_post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><button class="plus-button close"><div class="plus"></div></button><span class="collection-text">Add to Collection</span></a>
         <?php endif; ?>
       </p>
       <div class="big-plus"><a href="<?= get_permalink($project_post) ?>" class="show-post-modal" data-id="<?= $project_post->ID; ?>" data-modal-type="project-modal"><span class="sr-only">view project</span></a></div>

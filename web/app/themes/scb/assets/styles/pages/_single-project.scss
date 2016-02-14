@@ -1,0 +1,507 @@
+// Single Project Page
+
+// special column vars for the project view
+$project-col: 100% * 1/11;
+$project-padding: (10% * 11/12);
+
+// Single Project Page
+.single-project {
+  background: $gray-light;
+  
+  .site-header {
+    background: $gray-light;
+    .header-bars .bar {
+      background: $black;
+    }
+  }
+
+  .main {
+    background: $white;
+    @include min-screen($breakpoint-medium) {
+      margin-right: -40px;
+      margin-left: $column;
+
+      .column {
+        &.-left {
+          width: 5 * $column;
+        }
+        &.-right {
+          width: 6 * $column;
+        }
+      }
+    }
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .project {
+    padding-bottom: 20px;
+
+    @include min-screen($breakpoint-medium) {
+      padding-bottom: 40px;
+    }
+
+    // Columns
+    .column {
+
+      @include min-screen($breakpoint-medium) {      
+        &.-left {
+          width: 5 * $project-col;
+          padding: 0 $project-padding 0 calc(9.166666667% + 40px);
+        }
+        &.-right {
+          width: 6 * $project-col;
+        }
+      }
+    }
+    // Adjusted wrap for inner project grid
+    .wrap {
+      padding: 0 20px;
+      @include min-screen($breakpoint-medium) {
+        padding: 0 40px 0 0;
+      }
+    }
+
+    // Horizontal orientation
+    &.horizontal {
+      .image-wrap {
+        height: 0;
+        width: 100%;
+        padding-bottom: 62.8571429%;
+      }
+
+      .project-meta {
+        .-inner {
+          border-top: 2px solid $black;
+        }
+      }
+    }
+
+    // Vertical orientation
+    &.vertical {
+      .image-wrap {
+        padding-bottom: 64.1975309%;
+      }
+
+      .project-intro {
+        .column {
+          &.-right {
+            padding: 0 20px;
+          }
+        }
+
+        @include min-screen($breakpoint-medium) {
+          padding-right: 40px;
+          
+          .image-wrap {
+            border-right: 20px solid $white;
+          }
+
+          .column {
+            &.-right {
+              background: $white;
+              padding: 60px 0 0 0;
+            }
+          }
+        }
+      }
+
+      .project-meta {
+        > div {
+          .-inner {
+            border-top: 2px solid $black;
+          }
+          @include min-screen($breakpoint-medium) {
+            padding-left: 10px;
+            &:first-of-type {
+              padding-left: 0;
+              padding-right: 10px;
+            }
+          }
+        }
+      }
+
+      // Image layout mods
+      .project-blocks {
+        .project-block {
+          &.image-block {
+            &.image-layout-1 {
+              @include min-screen($breakpoint-medium) {              
+                .image-1 {
+                  flex-basis: 5 * $project-col;
+                }
+                .image-2 {
+                  flex-basis: 6 * $project-col;
+                }
+                .stat {
+                  width: 6 * $project-col;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .image-wrap {
+      position: relative;
+      margin-bottom: 30px;
+      background: 50% 50% no-repeat scroll;
+      background-size: cover;
+
+      @include min-screen($breakpoint-medium) {
+        margin-bottom: 70px;
+      }
+    }
+
+    .article-title {
+      @include h1();
+      margin-bottom: 30px;
+      @include min-screen($breakpoint-medium) {
+        margin-bottom: 60px;
+      }
+    }
+  }
+
+  .project-meta {
+    .-inner {
+      padding-top: 30px;
+    }
+
+    h4 {
+      color: $gray;
+      margin-bottom: 60px;
+      a {
+        color: inherit;
+      }
+    }
+
+    .categories {
+      br {
+        display: none;
+      }
+    }
+  }
+
+  .project-intro-text {
+    @include h2();
+  }
+}
+
+// Project Blocks
+.project-blocks {
+  .project-block {
+    @include clearfix();
+    margin: 20px 20px 0;
+
+    @include min-screen($breakpoint-medium) {
+      margin: 40px 40px 0 0;
+    }
+
+    .user-content {
+      h2, h3 {
+        @include sc();
+        margin-bottom: 20px;
+      }
+    }
+
+    // Emphasized block
+    .full-width-text {
+      overflow: hidden;
+      padding: 0 20px;
+
+      h2, h3 {
+        color: $black;
+        @include sc();
+      }
+
+      blockquote {
+        &:before {
+          top: 1.2em;
+          width: 10px;
+          height: 2px;
+          left: -20px;
+          content: '';
+          position: absolute;
+        }
+      }
+
+      // If left/right column text is added in the same block
+      + .column-text-wrap {
+        margin-top: 20px;
+      }
+
+      @include min-screen($breakpoint-medium) {
+        margin-left: 40px;
+        padding: 0 $project-padding;
+
+        .column {
+          padding: 0;
+          &.-right {
+            margin-left: -30px;
+          }
+        }
+
+        blockquote {
+          &:before {
+            left: auto;
+            width: 20%;
+            right: calc(100% + 20px);
+          }
+        }
+
+        // If left/right column text is added in the same block
+        + .column-text-wrap {
+          margin-top: 40px;
+        }
+      }
+    }
+
+    // Gray-background emphasis block
+    &.emphasis-block {
+      color: $white;
+      margin: 20px 0;
+      background: $gray;
+      padding: 40px 20px;
+      @include min-screen($breakpoint-medium) {
+        padding: 80px 0;
+        margin-left: 40px;
+        margin-right: 40px;
+
+        .full-width-text {
+          margin-left: 0;
+        }
+
+        .column {
+          &.-left {
+            padding-left: $project-padding;
+          }
+          &.-right {
+            margin-left: -20px;
+            padding-right: 20px;
+          }
+        }
+      }
+
+      .left-column-text {
+        ul {
+          li {
+            color: $white;
+          }
+        }
+      }
+
+      .user-content {
+        h2, h3 {
+          color: $black;
+        }
+      }
+    }
+
+    .column-text-wrap {
+      @include clearfix();
+    }
+
+    .left-column-text,
+    .right-column-text {
+      @include min-screen($breakpoint-medium) {
+        min-height: 1px;
+      }
+    }
+
+    .left-column-text {
+
+      h2, h3 {
+        @include sc();
+        margin-bottom: 20px;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          color: $gray;
+          margin-top: 20px;
+          &:first-of-type {
+            margin-top: 0;
+          }
+          a {
+            color: inherit;
+          }
+        }
+      }
+    }
+
+    // Image block layouts
+    &.image-block {
+      position: relative;
+      &:not(.image-layout-5) {
+        margin: 20px;
+      }
+
+      .image-grid {
+        position: relative;
+      }
+
+      @include min-screen($breakpoint-medium) {
+        &:not(.image-layout-5) {
+          margin: 40px;
+        }
+
+        .image-grid {
+          display: flex;
+        }
+      }
+
+      .image {
+        margin-bottom: 20px;
+
+        img {
+          width: 100%;
+          vertical-align: top;
+        }
+      }
+
+      &.image-layout-1 {
+
+        @include min-screen($breakpoint-medium) {
+          margin-left: 0;
+          &.has-stat {
+            margin-bottom: 80px;
+          }
+
+          .image-1 {
+            padding-left: 40px;
+            flex-basis: 8 * $project-col;
+            border-right: 20px solid $white;
+          }
+          .image-2 {
+            flex-basis: 3 * $project-col;
+          }
+          .stat {
+            right: 0;
+            bottom: -60px;
+            position: absolute;
+            width: 3 * $project-col;
+            .stat-number {
+              font-size: 15vw;
+            }
+          }
+        }
+
+      }
+
+      &.image-layout-2 {
+
+        @include min-screen($breakpoint-medium) {
+          margin-left: 0;
+
+          .image-grid {
+            flex-wrap: wrap;
+          }
+
+          .image-1 {
+            flex-basis: 100%;
+            padding-left: 40px;
+          }
+
+          .image-2 {
+            padding-left: 40px;
+            flex-basis: 5 * $project-col;
+            border-right: 20px solid $white;
+          }
+
+          .image-3 {
+            flex-basis: 6 * $project-col;
+          }
+
+        }
+
+      }
+
+      &.image-layout-3 {
+
+        @include min-screen($breakpoint-medium) {
+          margin-left: 0;
+
+          .image-grid {
+            flex-wrap: wrap;
+          }
+
+          .image-1 {
+            padding-left: 40px;
+            flex-basis: 5 * $project-col;
+            border-right: 20px solid $white;
+          }
+
+          .image-2 {
+            flex-basis: 6 * $project-col;
+          }
+
+          .image-3 {
+            flex-basis: 100%;
+            padding-left: 40px;
+          }
+
+        }
+
+      }
+
+      &.image-layout-4 {
+
+        @include min-screen($breakpoint-medium) {
+          margin-left: 0;
+
+          .image-grid {
+            flex-wrap: wrap;
+          }
+
+          .image-1 {
+            padding-left: 40px;
+            flex-basis: 5 * $project-col;
+            border-right: 20px solid $white;
+          }
+
+          .image-2 {
+            flex-basis: 6 * $project-col;
+          }
+
+          .image-3 {
+            padding-left: 40px;
+            flex-basis: 6 * $project-col;
+            border-right: 20px solid $white;
+          }
+
+          .image-4 {
+            flex-basis: 5 * $project-col;
+          }
+
+        }
+
+      }
+
+      // Full-width
+      &.image-layout-5 {
+        margin-right: 0;
+
+        @include min-screen($breakpoint-medium) {
+          .image-grid {
+            display: block;
+          }
+        }
+        .image {
+          width: 100%;
+        }
+        .stat {
+          top: 50%;
+          right: $column;
+          position: absolute;
+          transform: translate(-40px, -50%);
+        }
+      }
+    }
+
+  }
+}

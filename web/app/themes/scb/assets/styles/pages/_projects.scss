@@ -1,687 +1,546 @@
-// Projects list
+// Project Grid Card Styles
+
 .projects {
   @include clearfix();
 
-  .project,
-  .news {
-    @include min-screen($breakpoint-medium) {
-      width: 50%;
-      position: relative;
-    }
-  }
-
   .project {
 
-    @include min-screen($breakpoint-medium) {
-      padding: 0 20px;
+    &:hover,
+    &:focus {
+      .wrap {
+        &::before, .overlay-content {
+          opacity: 1;
+        }
+      }
     }
 
-    // Project-only styles
-    &:not(.stat) {
-
-      .wrap {
-        &::before {
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          opacity: 0;
-          content: '';
-          height: 100%;
-          position: absolute;
-          background: rgba(0,0,0,.75);
-          transition: opacity .2s ease-out;
-        }
-      }
-      &:hover,
-      &:focus {
-        .wrap {
-          &::before, .overlay-content {
-            opacity: 1;
-          }
-        }
-      }
-      .image-wrap {
+    // Inner wrap + dark overlay
+    .wrap {
+      &::before {
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: -1;
-        position: absolute;
-        background: 50% 50% no-repeat scroll;
-        background-size: cover;
-        @include clearfix;
-      }
-      h1,
-      h3,
-      p {
-        z-index: 1;
-        color: $white;
-        font-size: 14px;
-        position: relative;
-        line-height: 1.428571429em;
-      }
-      h1, .location {
-        margin-bottom: 10px;
-        padding-bottom: 30px;
-        &::after {
-          left: 0;
-          bottom: 4px;
-          width: 10px;
-          content: '';
-          height: 2px;
-          position: absolute;
-          background: $white;
-        }
-      }
-      .categories {
-        line-height: 24px;
-      }
-      a {
-        color: $white;
-        text-decoration: none;
-      }
-      .overlay-content {
         opacity: 0;
+        content: '';
+        height: 100%;
+        position: absolute;
+        background: rgba(0,0,0,.75);
         transition: opacity .2s ease-out;
+      }
+    }
 
-        @include min-screen($breakpoint-medium) {   
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          position: absolute;
-          padding: 90px 20px 20px;
-        }
-      }
-      .actions {
-        margin-bottom: 0;
+    // Image background
+    .image-wrap {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      position: absolute;
+      background: 50% 50% no-repeat scroll;
+      background-size: cover;
+      @include clearfix;
+    }
 
-        @include min-screen($breakpoint-medium) {
-          left: 20px;
-          right: 20px;
-          bottom: 20px;
-          margin-top: 0;
-          position: absolute;
-        }
+    // Content styles
+    header {
+      margin-bottom: 20px;
+    }
+    h1, h3, p {
+      z-index: 1;
+      color: $white;
+      font-size: 14px;
+      position: relative;
+      line-height: 1.428571429em;
+    }
+    h1, .location {
+      &::after {
+        left: 0;
+        bottom: 4px;
+        width: 10px;
+        content: '';
+        height: 2px;
+        position: absolute;
+        background: $white;
       }
-      .icon-download {
-        width: 23px;
-        height: 21px;
-        fill: $white;
-        margin-right: 20px;
-      }
-      .collection-action .close {
+    }
+    h1 {
+      padding-bottom: 30px;
+    }
+    .location {
+      padding-top: 3px;
+      padding-bottom: 13px;
+    }
+    .categories {
+      line-height: 24px;
+      .slash:last-of-type {
         display: none;
       }
-      .big-plus {
-        top: 50%;
+    }
+    a {
+      color: $white;
+      text-decoration: none;
+    }
+    .overlay-content {
+      opacity: 0;
+      transition: opacity .2s ease-out;
+    }    
+
+    // Big overlay plus
+    .big-plus {
+      top: 50%;
+      left: 50%;
+      z-index: 1;
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      &:hover,
+      &:focus {
+        &::before,
+        &::after {
+          background: $brand-primary;
+        }
+      }
+      &::before,
+      &::after {
+        top: 0;
         left: 50%;
+        z-index: 0;
+        width: 2px;
+        content: '';
+        height: 100px;
+        position: absolute;
+        background: $white;
+        transform: tranlsateX(-50%);
+        transition: background .2s ease-out;
+      }
+      &::after {
+        transform: translateX(-50%) rotate(90deg);
+      }
+      a {
         z-index: 1;
         width: 100px;
         height: 100px;
-        position: absolute;
-        transform: translate(-50%, -50%);
-        &:hover,
-        &:focus {
-          &::before,
-          &::after {
-            background: $brand-primary;
-          }
+        display: block;
+        position: relative;
+      }
+    }
+
+  }
+
+}
+
+// Main project-grid specific styles
+.projects.main-project-grid {
+
+  // Offset the grid for the padding of the items
+  @include min-screen($breakpoint-medium) {
+    margin-left: -10px;
+    width: calc(100% + 20px);
+  }
+
+  .initial-section,
+  .load-more-container {
+    @include clearfix();
+  }
+
+  .grid-item {
+    color: $white;
+    margin-bottom: 20px;
+    transition: color 1s ease-out;
+    -webkit-font-smoothing: antialiased;
+
+    .wrap {
+      padding: 20px;
+      position: relative;
+      transition: background-color .2s ease-out;
+    }
+
+    .article-inner {
+      z-index: 2;
+      max-width: 400px;
+      position: relative;
+      padding-bottom: 40px;
+    }
+
+    a {
+      color: $white;
+      transition: color .2s ease-out;
+    }
+
+    .actions {
+      a:hover {
+        color: $brand-primary;
+        .icon {
+          fill: $brand-primary;
         }
-        &::before,
-        &::after {
-          top: 0;
-          left: 50%;
-          z-index: 0;
-          width: 2px;
-          content: '';
-          height: 100px;
-          position: absolute;
-          background: $white;
-          transform: tranlsateX(-50%);
-          transition: background .2s ease-out;
+      }
+    }
+
+    @include min-screen($breakpoint-medium) {
+      width: 50%;
+      margin-bottom: 0;
+      position: relative;
+
+      .article-inner { 
+        max-width: 280px;
+      }
+
+      .wrap {        
+        height: 0;
+        overflow: hidden;
+        margin: 0 10px 20px;
+        padding-bottom: calc(117.242% + 40px);
+      }
+
+      &:first-of-type {
+        width: 100%;
+        margin-bottom: 20px;
+        .wrap {
+          margin-bottom: 0;
+          padding-bottom: 58.621%;
         }
-        &::after {
-          transform: translateX(-50%) rotate(90deg);
+      }
+
+      &:nth-of-type(6) {
+        width: 100%;
+        .wrap {
+          padding-bottom: 60.2272727%;
         }
-        a {
-          z-index: 1;
-          width: 100px;
-          height: 100px;
+      }
+    }
+
+    @include min-screen($breakpoint-large) {
+      width: 25%;
+
+      .big-plus {
+        display: none;
+      }
+
+      .wrap {
+        padding-bottom: 128.5714286%;
+      }
+
+      &:first-of-type {
+        width: 50%;
+        margin-bottom: 0;
+        .wrap {
+          padding-bottom: calc(117.242% + 40px);
+        }
+        .big-plus {
           display: block;
-          position: relative;
         }
+      }
+
+      &:nth-of-type(2) {
+        width: 50%;
+
+        .wrap {
+          margin-bottom: 10px;
+          padding-bottom: calc(58.621% + 10px);
+        }
+        .big-plus {
+          display: block;
+        }
+      }
+
+      &:nth-of-type(3) {
+        .wrap {
+          margin-top: 10px;
+        }
+      }
+
+      &:nth-of-type(3),
+      &:nth-of-type(4) {
+        .wrap {
+          margin-top: 10px;
+          padding-bottom: 117.242%;
+        }
+      }
+
+      &:nth-of-type(6) {
+        width: 75%;
+        .wrap {
+          padding-bottom: 60.2272727%;
+        }
+        .big-plus {
+          display: block;
+        }
+      }
+
+      &:nth-of-type(7) {
+        .big-plus {
+          display: block;
+        }
+        width: 50%;
+        .wrap {
+          padding-bottom: 62.248132244%;
+        }
+      }
+    }
+
+    @include min-screen($breakpoint-huge) {
+      .big-plus {
+        display: block;
       }
     }
   }
 
-  .load-more {
-    clear: both;
-
-    a {
-      color: $black;
-      @include h2();
-      text-decoration: none;
+  .grid-item {
+    @include min-screen($breakpoint-medium) {
+      padding: 0 20px;
     }
-  
+
+    .actions {
+      margin-bottom: 0;
+
+      .collection-action {
+        .close {
+          bottom: -1px;
+          position: relative;
+        }
+      }
+
+      @include min-screen($breakpoint-medium) {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        margin-top: 0;
+        position: absolute;
+      }
+    }
+    .icon-download {
+      margin-right: 20px;
+    }
+  }
+
+  // Blog/news posts
+  .grid-item.news {
+    color: $black;
+    padding-top: 30px;
+    position: relative;
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      content: '';
+      background: $black;
+      position: absolute;
+    }
+
     @include min-screen($breakpoint-medium) {
       padding-left: 10px;
+      padding-right: 10px;
+      &::before {
+        left: 10px;
+        right: 10px;
+      }
     }
 
+    h3 {
+      @include sc();
+      margin-bottom: 14px;
+    }
+
+    a:not(.read-more-link) {
+      color: $gray-dark;
+      padding-bottom: 2px;
+      text-decoration: none;
+      transition: color .2s ease-out;
+      border-bottom: 1px solid $black;
+      &:hover {
+        color: $black;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0 0 30px;
+      li {
+        margin-top: 20px;
+        &:first-of-type {
+          margin-top: 0;
+        }
+      }
+    }
+
+    .background-image-wrap {
+      padding-left: 0;
+      padding-right: 0;
+      background: none;
+    }
+
+    .article-inner {
+      padding: 16px 0 40px;
+      border-bottom: 1px solid $gray;
+    }
+
+    .article-category {
+      @include sc();
+      margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 10px;
+      a {
+        color: $black;
+        border-bottom: none;
+        text-decoration: none;
+      }
+    }
+  }
+
+  // Stat block
+  .grid-item.stat {
+    color: $black;
+    -webkit-font-smoothing: auto;
+    .stat-number {
+      margin: 0;
+      font-size: 26vw;
+      pointer-events: none;
+      letter-spacing: -.1em;
+      @include min-screen($breakpoint-large) {
+        font-size: 16vw;
+      }
+    }
+    .stat-label {
+      position: relative;
+    }
+    a {
+      color: $black;
+      position: relative;
+      text-decoration: none;
+      transition: color .1s ease-out;
+      &::after {
+        bottom: 0;
+        height: 1px;
+        content: '';
+        left: .02em;
+        right: .2em;
+        background: $black;
+        position: absolute;
+        transition: background .1s ease-out;
+      }
+      &:hover {
+        color: $brand-primary;
+        &::after {
+          background: $brand-primary;
+        }
+      }
+    }
+
+    @include min-screen($breakpoint-large) {
+      .wrap {
+        overflow: visible;
+      }
+      .stat-number {
+        margin-top: -.5em;
+      }
+    }
+
+    // The secondary stat
+    &.stat-secondary {
+      .stat-content {
+        @include min-screen($breakpoint-medium) {            
+          top: 50%;
+          left: 50%;
+          position: absolute;
+          transform: translate(-50%, -50%);
+        }
+      }
+      .stat-number {
+        margin: 0;
+        @include thin();
+        font-size: 52px;
+        letter-spacing: .2em;
+        line-height: .961538462em;
+      }
+    }
   }
 }
 
-// Project modal settings
+// Various grid layouts
+.home, 
+body[data-pageClass=planning] {
+  .projects.main-project-grid {
+    .grid-item {
+      @include min-screen($breakpoint-medium) {
+        float: right;
+        &:not(.news) {
+          padding-left: 0;
+        }
+      }
+    }
+    // Load more container flipped layout
+    .load-more-container {
+      .grid-item {
+        @include min-screen($breakpoint-medium) {
+          float: left;
+          &:not(.news) {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+}
+// Architecture layout
+body[data-pageClass=architecture],
+body[data-pageClass=interior-design] {
+  .projects.main-project-grid {
+    .grid-item {
+      @include min-screen($breakpoint-medium) {
+        float: left;
+        &:not(.news) {
+          padding-left: 0;
+        }
+      }
+    }
+    // Load more container flipped layout
+    .load-more-container {
+      .grid-item {
+        @include min-screen($breakpoint-medium) {
+          float: right;
+          &:not(.news) {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Load More Button at the bottom
+.load-more {
+  clear: both;
+  margin: 30px 0;
+
+  a {
+    color: $black;
+    @include h2();
+    display: inline-block;
+    text-decoration: none;
+    &:hover {
+      span:first-of-type {
+        @include underline($black);
+      }
+    }
+    span {
+      display: block;
+    }
+  }
+
+  @include min-screen($breakpoint-medium) {
+    padding-left: 10px;
+    margin: 90px 0 120px;
+  }
+}
+
+// Project Modal
 .modal.project-modal.active {
   @include min-screen($breakpoint-medium) {
     width: 100%;
     transform: translateX(100px);
-  }
-}
-
-// special column vars for the project view
-$project-col: 100% * 1/11;
-$project-padding: (10% * 11/12);
-
-// Single Project Page
-.single-project {
-  background: $gray-light;
-  
-  .site-header {
-    background: $gray-light;
-    .header-bars .bar {
-      background: $black;
-    }
-  }
-
-  .main {
-    background: $white;
-    @include min-screen($breakpoint-medium) {
-      margin-right: -40px;
-      margin-left: $column;
-
-      .column {
-        &.-left {
-          width: 5 * $column;
-        }
-        &.-right {
-          width: 6 * $column;
-        }
-      }
-    }
-  }
-
-  .actions {
-    display: none;
-  }
-
-  .project {
-    padding-bottom: 20px;
-
-    @include min-screen($breakpoint-medium) {
-      padding-bottom: 40px;
-    }
-
-    // Columns
-    .column {
-
-      @include min-screen($breakpoint-medium) {      
-        &.-left {
-          width: 5 * $project-col;
-          padding: 0 $project-padding 0 calc(9.166666667% + 40px);
-        }
-        &.-right {
-          width: 6 * $project-col;
-        }
-      }
-    }
-    // Adjusted wrap for inner project grid
-    .wrap {
-      padding: 0 20px;
-      @include min-screen($breakpoint-medium) {
-        padding: 0 40px 0 0;
-      }
-    }
-
-    // Horizontal orientation
-    &.horizontal {
-      .image-wrap {
-        height: 0;
-        width: 100%;
-        padding-bottom: 62.8571429%;
-      }
-
-      .project-meta {
-        .-inner {
-          border-top: 2px solid $black;
-        }
-      }
-    }
-
-    // Vertical orientation
-    &.vertical {
-      .image-wrap {
-        padding-bottom: 64.1975309%;
-      }
-
-      .project-intro {
-        .column {
-          &.-right {
-            padding: 0 20px;
-          }
-        }
-
-        @include min-screen($breakpoint-medium) {
-          padding-right: 40px;
-          
-          .image-wrap {
-            border-right: 20px solid $white;
-          }
-
-          .column {
-            &.-right {
-              background: $white;
-              padding: 60px 0 0 0;
-            }
-          }
-        }
-      }
-
-      .project-meta {
-        > div {
-          .-inner {
-            border-top: 2px solid $black;
-          }
-          @include min-screen($breakpoint-medium) {
-            padding-left: 10px;
-            &:first-of-type {
-              padding-left: 0;
-              padding-right: 10px;
-            }
-          }
-        }
-      }
-
-      // Image layout mods
-      .project-blocks {
-        .project-block {
-          &.image-block {
-            &.image-layout-1 {
-              @include min-screen($breakpoint-medium) {              
-                .image-1 {
-                  flex-basis: 5 * $project-col;
-                }
-                .image-2 {
-                  flex-basis: 6 * $project-col;
-                }
-                .stat {
-                  width: 6 * $project-col;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .image-wrap {
-      position: relative;
-      margin-bottom: 30px;
-      background: 50% 50% no-repeat scroll;
-      background-size: cover;
-
-      @include min-screen($breakpoint-medium) {
-        margin-bottom: 70px;
-      }
-    }
-
-    .article-title {
-      @include h1();
-      margin-bottom: 30px;
-      @include min-screen($breakpoint-medium) {
-        margin-bottom: 60px;
-      }
-    }
-  }
-
-  .project-meta {
-    .-inner {
-      padding-top: 30px;
-    }
-
-    h4 {
-      color: $gray;
-      margin-bottom: 60px;
-      a {
-        color: inherit;
-      }
-    }
-
-    .categories {
-      br {
-        display: none;
-      }
-    }
-  }
-
-  .project-intro-text {
-    @include h2();
-  }
-}
-
-// Project Blocks
-.project-blocks {
-  .project-block {
-    @include clearfix();
-    margin: 20px 20px 0;
-
-    @include min-screen($breakpoint-medium) {
-      margin: 40px 40px 0 0;
-    }
-
-    .user-content {
-      h2, h3 {
-        @include sc();
-        margin-bottom: 20px;
-      }
-    }
-
-    // Emphasized block
-    .full-width-text {
-      overflow: hidden;
-      padding: 0 20px;
-
-      h2, h3 {
-        color: $black;
-        @include sc();
-      }
-
-      blockquote {
-        &:before {
-          top: 1.2em;
-          width: 10px;
-          height: 2px;
-          left: -20px;
-          content: '';
-          position: absolute;
-        }
-      }
-
-      // If left/right column text is added in the same block
-      + .column-text-wrap {
-        margin-top: 20px;
-      }
-
-      @include min-screen($breakpoint-medium) {
-        margin-left: 40px;
-        padding: 0 $project-padding;
-
-        .column {
-          padding: 0;
-          &.-right {
-            margin-left: -30px;
-          }
-        }
-
-        blockquote {
-          &:before {
-            left: auto;
-            width: 20%;
-            right: calc(100% + 20px);
-          }
-        }
-
-        // If left/right column text is added in the same block
-        + .column-text-wrap {
-          margin-top: 40px;
-        }
-      }
-    }
-
-    // Gray-background emphasis block
-    &.emphasis-block {
-      color: $white;
-      margin: 20px 0;
-      background: $gray;
-      padding: 40px 20px;
-      @include min-screen($breakpoint-medium) {
-        padding: 80px 0;
-        margin-left: 40px;
-        margin-right: 40px;
-
-        .full-width-text {
-          margin-left: 0;
-        }
-
-        .column {
-          &.-left {
-            padding-left: $project-padding;
-          }
-          &.-right {
-            margin-left: -20px;
-            padding-right: 20px;
-          }
-        }
-      }
-
-      .left-column-text {
-        ul {
-          li {
-            color: $white;
-          }
-        }
-      }
-
-      .user-content {
-        h2, h3 {
-          color: $black;
-        }
-      }
-    }
-
-    .column-text-wrap {
-      @include clearfix();
-    }
-
-    .left-column-text,
-    .right-column-text {
-      @include min-screen($breakpoint-medium) {
-        min-height: 1px;
-      }
-    }
-
-    .left-column-text {
-
-      h2, h3 {
-        @include sc();
-        margin-bottom: 20px;
-      }
-
-      ul {
-        margin: 0;
-        padding: 0;
-        li {
-          color: $gray;
-          margin-top: 20px;
-          &:first-of-type {
-            margin-top: 0;
-          }
-          a {
-            color: inherit;
-          }
-        }
-      }
-    }
-
-    // Image block layouts
-    &.image-block {
-      position: relative;
-      &:not(.image-layout-5) {
-        margin: 20px;
-      }
-
-      .image-grid {
-        position: relative;
-      }
-
-      @include min-screen($breakpoint-medium) {
-        &:not(.image-layout-5) {
-          margin: 40px;
-        }
-
-        .image-grid {
-          display: flex;
-        }
-      }
-
-      .image {
-        margin-bottom: 20px;
-
-        img {
-          width: 100%;
-          vertical-align: top;
-        }
-      }
-
-      &.image-layout-1 {
-
-        @include min-screen($breakpoint-medium) {
-          margin-left: 0;
-          &.has-stat {
-            margin-bottom: 80px;
-          }
-
-          .image-1 {
-            padding-left: 40px;
-            flex-basis: 8 * $project-col;
-            border-right: 20px solid $white;
-          }
-          .image-2 {
-            flex-basis: 3 * $project-col;
-          }
-          .stat {
-            right: 0;
-            bottom: -60px;
-            position: absolute;
-            width: 3 * $project-col;
-            .stat-number {
-              font-size: 15vw;
-            }
-          }
-        }
-
-      }
-
-      &.image-layout-2 {
-
-        @include min-screen($breakpoint-medium) {
-          margin-left: 0;
-
-          .image-grid {
-            flex-wrap: wrap;
-          }
-
-          .image-1 {
-            flex-basis: 100%;
-            padding-left: 40px;
-          }
-
-          .image-2 {
-            padding-left: 40px;
-            flex-basis: 5 * $project-col;
-            border-right: 20px solid $white;
-          }
-
-          .image-3 {
-            flex-basis: 6 * $project-col;
-          }
-
-        }
-
-      }
-
-      &.image-layout-3 {
-
-        @include min-screen($breakpoint-medium) {
-          margin-left: 0;
-
-          .image-grid {
-            flex-wrap: wrap;
-          }
-
-          .image-1 {
-            padding-left: 40px;
-            flex-basis: 5 * $project-col;
-            border-right: 20px solid $white;
-          }
-
-          .image-2 {
-            flex-basis: 6 * $project-col;
-          }
-
-          .image-3 {
-            flex-basis: 100%;
-            padding-left: 40px;
-          }
-
-        }
-
-      }
-
-      &.image-layout-4 {
-
-        @include min-screen($breakpoint-medium) {
-          margin-left: 0;
-
-          .image-grid {
-            flex-wrap: wrap;
-          }
-
-          .image-1 {
-            padding-left: 40px;
-            flex-basis: 5 * $project-col;
-            border-right: 20px solid $white;
-          }
-
-          .image-2 {
-            flex-basis: 6 * $project-col;
-          }
-
-          .image-3 {
-            padding-left: 40px;
-            flex-basis: 6 * $project-col;
-            border-right: 20px solid $white;
-          }
-
-          .image-4 {
-            flex-basis: 5 * $project-col;
-          }
-
-        }
-
-      }
-
-      // Full-width
-      &.image-layout-5 {
-        margin-right: 0;
-
-        @include min-screen($breakpoint-medium) {
-          .image-grid {
-            display: block;
-          }
-        }
-        .image {
-          width: 100%;
-        }
-        .stat {
-          top: 50%;
-          right: $column;
-          position: absolute;
-          transform: translate(-40px, -50%);
-        }
-      }
-    }
-
   }
 }

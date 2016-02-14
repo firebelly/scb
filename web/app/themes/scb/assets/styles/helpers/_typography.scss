@@ -141,7 +141,8 @@ $big: 3em;
 @mixin lazer() {
   font-family: $lazer;
   line-height: .961538462em;
-  font-feature-settings: "tnum";
+  text-rendering: optimizelegibility;
+  font-feature-settings: "tnum","ss01" 1;
 }
 
 @mixin thin() {

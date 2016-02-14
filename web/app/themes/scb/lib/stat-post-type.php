@@ -129,6 +129,11 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => true,
     'fields'        => array(
       array(
+        'name'     => 'Global Stat',
+        'id'       => $prefix . 'is_global_stat',
+        'type'     => 'checkbox'
+      ),
+      array(
         'name'     => 'Related Category',
         'id'       => $prefix . 'related_category',
         'taxonomy' => 'project_category',
@@ -167,3 +172,27 @@ function metaboxes( array $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+/**
+ * Get Stats matching category
+ */
+function get_stats($filters=[]) {
+  $output = '';
+  $args = array(
+    'numberposts' => -1,
+    'post_type' => 'stat',
+    'orderby' => ['title' => 'ASC'],
+    );
+  if (!empty($filters['related_category'])) {
+    $args['tax_query'] = array(
+      array(
+        'taxonomy' => 'related_category',
+        'field' => 'slug',
+        'terms' => $filters['related_category']
+      )
+    );
+  }
+
+  $stat_posts = get_posts($args);
+  return $stat_posts;
+}

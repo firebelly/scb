@@ -6,6 +6,7 @@
     .logo {
       .sub-title {
         color: $color;
+        transition: color .5s ease-out;
       }
     }
   }
@@ -15,6 +16,7 @@
     .nav {
       a:after {
         background: $color;
+        transition: background .5s ease-out;
       }
     }
 
@@ -104,13 +106,13 @@ body {
   &.home {
     @include colorScheme($brand-primary);
   }
-  &.architecture {
+  &.architecture, &[data-pageClass=architecture] {
     @include colorScheme($blue);
   }
-  &.interior-design {
+  &.interior-design, &[data-pageClass="interior-design"] {
     @include colorScheme($red);
   }
-  &.planning {
+  &.planning, &[data-pageClass="planning"] {
     @include colorScheme($yellow);
   }
 }
