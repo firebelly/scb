@@ -268,6 +268,7 @@ var SCB = (function($) {
 
   function _showEmailForm() {
     $('#email-collection-form').addClass('active');
+    _scrollBody($('.collection .collection-actions'), 250);
   }
   function _hideEmailForm() {
     $('#email-collection-form').removeClass('active');
@@ -355,9 +356,11 @@ var SCB = (function($) {
     _hidePageOverlay();
     $('body').removeClass('modal-active');
     $modal.removeClass('active');
+    _scrollBody($('body'), 250);
   }
 
   function _showCollection() {
+    _hideModal();
     _showPageOverlay(); 
     $('body').addClass('collection-active');
     $collection.addClass('active');
@@ -394,17 +397,18 @@ var SCB = (function($) {
 
     function _hideFeedback() {
       $collection.find('.feedback-container').removeClass('show-feedback');
-      $collection.find('.feedback').addClass('fadeOutUp'); 
-      $collection.find('.feedback').remove();
     }
 
-    $collection.find('.feedback-container').addClass('show-feedback').prepend('<div class="feedback"><p>'+message+'<p></div>');
+    $collection.find('.feedback-container .feedback p').text(message);
+    setTimeout(function(){
+      $collection.find('.feedback-container').addClass('show-feedback');
+    },250);
 
     feedbackTimer = setTimeout(_hideFeedback, 3000);
 
-    $collection.find('.feedback').on('mouseenter', function() {
+    $collection.find('.feedback-container').on('mouseenter', function() {
       clearTimeout(feedbackTimer);
-    }).on('mouseout', function() {
+    }).on('mouseleave', function() {
       setTimeout(_hideFeedback, 1000);
     });
     
@@ -427,11 +431,14 @@ var SCB = (function($) {
       }).done(function(response) {
         if (response.success) {
           _hideEmailForm();
+          _scrollBody($('.collection .feedback-container'), 250);
           _collectionMessage('Your email was sent successfully.');
         } else {
+          _scrollBody($('.collection .feedback-container'), 250);
           _collectionMessage('There was an error sending your email: ' + response.data.message);
         }
       }).fail(function(response) {
+        _scrollBody($('.collection .feedback-container'), 250);
         _collectionMessage('There was an error sending your email.');
       });
 
@@ -464,7 +471,7 @@ var SCB = (function($) {
       var collection_sort = $(this).sortable({
         containerSelector: 'div.sortable',
         itemSelector: 'article',
-        placeholder: '<article class="placeholder"/>',
+        placeholder: '<article class="placeholder"><div class="placeholder-inner"></div></article>',
         // vertical: false,
         onDragStart: function ($item, container, _super) {
           var offset = $item.offset(),
@@ -511,14 +518,18 @@ var SCB = (function($) {
   function _initPostModals() {
     $(document).on('click', '.show-post-modal', function(e) {
       var $thisTarget = $(e.target);
+      // Ignore links inside that do something else
       if ($thisTarget.is('.no-ajaxy') || $thisTarget.parents('.no-ajaxy').length) {
-        console.log($thisTarget);
         return false;
       }
       e.preventDefault();
+
       var post_id = $(this).data('id'),
           modal_type = $(this).data('modal-type'),
           $postModal = $modal.addClass('post-modal ' + modal_type);
+
+      // Hide the collection if it's open
+      _hideCollection();
 
       $postModal.find('.modal-content').empty();
 
@@ -544,8 +555,12 @@ var SCB = (function($) {
   }
 
   function _showPageOverlay() {
-    $('body').prepend('<div id="page-overlay"></div>');
-    $('#page-overlay').addClass('active');
+    if (!$('#page-over').length) {
+      $('body').prepend('<div id="page-overlay"></div>');
+    }
+    setTimeout(function() {
+      $('#page-overlay').addClass('active');
+    },50);
   }
 
   function _hidePageOverlay() {
@@ -626,6 +641,8 @@ var SCB = (function($) {
   }
 
   function _showMobileNav() {
+    _hideModal();
+    _hideCollection();
     $('body, .menu-toggle').addClass('menu-open');
     $('.site-nav').addClass('active');
   }

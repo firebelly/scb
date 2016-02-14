@@ -152,6 +152,10 @@
     transition: color 1s ease-out;
     -webkit-font-smoothing: antialiased;
 
+    &.project {
+      cursor: pointer;
+    }
+
     .wrap {
       padding: 20px;
       position: relative;
@@ -538,9 +542,43 @@ body[data-pageClass=interior-design] {
 }
 
 // Project Modal
-.modal.project-modal.active {
+.modal.project-modal{
+  padding: 20px;
+
   @include min-screen($breakpoint-medium) {
-    width: 100%;
-    transform: translateX(100px);
+    padding: 40px;
+
+    &.active {
+      width: 100%;
+      transform: translateX(100px);
+    }
+  }
+
+  .project {
+    
+    &.horizontal {
+      .image-wrap {
+        margin-top: -20px;
+        margin-left: -20px;
+        width: calc(100% + 40px);
+
+        @include min-screen($breakpoint-medium) {
+          margin-top: -40px;
+          margin-left: -40px;
+          width: calc(100% + 80px);
+        }
+      }
+    }
+
+    &.vertical {
+      @include min-screen($breakpoint-medium) {
+        .image-wrap {
+          margin-top: -40px;
+          margin-left: -40px;
+          width: calc(45.4545454545% + 40px);
+        }
+      }
+    }
+
   }
 }

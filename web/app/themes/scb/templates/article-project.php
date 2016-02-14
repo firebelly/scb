@@ -28,7 +28,7 @@ endif;
           <a href="#" class="collection-action collection-add no-ajaxy" data-action="add" data-id="<?= $project_post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><button class="plus-button close"><div class="plus"></div></button><span class="collection-text">Add to Collection</span></a>
         <?php endif; ?>
       </p>
-      <div class="big-plus"><a href="<?= get_permalink($project_post) ?>" class="show-post-modal" data-id="<?= $project_post->ID; ?>" data-modal-type="project-modal"><span class="sr-only">view project</span></a></div>
+      <div class="big-plus"><a href="#"><span class="sr-only">view project</span></a></div>
     </div>
   </div>
 </article>

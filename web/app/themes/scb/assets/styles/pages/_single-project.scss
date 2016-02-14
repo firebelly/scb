@@ -4,36 +4,67 @@
 $project-col: 100% * 1/11;
 $project-padding: (10% * 11/12);
 
-// Single Project Page
-.single-project {
-  background: $gray-light;
-  
-  .site-header {
+// Single Project Page (not in modal)
+body.single-project {
+  // Single Project Page
+  .single-project {
     background: $gray-light;
-    .header-bars .bar {
-      background: $black;
+    
+    .site-header {
+      background: $gray-light;
+      .header-bars .bar {
+        background: $black;
+      }
     }
-  }
 
-  .main {
-    background: $white;
-    @include min-screen($breakpoint-medium) {
-      margin-right: -40px;
-      margin-left: $column;
+    .main {
+      background: $white;
+      @include min-screen($breakpoint-medium) {
+        margin-right: -40px;
+        margin-left: $column;
 
-      .column {
-        &.-left {
-          width: 5 * $column;
-        }
-        &.-right {
-          width: 6 * $column;
+        .column {
+          &.-left {
+            width: 5 * $column;
+          }
+          &.-right {
+            width: 6 * $column;
+          }
         }
       }
     }
   }
+}
+
+// Single Project Page/Modal
+.single-project,
+.project-modal {
+
+  &.active {
+    .actions {
+      display: block;
+    }
+  }
 
   .actions {
+    top: 40px;
+    z-index: 1;
+    left: -60px;
     display: none;
+    position: absolute;
+    a {
+      color: $black;
+    }
+    .plus {
+      &::before,
+      &::after {
+        background: $black;
+      }
+    }
+    .icon {
+      fill: black;
+      margin-right: 10px;
+    }
   }
 
   .project {

@@ -5,6 +5,9 @@ section.collection {
     position: relative;
   }
 
+  article {
+    cursor: move;
+  }
 
   #email-collection-form {
     display: none;
@@ -14,7 +17,7 @@ section.collection {
   }
 
   h1 {
-    margin-bottom: 30px;
+    margin-bottom: 8px;
     @include sc();
     .collection-title {
       @include h1();
@@ -39,12 +42,19 @@ section.collection {
     margin-bottom: 40px;
   }
 
+  & > .post-group {
+    margin-bottom: 0;
+  }
+
   h2 {
     clear: left;
     @include sc();
     padding-bottom: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-bottom: 2px solid $black;
+    @include min-screen($breakpoint-medium) {
+      margin-bottom: 10px;
+    }
   }
 
   // Project grid wrapper
@@ -52,6 +62,7 @@ section.collection {
     // Offset the grid for the padding of the items
     @include min-screen($breakpoint-medium) {
       margin-left: -10px;
+      @include clearfix();
       width: calc(100% + 20px);
 
       .project {
@@ -61,12 +72,29 @@ section.collection {
   }
 
   .project {
-    width: 50%;
-    padding: 0;
-    float: left;
+    margin-bottom: 20px;
+
+    @include min-screen($breakpoint-medium) {    
+      width: 50%;
+      float: left;
+      margin-bottom: 0;
+    }
     
     .wrap {
       padding: 20px;
+    }
+
+    h1 {
+      padding-bottom: 20px;
+    }
+
+    .actions {
+      .collection-action {
+        .plus {
+          width: 20px;
+          height: 20px;
+        }
+      }
     }
 
     &.remove {
@@ -82,10 +110,48 @@ section.collection {
   }
 
   .projects {
+    margin-bottom: 30px;
+
+    @include min-screen($breakpoint-medium) {
+      margin-bottom: 60px;
+    }
+
     .placeholder {
-      width: 50%;
-      margin: 10px;
-      background: #e6e6e6;
+      @include min-screen($breakpoint-huge) {
+        width: 50%;
+        padding: 10px;
+      }
+
+      .placeholder-inner {
+        height: 200px;
+        background: #e6e6e6;
+      }
+    }
+  }
+
+  .collection-actions {
+    a {
+      display: block;
+      margin-top: 20px;
+      transition: color .2s ease-out;
+      &:first-of-type {
+        margin-top: 0;
+      }
+      &:hover {
+        color: $white;
+      }
+    }
+
+    @include min-screen($breakpoint-medium) {
+      display: flex;
+      a {
+        flex-grow: 1;
+        margin-top: 0;
+        margin-left: 10px;
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
     }
   }
 
@@ -100,29 +166,16 @@ section.collection {
       p {
         @include h2();
       }
-    }
 
-    .collection-actions {
-      a {
-        display: block;
-        margin-top: 20px;
-        transition: color .2s ease-out;
-        &:first-of-type {
-          margin-top: 0;
+      .collection-action {
+        color: $black;
+        font-size: 12px;
+        .icon {
+          fill: $black;
         }
         &:hover {
-          color: $white;
-        }
-      }
-
-      @include min-screen($breakpoint-medium) {
-        display: flex;
-        a {
-          flex-grow: 1;
-          margin-top: 0;
-          margin-left: 10px;
-          &:first-of-type {
-            margin-left: 0;
+          .icon {
+            fill: $black;
           }
         }
       }
@@ -131,7 +184,6 @@ section.collection {
     article {
       width: 100%;
       float: none;
-      cursor: move;
 
       .close {
         .plus {
@@ -144,8 +196,20 @@ section.collection {
     }
 
     .people {
+      padding: 0;
+
+      @include min-screen($breakpoint-medium) {
+        columns: 1;
+
+        .grid-wrapper {
+          margin: 0;
+          width: 100%;
+        }
+      }
+
       .placeholder {
         height: 30px;
+        background: #e6e6e6;
       }
     }
 
@@ -178,7 +242,7 @@ section.collection {
       .actions {
         top: 0;
         right: 0;
-        margin: 0;
+        margin: 0; 
         position: absolute;
       }
       .collection-action {
@@ -200,6 +264,11 @@ section.collection {
           opacity: 1;
         }
       }
+
+      .wrap {
+        min-height: 200px;
+      }
+
       .article-title{
         padding-right: 30px;      
         &::after {
@@ -211,9 +280,9 @@ section.collection {
         display: none;
       }
       .actions {
-        top: 0;
-        right: 0;
         margin: 0;
+        top: 20px;
+        right: 20px;
         position: absolute;
         .remove-text {
           @extend .sr-only;
@@ -237,7 +306,7 @@ section.collection {
       }
     }
 
-    @include min-screen($breakpoint-medium) {
+    @include min-screen($breakpoint-huge) {
       width: 50%;
   
       .projects .placeholder,
@@ -247,38 +316,70 @@ section.collection {
       }
 
       .projects .placeholder {
-        height: 0;
-        overflow: hidden;
-        padding-bottom: 71.4285714%;
+        .placeholder-inner {
+          height: 0;        
+          overflow: hidden;
+          padding-bottom: calc(71.4285714% + 20px);
+        }
       }
 
       .project {
         .wrap {      
           height: 0;
+          min-height: 0;
           overflow: hidden;
           padding-bottom: 71.4285714%;
         }
+      }
+    }
+
+    // Email form
+    #email-collection-form {
+      padding-top: 20px;
+
+      input[type=submit] {
+        margin-top: 20px;
+      }
+
+      @include min-screen($breakpoint-medium) {
+        padding-top: 40px;
       }
     }
   }
 
   // Feedback dialog
   .feedback-container {
-    height: 0;
     z-index: 1;
     overflow: hidden;
     &.show-feedback {
-      height: auto;
       .feedback {
-        transform: translateY(0);
+        margin-top: 0;
+        margin-bottom: 20px;
       }
     }
   }
   .feedback {
-    transform: translateY(-100%);
-    transition: opacity .35s ease-out, transform .35s ease-out;
+    margin-top: -100%;
+    transition: margin .5s ease-out;
   }
 }
 body.dragging * {
   cursor: move;
+}
+
+// Collection page only styles
+.page.collection {
+  .project {
+    .wrap {
+      min-height: 300px;
+    }
+  }
+
+  .projects .placeholder {
+    .placeholder-inner {
+      height: 300px;        
+      overflow: hidden;
+      padding-bottom: 0;
+    }
+  }
 }

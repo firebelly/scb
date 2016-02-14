@@ -34,6 +34,14 @@
       line-height: 1.5em;
       -webkit-font-smoothing: antialiased;
     }
+
+    .actions {
+      .collection-action {
+        .icon {
+          fill: $black;
+        }
+      }
+    }
   }
 
   .article-title {
@@ -181,7 +189,7 @@ body.people {
     margin-top: -5.5em;
   }
 
-  .people {
+  .people-section {
     .category-group {
       margin-top: 30px;
     }

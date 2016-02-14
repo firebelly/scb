@@ -12,11 +12,11 @@ endif;
 ?>
 <article class="project <?= $orientation ?>" data-id="<?= $post->ID ?>">
   <div class="actions">
-    <?php if (\Firebelly\Collections\post_in_collection($collection,$post->ID)): ?>
-      <a href="#" class="collection-action" data-action="remove" data-id="<?= $post->ID ?>">Remove from Collection</a>
-    <?php else: ?>
-      <a href="#" class="collection-action" data-action="add" data-id="<?= $post->ID ?>">Add to Collection</a>
-    <?php endif; ?>
+  <?php if (\Firebelly\Collections\post_in_collection($collection,$post->ID)): ?>
+    <a href="#" class="collection-action collection-remove" data-action="remove" data-id="<?= $post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><button class="plus-button close"><div class="plus"></div></button> <span class="collection-text">Remove from Collection</span></a>
+  <?php else: ?>
+    <a href="#" class="collection-action collection-add" data-action="add" data-id="<?= $post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><button class="plus-button close"><div class="plus"></div></button><span class="collection-text">Add to Collection</span></a>
+  <?php endif; ?>
   </div>
 
   <?php if ($orientation == 'vertical') { ?>

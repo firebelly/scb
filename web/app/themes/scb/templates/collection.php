@@ -11,11 +11,11 @@ $post_type_plurals = [
 ?>
 
 <button class="plus-button close hide-modal hide-collection"><div class="plus"></div></button>
-<div class="feedback-container"></div>
+<div class="feedback-container"><div class="feedback"><p></p></div></div>
 
 <?php if (empty($collection) || empty($collection->posts)): ?>
 
-  <p class="empty-message">Your collection is empty. Add Something 👍</p>
+  <p class="empty-message">Your collection is currently empty. <br>Add something by clicking on the "add to collection" icon: <a href="#" class="collection-action collection-add" data-action="add"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span></a></p>
 
 <?php else: ?>
 
@@ -26,7 +26,7 @@ $post_type_plurals = [
   foreach ($collection->posts as $collection_post):
     // Show header above each group of post types
     if ($post_type != $collection_post->post_type) {
-      echo (!empty($post_type) ? '</div>' : '') . '<div class="'.$post_type_plurals[$collection_post->post_type].' post-group" data-id="'.$collection->ID.'">';
+      echo (!empty($post_type) ? '</div></div>' : '') . '<div class="'.$post_type_plurals[$collection_post->post_type].' post-group" data-id="'.$collection->ID.'">';
       echo '<h2>'.$post_type_titles[$collection_post->post_type].'</h2><div class="grid-wrapper sortable">';
       $post_type = $collection_post->post_type;
     }
@@ -58,7 +58,9 @@ $post_type_plurals = [
       <input name="collection_id" type="hidden" value="<?= $collection->ID ?>">
       <input name="action" type="hidden" value="email_collection"><br>
       <label><input id="cc_me" name="cc_me" type="checkbox"> Send me a copy</label>
-      <input type="submit">
+      <div>
+        <input type="submit">
+      </div>
     </form>
   </div>
 

@@ -26,14 +26,18 @@
   .hide-modal {
     top: -2px;
     opacity: 0;
-    left: -35px;
+    left: -31px;
     position: absolute;
     pointer-events: none;
     transition: opacity .5s ease-out;
+    .plus {
+      width: 20px;
+      height: 20px;
+    }
     .plus::before,
     .plus::after {
       width: 20px;
-      height: 1px;
+      height: 2px;
       background: $black;
     }
 

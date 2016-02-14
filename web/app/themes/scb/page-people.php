@@ -16,7 +16,7 @@ $person_categories = get_terms('person_category');
     </div>
   </section>
 
-  <section class="people grid-item one-half">
+  <section class="people-section grid-item one-half">
     <?php 
     foreach($person_categories as $person_category) {
     	echo '<div class="category-group"><h2>'.$person_category->name.'</h2>';

@@ -1,0 +1,33 @@
+// Common Form elements
+
+input:not([type=checkbox]), textarea {
+  -webkit-appearance: none;
+}
+
+input:not([type=submit]):not([type=checkbox]), textarea {
+  width: 100%;
+  padding: 20px;
+  display: block;
+  font-size: 14px;
+  background: $white;
+  border: 1px solid $gray;
+  line-height: 1.428571429em;
+  &:focus,
+  &:active {
+    outline: none;
+    border-color: $gray-dark;
+  }
+}
+
+textarea {
+  max-width: 100%;
+}
+
+input[type=submit] {
+  @extend .btn;
+  border: none;
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
