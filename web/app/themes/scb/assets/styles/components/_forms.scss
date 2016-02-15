@@ -9,6 +9,7 @@ input:not([type=submit]):not([type=checkbox]), textarea {
   padding: 20px;
   display: block;
   font-size: 14px;
+  border-radius: 0;
   background: $white;
   border: 1px solid $gray;
   line-height: 1.428571429em;
