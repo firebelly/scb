@@ -92,8 +92,8 @@
       top: 50%;
       left: 50%;
       z-index: 1;
-      width: 100px;
-      height: 100px;
+      width: 40px;
+      height: 40px;
       position: absolute;
       transform: translate(-50%, -50%);
       &:hover,
@@ -110,7 +110,7 @@
         z-index: 0;
         width: 2px;
         content: '';
-        height: 100px;
+        height: 40px;
         position: absolute;
         background: $white;
         transform: tranlsateX(-50%);
@@ -125,6 +125,17 @@
         height: 100px;
         display: block;
         position: relative;
+      }
+
+      @include min-screen($breakpoint-medium) {
+        &::before,
+        &::after {
+          height: 100px;
+        }
+        a {
+          width: 100px;
+          height: 100px;
+        }
       }
     }
 
@@ -324,11 +335,13 @@
   .grid-item.news {
     color: $black;
     padding-top: 30px;
+    padding-right: 20px;
+    padding-left: 20px;
     position: relative;
     &::before {
       top: 0;
-      left: 0;
-      right: 0;
+      left: 20px;
+      right: 20px;
       height: 2px;
       content: '';
       background: $black;
@@ -401,9 +414,12 @@
     -webkit-font-smoothing: auto;
     .stat-number {
       margin: 0;
-      font-size: 26vw;
+      font-size: 50px;
       pointer-events: none;
       letter-spacing: -.1em;
+      @include min-screen($breakpoint-medium) {
+        font-size: 26vw;
+      }
       @include min-screen($breakpoint-large) {
         font-size: 16vw;
       }
@@ -466,7 +482,8 @@
 
 // Various grid layouts
 .home, 
-body[data-pageClass=planning] {
+body[data-pageClass=planning],
+body.tax-project_category.planning {
   .projects.main-project-grid {
     .grid-item {
       @include min-screen($breakpoint-medium) {
@@ -491,7 +508,9 @@ body[data-pageClass=planning] {
 }
 // Architecture layout
 body[data-pageClass=architecture],
-body[data-pageClass=interior-design] {
+body[data-pageClass=interior-design],
+body.tax-project_category.architecture,
+body.tax-project_category.interior-design {
   .projects.main-project-grid {
     .grid-item {
       @include min-screen($breakpoint-medium) {
@@ -517,13 +536,20 @@ body[data-pageClass=interior-design] {
 
 // Touch screen adjustments
 .touchevents {
-  .projects {
+  .projects.main-project-grid {
     .project {
+      .wrap {
+        height: 0;
+        padding: 20px 20px 60%;
+      }
       h1::after {
         display: none;
       }
       .overlay-content {
         opacity: 1;
+        left: 20px;
+        bottom: 20px;
+        position: absolute;
       }
       .location,
       .categories,

@@ -32,72 +32,69 @@ var SCB = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
-    // Homepage (pre _initMasonry)
-    if ($('.home.page').length) {
-      page_at = 'homepage';
-      $('.project-categories').on('click', 'a', function(e) {
-        e.preventDefault();
-        var thisUrl =  $(this).attr('href'),
-            $li = $(this).parent('li'),
-            $activeSiblings = $li.siblings('.active');
-        // match height of absolutely-positing children lists
-        var childHeight = $li.find('ul.children:first').outerHeight();
-        $('.project-categories').outerHeight(childHeight + 20);
-        $li.find('ul.children:first').addClass('active');
+    // Project category filter
+    $('.project-categories').on('click', 'a', function(e) {
+      e.preventDefault();
+      var thisUrl =  $(this).attr('href'),
+          $li = $(this).parent('li'),
+          $activeSiblings = $li.siblings('.active');
+      // match height of absolutely-positing children lists
+      var childHeight = $li.find('ul.children:first').outerHeight();
+      $('.project-categories').outerHeight(childHeight + 20);
+      $li.find('ul.children:first').addClass('active');
 
-        if (!$li.hasClass('active')) {
-          $li.addClass('active');
-        } else {
-          $li.removeClass('active');
-          $li.find('ul.children').removeClass('active');
+      if (!$li.hasClass('active')) {
+        $li.addClass('active');
+      } else {
+        $li.removeClass('active');
+        $li.find('ul.children').removeClass('active');
+      }
+
+      // Activate/deactivate the parent ul
+      var $parentUl = $li.parent('ul');
+      if (!$parentUl.hasClass('children')) {
+        if (!$parentUl.is('.active')) {
+          $li.parent('ul').addClass('active');
+        } else if ($parentUl.hasClass('active') && !$activeSiblings.length) {
+          $parentUl.removeClass('active');
         }
+      }
 
-        // Activate/deactivate the parent ul
-        var $parentUl = $li.parent('ul');
-        if (!$parentUl.hasClass('children')) {
-          if (!$parentUl.is('.active')) {
-            $li.parent('ul').addClass('active');
-          } else if ($parentUl.hasClass('active') && !$activeSiblings.length) {
-            $parentUl.removeClass('active');
-          }
-        }
+      // If there are active siblings, deactivate them and their children
+      if ($activeSiblings.length) {
+        $activeSiblings.find('li.active').removeClass('active');
+        $activeSiblings.find('ul').removeClass('active');
+        $activeSiblings.removeClass('active');
+      }
 
-        // If there are active siblings, deactivate them and their children
-        if ($activeSiblings.length) {
-          $activeSiblings.find('li.active').removeClass('active');
-          $activeSiblings.find('ul').removeClass('active');
-          $activeSiblings.removeClass('active');
-        }
-
-        var project_categories = [];
-        $('.project-categories li.active>a').each(function() {
-          project_categories.push($(this).text());
-        });
-        var parentCategory = (!$li.parents('li').length ? $(this) : $li.parents('li').last().children('a'));
-        var parentUrl = parentCategory.attr('href');
-        parentCategory = parentCategory.text();
-        $.ajax({
-            url: wp_ajax_url,
-            method: 'post',
-            data: {
-                action: 'load_more_posts',
-                post_type: 'project',
-                page: 1,
-                per_page: 6,
-                project_category: project_categories.join(',')
-            },
-            success: function(data) {
-              var $data = $(data);
-              if (loadingTimer) { clearTimeout(loadingTimer); }
-              $('section.projects .initial-section').html($data).removeClass('loading');
-              $('body').attr('data-pageClass', (parentUrl.replace(/\bprojects\b|\//g,'')));
-              window.history.pushState({}, parentCategory, thisUrl);
-              $('.load-more').attr('data-category', project_categories[0].toLowerCase());
-              $('.load-more-container').empty();
-            }
-        });
+      var project_categories = [];
+      $('.project-categories li.active>a').each(function() {
+        project_categories.push($(this).text());
       });
-    }
+      var parentCategory = (!$li.parents('li').length ? $(this) : $li.parents('li').last().children('a'));
+      var parentUrl = parentCategory.attr('href');
+      parentCategory = parentCategory.text();
+      $.ajax({
+          url: wp_ajax_url,
+          method: 'post',
+          data: {
+              action: 'load_more_posts',
+              post_type: 'project',
+              page: 1,
+              per_page: 6,
+              project_category: project_categories.join(',')
+          },
+          success: function(data) {
+            var $data = $(data);
+            if (loadingTimer) { clearTimeout(loadingTimer); }
+            $('section.projects .initial-section').html($data).removeClass('loading');
+            $('body').attr('data-pageClass', (parentUrl.replace(/\bprojects\b|\//g,'')));
+            window.history.pushState({}, parentCategory, thisUrl);
+            $('.load-more').attr('data-category', project_categories[0].toLowerCase());
+            $('.load-more-container').empty();
+          }
+      });
+    });
 
     // Toggle Categories filter
     $(document).on('click', '.categories-toggle', function(e) {
@@ -694,15 +691,12 @@ var SCB = (function($) {
               post_type: post_type,
               page: page+1,
               per_page: per_page,
-              category: category
+              project_category: category
           },
           success: function(data) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
             more_container.append($data).removeClass('loading');
-            // if (breakpoint_medium) {
-            //   more_container.masonry('appended', $data, true);
-            // }
             $load_more.attr('data-page-at', page+1);
 
             // Hide load more if last page

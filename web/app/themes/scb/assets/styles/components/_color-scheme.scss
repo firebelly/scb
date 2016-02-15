@@ -56,7 +56,8 @@
   }
 
   // Home page
-  .home.page .project a {
+  .home.page .projects.main-project-grid .project a,
+  body.tax-project_category .projects.main-project-grid .project a {
     transition: color .2s ease-out;
     &:hover,
     &:focus {

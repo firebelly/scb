@@ -190,3 +190,8 @@ function get_page_blocks($post) {
   }
   return $output;
 }
+
+/**
+ * Remove p tags around category description
+ */
+remove_filter('term_description','wpautop');
