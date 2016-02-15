@@ -251,7 +251,7 @@ body.blog {
 }
 
 // Non-touch hover effects
-.no-touch body.blog {
+.no-touchevents body.blog {
   .article-list {
     article:not(.resource-list) {
       cursor: pointer;

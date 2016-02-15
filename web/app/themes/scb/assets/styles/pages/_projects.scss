@@ -21,8 +21,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        opacity: 0;
         content: '';
+        opacity: .25;
         height: 100%;
         position: absolute;
         background: rgba(0,0,0,.75);
@@ -510,6 +510,25 @@ body[data-pageClass=interior-design] {
             padding-left: 0;
           }
         }
+      }
+    }
+  }
+}
+
+// Touch screen adjustments
+.no-touchevents {
+  .projects {
+    .project {
+      h1::after {
+        display: none;
+      }
+      .overlay-content {
+        opacity: 1;
+      }
+      .location,
+      .categories,
+      .big-plus {
+        display: none;
       }
     }
   }
