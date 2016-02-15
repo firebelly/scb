@@ -148,7 +148,7 @@ function metaboxes( array $meta_boxes ) {
       ),
       array(
         'name' => 'Contact',
-        'id'   => $prefix . 'position',
+        'id'   => $prefix . 'contact',
         'type' => 'wysiwyg',
         'options' => array(
           'textarea_rows' => 4,
