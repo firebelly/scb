@@ -124,9 +124,12 @@ $big: 3em;
 }
 
 @mixin h2() {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 200;
   line-height: 1.428571429em;
+  @include min-screen($breakpoint-medium) {
+    font-size: 28px;
+  }
 }
 
 // Small Caps style

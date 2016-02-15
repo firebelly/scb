@@ -49,7 +49,7 @@ body.single-project {
   .actions {
     top: 40px;
     z-index: 1;
-    left: -60px;
+    left: -32px;
     display: none;
     position: absolute;
     a {
@@ -64,6 +64,10 @@ body.single-project {
     .icon {
       fill: black;
       margin-right: 10px;
+    }
+
+    @include min-screen($breakpoint-medium) {
+      left: -60px;
     }
   }
 

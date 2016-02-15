@@ -343,7 +343,10 @@ var SCB = (function($) {
   function _showModal() {
     _showPageOverlay(); 
     $('body').addClass('modal-active');
-    $modal.addClass('active');
+    $modal.addClass('display');
+    setTimeout(function() {
+      $modal.addClass('active');
+    }, 100);
     _scrollBody($('body'), 250);
     if ($modal.find('.modal-content').is(':empty')) {
       $modal.addClass('empty');
@@ -356,6 +359,9 @@ var SCB = (function($) {
     _hidePageOverlay();
     $('body').removeClass('modal-active');
     $modal.removeClass('active');
+    setTimeout(function() {
+      $modal.removeClass('display');
+    }, 500);
     _scrollBody($('body'), 250);
   }
 
@@ -363,7 +369,10 @@ var SCB = (function($) {
     _hideModal();
     _showPageOverlay(); 
     $('body').addClass('collection-active');
-    $collection.addClass('active');
+    $collection.addClass('display');
+    setTimeout(function() {
+      $collection.addClass('active');
+    }, 100);
     _scrollBody($('body'), 250);
     if (!$collection.find('article').length) {
       $collection.addClass('empty');
@@ -380,6 +389,9 @@ var SCB = (function($) {
     _hidePageOverlay();
     $('body').removeClass('collection-active');
     $collection.removeClass('active');
+    setTimeout(function() {
+      $collection.removeClass('display');
+    }, 500);
   }
 
   // Show collection message dialog
@@ -397,6 +409,8 @@ var SCB = (function($) {
 
     function _hideFeedback() {
       $collection.find('.feedback-container').removeClass('show-feedback');
+      $collection.find('.feedback-container .feedback p').text('');
+
     }
 
     $collection.find('.feedback-container .feedback p').text(message);
@@ -520,7 +534,7 @@ var SCB = (function($) {
       var $thisTarget = $(e.target);
       // Ignore links inside that do something else
       if ($thisTarget.is('.no-ajaxy') || $thisTarget.parents('.no-ajaxy').length) {
-        return false;
+        return;
       }
       e.preventDefault();
 

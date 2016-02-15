@@ -4,7 +4,7 @@ $categories = wp_get_post_terms($project_post->ID, 'project_category');
 $project_categories = '';
 if ($categories):
   foreach($categories as $cat)
-    $project_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name.'</a> <span class="slash">/</span><br />';
+    $project_categories .= '<a href="'.get_term_link($cat).'" class="no-ajaxy">'.$cat->name.'</a> <span class="slash">/</span><br />';
 endif;
 ?>
 <article class="project grid-item show-post-modal" data-id="<?= $project_post->ID ?>" data-modal-type="project-modal">
