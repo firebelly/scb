@@ -55,19 +55,20 @@ body.single-project {
     a {
       color: $black;
     }
-    .plus {
-      &::before,
-      &::after {
-        background: $black;
-      }
-    }
     .icon {
-      fill: black;
+      fill: $black;
       margin-right: 10px;
+      &.icon-remove {
+        fill: $red;
+      }
     }
 
     @include min-screen($breakpoint-medium) {
       left: -60px;
+      .icon-remove {
+        left: -1px;
+        position: relative;
+      }
     }
   }
 

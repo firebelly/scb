@@ -334,7 +334,6 @@ var SCB = (function($) {
         $(this).find('.collection-text').data('action', 'add').text('Add to Collection');
       }
     });
-
   }
 
   function _showModal() {

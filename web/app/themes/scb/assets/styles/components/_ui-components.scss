@@ -124,14 +124,6 @@
     .icon {
       fill: $brand-primary;
     }
-    .close {
-      .plus {
-        &::before,
-        &::after {
-          background: $brand-primary;
-        }
-      }
-    }
   }
 
   .icon {
@@ -140,31 +132,25 @@
     fill: $white;
     display: inline-block;
     transition: fill .1s ease-out;
+    &.icon-remove {
+      fill: $red;
+    }
   }
 
-  .close {
-    .plus {
-      &::before,
-      &::after {
-        background: $white;
-      }
-    }
+  .collection-text {
+    opacity: 0;
+    display: inline-block;
+    transform: translateX(-25%);
+    transition: opacity .2s ease-out, transform .2s ease-out;
   }
 
   &.collection-add {  
-    .collection-text {
-      opacity: 0;
-      display: inline-block;
-      transform: translateX(-25%);
-      transition: opacity .2s ease-out, transform .2s ease-out;
-    }
-    .close {
+    .icon-remove {
       display: none;
     }
   }
-
   &.collection-remove {
-    .icon {
+    .icon-download {
       display: none;
     }
   }

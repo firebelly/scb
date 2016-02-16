@@ -185,11 +185,22 @@
       transition: color .2s ease-out;
     }
 
-    .actions {
-      a:hover {
+    .collection-add {
+      &:hover {
         color: $brand-primary;
         .icon {
           fill: $brand-primary;
+        }
+      }
+    }
+    .collection-remove {
+      .icon {
+        fill: $white;
+      }
+      &:hover {
+        color: $red;
+        .icon {
+          fill: $red;
         }
       }
     }
@@ -310,13 +321,6 @@
 
     .actions {
       margin-bottom: 0;
-
-      .collection-action {
-        .close {
-          bottom: -1px;
-          position: relative;
-        }
-      }
 
       @include min-screen($breakpoint-medium) {
         left: 20px;
@@ -555,6 +559,16 @@ body.tax-project_category.interior-design {
       .categories,
       .big-plus {
         display: none;
+      }
+      .actions {
+        .collection-action {
+          .icon-download {
+            fill: $brand-primary;
+          }
+          .icon-remove {
+            fill: $red;
+          }
+        }
       }
     }
   }

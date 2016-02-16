@@ -40,6 +40,9 @@
       .collection-action {
         .icon {
           fill: $black;
+          &.icon-remove {
+            fill: $red;
+          }
         }
       }
     }
