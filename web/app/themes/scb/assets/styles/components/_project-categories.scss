@@ -1,5 +1,17 @@
 // Project Categories Nav
 
+// When logged in
+.admin-bar {
+  .project-categories {
+    &.fixed {
+      top: 176px;
+      @include min-screen($breakpoint-nav) {
+        top: 142px;
+      }
+    }
+  }
+}
+
 .project-categories {
   background: $white;
   position: relative;
