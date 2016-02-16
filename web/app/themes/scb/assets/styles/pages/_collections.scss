@@ -367,6 +367,17 @@ body.dragging * {
   cursor: move;
 }
 
+// Touch screen adjustments
+.touchevents {
+  section.collection {
+    .project {
+      .overlay-content {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 // Collection page only styles
 .page.collection {
   .project {
