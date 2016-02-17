@@ -117,7 +117,7 @@ var SCB = (function($) {
 
     // Show/hide project details
     $document.on('click', '.details-toggle', function() {
-      $(this).closest('.show-details').next('.project-meta-content').slideToggle();
+      $(this).closest('.show-details').next('.project-meta-content').slideToggle(350);
     });
 
     // Show/hide mini collection in nav

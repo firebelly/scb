@@ -223,8 +223,11 @@ body.single-project {
     }
 
     .project-intro {
+      padding-bottom: 20px;
 
-      @include min-screen($breakpoint-medium) {      
+      @include min-screen($breakpoint-medium) {
+        padding-bottom: 0;
+        
         > .wrap {
           display: flex;
           .-left {
