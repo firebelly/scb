@@ -98,6 +98,17 @@
       
     }
   }
+
+  // Long Stats
+  &.long-stat {
+    .stat-number {
+      margin: 0;
+      @include thin();
+      font-size: 52px;
+      letter-spacing: .2em;
+      line-height: .961538462em;
+    }
+  }
 }
 
 // Buttons

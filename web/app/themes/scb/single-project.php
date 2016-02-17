@@ -33,6 +33,14 @@ endif;
           </p>
         <?php endif ?>
         <div class="project-meta">
+            <div class="grid-item one-half -right">
+              <div class="-inner">
+                <?php if ($project_categories): ?>
+                  <h3>Category</h3>
+                  <h4 class="categories"><?= $project_categories ?></h4>
+                <?php endif ?>
+              </div>
+            </div>
             <div class="grid-item one-half -left">              
               <div class="-inner grid">
                 <?php if ($client): ?>
@@ -42,14 +50,6 @@ endif;
                 <?php if ($location): ?>
                   <h3>Location</h3>
                   <h4><?= $location ?></h4>
-                <?php endif ?>
-              </div>
-            </div>
-            <div class="grid-item one-half -right">
-              <div class="-inner">
-                <?php if ($project_categories): ?>
-                  <h3>Category</h3>
-                  <h4 class="categories"><?= $project_categories ?></h4>
                 <?php endif ?>
               </div>
             </div>
@@ -64,6 +64,14 @@ endif;
         <div class="image-wrap" style="background-image:url(<?= $thumb ?>);"></div>
       <?php endif; ?>
       <div class="wrap">
+        <div class="column -right">
+          <h1 class="article-title"><?= $post->post_title ?></h1>
+          <?php if ($intro): ?>
+            <p class="project-intro-text">
+              <?= $intro ?>          
+            </p>
+          <?php endif ?>
+        </div>
         <div class="project-meta column -left">
           <div class="-inner">
             <?php if ($client): ?>
@@ -79,14 +87,6 @@ endif;
               <h4 class="categories"><?= $project_categories ?></h4>
             <?php endif ?>
           </div>
-        </div>
-        <div class="column -right">
-          <h1 class="article-title"><?= $post->post_title ?></h1>
-          <?php if ($intro): ?>
-            <p class="project-intro-text">
-              <?= $intro ?>          
-            </p>
-          <?php endif ?>
         </div>
       </div>
     </div>

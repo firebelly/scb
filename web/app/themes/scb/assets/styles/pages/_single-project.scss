@@ -38,10 +38,9 @@ body.single-project {
 
 // Project Modal
 .modal.project-modal{
-  padding: 20px;
+  padding: 0;
 
   @include min-screen($breakpoint-medium) {
-    padding: 40px;
 
     &.active {
       width: calc(100% - 100px);
@@ -50,29 +49,6 @@ body.single-project {
 
   .project {
     
-    &.horizontal {
-      .image-wrap {
-        margin-top: -20px;
-        margin-left: -20px;
-        width: calc(100% + 40px);
-
-        @include min-screen($breakpoint-medium) {
-          margin-top: -40px;
-          margin-left: -40px;
-          width: calc(100% + 80px);
-        }
-      }
-    }
-
-    &.vertical {
-      @include min-screen($breakpoint-medium) {
-        .image-wrap {
-          margin-top: -40px;
-          margin-left: -40px;
-          width: calc(45.4545454545% + 40px);
-        }
-      }
-    }
 
   }
 }
@@ -122,10 +98,22 @@ body.single-project {
 
     // Stat defaults
     .stat {
+      padding: 40px 0 60px;
+      @include min-screen($breakpoint-medium) {
+        padding: 0;
+      }
       .stat-number {
         font-size: 80px;
         @include min-screen($breakpoint-medium) {
           font-size: 16vw;
+        }
+      }
+      &.long-stat {
+        .stat-number {
+          font-size: 40px;
+          @include min-screen($breakpoint-medium) {
+            font-size: 6vw;
+          }
         }
       }
     }
@@ -232,6 +220,21 @@ body.single-project {
       }
     }
 
+    .project-intro {
+
+      @include min-screen($breakpoint-medium) {      
+        > .wrap {
+          display: flex;
+          .-left {
+            order: 0;
+          }
+          .-right {
+            order: 1;
+          }
+        }
+      }
+    }
+
     .image-wrap {
       position: relative;
       margin-bottom: 30px;
@@ -247,6 +250,7 @@ body.single-project {
       @include h1();
       margin-bottom: 30px;
       @include min-screen($breakpoint-medium) {
+        margin-top: -.12em;
         margin-bottom: 60px;
       }
     }
@@ -257,17 +261,47 @@ body.single-project {
       padding-top: 30px;
     }
 
+    h3 {
+      @include sc();
+    }
+
     h4 {
-      color: $gray;
-      margin-bottom: 60px;
+      font-size: 14px;
+      margin-top: 20px;
+      color: $gray-dark;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid $gray;
       a {
         color: inherit;
+        position: relative;
+        text-decoration: none;
+        transition: color .1s ease-out;
+        &::after {
+          left: 0;
+          right: 0;
+          bottom: 0;
+          content: '';
+          height: 1px;
+          background: $black;
+          position: absolute;
+        }
+        &:hover {
+          color: $black;
+        }
       }
     }
 
     .categories {
       br {
         display: none;
+      }
+    }
+
+    @include min-screen($breakpoint-medium) {
+      h4 {
+        margin-bottom: 25px;
+        padding-bottom: 25px;
       }
     }
   }
@@ -291,6 +325,14 @@ body.single-project {
       h2, h3 {
         @include sc();
         margin-bottom: 20px;
+      }
+    }
+
+
+    .right-column-text {
+      margin-top: 40px;
+      @include min-screen($breakpoint-medium) {
+        margin-top: 0;
       }
     }
 
@@ -350,26 +392,12 @@ body.single-project {
     &.emphasis-block {
       color: $white;
       margin: 20px 0;
-      background: $gray;
       padding: 40px 20px;
-      @include min-screen($breakpoint-medium) {
-        padding: 80px 0;
-        margin-left: 40px;
-        margin-right: 40px;
+      background: $gray-dark;
 
-        .full-width-text {
-          margin-left: 0;
-        }
-
-        .column {
-          &.-left {
-            padding-left: $project-padding;
-          }
-          &.-right {
-            margin-left: -20px;
-            padding-right: 20px;
-          }
-        }
+      .full-width-text {
+        margin-left: -20px;
+        width: calc(100% + 40px);
       }
 
       .left-column-text {
@@ -383,6 +411,27 @@ body.single-project {
       .user-content {
         h2, h3 {
           color: $black;
+        }
+      }
+
+      @include min-screen($breakpoint-medium) {
+        padding: 80px 0;
+        margin-left: 40px;
+        margin-right: 40px;
+
+        .full-width-text {
+          width: 100%;
+          margin-left: 0;
+        }
+
+        .column {
+          &.-left {
+            padding-left: $project-padding;
+          }
+          &.-right {
+            margin-left: -20px;
+            padding-right: 20px;
+          }
         }
       }
     }
@@ -409,8 +458,8 @@ body.single-project {
         margin: 0;
         padding: 0;
         li {
-          color: $gray;
           margin-top: 20px;
+          color: $gray-dark;
           &:first-of-type {
             margin-top: 0;
           }
@@ -423,10 +472,8 @@ body.single-project {
 
     // Image block layouts
     &.image-block {
+      margin: 0;
       position: relative;
-      &:not(.image-layout-5) {
-        margin: 20px;
-      }
 
       .image-grid {
         position: relative;
@@ -472,8 +519,8 @@ body.single-project {
             bottom: -60px;
             position: absolute;
             width: 3 * $project-col;
-            .stat-number {
-              font-size: 15vw;
+            &.long-stat {
+              bottom: -.5em;
             }
           }
         }
@@ -571,9 +618,10 @@ body.single-project {
 
       // Full-width
       &.image-layout-5 {
-        margin-right: 0;
 
         @include min-screen($breakpoint-medium) {
+          margin-right: 0;
+
           .image-grid {
             display: block;
           }

@@ -92,6 +92,7 @@
 
 // Fonts
 $sans: 'Circular-Book', sans-serif;
+$sans-medium: 'Circular-Medium', sans-serif;
 $serif: Georgia, serif;
 $lazer: 'GT-Haptik-Lazer', serif;
 $thin: 'GT-Haptik-Thin', serif;
@@ -116,6 +117,7 @@ $big: 3em;
 @mixin h1() {
   font-size: 56px;
   font-weight: 500;
+  font-family: $sans-medium;
   line-height: 1.071428571em;
   @include min-screen($breakpoint-medium) {
     font-size: 84px;
