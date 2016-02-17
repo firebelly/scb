@@ -36,6 +36,47 @@ body.single-project {
   }
 }
 
+// Project Modal
+.modal.project-modal{
+  padding: 20px;
+
+  @include min-screen($breakpoint-medium) {
+    padding: 40px;
+
+    &.active {
+      width: calc(100% - 100px);
+    }
+  }
+
+  .project {
+    
+    &.horizontal {
+      .image-wrap {
+        margin-top: -20px;
+        margin-left: -20px;
+        width: calc(100% + 40px);
+
+        @include min-screen($breakpoint-medium) {
+          margin-top: -40px;
+          margin-left: -40px;
+          width: calc(100% + 80px);
+        }
+      }
+    }
+
+    &.vertical {
+      @include min-screen($breakpoint-medium) {
+        .image-wrap {
+          margin-top: -40px;
+          margin-left: -40px;
+          width: calc(45.4545454545% + 40px);
+        }
+      }
+    }
+
+  }
+}
+
 // Single Project Page/Modal
 .single-project,
 .project-modal {
@@ -77,6 +118,16 @@ body.single-project {
 
     @include min-screen($breakpoint-medium) {
       padding-bottom: 40px;
+    }
+
+    // Stat defaults
+    .stat {
+      .stat-number {
+        font-size: 80px;
+        @include min-screen($breakpoint-medium) {
+          font-size: 16vw;
+        }
+      }
     }
 
     // Columns
