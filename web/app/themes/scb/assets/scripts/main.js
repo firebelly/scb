@@ -358,7 +358,7 @@ var SCB = (function($) {
     setTimeout(function() {
       $modal.removeClass('display');
     }, 500);
-    _scrollBody($('body'), 250);
+    // _scrollBody($('body'), 250);
   }
 
   function _showCollection() {
