@@ -148,8 +148,10 @@ body.single-project {
       }
 
       .project-meta {
-        .-inner {
-          border-top: 2px solid $black;
+        @include min-screen($breakpoint-medium) {        
+          .-inner {
+            border-top: 2px solid $black;
+          }
         }
       }
     }
@@ -184,12 +186,12 @@ body.single-project {
       }
 
       .project-meta {
-        > div {
-          .-inner {
-            border-top: 2px solid $black;
-          }
+        .project-meta-content > div {
           @include min-screen($breakpoint-medium) {
             padding-left: 10px;
+            .-inner {
+              border-top: 2px solid $black;
+            }
             &:first-of-type {
               padding-left: 0;
               padding-right: 10px;
@@ -257,6 +259,48 @@ body.single-project {
   }
 
   .project-meta {
+
+    .show-details {
+      text-align: right;
+      position: relative;
+      &::before {
+        left: 0;
+        right: 0;
+        top: 50%;
+        z-index: 0;
+        height: 2px;
+        content: '';
+        background: $black;
+        position: absolute;
+        transform: translateY(-50%);
+      }
+
+      .details-toggle {
+        @include sc();
+        background: $white;
+        position: relative;
+        padding-left: 20px;
+        .plus {
+          top: 2px;
+        }
+      }
+
+      .plus {
+        display: inline-block;
+      }
+
+      @include min-screen($breakpoint-medium) {
+        display: none;
+      }
+    }
+
+    .project-meta-content {    
+      display: none;
+      @include min-screen($breakpoint-medium) {
+        display: block!important; // overriding jquery slidetoggle
+      }
+    }
+
     .-inner {
       padding-top: 30px;
     }
@@ -294,6 +338,9 @@ body.single-project {
 
     .categories {
       br {
+        display: none;
+      }
+      .slash:last-of-type {
         display: none;
       }
     }

@@ -7,7 +7,7 @@ $categories = wp_get_post_terms($post->ID, 'project_category');
 $project_categories = '';
 if ($categories):
   foreach($categories as $cat)
-    $project_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name."</a> /<br />";
+    $project_categories .= '<a href="'.get_term_link($cat).'">'.$cat->name.'</a> <span class="slash">/</span><br />';
 endif;
 ?>
 <article class="project <?= $orientation ?>" data-id="<?= $post->ID ?>">
@@ -33,14 +33,8 @@ endif;
           </p>
         <?php endif ?>
         <div class="project-meta">
-            <div class="grid-item one-half -right">
-              <div class="-inner">
-                <?php if ($project_categories): ?>
-                  <h3>Category</h3>
-                  <h4 class="categories"><?= $project_categories ?></h4>
-                <?php endif ?>
-              </div>
-            </div>
+          <div class="show-details"><button class="plus-button details-toggle">Project details <div class="plus"></div></button></a></div>
+          <div class="project-meta-content">
             <div class="grid-item one-half -left">              
               <div class="-inner grid">
                 <?php if ($client): ?>
@@ -53,9 +47,18 @@ endif;
                 <?php endif ?>
               </div>
             </div>
+            <div class="grid-item one-half -right">
+              <div class="-inner">
+                <?php if ($project_categories): ?>
+                  <h3>Category</h3>
+                  <h4 class="categories"><?= $project_categories ?></h4>
+                <?php endif ?>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
   <?php } else { ?>
 
@@ -73,19 +76,22 @@ endif;
           <?php endif ?>
         </div>
         <div class="project-meta column -left">
-          <div class="-inner">
-            <?php if ($client): ?>
-              <h3>Client</h3>
-              <h4><?= $client ?></h4>
-            <?php endif ?>
-            <?php if ($location): ?>
-              <h3>Location</h3>
-              <h4><?= $location ?></h4>
-            <?php endif ?>
-            <?php if ($project_categories): ?>
-              <h3>Category</h3>
-              <h4 class="categories"><?= $project_categories ?></h4>
-            <?php endif ?>
+          <div class="show-details"><button class="plus-button details-toggle">Project details <div class="plus"></div></button></a></div>
+          <div class="project-meta-content">
+            <div class="-inner">
+              <?php if ($client): ?>
+                <h3>Client</h3>
+                <h4><?= $client ?></h4>
+              <?php endif ?>
+              <?php if ($location): ?>
+                <h3>Location</h3>
+                <h4><?= $location ?></h4>
+              <?php endif ?>
+              <?php if ($project_categories): ?>
+                <h3>Category</h3>
+                <h4 class="categories"><?= $project_categories ?></h4>
+              <?php endif ?>
+            </div>
           </div>
         </div>
       </div>

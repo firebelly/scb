@@ -115,6 +115,11 @@ var SCB = (function($) {
       });
     }
 
+    // Show/hide project details
+    $document.on('click', '.details-toggle', function() {
+      $(this).closest('.show-details').next('.project-meta-content').slideToggle();
+    });
+
     // Show/hide mini collection in nav
     $(document).on('click', '.show-collection', function(e) {
       e.preventDefault();
