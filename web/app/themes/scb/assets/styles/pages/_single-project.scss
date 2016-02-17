@@ -250,7 +250,9 @@ body.single-project {
 
     .article-title {
       @include h1();
+      font-size: 42px;
       margin-bottom: 30px;
+      word-break: break-all;
       @include min-screen($breakpoint-medium) {
         margin-top: -.12em;
         margin-bottom: 60px;
