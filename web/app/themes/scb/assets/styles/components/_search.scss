@@ -13,3 +13,20 @@
     display: block;
   }
 }
+
+.search {
+
+  .search-container {
+    @include clearfix();
+  }
+
+  .search-column {
+    @include clearfix();
+
+    @include min-screen($breakpoint-medium) {
+      width: 25%;
+      float: left;
+    }
+  }
+  
+}

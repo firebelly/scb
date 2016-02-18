@@ -8,6 +8,7 @@ input:not([type=submit]):not([type=checkbox]), textarea {
   width: 100%;
   padding: 20px;
   display: block;
+  max-width: 100%;
   font-size: 14px;
   border-radius: 0;
   background: $white;
@@ -20,11 +21,16 @@ input:not([type=submit]):not([type=checkbox]), textarea {
   }
 }
 
+input[type=search] {
+  box-sizing: border-box;
+}
+
 textarea {
   max-width: 100%;
 }
 
-input[type=submit] {
+input[type=submit],
+button[type=submit] {
   @extend .btn;
   border: none;
   &:focus,
