@@ -39,7 +39,7 @@ $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
                 <div class="wrap">
                   <p class="stat-number">85</p>
                   <p class="stat-label">Year Design Legacy</p>
-                  <p class="stat-link"><a href="about">About SCE</a></p>
+                  <p class="stat-link"><a href="about">About SCB</a></p>
                 </div>
               </article>
         ';
