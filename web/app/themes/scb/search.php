@@ -1,8 +1,8 @@
-<?php get_template_part('templates/page', 'header'); ?>
-
 <?php get_search_form(); ?>
 
 <div class="search-container">
+
+<?php get_template_part('templates/page', 'header'); ?>
 
   <?php 
   $search_arr = [
@@ -19,7 +19,7 @@
     ]);
 
     if ($project_posts) {
-      echo '<div class="search-column"><h2>'.$cat_title.'</h2>';
+      echo '<div class="search-column"><h2 class="cat-title">'.$cat_title.'</h2>';
       foreach ($project_posts as $project_post) {
         include(locate_template('templates/article-project.php'));
       }
@@ -31,7 +31,7 @@
 
     <?php 
     $count = 0;
-    if (have_posts()) { echo '<h2>News</h2>';}
+    if (have_posts()) { echo '<h2 class="cat-title">News</h2>';}
     while (have_posts()) : the_post();
       if ($post->post_type=='post') {
         $count++;

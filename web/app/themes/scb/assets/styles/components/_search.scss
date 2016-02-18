@@ -18,15 +18,50 @@
 
   .search-container {
     @include clearfix();
+
+    @include min-screen($breakpoint-medium) {
+      padding: 60px $column * 2;
+    }
   }
 
   .search-column {
     @include clearfix();
 
+    .cat-title {
+      @include sc();
+      margin-bottom: 30px;
+      border-bottom: 2px solid $black;
+    }
+
     @include min-screen($breakpoint-medium) {
-      width: 25%;
+      width: 50%;
       float: left;
+      padding: 0 10px;
+    }
+
+    @include min-screen($breakpoint-large) {
+      width: 25%;
     }
   }
   
+}
+
+// Search form
+.search-form {
+  input.search-field[type=search] {
+    border: none;
+    font-size: 42px;
+    padding-left: 0;
+    padding-right: 0;
+    color: $brand-primary;
+  }
+  input.search-field[type=search]::-webkit-input-placeholder {
+    color: rgba($brand-primary, .8);
+  }
+
+  @include min-screen($breakpoint-medium) {
+    input.search-field[type=search] {
+      font-size: 84px;
+    }
+  }
 }
