@@ -56,11 +56,11 @@
     }
     .sub-title {
       float: left;
-      width: 200px;
+      width: 180px;
       display: flex;
-      font-size: 21px;
+      font-size: 18px;
       font-weight: 200;
-      padding-top: 37px;
+      padding-top: 40px;
       margin-bottom: 7px;
       color: $brand-primary;
       vertical-align: bottom;
@@ -69,6 +69,12 @@
       .dash {
         padding: 0 4px 0 2px;
         display: inline-block;
+      }
+
+      @include min-screen($breakpoint-small) {
+        width: 200px;
+        font-size: 21px;
+        padding-top: 37px;
       }
     }
 
