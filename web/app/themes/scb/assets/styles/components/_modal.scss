@@ -3,7 +3,7 @@
 // WP Admin bar adjustment
 .admin-bar {
   .modal {
-    top: 190px;
+    top: 208px;
     @include min-screen($breakpoint-medium) {
       top: 226px;
     }
@@ -15,7 +15,7 @@
 
 .modal {
   right: 0;
-  top: 144px;
+  top: 162px;
   z-index: 50; 
   display: none;
   padding: 40px;
@@ -33,6 +33,10 @@
       opacity: 1;
       pointer-events: auto;
     }
+  }
+
+  @include min-screen($breakpoint-small) {
+    top: 144px;
   }
 
   @include min-screen($breakpoint-medium) {
