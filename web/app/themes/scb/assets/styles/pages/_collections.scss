@@ -170,7 +170,11 @@ section.collection {
     // Empty state
     &.empty {
       bottom: auto;
+      padding: 20px;
       background: $brand-primary;
+      @include min-screen($breakpoint-medium) {
+        padding: 40px;
+      }
       p {
         @include h2();
       }

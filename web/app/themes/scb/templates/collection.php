@@ -48,7 +48,7 @@ $post_type_plurals = [
 
     </div>
     <div class="collection-actions"><a href="#" class="button email-collection" data-action="email">Email</a>
-    <a href="#" class="button collection-action" data-action="pdf">Save as pdf</a>
+    <a href="#" target="_blank" class="button collection-action" data-action="pdf">Save as pdf</a>
     <a href="#" class="button collection-action" data-action="pdf">print</a></div>
 
     <div id="email-collection-form">
