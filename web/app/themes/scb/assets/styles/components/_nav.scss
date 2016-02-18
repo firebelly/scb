@@ -125,14 +125,20 @@
       }
     }
 
+    @include min-screen($breakpoint-medium) {
+      top: 72px;
+      right: 30px;
+    }
+
     @include min-screen($breakpoint-nav) {
       display: none;
     }
   }
 
   .nav {
+    margin: 0;
     @include clearfix();
-    padding: 43px 30px 10px;
+    padding: 57px 30px 10px;
 
     li {
       margin-top: 5px;
@@ -173,6 +179,10 @@
       }
     }
 
+    @include min-screen($breakpoint-medium) {
+      padding-top: 77px;
+    }
+
     @include min-screen($breakpoint-nav) {
       float: left;
       margin-top: 0;
@@ -196,7 +206,7 @@
     @include min-screen($breakpoint-nav) {
       right: 0;
       padding: 0;
-      bottom: 25px;
+      bottom: 11px;
       position: absolute;
     }
 
