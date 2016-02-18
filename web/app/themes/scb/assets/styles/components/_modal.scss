@@ -1,4 +1,18 @@
 // Off-canvas modal
+ 
+// WP Admin bar adjustment
+.admin-bar {
+  .modal {
+    top: 190px;
+    @include min-screen($breakpoint-medium) {
+      top: 226px;
+    }
+    @include min-screen($breakpoint-nav) {
+      top: 210px;
+    }
+  }
+}
+
 .modal {
   right: 0;
   top: 144px;
