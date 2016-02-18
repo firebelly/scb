@@ -1,4 +1,5 @@
 <?php 
+$orientation = get_post_meta($project_post->ID, '_cmb2_orientation', true);
 $location = get_post_meta($project_post->ID, '_cmb2_location', true);
 $categories = wp_get_post_terms($project_post->ID, 'project_category');
 $project_categories = '';
@@ -7,7 +8,7 @@ if ($categories):
     $project_categories .= '<a href="'.get_term_link($cat).'" class="no-ajaxy">'.$cat->name.'</a> <span class="slash">/</span><br />';
 endif;
 ?>
-<article class="project grid-item show-post-modal" data-id="<?= $project_post->ID ?>" data-modal-type="project-modal">
+<article class="project grid-item show-post-modal <?= $orientation ?>" data-id="<?= $project_post->ID ?>" data-modal-type="project-modal">
   <div class="wrap">
     <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($project_post->ID)): ?>
       <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
