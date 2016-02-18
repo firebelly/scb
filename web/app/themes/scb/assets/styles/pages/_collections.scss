@@ -1,4 +1,5 @@
 section.collection {
+  padding: 0;
   @include clearfix();
   
   &:not(.mini) {
@@ -158,6 +159,13 @@ section.collection {
   // The modal version
   &.mini {
     // see _modal.scss for global modal styles
+
+    .collection-content {
+      padding: 20px;
+      @include min-screen($breakpoint-medium) {
+        padding: 40px;
+      }
+    }
 
     // Empty state
     &.empty {
