@@ -17,9 +17,15 @@
     &.shrink {
       padding: 20px 30px;
       .logo {
+        a {
+          top: -5px;
+        }
         .icon {
           width: 56px;
           height: 56px;
+        }
+        .sub-title {
+          padding-top: 19px;
         }
       }
 
@@ -65,6 +71,7 @@
       color: $brand-primary;
       vertical-align: bottom;
       line-height: 1.428571429em;
+      transition: padding .2s ease-out;
       -webkit-font-smoothing: antialiased;
       .dash {
         padding: 0 4px 0 2px;
