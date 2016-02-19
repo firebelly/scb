@@ -28,6 +28,7 @@ $firebelly_includes = [
   'lib/ajax.php',                      // AJAX functions
   'lib/map.php',                       // Map functions
   'lib/custom-functions.php',          // Rando utility functions and miscellany
+  'lib/page-meta-boxes.php',           // Custom page meta boxes
   'lib/project-post-type.php',         // Project post type
   'lib/person-post-type.php',          // Person post type
   'lib/office-post-type.php',          // Office post type

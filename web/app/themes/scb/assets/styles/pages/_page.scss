@@ -11,14 +11,13 @@
 }
 
 .page-intro {
-  @include h2();
-  @include min-screen($breakpoint-medium) {
-    h2 {
-      max-width: 500px;
-    }
-  }
-  
-  h2 {
+  h2, h3 {
     @include h2();
+  }
+
+  @include min-screen($breakpoint-medium) {
+    &.-left {
+      padding-right: $column;
+    }
   }
 }

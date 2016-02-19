@@ -72,6 +72,9 @@
 // Stats
 .stat {
   text-align: center;
+  p {
+    margin: 0;
+  }
   .stat-number {
     @include lazer();
     color: $brand-primary;
