@@ -31,6 +31,14 @@
     }
   }
 
+  // Project categories
+  .project-categories {
+    a:hover,
+    .categories-parent.active > li:not(.active) > a:hover {
+      color: $color;
+    }
+  }
+
   // UI Components
   .highlight-hover {
     @include underline($color);

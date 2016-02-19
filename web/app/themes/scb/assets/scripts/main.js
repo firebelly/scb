@@ -40,15 +40,16 @@ var SCB = (function($) {
           $activeSiblings = $li.siblings('.active');
 
       // match height of absolutely-positing children lists
-      if ($li.find('ul.children').length) {      
+      if ($li.find('ul.children').length && !$li.is('.active')) {      
         var childHeight = $li.find('ul.children').outerHeight();
-        $('.project-categories').outerHeight(childHeight + 20);
+        $('.project-categories .-inner').outerHeight(childHeight + 20);
+      } else {
+        $('.project-categories .-inner').outerHeight($li.closest('ul').outerHeight() + 20);
       }
 
       // Toggle corresponding header bars
       if ($li.parent('ul').is('.categories-parent')) {
         $('.bar.-two, .bar.-three').removeClass('active');
-        
         if (!$li.is('.active')) {
           $('.bar.-two').addClass('active');
         }
@@ -116,17 +117,24 @@ var SCB = (function($) {
       $('.project-categories').toggleClass('expanded');
     });
 
-    if ($('.project-categories').length) {
-      $(window).on('scroll', function() {
-        if($(window).scrollTop() >= $('.main .projects').offset().top - $('.site-header').outerHeight()) {
-          $('.project-categories').addClass('fixed');
-          if ($('.categories-toggle').is('.expanded') && !$('.project-categories').is('.expanded')) {
-            $('.categories-toggle').removeClass('expanded');
-          }
-        } else if ($(window).scrollTop() <= $('.main').offset().top + $('.site-header').outerHeight()) {
-          $('.project-categories').removeClass('fixed explanded');
-          $('.categories-toggle').addClass('expanded');
+    function _checkCatScrollPos() {
+      if($(window).scrollTop() >= $('.main .projects').offset().top - $('.site-header').outerHeight()) {
+        $('.project-categories').addClass('fixed');
+        if ($('.categories-toggle').is('.expanded') && !$('.project-categories').is('.expanded')) {
+          $('.categories-toggle').removeClass('expanded');
         }
+      } else if ($(window).scrollTop() <= $('.main').offset().top + $('.site-header').outerHeight()) {
+        $('.project-categories').removeClass('fixed explanded');
+        $('.categories-toggle').addClass('expanded');
+      }
+    }
+
+    if ($('.project-categories').length) {
+
+      _checkCatScrollPos();
+
+      $(window).on('scroll', function() {
+        _checkCatScrollPos();
       });
     }
 
