@@ -62,7 +62,7 @@ $project_images[] = get_post_meta($post->ID, '_cmb2_careers_images', true);
           <p class="stat-link"><a href="#">Chicago</a> / <a href="#">San Francisco</a></p>
         </div>
       </div>
-      <div class="stat">
+      <div class="stat long-stat">
         <div class="wrap">
           <p class="stat-number"><?= $num_people ?></p>
           <p class="stat-label">Design Professionals</p>

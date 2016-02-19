@@ -73,6 +73,7 @@
 
     .-right {
       .stat {
+        margin-bottom: 60px;
         .stat-number {
           font-size: 52px;
         }
@@ -87,7 +88,7 @@
           margin-top: -100px;
         }
 
-        .stat {
+        .stat:not(.long-stat) {
           .stat-number {
             font-size: 16vw;
           }
