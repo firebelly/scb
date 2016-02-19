@@ -38,32 +38,47 @@ var SCB = (function($) {
       var thisUrl =  $(this).attr('href'),
           $li = $(this).parent('li'),
           $activeSiblings = $li.siblings('.active');
-      // match height of absolutely-positing children lists
-      var childHeight = $li.find('ul.children:first').outerHeight();
-      $('.project-categories').outerHeight(childHeight + 20);
-      $li.find('ul.children:first').addClass('active');
 
+      // match height of absolutely-positing children lists
+      if ($li.find('ul.children').length) {      
+        var childHeight = $li.find('ul.children').outerHeight();
+        $('.project-categories').outerHeight(childHeight + 20);
+      }
+
+      // Toggle corresponding header bars
+      if ($li.parent('ul').is('.categories-parent')) {
+        $('.bar.-two, .bar.-three').removeClass('active');
+        
+        if (!$li.is('.active')) {
+          $('.bar.-two').addClass('active');
+        }
+      } else if ($li.parent('ul').is('.children')) {
+        if ($li.is('.active') && $('.bar.-three').is('.active') || !$li.find('ul').length && $('.bar.-three').is('.active')) {
+          $('.bar.-three').removeClass('active');
+        } else if ($li.find('ul').length) {
+          $('.bar.-three').addClass('active');
+        }
+      }
+
+      // Toggle activitiy status
       if (!$li.hasClass('active')) {
         $li.addClass('active');
       } else {
         $li.removeClass('active');
-        $li.find('ul.children').removeClass('active');
+        $li.find('ul, li').removeClass('active');
       }
 
       // Activate/deactivate the parent ul
       var $parentUl = $li.parent('ul');
-      if (!$parentUl.hasClass('children')) {
-        if (!$parentUl.is('.active')) {
-          $li.parent('ul').addClass('active');
-        } else if ($parentUl.hasClass('active') && !$activeSiblings.length) {
-          $parentUl.removeClass('active');
-        }
+      if (!$parentUl.is('.active')) {
+        $li.parent('ul').addClass('active');
+      } else if ($parentUl.hasClass('active') && !$activeSiblings.length) {
+        $parentUl.removeClass('active');
       }
 
       // If there are active siblings, deactivate them and their children
       if ($activeSiblings.length) {
-        $activeSiblings.find('li.active').removeClass('active');
-        $activeSiblings.find('ul').removeClass('active');
+        $activeSiblings.find('.active').removeClass('active');
         $activeSiblings.removeClass('active');
       }
 

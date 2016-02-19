@@ -144,3 +144,13 @@ body.menu-open .site-header {
     position: absolute;
   }
 }
+
+// If on a projects page, start with first bar activated
+body.home,
+body.tax-project_category {
+  .header-bars {
+    .bar.-one {
+      @extend .bar.active;
+    }
+  }
+}
