@@ -18,9 +18,22 @@ body {
   font-feature-settings: "kern" 1;
 
   @include min-screen($breakpoint-medium) {
-    padding: 194px 30px 0;
+    padding: 200px 30px 0;
   }
 
+  @include min-screen($breakpoint-nav) {
+    padding-top: 170px;
+  }
+
+  &.admin-bar {
+    
+    @include min-screen(783px) {
+      padding-top: 200px;
+    }
+    @include min-screen($breakpoint-nav) {
+      padding-top: 170px;
+    }
+  }
 
 }
 
