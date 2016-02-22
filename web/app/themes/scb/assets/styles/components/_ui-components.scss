@@ -76,7 +76,8 @@
     margin: 0;
   }
   .stat-number {
-    @include lazer();
+    @include thin();
+    margin-bottom: 40px;
     color: $brand-primary;
   }
   .stat-label {
@@ -121,10 +122,15 @@
     }
   }
 
+  @include min-screen($breakpoint-medium) {
+    .stat-number {
+      @include lazer();
+    }
+  }
+
   // Long Stats
   &.long-stat {
     .stat-number {
-      margin: 0;
       @include thin();
       font-size: 52px;
       letter-spacing: .2em;
