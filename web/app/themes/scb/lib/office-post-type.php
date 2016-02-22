@@ -150,6 +150,21 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 add_action('save_post_office', '\Firebelly\Map\geocode_address', 20, 2);
 
 /**
+ * Get Offices
+ */
+function get_offices() {
+  $output = '';
+  $args = array(
+    'numberposts' => -1,
+    'post_type' => 'office',
+    'orderby' => ['date' => 'ASC'],
+    );
+
+  $offices = get_posts($args);
+  return $offices;
+}
+
+/**
  * Get num active Offices
  */
 function get_num_offices() {

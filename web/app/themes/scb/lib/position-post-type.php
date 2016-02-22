@@ -136,3 +136,19 @@ function metaboxes( array $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+
+/**
+ * Get Positions matching office
+ */
+function get_positions() {
+  $output = '';
+  $args = array(
+    'numberposts' => -1,
+    'post_type' => 'position',
+    'orderby' => ['date' => 'ASC'],
+    );
+
+  $positions = get_posts($args);
+  return $positions;
+}

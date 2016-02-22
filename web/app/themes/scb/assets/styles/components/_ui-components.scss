@@ -98,7 +98,26 @@
       transform: translateX(-50%);
     }
     a {
-      
+      color: $black;
+      position: relative;
+      text-decoration: none;
+      transition: color .1s ease-out;
+      &::after {
+        bottom: 0;
+        height: 1px;
+        content: '';
+        left: .02em;
+        right: .2em;
+        background: $black;
+        position: absolute;
+        transition: background .1s ease-out;
+      }
+      &:hover {
+        color: $brand-primary;
+        &::after {
+          background: $brand-primary;
+        }
+      }
     }
   }
 
