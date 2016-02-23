@@ -563,7 +563,8 @@ var SCB = (function($) {
       e.preventDefault();
 
       var post_id = $(this).data('id'),
-          modal_type = $(this).data('modal-type'),
+          modal_type = $(this).data('modal-type');
+          $modal.removeClass('post-modal project-modal person-modal'); // doing this the lazy way for now
           $postModal = $modal.addClass('post-modal ' + modal_type);
 
       // Hide the collection if it's open
