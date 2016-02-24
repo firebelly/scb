@@ -319,7 +319,7 @@ section.collection {
     }
 
     @include min-screen($breakpoint-huge) {
-      width: 50%;
+      width: calc(50% + 30px);
   
       .projects .placeholder,
       .project {

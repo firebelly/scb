@@ -40,9 +40,9 @@
   }
 
   @include min-screen($breakpoint-medium) {
-    width: 50%;
     top: 194px;
     padding: 40px;
+    width: calc(50% + 30px);
   }
 
   // Close modal button
