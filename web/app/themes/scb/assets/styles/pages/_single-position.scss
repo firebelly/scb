@@ -117,3 +117,52 @@
 // Single page only
 
 // Modal only
+.modal.position-modal {
+
+  @include min-screen($breakpoint-medium) {
+    width: calc(70% + 30px);
+  }
+
+  .article-body {
+
+    &.-two-column {
+      @include clearfix();
+
+      .-left,
+      .-right {
+        width: 100%;
+        padding-top: 20px;
+      }
+
+      @include min-screen($breakpoint-large) {
+        .-left,
+        .-right {
+          float: left;
+          position: relative;
+          &::before {
+            top: 0;
+            left: 0;
+            right: 0;
+            content: '';
+            height: 2px;
+            position: absolute;
+            background: $black;
+          }
+        }
+
+        .-left {
+          padding-right: 20px;
+          width: 100% * 1 / 3;
+          &::before {
+            right: 20px;
+          }
+        }
+
+        .-right {
+          width: 100% / 3 * 2;
+        }
+      }
+    }
+
+  }
+}
