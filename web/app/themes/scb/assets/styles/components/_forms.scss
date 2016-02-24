@@ -14,6 +14,10 @@ input:not([type=submit]):not([type=checkbox]), textarea {
   background: $white;
   border: 1px solid $gray;
   line-height: 1.428571429em;
+  transition: background .2s ease-out;
+  &:hover {
+    background: #f7f7f7;
+  }
   &:focus,
   &:active {
     outline: none;
@@ -37,4 +41,41 @@ button[type=submit] {
   &:active {
     outline: none;
   }
+}
+
+// File input type
+input[type=file] {
+  cursor: pointer;
+  color: transparent;
+}
+input[type=file]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input[type=file]::before,
+input[type=file]::after {
+  outline: none;
+  display: block;
+  color: $gray-dark;
+  -webkit-user-select: none;
+}
+input[type=file]::before {
+  white-space: nowrap;
+  content: 'Add Files';
+  text-decoration: underline;
+}
+input[type=file]::after {
+  @include sc();
+  font-size: 8px;
+  color: $gray-dark;
+  line-height: 1.25em;
+  content: 'Upload cover page, resume, portfolio — 300mb max size';
+}
+input[type=file]:hover::before {
+  border-color: black;
+}
+input[type=file]:active {
+  outline: 0;
+}
+input[type=file]:active::before {
+  
 }

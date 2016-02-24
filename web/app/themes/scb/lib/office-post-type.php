@@ -133,9 +133,9 @@ function metaboxes( array $meta_boxes ) {
         ),
       ),
       array(
-          'name'    => 'Address',
-          'id'      => $prefix . 'address',
-          'type'    => 'address',
+        'name'    => 'Address',
+        'id'      => $prefix . 'address',
+        'type'    => 'address',
       ),
     ),
   );

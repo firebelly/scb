@@ -112,7 +112,7 @@
 
 // Custom color based on body class
 body {
-  &.home {
+  &.home, &.single:not(.single-project) {
     @include colorScheme($brand-primary);
   }
   &.architecture, &[data-pageClass=architecture] {

@@ -11,11 +11,11 @@ $featured_class = get_post_meta($news_post->ID, '_featured', true) ? ' featured-
       <header>
         <?php if ($category): ?><div class="article-category"><a href="<?= get_term_link($category); ?>"><?= $category->name; ?></a></div><?php endif; ?>
 
-        <h2 class="entry-title"><a href="<?php the_permalink(); ?>" class="show-post-modal" data-modal-type="news-modal" data-id="<?= $news_post->ID; ?>"><?= wp_trim_words($news_post->post_title, 10); ?></a></h2>
+        <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?= wp_trim_words($news_post->post_title, 10); ?></a></h2>
       </header>
       <div class="entry-summary">
         <?= Utils\get_excerpt($news_post); ?>
-        <a href="<?php the_permalink(); ?>" class="show-post-modal read-more-link" data-modal-type="news-modal" data-id="<?= $news_post->ID; ?>">+ <span class="sr-only">Continued</span></a>
+        <a href="<?php the_permalink(); ?>" class="read-more-link">+ <span class="sr-only">Continued</span></a>
       </div>
     </div>
   </div>

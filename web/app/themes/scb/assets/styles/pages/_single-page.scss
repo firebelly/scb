@@ -1,0 +1,86 @@
+// Single Page
+
+body.single:not(.single-project) {
+  background: $gray;
+
+  .site-header {
+    background: $gray;
+  }
+
+  .main {
+    @include clearfix();
+
+    article {
+      padding: 20px;
+      background: $white;
+
+      @include min-screen($breakpoint-medium) {
+        float: right;
+        padding: 40px;
+        margin-right: -40px;
+        width: calc(50% + 70px);
+      }
+    }
+  }  
+}
+
+// Single page or modal
+.single:not(.single-project) {
+
+  .image-wrap {
+    height: 0;
+    padding-bottom: 50%;
+    margin: -20px 0 0 -20px;
+    width: calc(100% + 40px);
+    background: center top no-repeat scroll;
+    background-size: cover;
+    @include clearfix;
+
+    @include min-screen($breakpoint-medium) {
+      margin: -40px 0 0 -40px;
+      width: calc(100% + 80px);
+    }
+  }
+
+  .article-body {
+
+    &.-two-column {
+      @include clearfix();
+
+      .-left,
+      .-right {
+        padding-top: 20px;
+      }
+
+      @include min-screen($breakpoint-medium) {
+        .-left,
+        .-right {
+          float: left;
+          position: relative;
+          &::before {
+            top: 0;
+            left: 0;
+            right: 0;
+            content: '';
+            height: 2px;
+            position: absolute;
+            background: $black;
+          }
+        }
+
+        .-left {
+          padding-right: 20px;
+          width: 100% * 1 / 3;
+          &::before {
+            right: 20px;
+          }
+        }
+
+        .-right {
+          width: 100% / 3 * 2;
+        }
+      }
+    }
+
+  }
+}

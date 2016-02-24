@@ -260,7 +260,8 @@ var SCB = (function($) {
     $('a.smoothscroll').click(function(e) {
       e.preventDefault();
       var href = $(this).attr('href');
-      _scrollBody($(href));
+      var navHeight = $('.site-header.shrink').outerHeight();
+      _scrollBody($(href), 500,0,navHeight);
     });
 
     // Scroll down to hash afer page load
@@ -623,7 +624,7 @@ var SCB = (function($) {
     });
   }
 
-  function _scrollBody(element, duration, delay) {
+  function _scrollBody(element, duration, delay, offset) {
     if ($('#wpadminbar').length) {
       wpOffset = $('#wpadminbar').height();
     } else {
@@ -632,7 +633,7 @@ var SCB = (function($) {
     element.velocity("scroll", {
       duration: duration,
       delay: delay,
-      offset: -wpOffset
+      offset: offset - wpOffset
     }, "easeOutSine");
   }
 

@@ -14,17 +14,9 @@
 
 // Single Person
 .person.single {
-  .image-wrap {
-    height: 0;
-    max-width: 700px;
-    padding-bottom: 50%;
-    background: center top no-repeat scroll;
-    background-size: cover;
-    @include clearfix;
 
-    @include min-screen($breakpoint-medium) {
-      height: 400px;
-    }
+  .image-wrap {
+    min-height: 300px;
   }
 
   .article-header {
@@ -91,49 +83,34 @@
 }
 // Single Person in modal
 .modal.person-modal {
-  padding: 0;
+
   @include min-screen($breakpoint-medium) {
     width: calc(50% + 30px);
   }
 
-  .image-wrap {
-    max-width: none;
-  }
-
-  .article-header,
-  .article-body {
-    padding: 20px;
-    @include min-screen($breakpoint-medium) {
-      padding: 40px;
-    }
-  }
-
   .article-header {
     position: relative;
-    padding: 20px 60px 20px 20px;
+    padding: 20px 60px 20px 0;
     .actions {
+      right: 0;
       top: 20px;
       margin: 0;
-      right: 20px;
       line-height: 54px;
       position: absolute;
     }
 
     @include min-screen($breakpoint-medium) {
-      padding: 40px 80px 40px 40px;
+      padding: 40px 80px 40px 0;
 
       .actions {
+        right: 0;
         top: 40px;
-        right: 40px;
       }
     }
   }
 
   .article-body {
     padding-top: 0;
-  }
-
-  .article-body {
     @include clearfix();
 
     .info,

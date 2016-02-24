@@ -8,7 +8,12 @@
   }
   ol,
   ul {
+    padding-left: 0;
     li {
+      &:before {
+        content: '·';
+        margin-right: 1em;
+      }
       ol,
       ul {
 

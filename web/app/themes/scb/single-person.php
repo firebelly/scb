@@ -24,9 +24,9 @@ $office = \Firebelly\Utils\get_office($post);
     </p>
   </header>
   
-  <div class="article-body">
+  <div class="article-body -two-column">
 
-    <div class="info">
+    <div class="info -left">
       <?php if ($office): ?>
         <div class="info-section">
           <h3>Office</h3>
@@ -49,7 +49,7 @@ $office = \Firebelly\Utils\get_office($post);
       <?php endif ?>
     </div>
 
-    <div class="content">
+    <div class="content user-content -right">
       <?= apply_filters('the_content', $post->post_content) ?>
     </div>  
 

@@ -21,6 +21,9 @@ $terms_left = get_post_meta($post->ID, '_cmb2_terms_left', true);
 $terms_right = get_post_meta($post->ID, '_cmb2_terms_right', true);
 
 $reatled_offices = get_terms('related_office');
+
+$chicagoId = url_to_postid('office/chicago');
+$sanFranciscoId = url_to_postid('office/san-francisco');
 ?>
 
 <div class="grid wrap -top">
@@ -63,7 +66,7 @@ $reatled_offices = get_terms('related_office');
         <div class="wrap">
           <p class="stat-number"><?= $num_offices ?></p>
           <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="#">Chicago</a> / <a href="#">San Francisco</a></p>
+          <p class="stat-link"><a href="office/chicago" class="show-post-modal" data-id="<?= $chicagoId ?>" data-modal-type="office">Chicago</a> / <a href="office/san-francisco" class="show-post-modal" data-id="<?= $sanFranciscoId ?>" data-modal-type="office">San Francisco</a></p>
         </div>
       </div>
       <div class="stat long-stat">

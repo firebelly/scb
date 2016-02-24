@@ -18,7 +18,7 @@
   top: 162px;
   z-index: 50; 
   display: none;
-  padding: 40px;
+  padding: 20px;
   position: absolute;
   background: $white;
   width: calc(100% - 40px);
@@ -42,6 +42,7 @@
   @include min-screen($breakpoint-medium) {
     width: 50%;
     top: 194px;
+    padding: 40px;
   }
 
   // Close modal button
