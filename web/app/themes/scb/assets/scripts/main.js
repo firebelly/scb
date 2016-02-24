@@ -259,8 +259,8 @@ var SCB = (function($) {
     // Smoothscroll links
     $('a.smoothscroll').click(function(e) {
       e.preventDefault();
-      var href = $(this).attr('href');
-      var navHeight = $('.site-header.shrink').outerHeight();
+      var href = $(this).attr('href'),
+          navHeight = 96;
       _scrollBody($(href), 500,0,navHeight);
     });
 
@@ -294,7 +294,7 @@ var SCB = (function($) {
 
   function _showEmailForm() {
     $('#email-collection-form').addClass('active');
-    _scrollBody($('.collection .collection-actions'), 250);
+    _scrollBody($('.collection .collection-actions'), 250, 0, 0);
   }
   function _hideEmailForm() {
     $('#email-collection-form').removeClass('active');
@@ -372,7 +372,7 @@ var SCB = (function($) {
     setTimeout(function() {
       $modal.addClass('active');
     }, 100);
-    _scrollBody($('body'), 250);
+    _scrollBody($('body'), 250, 0, 0);
     if ($modal.find('.modal-content').is(':empty')) {
       $modal.addClass('empty');
     } else {
@@ -387,7 +387,7 @@ var SCB = (function($) {
     setTimeout(function() {
       $modal.removeClass('display');
     }, 500);
-    // _scrollBody($('body'), 250);
+    // _scrollBody($('body'), 250, 0, 0);
   }
 
   function _showCollection() {
@@ -398,7 +398,7 @@ var SCB = (function($) {
     setTimeout(function() {
       $collection.addClass('active');
     }, 100);
-    _scrollBody($('body'), 250);
+    _scrollBody($('body'), 250, 0, 0);
     if (!$collection.find('article').length) {
       $collection.addClass('empty');
     } else {
@@ -470,14 +470,14 @@ var SCB = (function($) {
       }).done(function(response) {
         if (response.success) {
           _hideEmailForm();
-          _scrollBody($('.collection .feedback-container'), 250);
+          _scrollBody($('.collection .feedback-container'), 250, 0, 0);
           _collectionMessage('Your email was sent successfully.');
         } else {
-          _scrollBody($('.collection .feedback-container'), 250);
+          _scrollBody($('.collection .feedback-container'), 250, 0, 0);
           _collectionMessage('There was an error sending your email: ' + response.data.message);
         }
       }).fail(function(response) {
-        _scrollBody($('.collection .feedback-container'), 250);
+        _scrollBody($('.collection .feedback-container'), 250, 0, 0);
         _collectionMessage('There was an error sending your email.');
       });
 
@@ -633,7 +633,7 @@ var SCB = (function($) {
     element.velocity("scroll", {
       duration: duration,
       delay: delay,
-      offset: offset - wpOffset
+      offset: -offset - wpOffset
     }, "easeOutSine");
   }
 
@@ -764,8 +764,8 @@ var SCB = (function($) {
   return {
     init: _init,
     resize: _resize,
-    scrollBody: function(section, duration, delay) {
-      _scrollBody(section, duration, delay);
+    scrollBody: function(section, duration, delay, offset) {
+      _scrollBody(section, duration, delay, offset);
     }
   };
 
