@@ -8,11 +8,15 @@
   }
   ol,
   ul {
-    padding-left: 1em;
+    padding-left: 2em;
     li {
+      margin-top: 1em;
       position: relative;
+      &:first-of-type {
+        margin-top: 0;
+      }
       &:before {
-        left: -1em;
+        left: -2em;
         content: '·';
         position: absolute;
       }
