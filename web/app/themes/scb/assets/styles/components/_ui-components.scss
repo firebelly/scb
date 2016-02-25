@@ -101,6 +101,7 @@
     a {
       color: $black;
       position: relative;
+      white-space: nowrap;
       text-decoration: none;
       transition: color .1s ease-out;
       &::after {
