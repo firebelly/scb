@@ -154,11 +154,15 @@ body.people {
     }
 
     p {
-      margin: 1em 0;
+      margin: 20px 0;
     }
 
     @include min-screen($breakpoint-medium) {
       padding-right: $column;
+
+      p {
+        margin: 40px 0;
+      }
     }
   }
 
@@ -190,6 +194,9 @@ body.people {
     ul {
       margin: 0;
       padding: 0;
+      li {
+        margin-top: 10px;
+      }
     }
 
     a {
@@ -201,6 +208,7 @@ body.people {
     @include min-screen($breakpoint-medium) {
       columns: 3;
       column-gap: 20px;
+      padding-top: 16px;
       padding-left: 10px;
 
       .category-group,

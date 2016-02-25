@@ -63,13 +63,24 @@
     }
   }
 
-  // Home page
+  // Project grids
   .home.page .projects.main-project-grid .project a,
   body.tax-project_category .projects.main-project-grid .project a {
     transition: color .2s ease-out;
     &:hover,
     &:focus {
       color: $color;
+    }
+  }
+  .projects .project {
+    .big-plus {
+      &:hover,
+      &:focus {
+        &::before,
+        &::after {
+          background: $color;
+        }
+      }
     }
   }
 
