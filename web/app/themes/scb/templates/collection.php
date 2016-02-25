@@ -52,13 +52,13 @@ $post_type_plurals = [
     <a href="#" class="button collection-action" data-action="pdf">print</a></div>
 
     <div id="email-collection-form">
-      <form action="<?= admin_url('admin-ajax.php') ?>" method="post">
+      <form action="<?= admin_url('admin-ajax.php') ?>" method="post" novalidate>
         <input name="to_email" type="email" placeholder="to email" required>
         <input name="replyto_email" type="email" placeholder="your email" class="optional">
-        <input name="subject" type="text" placeholder="subject" require>
-        <textarea name="message" cols="30" rows="10" placeholder="message"></textarea>
+        <input name="subject" type="text" placeholder="subject">
+        <textarea name="message" cols="30" rows="10" placeholder="message"></textarea><br>
         <input name="collection_id" type="hidden" value="<?= $collection->ID ?>">
-        <input name="action" type="hidden" value="email_collection"><br>
+        <input name="action" type="hidden" value="email_collection">
         <label><input id="cc_me" name="cc_me" type="checkbox"> Send me a copy</label>
         <div>
           <input type="submit">

@@ -1,5 +1,18 @@
 // Carreers page
 
+// Application form styles
+.application-form {
+  display: none;
+  &.active {
+    display: block;
+  }
+  fieldset {
+    padding: 0;
+    border: none;
+    margin: 40px 0 20px;
+  }
+}
+
 .page.careers {
   .page-intro {
     &.-left {

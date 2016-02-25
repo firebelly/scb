@@ -3,16 +3,17 @@
  * Template Name: Careers
  */
 
-use Firebelly\Utils;
 $num_people = \Firebelly\PostTypes\Person\get_num_people();
 $num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 $project_images = get_post_meta($post->ID, '_cmb2_careers_images', true);
-$i = 0;
-foreach ($project_images as $image_id => $image_src) {
-  $image = wp_get_attachment_image_src($image_id, 'large');
-  $project_images[$i] = $image[0];
-  $i++;
+if ($project_images) {
+  $i = 0;
+  foreach ($project_images as $image_id => $image_src) {
+    $image = wp_get_attachment_image_src($image_id, 'large');
+    $project_images[$i] = $image[0];
+    $i++;
+  }
 }
 $middle_column_1 = get_post_meta($post->ID, '_cmb2_middle_column_1', true);
 $middle_column_2 = get_post_meta($post->ID, '_cmb2_middle_column_2', true);
@@ -20,16 +21,14 @@ $middle_column_3 = get_post_meta($post->ID, '_cmb2_middle_column_3', true);
 $terms_left = get_post_meta($post->ID, '_cmb2_terms_left', true);
 $terms_right = get_post_meta($post->ID, '_cmb2_terms_right', true);
 
-$reatled_offices = get_terms('related_office');
-
-$chicagoId = url_to_postid('office/chicago');
-$sanFranciscoId = url_to_postid('office/san-francisco');
+$chicago_id = url_to_postid('/office/chicago');
+$san_francisco_id = url_to_postid('/office/san-francisco');
 ?>
 
 <div class="grid wrap -top">
   <div class="page-intro grid-item one-half -left">
     <?= $post->post_content ?>
-    <p class="careers-actions"><a href="#" class="button">Submit your portfolio</a> <span class="slash">/</span> <a href="#positions" class="view-positions smoothscroll">View open positions</a></p>
+    <p class="careers-actions"><a href="#" class="button submit-portfolio">Submit your portfolio</a> <span class="slash">/</span> <a href="#positions" class="view-positions smoothscroll">View open positions</a></p>
   </div>
 
   <div class="page-intro grid-item one-half -right">
@@ -39,34 +38,38 @@ $sanFranciscoId = url_to_postid('office/san-francisco');
 
 <div class="grid wrap middle-section">
   <div class="grid-item -left">
-    <img src="<?= $project_images[0]; ?>" alt="Careers at SCB">
+    <?php if (!empty($project_images[0])): ?>
+      <img src="<?= $project_images[0] ?>" alt="Careers at SCB">
+    <?php endif; ?>
     <div class="text-grid">
       <div class="one-third">
         <div class="-inner">
-          <?= $middle_column_1; ?>
+          <?= $middle_column_1 ?>
         </div>
       </div>
       <div class="one-third">
         <div class="-inner">
-          <?= $middle_column_2; ?>
+          <?= $middle_column_2 ?>
         </div>
       </div>
       <div class="one-third">
         <div class="-inner">
-          <?= $middle_column_3; ?>
+          <?= $middle_column_3 ?>
         </div>
       </div>
     </div>
   </div>
 
   <div class="grid-item -right">
-    <img src="<?= $project_images[1]; ?>" alt="Careers at SCB">
+    <?php if (!empty($project_images[1])): ?>
+      <img src="<?= $project_images[1] ?>" alt="Careers at SCB">
+    <?php endif; ?>
     <div class="stats">
       <div class="stat">
         <div class="wrap">
           <p class="stat-number"><?= $num_offices ?></p>
           <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="office/chicago" class="show-post-modal" data-id="<?= $chicagoId ?>" data-modal-type="office">Chicago</a> / <a href="office/san-francisco" class="show-post-modal" data-id="<?= $sanFranciscoId ?>" data-modal-type="office">San Francisco</a></p>
+          <p class="stat-link"><a href="/office/chicago" class="show-post-modal" data-id="<?= $chicago_id ?>" data-modal-type="office">Chicago</a> / <a href="/office/san-francisco" class="show-post-modal" data-id="<?= $san_francisco_id ?>" data-modal-type="office">San Francisco</a></p>
         </div>
       </div>
       <div class="stat long-stat">
@@ -83,10 +86,14 @@ $sanFranciscoId = url_to_postid('office/san-francisco');
 <div class="grid wrap bottom-section">
   <div class="-top grid">
     <div class="image-wrap image-left">
-      <div class="image" style="background-image: url('<?= $project_images[2]; ?>');"></div>
+      <?php if (!empty($project_images[2])): ?>
+        <div class="image" style="background-image: url('<?= $project_images[2] ?>');"></div>
+      <?php endif; ?>
     </div>
     <div class="image-wrap image-right">
-      <div class="image" style="background-image: url('<?= $project_images[3]; ?>');"></div>
+      <?php if (!empty($project_images[3])): ?>
+        <div class="image" style="background-image: url('<?= $project_images[3] ?>');"></div>
+      <?php endif; ?>
     </div>
   </div>
   <div class="-bottom grid">
@@ -114,18 +121,20 @@ $sanFranciscoId = url_to_postid('office/san-francisco');
       ?>
     </div>
     <div class="positions-image -right">
-      <img src="<?= $project_images[4]; ?>" alt="Open positions at SCB">
+    <?php if (!empty($project_images[4])): ?>
+      <img src="<?= $project_images[4] ?>" alt="Open positions at SCB">
+    <?php endif; ?>
     </div>
   </div>
   <div class="terms grid">
     <div class="term -left">
       <div class="-inner">
-        <?= $terms_left; ?>
+        <?= $terms_left ?>
       </div>
     </div>
     <div class="term -right">
       <div class="-inner">
-        <?= $terms_right; ?>
+        <?= $terms_right ?>
       </div>
     </div>
   </div>

@@ -38,7 +38,7 @@ $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
     ?>
     <?php if (WP_ENV === 'development'): ?>
     <script type='text/javascript' id="__bs_script__">//<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.9.8.js'><\/script>".replace("HOST", location.hostname));
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.11.1.js'><\/script>".replace("HOST", location.hostname));
     //]]></script>
     <?php endif; ?>
   </body>

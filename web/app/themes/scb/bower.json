@@ -8,13 +8,15 @@
   "private": true,
   "dependencies": {
     "jquery": "1.11.2",
+    "history.js": "^1.8.0",
     "fitvids": "~1.1.0",
     "imagesloaded": "~3.1.8",
     "respond": "~1.4.2",
     "velocity": "~1.2.2",
     "fastclick": "~1.0.6",
     "jquery-sortable": "~0.9.13",
-    "boomsvgloader": "~0.0.2"
+    "boomsvgloader": "~0.0.2",
+    "jquery-validation": "^1.15.0"
   },
   "overrides": {
     "modernizr": {
