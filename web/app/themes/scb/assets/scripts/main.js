@@ -14,6 +14,7 @@ var SCB = (function($) {
       $collection,
       $modal,
       loadingTimer,
+      collection_message_timer,
       page_at;
 
   function _init() {
@@ -211,7 +212,10 @@ var SCB = (function($) {
           $('section.collection').html(response.data.collection_html);
           _initCollectionBehavior();
           _showCollection();
-          _collectionMessage(action);
+          // Just show empty message if removing last item to avoid confusing, stacked feedback
+          if (!response.data.collection_html.match(/empty/)) {
+            _collectionMessage(action);
+          }
         } else if (action.match(/pdf/)) {
           var buttonText = $(e.target).text();
           if (response.success) {
@@ -234,7 +238,7 @@ var SCB = (function($) {
               // window.location = response.data.pdf.url;
             }
           } else {
-            alert(response.data.message);
+            _collectionMessage(response.data.message);
           }
         }
       });
@@ -439,8 +443,7 @@ var SCB = (function($) {
 
   // Show collection message dialog
   function _collectionMessage(messageType) {
-    var message,
-        feedbackTimer;
+    var message;
 
     if (messageType==="remove") {
       message = "Your selection has been removed from the collection.";
@@ -461,10 +464,11 @@ var SCB = (function($) {
       $collection.find('.feedback-container').addClass('show-feedback');
     },250);
 
-    feedbackTimer = setTimeout(_hideFeedback, 3000);
+    if (collection_message_timer) { clearTimeout(collection_message_timer); }
+    collection_message_timer = setTimeout(_hideFeedback, 3000);
 
     $collection.find('.feedback-container').on('mouseenter', function() {
-      clearTimeout(feedbackTimer);
+      clearTimeout(collection_message_timer);
     }).on('mouseleave', function() {
       setTimeout(_hideFeedback, 1000);
     });
@@ -562,7 +566,7 @@ var SCB = (function($) {
             $(container.el[0]).addClass('updated');
             setTimeout(function() { $(container.el[0]).addClass('updated'); }, 1500);
           }).fail(function(response) {
-            alert(response.data.message);
+            _collectionMessage(response.data.message);
           });
 
           _super($item, container);
