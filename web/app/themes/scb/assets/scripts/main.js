@@ -14,12 +14,18 @@ var SCB = (function($) {
       $collection,
       $modal,
       loadingTimer,
+      History = window.History,
+      rootUrl = History.getRootUrl(),
+      page_cache,
       collection_message_timer,
       page_at;
 
   function _init() {
     // touch-friendly fast clicks
     FastClick.attach(document.body);
+
+    // init state
+    State = History.getState();
 
     // Cache some common DOM queries
     $document = $(document);
@@ -33,10 +39,51 @@ var SCB = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
-    $(document).on('click', 'a.submit-portfolio', function(e) {
+    $document.on('click', 'a.submit-portfolio', function(e) {
       e.preventDefault();
       _showApplicationForm();
     });
+
+    $(window).bind('statechange',function(){
+      var State = History.getState(),
+          url = State.url,
+          relative_url = url.replace(rootUrl,'');
+
+      if (State.data.ignore_change) {
+        return;
+      }
+
+      if (relative_url === '') {
+        // homepage?
+        $nav.find('li').removeClass('active');
+        _updateNav();
+      } else if (relative_url.match(/^news/)) {
+        // blog post?
+        parent_li = $nav.find('li.menu-what-were-learning').addClass('active');
+        $nav.find('li').not(parent_li).removeClass('active');
+        _updateNav();
+      } else {
+        var nav_link = $nav.find('a[href="' + url + '"]');
+        if (nav_link) {
+          parent_li = nav_link.closest('li.dropdown').addClass('active');
+          $nav.find('li').not(parent_li).removeClass('active');
+          _updateNav();
+        }
+      }
+      if (!page_cache[encodeURIComponent(url)]) {
+        loadingTimer = setTimeout(function() { $content.addClass('loading'); }, 500);
+        $.post(
+          url,
+          function(res) {
+            page_cache[encodeURIComponent(url)] = res;
+            // SCB.updateContent();
+          }
+        );
+      } else {
+        _updateContent();
+      }
+    });
+
     // Project category filter
     $('.project-categories').on('click', 'a', function(e) {
       e.preventDefault();
@@ -110,15 +157,58 @@ var SCB = (function($) {
             if (loadingTimer) { clearTimeout(loadingTimer); }
             $('section.projects .initial-section').html($data).removeClass('loading');
             $('body').attr('data-pageClass', (parentUrl.replace(/\bprojects\b|\//g,'')));
-            window.history.pushState({}, parentCategory, thisUrl);
+            // window.history.pushState({}, parentCategory, thisUrl);
             $('.load-more').attr('data-category', project_categories[0].toLowerCase());
             $('.load-more-container').empty();
           }
       });
     });
 
+    function _updateContent() {
+      var State = History.getState();
+      var new_content = page_cache[encodeURIComponent(State.url)];
+
+      // track page view in Analytics
+      _trackPage();
+
+      setTimeout(function() {
+        // $content.html(new_content);
+        // pull in body class from data attribute
+        // $body.attr('class', $content.find('.content:first').data('body-class'));
+        // if (loadingTimer) clearTimeout(loadingTimer);
+
+        _updateTitle();
+        $('main').fitVids();
+
+        // Update meta tags
+        _initCommentForm();
+        if ($('#og-updates').length) {
+          $('meta[property="og:url"]').attr('content', State.url);
+          $('meta[property="og:title"]').attr('content', document.title);
+          $('meta[property="og:description"]').attr('content', $('#og-updates').data('description'));
+          $('meta[property="og:image"]').attr('content', $('#og-updates').data('image'));
+        }
+
+        // scroll to top
+        // _scrollBody($body, 250, 0);
+
+      }, 150);
+    }
+
+    function _updateTitle() {
+      var title = $content.find('.content:first').data('post-title');
+      if (title === '' || title === 'Main')
+        title = 'SCB';
+      else title = title + ' | SCB';
+      // this bit also borrowed from Ajaxify
+      document.title = title;
+      try {
+        document.getElementsByTagName('title')[0].innerHTML = document.title.replace('<','&lt;').replace('>','&gt;').replace(' & ',' &amp; ');
+      } catch (Exception) {}
+    }
+
     // Toggle Categories filter
-    $(document).on('click', '.categories-toggle', function(e) {
+    $document.on('click', '.categories-toggle', function(e) {
       $('.project-categories').toggleClass('expanded');
     });
 
@@ -149,7 +239,7 @@ var SCB = (function($) {
     });
 
     // Show/hide mini collection in nav
-    $(document).on('click', '.show-collection', function(e) {
+    $document.on('click', '.show-collection', function(e) {
       e.preventDefault();
       if ($collection.hasClass('active')) {
         _hideCollection();
@@ -157,7 +247,7 @@ var SCB = (function($) {
         _showCollection();
       }
     });
-    $(document).on('click', '.hide-collection', function(e) {
+    $document.on('click', '.hide-collection', function(e) {
       e.preventDefault();
       if ($collection.hasClass('active')) {
         _hideCollection();
@@ -165,7 +255,7 @@ var SCB = (function($) {
     });
 
     // Show/hide global modal in nav
-    $(document).on('click', '.show-modal', function(e) {
+    $document.on('click', '.show-modal', function(e) {
       e.preventDefault();
       if ($modal.hasClass('active')) {
         _hideModal();
@@ -173,7 +263,7 @@ var SCB = (function($) {
         _showModal();
       }
     });
-    $(document).on('click', '.hide-modal', function(e) {
+    $document.on('click', '.hide-modal', function(e) {
       e.preventDefault();
       if ($modal.hasClass('active')) {
         _hideModal();
@@ -182,7 +272,7 @@ var SCB = (function($) {
     });
 
     // Add/Remove from collection links
-    $(document).on('click', '.collection-action', function(e) {
+    $document.on('click', '.collection-action', function(e) {
       e.preventDefault();
       var $link = $(this);
       var id = $link.data('id') || '';
@@ -245,7 +335,7 @@ var SCB = (function($) {
     });
 
     // Hide page overlay when clicked
-    $(document).on('click', '#page-overlay', function() {
+    $document.on('click', '#page-overlay', function() {
       _hidePageOverlay();
       _hideCollection();
       _hideModal();
@@ -253,7 +343,7 @@ var SCB = (function($) {
     });
 
     // Esc handlers
-    $(document).keyup(function(e) {
+    $document.keyup(function(e) {
       if (e.keyCode === 27) {
         _hideSearch();
         _hideCollection();
@@ -309,7 +399,7 @@ var SCB = (function($) {
   }
   // AJAX Application form submissions
   function _initApplicationForms() {
-    $(document).on('click', '.application-form input[type=submit]', function(e) {
+    $document.on('click', '.application-form input[type=submit]', function(e) {
       var $form = $(this).closest('form');
       $form.validate({
         submitHandler: function(form) {
@@ -327,10 +417,10 @@ var SCB = (function($) {
               cache: false,
               success: function(response) {
                 form.reset();
-                alert(response.data);
+                _generalMessage(response.data.message);
               },
               error: function(response) {
-                alert(response.data);
+                _generalMessage(response.data.message);
               }
             });
           } else {
@@ -352,11 +442,11 @@ var SCB = (function($) {
   }
 
   function _shrinkHeader() {
-    if ($(document).scrollTop() > 100) {
+    if ($document.scrollTop() > 100) {
       $('.site-header').addClass('shrink');
     }
-    $(document).on('scroll', function(){
-      if ($(document).scrollTop() > 100) {
+    $document.on('scroll', function(){
+      if ($document.scrollTop() > 100) {
         $('.site-header').addClass('shrink');
       } else {
         $('.site-header').removeClass('shrink');
@@ -576,7 +666,7 @@ var SCB = (function($) {
   }
 
   function _initPostModals() {
-    $(document).on('click', '.show-post-modal', function(e) {
+    $document.on('click', '.show-post-modal', function(e) {
       var $thisTarget = $(e.target);
       // Ignore links inside that do something else
       if ($thisTarget.is('.no-ajaxy') || $thisTarget.parents('.no-ajaxy').length) {
@@ -629,7 +719,7 @@ var SCB = (function($) {
   }
 
   function _initBigClicky() {
-    $(document).on('click', '.bigclicky', function(e) {
+    $document.on('click', '.bigclicky', function(e) {
       if (!$(e.target).is('a')) {
         e.preventDefault();
         var link = $(this).find('h1:first a,h2:first a');
