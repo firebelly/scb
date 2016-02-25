@@ -77,6 +77,11 @@ var SCB = (function($) {
         $parentUl.removeClass('active');
       }
 
+      // If toggling a child, give the whole thing a relatve class
+      if ($li.closest('ul').is('.children') && $li.find('.children').length) {
+        $('.categories-parent').toggleClass('grandchildren-active');
+      }
+
       // If there are active siblings, deactivate them and their children
       if ($activeSiblings.length) {
         $activeSiblings.find('.active').removeClass('active');
