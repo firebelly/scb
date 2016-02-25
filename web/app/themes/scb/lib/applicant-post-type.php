@@ -295,9 +295,9 @@ function application_submission() {
         // Try to save new Applicant post
         $return = new_applicant();
         if (is_array($return)) {
-          wp_send_json_error('Error saving application: '.implode("\n", $return));
+          wp_send_json_error(['message' => 'Error saving application: '.implode("\n", $return)]);
         } else {
-          wp_send_json_success('Application was saved OK');
+          wp_send_json_success(['message' => 'Application was saved OK']);
         }
 
       }
@@ -306,7 +306,17 @@ function application_submission() {
       wp_send_json_error(['message' => 'Invalid form submission (bad nonce)']);
     }
   }
-  wp_send_json_error('Invalid post');
+  wp_send_json_error(['message' => 'Invalid post']);
 }
 add_action('wp_ajax_application_submission', __NAMESPACE__ . '\\application_submission');
 add_action('wp_ajax_nopriv_application_submission', __NAMESPACE__ . '\\application_submission');
+
+// Inject application form in footer if on career page
+function application_form() {
+  if (preg_match('/\/careers\//', $_SERVER['REQUEST_URI'])) {
+    echo '<div class="application-form-template">';
+    include(locate_template('templates/application-form.php'));
+    echo '</div>';
+  }
+}
+add_action('wp_footer', __NAMESPACE__ . '\\application_form', 100);

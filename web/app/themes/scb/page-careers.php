@@ -28,7 +28,7 @@ $san_francisco_id = url_to_postid('/office/san-francisco');
 <div class="grid wrap -top">
   <div class="page-intro grid-item one-half -left">
     <?= $post->post_content ?>
-    <p class="careers-actions"><a href="#" class="button">Submit your portfolio</a> <span class="slash">/</span> <a href="#positions" class="view-positions smoothscroll">View open positions</a></p>
+    <p class="careers-actions"><a href="#" class="button submit-portfolio">Submit your portfolio</a> <span class="slash">/</span> <a href="#positions" class="view-positions smoothscroll">View open positions</a></p>
   </div>
 
   <div class="page-intro grid-item one-half -right">

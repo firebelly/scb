@@ -32,6 +32,10 @@ var SCB = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
+    $(document).on('click', 'a.submit-portfolio', function(e) {
+      e.preventDefault();
+      _showApplicationForm();
+    });
     // Project category filter
     $('.project-categories').on('click', 'a', function(e) {
       e.preventDefault();
@@ -61,7 +65,7 @@ var SCB = (function($) {
         }
       }
 
-      // Toggle activitiy status
+      // Toggle active status
       if (!$li.hasClass('active')) {
         $li.addClass('active');
       } else {
@@ -159,7 +163,7 @@ var SCB = (function($) {
       }
     });
 
-    // Show/hide glabal modal in nav
+    // Show/hide global modal in nav
     $(document).on('click', '.show-modal', function(e) {
       e.preventDefault();
       if ($modal.hasClass('active')) {
@@ -301,12 +305,13 @@ var SCB = (function($) {
   }
   // AJAX Application form submissions
   function _initApplicationForms() {
-      $('.application-form').validate({
+    $(document).on('click', '.application-form input[type=submit]', function(e) {
+      var $form = $(this).closest('form');
+      $form.validate({
         submitHandler: function(form) {
           // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
           if( window.FormData !== undefined ) {
             var formData = new FormData(form);
-            formData.append('action', 'application_submission');
             $.ajax({
               url: wp_ajax_url,
               method: 'POST',
@@ -329,7 +334,7 @@ var SCB = (function($) {
           }
         }
       });
-    }
+    });
   }
 
   function _injectSvgSprite() {
@@ -419,6 +424,17 @@ var SCB = (function($) {
     setTimeout(function() {
       $collection.removeClass('display');
     }, 500);
+  }
+
+  function _showApplicationForm() {
+    var $app_form = $('.application-form-template form');
+    if ($app_form.length) {
+      if ($modal.find('.application-form').length==0) {
+        $modal.find('.modal-content').empty();
+        $app_form.clone(true).addClass('active').appendTo($modal.find('.modal-content'));
+      }
+      _showModal();
+    }
   }
 
   // Show collection message dialog
