@@ -219,7 +219,7 @@ var SCB = (function($) {
           $('.categories-toggle').removeClass('expanded');
         }
       } else if ($(window).scrollTop() <= $('.main').offset().top + $('.site-header').outerHeight()) {
-        $('.project-categories').removeClass('fixed explanded');
+        $('.project-categories').removeClass('fixed expanded');
         $('.categories-toggle').addClass('expanded');
       }
     }
