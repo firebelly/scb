@@ -303,27 +303,29 @@ var SCB = (function($) {
   function _initApplicationForms() {
     // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
     if( window.FormData !== undefined ) {
-      $('.application-form').on('submit', function(e) {
+      $(document).on('submit', '.application-form', function(e) {
         e.preventDefault();
-        var $form = $(this);
-        var formData = new FormData(this);
-        formData.append('action', 'application_submission');
-        $.ajax({
-          url: wp_ajax_url,
-          method: 'POST',
-          // data: data + '&action=application_submission',
-          data: formData,
-          dataType: 'json',
-          mimeType: 'multipart/form-data',
-          processData: false,
-          contentType: false,
-          cache: false,
-          success: function(response) {
-            $form[0].reset();
-            alert(response.data);
-          },
-          error: function(response) {
-            alert(response.data);
+        $(this).validate({
+          submitHandler: function(form) {
+            var formData = new FormData(form);
+            formData.append('action', 'application_submission');
+            $.ajax({
+              url: wp_ajax_url,
+              method: 'POST',
+              data: formData,
+              dataType: 'json',
+              mimeType: 'multipart/form-data',
+              processData: false,
+              contentType: false,
+              cache: false,
+              success: function(response) {
+                form.reset();
+                alert(response.data);
+              },
+              error: function(response) {
+                alert(response.data);
+              }
+            });
           }
         });
       });
@@ -344,7 +346,7 @@ var SCB = (function($) {
     if ($(document).scrollTop() > 100) {
       $('.site-header').addClass('shrink');
     }
-    $(document).on("scroll", function(){
+    $(document).on('scroll', function(){
       if ($(document).scrollTop() > 100) {
         $('.site-header').addClass('shrink');
       } else {
@@ -460,28 +462,30 @@ var SCB = (function($) {
       e.preventDefault();
       _showEmailForm();
     });
-    $('#email-collection-form form').on('submit', function(e) {
+    $(document).on('submit', '#email-collection-form form', function(e) {
       e.preventDefault();
-      $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
-          dataType: 'json',
-          data: $(this).serialize()
-      }).done(function(response) {
-        if (response.success) {
-          _hideEmailForm();
-          _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-          _collectionMessage('Your email was sent successfully.');
-        } else {
-          _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-          _collectionMessage('There was an error sending your email: ' + response.data.message);
-        }
-      }).fail(function(response) {
-        _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-        _collectionMessage('There was an error sending your email.');
-      });
-
-
+      $(this).validate({
+        submitHandler: function(form) {
+            $.ajax({
+                url: wp_ajax_url,
+                method: 'post',
+                dataType: 'json',
+                data: $(this).serialize()
+            }).done(function(response) {
+              if (response.success) {
+                _hideEmailForm();
+                _scrollBody($('.collection .feedback-container'), 250, 0, 0);
+                _collectionMessage('Your email was sent successfully.');
+              } else {
+                _scrollBody($('.collection .feedback-container'), 250, 0, 0);
+                _collectionMessage('There was an error sending your email: ' + response.data.message);
+              }
+            }).fail(function(response) {
+              _scrollBody($('.collection .feedback-container'), 250, 0, 0);
+              _collectionMessage('There was an error sending your email.');
+            });
+          }
+      })
     });
     // Update collection title
     $('.collection-title').on('blur', function() {

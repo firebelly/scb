@@ -14,7 +14,8 @@
     "velocity": "~1.2.2",
     "fastclick": "~1.0.6",
     "jquery-sortable": "~0.9.13",
-    "boomsvgloader": "~0.0.2"
+    "boomsvgloader": "~0.0.2",
+    "jquery-validation": "^1.15.0"
   },
   "overrides": {
     "modernizr": {
