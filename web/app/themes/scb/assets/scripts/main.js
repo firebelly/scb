@@ -756,12 +756,16 @@ var SCB = (function($) {
 
   // Track ajax pages in Analytics
   function _trackPage() {
-    if (typeof ga !== 'undefined') { ga('send', 'pageview', document.location.href); }
+    if (typeof ga !== 'undefined') {
+      ga('send', 'pageview', location.pathname);
+    }
   }
 
   // Track events in Analytics
   function _trackEvent(category, action) {
-    if (typeof ga !== 'undefined') { ga('send', 'event', category, action); }
+    if (typeof ga !== 'undefined') { 
+      ga('send', 'event', category, action); 
+    }
   }
 
   // Called in quick succession as window is resized
