@@ -4,7 +4,9 @@
       "files": [
         "scripts/main.js"
       ],
-      
+      "vendor": [
+        "bower_components/history.js/scripts/bundled-uncompressed/html5/jquery.history.js"
+      ],
       "main": true
     },
     "main.css": {
