@@ -1,4 +1,4 @@
-<form class="application-form" method="post" enctype="multipart/form-data">
+<form class="application-form" method="post" enctype="multipart/form-data" novalidate>
   
   <div><input type="text" name="application_first_name" placeholder="First Name" required></div>
   <div><input type="text" name="application_last_name" placeholder="Last Name" required></div>

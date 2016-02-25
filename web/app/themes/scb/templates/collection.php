@@ -52,7 +52,7 @@ $post_type_plurals = [
     <a href="#" class="button collection-action" data-action="pdf">print</a></div>
 
     <div id="email-collection-form">
-      <form action="<?= admin_url('admin-ajax.php') ?>" method="post">
+      <form action="<?= admin_url('admin-ajax.php') ?>" method="post" novalidate>
         <input name="to_email" type="email" placeholder="to email" required>
         <input name="replyto_email" type="email" placeholder="your email" class="optional">
         <input name="subject" type="text" placeholder="subject" require>
