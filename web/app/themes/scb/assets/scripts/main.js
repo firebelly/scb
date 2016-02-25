@@ -273,7 +273,6 @@ var SCB = (function($) {
 
     _initNav();
     // _initSearch();
-    // _initMasonry();
     _initLoadMore();
     _initPostModals();
     _initBigClicky();
@@ -690,15 +689,6 @@ var SCB = (function($) {
   function _hideMobileNav() {
     $('body, .menu-toggle').removeClass('menu-open');
     $('.site-nav').removeClass('active');
-  }
-
-  function _initMasonry(){
-    if (breakpoint_medium) {
-      $('.masonry').masonry({
-        itemSelector: 'article,.masonry-me',
-        transitionDuration: '.35s'
-      });
-    }
   }
 
   function _initLoadMore() {
