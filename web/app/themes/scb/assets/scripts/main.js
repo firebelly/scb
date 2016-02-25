@@ -202,9 +202,11 @@ var SCB = (function($) {
 
     function _updateTitle() {
       var title = $content.find('.content:first').data('post-title');
-      if (title === '' || title === 'Main')
+      if (title === '' || title === 'Main') {
         title = 'SCB';
-      else title = title + ' | SCB';
+      } else {
+        title = title + ' | SCB'; 
+      }
       // this bit also borrowed from Ajaxify
       document.title = title;
       try {
@@ -527,7 +529,7 @@ var SCB = (function($) {
   function _showApplicationForm() {
     var $app_form = $('.application-form-template form');
     if ($app_form.length) {
-      if ($modal.find('.application-form').length==0) {
+      if ($modal.find('.application-form').length===0) {
         $modal.find('.modal-content').empty();
         $app_form.clone(true).addClass('active').appendTo($modal.find('.modal-content'));
       }
