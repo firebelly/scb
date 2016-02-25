@@ -19,7 +19,14 @@ $address = get_post_meta($post->ID, '_cmb2_address', true);
     <div class="info -left">
       <div class="info-section">
         <h3>Location</h3>
-        <p><?= $address ?></p>
+        <p>
+        <?= $address['address-1'] ?>
+        <?php if (!empty($address['address-2'])): ?>
+          <br><?= $address['address-2'] ?>
+        <?php endif; ?>
+        <br><?= $address['city'] ?>, <?= $address['state'] ?> <?= $address['zip'] ?>
+        </p>
+
       </div>
     </div>
 
