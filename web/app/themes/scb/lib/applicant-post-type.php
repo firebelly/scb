@@ -273,12 +273,37 @@ function new_applicant() {
 function application_submission() {
   if($_SERVER['REQUEST_METHOD']==='POST' && !empty($_POST['application_form_nonce'])) {
     if (wp_verify_nonce($_POST['application_form_nonce'], 'application_form')) {
-      $return = new_applicant();
-      if (is_array($return)) {
-        wp_send_json_error('Error saving application: '.implode("\n", $return));
-      } else {
-        wp_send_json_success('Application was saved OK');
+
+      // Server side validation of required fields
+      $required_fields = ['application_type',
+                          'application_first_name',
+                          'application_last_name',
+                          'application_email',
+                          'application_phone'];
+      foreach($required_fields as $required) {
+        if (empty($_POST[$required])) {
+          $required_txt = ucwords(str_replace('_', ' ', str_replace('application_','',$required)));
+          wp_send_json_error(['message' => 'Please enter a value for '.$required_txt]);  
+        }
       }
+
+      // Check for valid Email
+      if (!is_email($_POST['application_email'])) {
+        wp_send_json_error(['message' => 'Invalid email']);
+      } else {
+
+        // Try to save new Applicant post
+        $return = new_applicant();
+        if (is_array($return)) {
+          wp_send_json_error('Error saving application: '.implode("\n", $return));
+        } else {
+          wp_send_json_success('Application was saved OK');
+        }
+
+      }
+    } else {
+      // Bad nonce, man!
+      wp_send_json_error(['message' => 'Invalid form submission (bad nonce)']);
     }
   }
   wp_send_json_error('Invalid post');
