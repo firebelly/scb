@@ -301,12 +301,10 @@ var SCB = (function($) {
   }
   // AJAX Application form submissions
   function _initApplicationForms() {
-    // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
-    if( window.FormData !== undefined ) {
-      $(document).on('submit', '.application-form', function(e) {
-        e.preventDefault();
-        $(this).validate({
-          submitHandler: function(form) {
+      $('.application-form').validate({
+        submitHandler: function(form) {
+          // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
+          if( window.FormData !== undefined ) {
             var formData = new FormData(form);
             formData.append('action', 'application_submission');
             $.ajax({
@@ -326,8 +324,10 @@ var SCB = (function($) {
                 alert(response.data);
               }
             });
+          } else {
+            form.submit();
           }
-        });
+        }
       });
     }
   }
@@ -462,30 +462,27 @@ var SCB = (function($) {
       e.preventDefault();
       _showEmailForm();
     });
-    $(document).on('submit', '#email-collection-form form', function(e) {
-      e.preventDefault();
-      $(this).validate({
-        submitHandler: function(form) {
-            $.ajax({
-                url: wp_ajax_url,
-                method: 'post',
-                dataType: 'json',
-                data: $(this).serialize()
-            }).done(function(response) {
-              if (response.success) {
-                _hideEmailForm();
-                _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-                _collectionMessage('Your email was sent successfully.');
-              } else {
-                _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-                _collectionMessage('There was an error sending your email: ' + response.data.message);
-              }
-            }).fail(function(response) {
+    $('#email-collection-form form').validate({
+      submitHandler: function(form) {
+          $.ajax({
+              url: wp_ajax_url,
+              method: 'post',
+              dataType: 'json',
+              data: $(this).serialize()
+          }).done(function(response) {
+            if (response.success) {
+              _hideEmailForm();
               _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-              _collectionMessage('There was an error sending your email.');
-            });
-          }
-      })
+              _collectionMessage('Your email was sent successfully.');
+            } else {
+              _scrollBody($('.collection .feedback-container'), 250, 0, 0);
+              _collectionMessage('There was an error sending your email: ' + response.data.message);
+            }
+          }).fail(function(response) {
+            _scrollBody($('.collection .feedback-container'), 250, 0, 0);
+            _collectionMessage('There was an error sending your email.');
+          });
+        }
     });
     // Update collection title
     $('.collection-title').on('blur', function() {
