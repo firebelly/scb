@@ -163,7 +163,7 @@ var SCB = (function($) {
             $('section.projects .initial-section').html($data).removeClass('loading');
             $('body').attr('data-pageClass', (parentUrl.replace(/\bprojects\b|\//g,'')));
             // window.history.pushState({}, parentCategory, thisUrl);
-            $('.load-more').attr('data-category', project_categories[0].toLowerCase());
+            $('.load-more').attr('data-category', project_categories.join(','));
             $('.load-more-container').empty();
           }
       });
@@ -463,11 +463,11 @@ var SCB = (function($) {
   function _updatePostCollectionLinks(id,action) {
     $('article[data-id='+id+'] .collection-action').each(function() {
       if (action==='add') {
-        $(this).removeClass('collection-add').addClass('collection-remove');
-        $(this).find('.collection-text').data('action', 'remove').text('Remove from Collection');
+        $(this).removeClass('collection-add').addClass('collection-remove').data('action', 'remove');
+        $(this).find('.collection-text').text('Remove from Collection');
       } else {
-        $(this).removeClass('collection-remove').addClass('collection-add');
-        $(this).find('.collection-text').data('action', 'add').text('Add to Collection');
+        $(this).removeClass('collection-remove').addClass('collection-add').data('action', 'add');
+        $(this).find('.collection-text').text('Add to Collection');
       }
     });
   }
