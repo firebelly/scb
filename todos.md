@@ -5,7 +5,7 @@
 - [ ] 
 
 ##Projects Page 
-- [ ]
+- [x] Mobile solution for categories filter
 
 ##Single Posts
 - [ ] Single position
@@ -19,7 +19,7 @@
 - [ ] 
 
 ##Global
-- [ ] Offset smoothscroll for fixed header
+- [x] Offset smoothscroll for fixed header
 - [ ] Form error handling
 - [ ] Modals - fixed position, or not?
 - [ ] 
