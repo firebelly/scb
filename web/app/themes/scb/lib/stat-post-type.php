@@ -128,11 +128,6 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => true,
     'fields'        => array(
-      // array(
-      //   'name'     => 'Global Stat',
-      //   'id'       => $prefix . 'global_stat',
-      //   'type'     => 'checkbox'
-      // ),
       array(
         'name'     => 'Related Category',
         'id'       => $prefix . 'related_category',

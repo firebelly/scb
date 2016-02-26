@@ -85,15 +85,55 @@ var SCB = (function($) {
       }
     });
 
+    // Init nav on page load
+    $('.project-categories').find('.current-cat-parent>a, .current-cat>a').each(function() {
+      _updateProjectCategoryNav(this);
+    });
+    // Active grandparent doesn't get a .current-cat class of any sort
+    $('.project-categories .current-cat-parent').parents('li').find('>a').each(function() {
+      _updateProjectCategoryNav(this);
+    });
+
     // Project category filter
     $('.project-categories').on('click', 'a', function(e) {
       e.preventDefault();
-      var thisUrl =  $(this).attr('href'),
-          $li = $(this).parent('li'),
+      _updateProjectCategoryNav(this);
+
+      // Build array of selected category slugs
+      var project_categories = [];
+      $('.project-categories li.active>a').each(function() {
+        var slug = $(this).attr('href').split('/')[2];
+        project_categories.push(slug);
+      });
+
+      $.ajax({
+          url: wp_ajax_url,
+          method: 'post',
+          data: {
+              action: 'load_more_projects',
+              page: 1,
+              per_page: 6,
+              project_category: project_categories.slice(-1).pop()
+          },
+          success: function(data) {
+            var $data = $(data);
+            if (loadingTimer) { clearTimeout(loadingTimer); }
+            $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
+            $('.page-intro').html( $data.find('.page-intro').html() );
+            $('body').attr('data-pageClass', project_categories[0]); // set data-pageClass to parent category (first in array) for color theme styling
+            $('.load-more').attr('data-category', project_categories.slice(-1).pop()).attr('data-page', 1).attr('data-per_page', 6);
+            $('.load-more-container').empty();
+          }
+      });
+    });
+
+    function _updateProjectCategoryNav(el) {
+      var thisUrl = $(el).attr('href'),
+          $li = $(el).parent('li'),
           $activeSiblings = $li.siblings('.active');
 
-      // match height of absolutely-positing children lists
-      if ($li.find('ul.children').length && !$li.is('.active')) {      
+      // Match height of absolutely-positioned children lists
+      if ($li.find('ul.children').length && !$li.is('.active')) {
         var childHeight = $li.find('ul.children').outerHeight();
         $('.project-categories .-inner').outerHeight(childHeight + 20);
       } else {
@@ -130,7 +170,7 @@ var SCB = (function($) {
         $parentUl.removeClass('active');
       }
 
-      // If toggling a child, give the whole thing a relatve class
+      // If toggling a child, give the whole thing a relative class
       if ($li.closest('ul').is('.children') && $li.find('.children').length) {
         $('.categories-parent').toggleClass('grandchildren-active');
       }
@@ -140,36 +180,7 @@ var SCB = (function($) {
         $activeSiblings.find('.active').removeClass('active');
         $activeSiblings.removeClass('active');
       }
-
-      var project_categories = [];
-      $('.project-categories li.active>a').each(function() {
-        project_categories.push($(this).text());
-      });
-      var parentCategory = !$li.parents('li').length ? $(this) : $li.parents('li').last().children('a');
-      var parentUrl = parentCategory.attr('href');
-      parentCategory = parentCategory.text();
-
-      $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
-          data: {
-              action: 'load_more_posts',
-              post_type: 'project',
-              page: 1,
-              per_page: 6,
-              project_category: project_categories.join(',')
-          },
-          success: function(data) {
-            var $data = $(data);
-            if (loadingTimer) { clearTimeout(loadingTimer); }
-            $('section.projects .initial-section').html($data).removeClass('loading');
-            $('body').attr('data-pageClass', (parentUrl.replace(/\bprojects\b|\//g,'')));
-            // window.history.pushState({}, parentCategory, thisUrl);
-            $('.load-more').attr('data-category', project_categories.join(',')).attr('data-page', 1).attr('data-per_page', 6);
-            $('.load-more-container').empty();
-          }
-      });
-    });
+    }
 
     function _updateContent() {
       var State = History.getState();

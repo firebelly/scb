@@ -17,7 +17,7 @@ function is_ajax() {
 }
 
 /**
- * AJAX load more posts (news or events)
+ * AJAX load more posts
  */
 function load_more_posts() {
   global $collection;
@@ -79,6 +79,55 @@ function load_more_posts() {
 }
 add_action( 'wp_ajax_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
 add_action( 'wp_ajax_nopriv_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
+
+
+/**
+ * AJAX load more projects in grid
+ */
+function load_more_projects() {
+  global $collection;
+  if (!isset($collection)) {
+    $collection = \Firebelly\Collections\get_active_collection();
+  }
+
+  // get page offsets
+  $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
+  $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
+  $offset = ($page-1) * $per_page;
+  $args = [
+    'offset' => $offset,
+    'posts_per_page' => $per_page,
+  ];
+  $args['post_type'] = 'project';
+
+  // Filter by Category?
+  if (!empty($_REQUEST['project_category'])) {
+    $term = get_term_by('slug', $_REQUEST['project_category'], 'project_category');
+    $args['tax_query'] = [
+      'taxonomy' => 'project_category',
+      'field'    => 'slug',
+      'terms'    => $term->slug,
+    ];
+  }
+
+  $grid_projects = get_posts($args);
+
+  if ($grid_projects):
+    if ($page==1) {
+      include(locate_template('templates/project-grid-top.php'));
+    } else {
+      foreach ($grid_projects as $project_post) {
+        include(locate_template('templates/article-project.php'));
+      }
+    }
+  endif;
+
+  // we use this call outside AJAX calls; WP likes die() after an AJAX call
+  if (is_ajax()) die();
+}
+add_action( 'wp_ajax_load_more_projects', __NAMESPACE__ . '\\load_more_projects' );
+add_action( 'wp_ajax_nopriv_load_more_projects', __NAMESPACE__ . '\\load_more_projects' );
+
 
 /**
  * Load post in modal

@@ -1,3 +1,39 @@
+<?php 
+/**
+ * Crazy ass project grid
+ */
+
+if (!empty($term)) {
+
+  // Taxonomy filtered
+  $num_projects = \Firebelly\Utils\get_num_posts_in_category('project', 'project_category', $term->term_id);
+  $load_more_category = $term->slug;
+
+  $grid_stat = \Firebelly\PostTypes\Stat\get_stat(['related_category' => $term->term_id]);
+  $grid_projects = \Firebelly\PostTypes\Project\get_projects(['category' => $term->slug]);
+  $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false, 'category' => $term->term_id]);
+  if (!empty($term->description)) {
+    $grid_description = '<h2>'.$term->description.'</h2>';
+  } else {
+    $homepage = get_post(get_option('page_on_front'));
+    $grid_description = $homepage->post_content;
+  }
+
+} else {
+
+  // Homepage, no filter
+  $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
+  $load_more_category = '';
+
+  $grid_stat = \Firebelly\PostTypes\Stat\get_stat();
+  $grid_projects = \Firebelly\PostTypes\Project\get_projects();
+  $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false]);
+  $grid_description = $post->post_content;
+
+}
+
+?>
+
 <div class="grid wrap -top">
   <div class="page-intro grid-item one-half -left">
     <?= $grid_description ?>
