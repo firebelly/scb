@@ -43,7 +43,7 @@ body.single-project {
   @include min-screen($breakpoint-medium) {
 
     &.active {
-      width: calc(100% - 100px);
+      width: 100% - $column; 
     }
   }
 
@@ -124,10 +124,12 @@ body.single-project {
       @include min-screen($breakpoint-medium) {      
         &.-left {
           width: 5 * $project-col;
-          padding: 0 $project-padding 0 calc(9.166666667% + 40px);
+          padding: 0 $project-col;
         }
         &.-right {
+          padding-left: 6px;
           width: 6 * $project-col;
+          padding-right: $project-col;
         }
       }
     }
@@ -135,7 +137,16 @@ body.single-project {
     .wrap {
       padding: 0 20px;
       @include min-screen($breakpoint-medium) {
-        padding: 0 40px 0 0;
+        padding: 0 40px;
+      }
+    }
+
+    // Adjusted column for project blocks
+    .project-block {    
+      .column.-right {
+        @include min-screen($breakpoint-medium) {
+          padding-left: 6px;
+        }
       }
     }
 
@@ -369,11 +380,11 @@ body.single-project {
 // Project Blocks
 .project-blocks {
   .project-block {
+    margin: 20px;
     @include clearfix();
-    margin: 20px 20px 0;
 
     @include min-screen($breakpoint-medium) {
-      margin: 40px 40px 0 0;
+      margin: 40px;
     }
 
     .user-content {
@@ -382,7 +393,6 @@ body.single-project {
         margin-bottom: 20px;
       }
     }
-
 
     .right-column-text {
       margin-top: 40px;
@@ -393,8 +403,6 @@ body.single-project {
 
     // Emphasized block
     .full-width-text {
-      overflow: hidden;
-      padding: 0 20px;
 
       h2, h3 {
         color: $black;
@@ -418,7 +426,7 @@ body.single-project {
       }
 
       @include min-screen($breakpoint-medium) {
-        margin-left: 40px;
+        overflow: hidden;
         padding: 0 $project-padding;
 
         .column {
@@ -450,11 +458,6 @@ body.single-project {
       padding: 40px 20px;
       background: $gray-dark;
 
-      .full-width-text {
-        margin-left: -20px;
-        width: calc(100% + 40px);
-      }
-
       .left-column-text {
         ul {
           li {
@@ -482,10 +485,6 @@ body.single-project {
         .column {
           &.-left {
             padding-left: $project-padding;
-          }
-          &.-right {
-            margin-left: -20px;
-            padding-right: 20px;
           }
         }
       }

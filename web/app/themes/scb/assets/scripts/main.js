@@ -442,7 +442,7 @@ var SCB = (function($) {
   }
 
   function _plusButtons() {
-    $('.plus-button.-expandable').on('click', function(e) {
+    $document.on('click', '.plus-button.-expandable', function(e) {
       $(this).toggleClass('expanded');
     });
   }
