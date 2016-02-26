@@ -21,5 +21,5 @@
     <?php wp_nonce_field( 'application_form', 'application_form_nonce' ); ?>
   </fieldset>
 
-  <input type="submit" value="submit">
+  <input type="submit" value="submit" class="button">
 </form>
