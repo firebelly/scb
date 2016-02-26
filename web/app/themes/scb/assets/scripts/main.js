@@ -17,6 +17,7 @@ var SCB = (function($) {
       History = window.History,
       rootUrl = History.getRootUrl(),
       page_cache,
+      category_cache,
       collection_message_timer,
       page_at;
 
@@ -144,9 +145,10 @@ var SCB = (function($) {
       $('.project-categories li.active>a').each(function() {
         project_categories.push($(this).text());
       });
-      var parentCategory = (!$li.parents('li').length ? $(this) : $li.parents('li').last().children('a'));
+      var parentCategory = !$li.parents('li').length ? $(this) : $li.parents('li').last().children('a');
       var parentUrl = parentCategory.attr('href');
       parentCategory = parentCategory.text();
+
       $.ajax({
           url: wp_ajax_url,
           method: 'post',
@@ -163,7 +165,7 @@ var SCB = (function($) {
             $('section.projects .initial-section').html($data).removeClass('loading');
             $('body').attr('data-pageClass', (parentUrl.replace(/\bprojects\b|\//g,'')));
             // window.history.pushState({}, parentCategory, thisUrl);
-            $('.load-more').attr('data-category', project_categories.join(','));
+            $('.load-more').attr('data-category', project_categories.join(',')).attr('data-page', 1).attr('data-per_page', 6);
             $('.load-more-container').empty();
           }
       });
@@ -179,7 +181,7 @@ var SCB = (function($) {
       setTimeout(function() {
         // $content.html(new_content);
         // pull in body class from data attribute
-        // $body.attr('class', $content.find('.content:first').data('body-class'));
+        // $body.attr('class', $content.find('.content:first').attr('data-body-class'));
         // if (loadingTimer) clearTimeout(loadingTimer);
 
         _updateTitle();
@@ -190,8 +192,8 @@ var SCB = (function($) {
         if ($('#og-updates').length) {
           $('meta[property="og:url"]').attr('content', State.url);
           $('meta[property="og:title"]').attr('content', document.title);
-          $('meta[property="og:description"]').attr('content', $('#og-updates').data('description'));
-          $('meta[property="og:image"]').attr('content', $('#og-updates').data('image'));
+          $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
+          $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
         }
 
         // scroll to top
@@ -201,7 +203,7 @@ var SCB = (function($) {
     }
 
     function _updateTitle() {
-      var title = $content.find('.content:first').data('post-title');
+      var title = $content.find('.content:first').attr('data-post-title');
       if (title === '' || title === 'Main') {
         title = 'SCB';
       } else {
@@ -282,9 +284,9 @@ var SCB = (function($) {
     $document.on('click', '.collection-action', function(e) {
       e.preventDefault();
       var $link = $(this);
-      var id = $link.data('id') || '';
-      var collection_id = $link.parents('section.collection:first').data('id');
-      var action = $link.data('action');
+      var id = $link.attr('data-id') || '';
+      var collection_id = $link.parents('section.collection:first').attr('data-id');
+      var action = $link.attr('data-action');
 
       // Add action class to article for styling perposes
       if ($link.parents('section.collection').length) {
@@ -463,10 +465,10 @@ var SCB = (function($) {
   function _updatePostCollectionLinks(id,action) {
     $('article[data-id='+id+'] .collection-action').each(function() {
       if (action==='add') {
-        $(this).removeClass('collection-add').addClass('collection-remove').data('action', 'remove');
+        $(this).removeClass('collection-add').addClass('collection-remove').attr('data-action', 'remove');
         $(this).find('.collection-text').text('Remove from Collection');
       } else {
-        $(this).removeClass('collection-remove').addClass('collection-add').data('action', 'add');
+        $(this).removeClass('collection-remove').addClass('collection-add').attr('data-action', 'add');
         $(this).find('.collection-text').text('Add to Collection');
       }
     });
@@ -541,34 +543,33 @@ var SCB = (function($) {
   function _collectionMessage(messageType) {
     var message;
 
-    if (messageType==="remove") {
-      message = "Your selection has been removed from the collection.";
-    } else if (messageType==="add") {
-      message = "Your selection has been added to the collection.";
+    if (messageType === 'remove') {
+      message = 'Your selection has been removed from the collection.';
+    } else if (messageType === 'add') {
+      message = 'Your selection has been added to the collection.';
     } else {
       message = messageType;
-    }
-
-    function _hideFeedback() {
-      $collection.find('.feedback-container').removeClass('show-feedback');
-      $collection.find('.feedback-container .feedback p').text('');
-
     }
 
     $collection.find('.feedback-container .feedback p').text(message);
     setTimeout(function(){
       $collection.find('.feedback-container').addClass('show-feedback');
-    },250);
+    }, 250);
 
     if (collection_message_timer) { clearTimeout(collection_message_timer); }
-    collection_message_timer = setTimeout(_hideFeedback, 3000);
+    collection_message_timer = setTimeout(_hideCollectionMessage, 3000);
 
     $collection.find('.feedback-container').on('mouseenter', function() {
       clearTimeout(collection_message_timer);
     }).on('mouseleave', function() {
-      setTimeout(_hideFeedback, 1000);
+      setTimeout(_hideCollectionMessage, 1000);
     });
     
+  }
+
+  function _hideCollectionMessage() {
+    $collection.find('.feedback-container').removeClass('show-feedback');
+    $collection.find('.feedback-container .feedback p').text('');
   }
 
   // Init collection sorting, title editing, etc
@@ -600,10 +601,11 @@ var SCB = (function($) {
           });
         }
     });
+
     // Update collection title
     $('.collection-title').on('blur', function() {
       var title = $('.collection-title').text();
-      var collection_id = $('.collection-title').data('id');
+      var collection_id = $('.collection-title').attr('data-id');
       $.ajax({
           url: wp_ajax_url,
           method: 'post',
@@ -648,7 +650,7 @@ var SCB = (function($) {
         },
         onDrop: function ($item, container, _super) {
           var data = collection_sort.sortable('serialize').get();
-          var collection_id = $(container.el[0]).data('id');
+          var collection_id = $(container.el[0]).attr('data-id');
           $.ajax({
               url: wp_ajax_url,
               method: 'post',
@@ -680,8 +682,8 @@ var SCB = (function($) {
       }
       e.preventDefault();
 
-      var post_id = $(this).data('id'),
-          modal_type = $(this).data('modal-type');
+      var post_id = $(this).attr('data-id'),
+          modal_type = $(this).attr('data-modal-type');
           $modal.removeClass('post-modal project-modal person-modal'); // doing this the lazy way for now
           $postModal = $modal.addClass('post-modal ' + modal_type);
 
@@ -717,7 +719,7 @@ var SCB = (function($) {
     }
     setTimeout(function() {
       $('#page-overlay').addClass('active');
-    },50);
+    }, 50);
   }
 
   function _hidePageOverlay() {
@@ -751,7 +753,7 @@ var SCB = (function($) {
       duration: duration,
       delay: delay,
       offset: -offset - wpOffset
-    }, "easeOutSine");
+    }, 'easeOutSine');
   }
 
   function _initSearch() {
