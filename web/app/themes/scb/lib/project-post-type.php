@@ -317,7 +317,6 @@ function get_projects($filters=[]) {
   $args = array(
     'numberposts' => -1,
     'post_type' => 'project',
-    'orderby' => ['date' => 'ASC'],
     );
   if (!empty($filters['num_posts'])) {
     $args['numberposts'] = $filters['num_posts'];
