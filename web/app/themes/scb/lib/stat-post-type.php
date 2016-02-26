@@ -128,17 +128,17 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => true,
     'fields'        => array(
-      array(
-        'name'     => 'Global Stat',
-        'id'       => $prefix . 'is_global_stat',
-        'type'     => 'checkbox'
-      ),
+      // array(
+      //   'name'     => 'Global Stat',
+      //   'id'       => $prefix . 'global_stat',
+      //   'type'     => 'checkbox'
+      // ),
       array(
         'name'     => 'Related Category',
         'id'       => $prefix . 'related_category',
         'taxonomy' => 'project_category',
         'type'     => 'taxonomy_select',
-        // 'description' => 'Will be global stat if set to None',
+        'description' => 'Will be global stat if set to None',
         'options'  => [
           'hierarchical' => true // doesn't do anything, maybe need to do custom function here?
         ]
@@ -175,6 +175,22 @@ function metaboxes( array $meta_boxes ) {
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
+ * Check if Stat has no category and set _cmb2_global_stat to 'on' if so
+ */
+function check_global_stat($post_id) {
+  if (wp_is_post_revision($post_id))
+    return;
+
+  if (!empty($_REQUEST['_cmb2_related_category'])) {
+    delete_post_meta($post_id, '_cmb2_global_stat');
+  } else {
+    update_post_meta($post_id, '_cmb2_global_stat', 'on');
+  }
+}
+add_action('save_post_stat', __NAMESPACE__ . '\check_global_stat');
+
+
+/**
  * Get random stat, optionally related to a project_category
  */
 function get_stat($filters=[]) {
@@ -197,7 +213,7 @@ function get_stat($filters=[]) {
   } else {
     $args['meta_query'] = [
       [
-        'key' => '_cmb2_is_global_stat',
+        'key' => '_cmb2_global_stat',
         'value' => 'on',
         'compare' => '='
       ]
