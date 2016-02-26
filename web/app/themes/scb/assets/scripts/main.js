@@ -358,7 +358,6 @@ var SCB = (function($) {
         _hideMobileNav();
         _hidePageOverlay();
         _hideEmailForm();
-        _hideSearch();
       }
     });
 
@@ -766,8 +765,11 @@ var SCB = (function($) {
         $('.search-field:first').focus();
       }
     });
-    $('.search-modal .hide-search').on('click', function() {
-      _hideSearch();
+    $('.search-modal .hide-search, .search-modal').on('click', function(e) {
+      console.log($(e.target));
+      if (!$(e.target).is('.search-field')) {
+        _hideSearch();
+      }
     });
   }
 
