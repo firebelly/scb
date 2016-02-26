@@ -6,34 +6,40 @@ $project-padding: (10% * 11/12);
 
 // Single Project Page (not in modal)
 body.single-project {
-  // Single Project Page
-  .single-project {
+  background: $gray-light;
+  
+  .site-header {
     background: $gray-light;
+  }
+
+  .main {
     
-    .site-header {
-      background: $gray-light;
-      .header-bars .bar {
-        background: $black;
-      }
+    .project {
+      background: $white;
     }
 
-    .main {
-      background: $white;
-      @include min-screen($breakpoint-medium) {
-        margin-right: -40px;
-        margin-left: $column;
-
-        .column {
-          &.-left {
-            width: 5 * $column;
-          }
-          &.-right {
-            width: 6 * $column;
-          }
+    .project-block {    
+      .column.-right {
+        @include min-screen($breakpoint-medium) {
+          padding-left: 10px;
         }
       }
     }
+    .column {
+      @include min-screen($breakpoint-medium) {      
+        &.-right {
+          padding-left: 10px;
+        }
+      }
+    }
+
+    @include min-screen($breakpoint-medium) {
+      margin-left: -40px;
+      margin-right: -40px;
+      padding-left: $column;
+    }
   }
+
 }
 
 // Project Modal
@@ -45,11 +51,6 @@ body.single-project {
     &.active {
       width: 100% - $column; 
     }
-  }
-
-  .project {
-    
-
   }
 }
 
