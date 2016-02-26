@@ -22,7 +22,7 @@
         right: 0;
         bottom: 0;
         content: '';
-        opacity: .25;
+        opacity: .10;
         height: 100%;
         position: absolute;
         background: rgba(0,0,0,.75);
@@ -309,7 +309,7 @@
       }
     }
 
-    @include min-screen($breakpoint-huge) {
+    @include min-screen(1500px) {
       .big-plus {
         display: block;
       }
