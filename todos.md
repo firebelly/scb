@@ -30,11 +30,11 @@
 
 ##Items for Nate
 - [ ] Pulling up horizontal/vertical projects for positions in grid that fit that orientation
-- [ ] Application form?
+- [x] Application form?
 - [ ] History/url updates?
-- [ ] When on a child category page, clicking on "load more" loads all projects from parent category
-- [ ] Dyanmic stat display on homepage (currently static)
-- [ ] Displaying related stats on filtered project category pages
-- [ ] Updating category description content area when filtering on project grid pages
+- [x] When on a child category page, clicking on "load more" loads all projects from parent category
+- [x] Dynamic stat display on homepage (currently static)
+- [x] Displaying related stats on filtered project category pages
+- [x] Updating category description content area when filtering on project grid pages
 - [ ]
 
