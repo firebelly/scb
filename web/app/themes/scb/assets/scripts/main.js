@@ -358,6 +358,7 @@ var SCB = (function($) {
         _hideMobileNav();
         _hidePageOverlay();
         _hideEmailForm();
+        _hideSearch();
       }
     });
 
@@ -377,7 +378,7 @@ var SCB = (function($) {
     });
 
     _initNav();
-    // _initSearch();
+    _initSearch();
     _initLoadMore();
     _initPostModals();
     _initBigClicky();
@@ -755,23 +756,23 @@ var SCB = (function($) {
   }
 
   function _initSearch() {
-    $('.search-form:not(.mobile-search) .search-submit').on('click', function (e) {
-      if ($('.search-form').hasClass('active')) {
+    $('.show-search').on('click', function (e) {
+      e.preventDefault();
+      if ($('.search-modal').hasClass('active')) {
 
       } else {
         e.preventDefault();
-        $('.search-form').addClass('active');
+        $('.search-modal').addClass('active');
         $('.search-field:first').focus();
       }
     });
-    $('.search-form .close-button').on('click', function() {
+    $('.search-modal .hide-search').on('click', function() {
       _hideSearch();
-      _hideMobileNav();
     });
   }
 
   function _hideSearch() {
-    $('.search-form').removeClass('active');
+    $('.search-modal').removeClass('active');
   }
 
   // Handles main nav

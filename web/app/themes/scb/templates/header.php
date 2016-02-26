@@ -29,4 +29,8 @@
     
     <button class="plus-button categories-toggle -expandable expanded"><div class="plus"></div></button>
   </div>
+  <div class="search-modal">
+    <button class="plus-button close hide-search"><div class="plus"></div></button>
+    <?php get_search_form(); ?>
+  </div>
 </header>

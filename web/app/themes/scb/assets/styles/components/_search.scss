@@ -1,16 +1,42 @@
 // Search Form
 
-.search-overlay {
+.search-modal {
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 20;
+  z-index: 200;
   display: none;
   position: fixed;
+  padding: 110px 20px 0;
   background: rgba($white,.97);
   &.active {
     display: block;
+  }
+
+
+  .hide-search {
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    .plus {
+      width: 20px;
+      height: 20px;
+      &::before,
+      &::after {
+        width: 20px;
+        background: $black;
+      }
+    }
+  }
+
+  @include min-screen($breakpoint-medium) {
+    padding: 110px 40px 0;
+
+    .hide-search {
+      right: 40px;
+    }
   }
 }
 
