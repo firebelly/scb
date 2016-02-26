@@ -4,8 +4,6 @@
  */
 
 if (!empty($term)) {
-  global $wpdb;
-
   // Taxonomy filtered
   $num_projects = \Firebelly\Utils\get_num_posts_in_category('project', 'project_category', $term->term_id);
   $load_more_category = $term->slug;
@@ -17,6 +15,7 @@ if (!empty($term)) {
   if (!empty($term->description)) {
     $grid_description = '<h2>'.$term->description.'</h2>';
   } else {
+    global $wpdb;
     if ($parent = $wpdb->get_var("SELECT parent FROM ".$wpdb->prefix."term_taxonomy WHERE term_id = ".$term->term_id)) {
       $parent_term = get_term($parent, 'project_category');
       if (!empty($parent_term->description)) {

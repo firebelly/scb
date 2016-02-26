@@ -40,12 +40,13 @@ var SCB = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
+    // Global application form, shown (in a modal of course!) when clicking "Submit Portfolio"
     $document.on('click', 'a.submit-portfolio', function(e) {
       e.preventDefault();
       _showApplicationForm();
     });
 
-    $(window).bind('statechange',function(){
+    $(window).bind('Xstatechange',function(){
       var State = History.getState(),
           url = State.url,
           relative_url = url.replace(rootUrl,'');
@@ -84,62 +85,68 @@ var SCB = (function($) {
         _updateContent();
       }
     });
-
-    // Init nav on page load
-    $('.project-categories').find('.current-cat-parent>a, .current-cat>a').each(function() {
-      _updateProjectCategoryNav(this);
-    });
-    // Active grandparent doesn't get a .current-cat class of any sort
-    $('.project-categories .current-cat-parent').parents('li').find('>a').each(function() {
-      _updateProjectCategoryNav(this);
-    });
-
-    // Project category filter
-    $('.project-categories').on('click', 'a', function(e) {
-      e.preventDefault();
-      _updateProjectCategoryNav(this);
-
-      // Build array of selected category slugs
-      var project_categories = [];
-      $('.project-categories li.active>a').each(function() {
-        var slug = $(this).attr('href').split('/')[2];
-        project_categories.push(slug);
+    // Are we on a page with project category nav?
+    if ($('.project-categories').length) {
+      // Init active nav categories on page load
+      $('.project-categories').find('.current-cat-parent>a, .current-cat>a').each(function() {
+        _updateProjectCategoryNav(this);
+      });
+      // Active grandparent doesn't get a .current-cat class of any sort
+      $('.project-categories .current-cat-parent').parents('li').find('>a').each(function() {
+        _updateProjectCategoryNav(this);
       });
 
-      $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
-          data: {
-              action: 'load_more_projects',
-              page: 1,
-              per_page: 6,
-              project_category: project_categories.slice(-1).pop()
-          },
-          success: function(data) {
-            var $data = $(data);
-            if (loadingTimer) { clearTimeout(loadingTimer); }
-            
-            // Remove load-more DOM elements from returned HTML
-            $data.find('.load-more-container').remove();
-            var new_load_more = $data.find('.load-more').detach();
+      // Project category filter
+      $('.project-categories').on('click', 'a', function(e) {
+        e.preventDefault();
+        var $category = $(this);
+        _updateProjectCategoryNav(this);
 
-            // Update load more container & empty load-more container
-            $('.load-more').replaceWith(new_load_more);
-            $('.load-more-container').empty()
+        // Build array of selected category slugs
+        var project_categories = [];
+        $('.project-categories li.active>a').each(function() {
+          var slug = $category.attr('href').split('/')[2];
+          project_categories.push(slug);
+        });
 
-            // Populate new projects in grid
-            $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
-            
-            // Pull intro and replace on page
-            $('.page-intro').html( $data.find('.page-intro').html() );
+        $.ajax({
+            url: wp_ajax_url,
+            method: 'post',
+            data: {
+                action: 'load_more_projects',
+                page: 1,
+                per_page: 6,
+                project_category: project_categories.slice(-1).pop()
+            },
+            success: function(data) {
+              var $data = $(data);
+              if (loadingTimer) { clearTimeout(loadingTimer); }
+              
+              // Remove load-more DOM elements from returned HTML
+              $data.find('.load-more-container').remove();
+              var new_load_more = $data.find('.load-more').detach();
 
-            // Set data-pageClass to parent category (first in array) for color theme styling
-            $('body').attr('data-pageClass', project_categories[0]);
+              // Update load more container & empty load-more container
+              $('.load-more').replaceWith(new_load_more);
+              $('.load-more-container').empty()
 
-            _checkLoadMore();
-          }
+              // Populate new projects in grid
+              $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
+              
+              // Pull intro and replace on page
+              $('.page-intro').html( $data.find('.page-intro').html() );
+
+              // Set data-pageClass to parent category (first in array) for color theme styling
+              $('body').attr('data-pageClass', project_categories[0]);
+
+              History.replaceState({}, $category.text() + ' – SCB', $category.attr('href'));
+              
+              _checkLoadMore();
+            }
+        });
       });
-    });
+    }
+
 
     function _checkLoadMore() {
       $('.load-more').toggleClass('hide', $('.load-more').attr('data-page-at') >= $('.load-more').attr('data-total-pages'));
@@ -519,12 +526,16 @@ var SCB = (function($) {
   }
 
   function _hideModal() {
+    State = History.getState();
     _hidePageOverlay();
     $('body').removeClass('modal-active');
     $modal.removeClass('active');
     setTimeout(function() {
       $modal.removeClass('display');
     }, 500);
+    if (State.data.previousURL) {
+      History.replaceState({}, State.data.previousTitle, State.data.previousURL);
+    }
     // _scrollBody($('body'), 250, 0, 0);
   }
 
@@ -732,6 +743,8 @@ var SCB = (function($) {
         success: function(response) {
           var $postData = $(response);
           $('.post-modal .modal-content').append($postData);
+          // console.log($postData.attr('data-page-title'), location.href);
+          History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
           _showModal();
         },
         error: function(error){
