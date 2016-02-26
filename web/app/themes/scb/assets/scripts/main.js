@@ -128,7 +128,7 @@ var SCB = (function($) {
 
               // Update load more container & empty load-more container
               $('.load-more').replaceWith(new_load_more);
-              $('.load-more-container').empty()
+              $('.load-more-container').empty();
 
               // Populate new projects in grid
               $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
