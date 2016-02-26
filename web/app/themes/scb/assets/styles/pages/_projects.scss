@@ -309,7 +309,7 @@
       }
     }
 
-    @include min-screen($breakpoint-huge) {
+    @include min-screen(1500px) {
       .big-plus {
         display: block;
       }
