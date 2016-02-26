@@ -357,6 +357,9 @@ body.single-project {
     }
 
     .categories {
+      a {
+        display: inline-block;
+      }
       br {
         display: none;
       }
