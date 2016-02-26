@@ -128,16 +128,17 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => true,
     'fields'        => array(
-      array(
-        'name'     => 'Global Stat',
-        'id'       => $prefix . 'is_global_stat',
-        'type'     => 'checkbox'
-      ),
+      // array(
+      //   'name'     => 'Global Stat',
+      //   'id'       => $prefix . 'global_stat',
+      //   'type'     => 'checkbox'
+      // ),
       array(
         'name'     => 'Related Category',
         'id'       => $prefix . 'related_category',
         'taxonomy' => 'project_category',
         'type'     => 'taxonomy_select',
+        'description' => 'Will be global stat if set to None',
         'options'  => [
           'hierarchical' => true // doesn't do anything, maybe need to do custom function here?
         ]
@@ -174,25 +175,54 @@ function metaboxes( array $meta_boxes ) {
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
- * Get Stats matching category
+ * Check if Stat has no category and set _cmb2_global_stat to 'on' if so
  */
-function get_stats($filters=[]) {
+function check_global_stat($post_id) {
+  if (wp_is_post_revision($post_id))
+    return;
+
+  if (!empty($_REQUEST['_cmb2_related_category'])) {
+    delete_post_meta($post_id, '_cmb2_global_stat');
+  } else {
+    update_post_meta($post_id, '_cmb2_global_stat', 'on');
+  }
+}
+add_action('save_post_stat', __NAMESPACE__ . '\check_global_stat');
+
+
+/**
+ * Get random stat, optionally related to a project_category
+ */
+function get_stat($filters=[]) {
   $output = '';
   $args = array(
-    'numberposts' => -1,
+    'numberposts' => 1,
     'post_type' => 'stat',
-    'orderby' => ['title' => 'ASC'],
-    );
-  if (!empty($filters['related_category'])) {
-    $args['tax_query'] = array(
-      array(
-        'taxonomy' => 'related_category',
-        'field' => 'slug',
+    'orderby' => 'rand',
+    // 'orderby' => ['title' => 'ASC'],
+  );
+  // Check if there are any category stats
+  if (!empty($filters['related_category']) && \Firebelly\Utils\get_num_posts_in_category('stat', 'project_category', $filters['related_category'])) {
+    $args['tax_query'] = [
+      [
+        'taxonomy' => 'project_category',
+        'field' => 'id',
         'terms' => $filters['related_category']
-      )
-    );
+      ]
+    ];
+  } else {
+    $args['meta_query'] = [
+      [
+        'key' => '_cmb2_global_stat',
+        'value' => 'on',
+        'compare' => '='
+      ]
+    ];
   }
 
-  $stat_posts = get_posts($args);
-  return $stat_posts;
+  if ($stat_posts = get_posts($args)) {
+    return get_post_meta($stat_posts[0]->ID);
+  } else {
+    return false;    
+  }
 }

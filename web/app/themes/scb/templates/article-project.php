@@ -29,7 +29,7 @@ endif;
           <a href="#" class="collection-action collection-add no-ajaxy" data-action="add" data-id="<?= $project_post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><span class="icon icon-remove"><?php include(get_template_directory().'/assets/svgs/icon-remove.svg'); ?></span> <span class="collection-text">Add to Collection</span></a>
         <?php endif; ?>
       </p>
-      <div class="big-plus"><a href="#"><span class="sr-only">view project</span></a></div>
+      <div class="big-plus"><a href="<?= get_permalink($project_post) ?>"><span class="sr-only">view project</span></a></div>
     </div>
   </div>
 </article>

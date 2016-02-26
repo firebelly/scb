@@ -133,6 +133,26 @@ function get_total_pages($category, $per_page) {
 }
 
 /**
+ * Get num_posts for post_type in particular taxonomy
+ * @param  [string] $post_type [post,project,etc]
+ * @param  [string] $taxonomy  [category,project_category]
+ * @param  [integer] $term_id   [ID of term]
+ */
+function get_num_posts_in_category($post_type, $taxonomy, $term_id) {
+  global $wpdb;
+  return (int) $wpdb->get_var($wpdb->prepare("
+    SELECT COUNT(*) FROM $wpdb->posts
+    LEFT JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+    LEFT JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+    WHERE $wpdb->posts.post_status = 'publish'
+    AND $wpdb->posts.post_type = %s
+    AND $wpdb->term_taxonomy.taxonomy = %s
+    AND $wpdb->term_taxonomy.term_id = %d
+    ORDER BY post_date DESC
+    ", $post_type, $taxonomy, $term_id));
+}
+
+/**
  * Get Related News Post
  */
 function get_related_news_post($post_or_focus_area) {
