@@ -115,11 +115,15 @@ var SCB = (function($) {
         // Pull last category to use for filtering
         project_category = project_categories.slice(-1).pop();
 
+        if (typeof project_category === 'undefined') {
+          project_category = '';
+        }
+
         // Set data-pageClass to parent category (first in array) for color theme styling
         $('body').attr('data-pageClass', project_categories[0]);
-
+console.log('category-' + project_category, category_cache['category-' + project_category]);
         // Cached?
-        if (!category_cache[project_category]) {
+        if (!category_cache['category-' + project_category]) {
           $.ajax({
               url: wp_ajax_url,
               method: 'post',
@@ -132,14 +136,13 @@ var SCB = (function($) {
               success: function(data) {
                 if (loadingTimer) { clearTimeout(loadingTimer); }
                 // Cache ajax return
-                category_cache[project_category] = data;
+                category_cache['category-' + project_category] = data;
                 _updateProjects(data);
               }
           });
         } else {
-          _updateProjects(category_cache[project_category]);
+          _updateProjects(category_cache['category-' + project_category]);
         }
-
       });
     }
 
@@ -151,7 +154,7 @@ var SCB = (function($) {
 
       // Update load more container & empty load-more container
       $('.load-more').replaceWith(new_load_more);
-      $('.load-more-container').empty()
+      $('.load-more-container').empty();
 
       // Populate new projects in grid
       $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
@@ -769,7 +772,6 @@ var SCB = (function($) {
         success: function(response) {
           var $postData = $(response);
           $('.post-modal .modal-content').append($postData);
-          // console.log($postData.attr('data-page-title'), location.href);
           History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
           _showModal();
         },
@@ -836,7 +838,6 @@ var SCB = (function($) {
       }
     });
     $('.search-modal .hide-search, .search-modal').on('click', function(e) {
-      console.log($(e.target));
       if (!$(e.target).is('.search-field')) {
         _hideSearch();
       }
