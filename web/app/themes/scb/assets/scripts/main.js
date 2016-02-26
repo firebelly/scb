@@ -118,14 +118,32 @@ var SCB = (function($) {
           success: function(data) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
+            
+            // Remove load-more DOM elements from returned HTML
+            $data.find('.load-more-container').remove();
+            var new_load_more = $data.find('.load-more').detach();
+
+            // Update load more container & empty load-more container
+            $('.load-more').replaceWith(new_load_more);
+            $('.load-more-container').empty()
+
+            // Populate new projects in grid
             $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
+            
+            // Pull intro and replace on page
             $('.page-intro').html( $data.find('.page-intro').html() );
-            $('body').attr('data-pageClass', project_categories[0]); // set data-pageClass to parent category (first in array) for color theme styling
-            $('.load-more').attr('data-category', project_categories.slice(-1).pop()).attr('data-page', 1).attr('data-per_page', 6);
-            $('.load-more-container').empty();
+
+            // Set data-pageClass to parent category (first in array) for color theme styling
+            $('body').attr('data-pageClass', project_categories[0]);
+
+            _checkLoadMore();
           }
       });
     });
+
+    function _checkLoadMore() {
+      $('.load-more').toggleClass('hide', $('.load-more').attr('data-page-at') >= $('.load-more').attr('data-total-pages'));
+    }
 
     function _updateProjectCategoryNav(el) {
       var thisUrl = $(el).attr('href'),
@@ -851,11 +869,7 @@ var SCB = (function($) {
             if (loadingTimer) { clearTimeout(loadingTimer); }
             more_container.append($data).removeClass('loading');
             $load_more.attr('data-page-at', page+1);
-
-            // Hide load more if last page
-            if ($load_more.attr('data-total-pages') <= page + 1) {
-                $load_more.addClass('hide');
-            }
+            _checkLoadMore();
           }
       });
     });
