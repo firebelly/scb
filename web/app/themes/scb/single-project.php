@@ -76,7 +76,7 @@ endif;
           <?php endif ?>
         </div>
         <div class="project-meta column -left">
-          <div class="show-details"><button class="plus-button details-toggle">Project details <div class="plus"></div></button></a></div>
+          <div class="show-details"><button class="plus-button details-toggle -expandable">Project details <div class="plus"></div></button></a></div>
           <div class="project-meta-content">
             <div class="-inner">
               <?php if ($client): ?>

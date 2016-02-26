@@ -71,3 +71,8 @@
   </div><!-- /.wrap -->
 
 </footer>
+
+<div class="global-modal modal"><button class="plus-button close hide-modal"><div class="plus"></div></button><div class="modal-content"></div></div>
+<section class="collection mini modal <?= (empty($collection) || empty($collection->posts)) ? 'empty' : '' ?>" data-id="<?= !empty($collection) ? $collection->ID : '' ?>">
+  <?php include(locate_template('templates/collection.php')); ?>
+</section>

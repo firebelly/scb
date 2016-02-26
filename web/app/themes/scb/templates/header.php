@@ -4,10 +4,6 @@
     $collection = \Firebelly\Collections\get_active_collection();
   }
 ?>
-<div class="global-modal modal"><button class="plus-button close hide-modal"><div class="plus"></div></button><div class="modal-content"></div></div>
-<section class="collection mini modal <?= (empty($collection) || empty($collection->posts)) ? 'empty' : '' ?>" data-id="<?= !empty($collection) ? $collection->ID : '' ?>">
-  <?php include(locate_template('templates/collection.php')); ?>
-</section>
 
 <header class="site-header" role="banner">
   <div class="wrap grid">
@@ -32,5 +28,9 @@
     <div class="bar -three" data-bar="bar3"></div>
     
     <button class="plus-button categories-toggle -expandable expanded"><div class="plus"></div></button>
+  </div>
+  <div class="search-modal">
+    <button class="plus-button close hide-search"><div class="plus"></div></button>
+    <?php get_search_form(); ?>
   </div>
 </header>
