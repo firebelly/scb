@@ -1,11 +1,13 @@
 // Carreers page
 
 // Application form styles
-.application-form {
+.application-form-template {
   display: none;
   &.active {
     display: block;
   }
+}
+.application-form {
   fieldset {
     padding: 0;
     border: none;

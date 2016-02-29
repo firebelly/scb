@@ -566,7 +566,7 @@ console.log('category-' + project_category, category_cache['category-' + project
     if (State.data.previousURL) {
       History.replaceState({}, State.data.previousTitle, State.data.previousURL);
     }
-    // _scrollBody($('body'), 250, 0, 0);
+    $modal.removeClass('application-modal position-modal'); // doing this the lazy way for now
   }
 
   function _showCollection() {
@@ -599,10 +599,10 @@ console.log('category-' + project_category, category_cache['category-' + project
   }
 
   function _showApplicationForm() {
-    var $app_form = $('.application-form-template form');
+    $modal.find('.modal-content').empty();
+    var $app_form = $('.application-form-template');
     if ($app_form.length) {
       if ($modal.find('.application-form').length===0) {
-        $modal.find('.modal-content').empty();
         $app_form.clone(true).addClass('active').appendTo($modal.find('.modal-content'));
       }
       $modal.addClass('application-modal');
@@ -755,7 +755,7 @@ console.log('category-' + project_category, category_cache['category-' + project
 
       var post_id = $(this).attr('data-id'),
           modal_type = $(this).attr('data-modal-type');
-          $modal.removeClass('post-modal project-modal person-modal'); // doing this the lazy way for now
+          $modal.removeClass('post-modal project-modal person-modal application-modal position-modal'); // doing this the lazy way for now
           $postModal = $modal.addClass('post-modal ' + modal_type);
 
       // Hide the collection if it's open
