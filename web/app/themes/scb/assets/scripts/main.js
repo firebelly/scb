@@ -46,6 +46,7 @@ var SCB = (function($) {
       _showApplicationForm();
     });
 
+    // Bind to state changes (unused right now)
     $(window).bind('Xstatechange',function(){
       var State = History.getState(),
           url = State.url,
@@ -55,38 +56,50 @@ var SCB = (function($) {
         return;
       }
 
-      if (relative_url === '') {
-        // homepage?
-        $nav.find('li').removeClass('active');
-        _updateNav();
-      } else if (relative_url.match(/^news/)) {
-        // blog post?
-        parent_li = $nav.find('li.menu-what-were-learning').addClass('active');
-        $nav.find('li').not(parent_li).removeClass('active');
-        _updateNav();
-      } else {
-        var nav_link = $nav.find('a[href="' + url + '"]');
-        if (nav_link) {
-          parent_li = nav_link.closest('li.dropdown').addClass('active');
-          $nav.find('li').not(parent_li).removeClass('active');
-          _updateNav();
-        }
-      }
-      if (!page_cache[encodeURIComponent(url)]) {
-        loadingTimer = setTimeout(function() { $content.addClass('loading'); }, 500);
-        $.post(
-          url,
-          function(res) {
-            page_cache[encodeURIComponent(url)] = res;
-            // SCB.updateContent();
-          }
-        );
-      } else {
-        _updateContent();
-      }
+      // if (relative_url === '') {
+      //   // homepage?
+      //   $nav.find('li').removeClass('active');
+      //   _updateNav();
+      // } else if (relative_url.match(/^news/)) {
+      //   // blog post?
+      //   parent_li = $nav.find('li.menu-what-were-learning').addClass('active');
+      //   $nav.find('li').not(parent_li).removeClass('active');
+      //   _updateNav();
+      // } else {
+      //   var nav_link = $nav.find('a[href="' + url + '"]');
+      //   if (nav_link) {
+      //     parent_li = nav_link.closest('li.dropdown').addClass('active');
+      //     $nav.find('li').not(parent_li).removeClass('active');
+      //     _updateNav();
+      //   }
+      // }
+      // if (!page_cache[encodeURIComponent(url)]) {
+      //   loadingTimer = setTimeout(function() { $content.addClass('loading'); }, 500);
+      //   $.post(
+      //     url,
+      //     function(res) {
+      //       page_cache[encodeURIComponent(url)] = res;
+      //       // SCB.updateContent();
+      //     }
+      //   );
+      // } else {
+      //   _updateContent();
+      // }
     });
+
     // Are we on a page with project category nav?
     if ($('.project-categories').length) {
+
+      // Category nav scrolling behavior
+      _checkCatScrollPos();
+      $(window).on('scroll', function() {
+        _checkCatScrollPos();
+      });
+
+      // Toggle Categories filter
+      $document.on('click', '.categories-toggle', function(e) {
+        $('.project-categories').toggleClass('expanded');
+      });
 
       // Init active nav categories on page load
       $('.project-categories').find('.current-cat-parent>a, .current-cat>a').each(function() {
@@ -121,7 +134,7 @@ var SCB = (function($) {
 
         // Set data-pageClass to parent category (first in array) for color theme styling
         $('body').attr('data-pageClass', project_categories[0]);
-console.log('category-' + project_category, category_cache['category-' + project_category]);
+
         // Cached?
         if (!category_cache['category-' + project_category]) {
           $.ajax({
@@ -143,167 +156,6 @@ console.log('category-' + project_category, category_cache['category-' + project
         } else {
           _updateProjects(category_cache['category-' + project_category]);
         }
-      });
-    }
-
-    function _updateProjects(data) {
-      $data = $(data);
-      // Remove load-more DOM elements from returned HTML
-      $data.find('.load-more-container').remove();
-      var new_load_more = $data.find('.load-more').detach();
-
-      // Update load more container & empty load-more container
-      $('.load-more').replaceWith(new_load_more);
-      $('.load-more-container').empty();
-
-      // Populate new projects in grid
-      $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
-
-      // Pull intro and replace on page
-      $('.page-intro').html( $data.find('.page-intro').html() );
-
-      _checkLoadMore();
-    }
-
-
-    function _checkLoadMore() {
-      $('.load-more').toggleClass('hide', $('.load-more').attr('data-page-at') >= $('.load-more').attr('data-total-pages'));
-    }
-
-    function _updateProjectCategoryNav(el) {
-      var thisUrl = $(el).attr('href'),
-          $li = $(el).parent('li'),
-          $activeSiblings = $li.siblings('.active');
-
-      // Match height of absolutely-positioned children lists
-      if ($li.find('ul.children').length && !$li.is('.active')) {
-        var childHeight = $li.find('ul.children').outerHeight();
-        $('.project-categories .-inner').outerHeight(childHeight + 20);
-      } else {
-        $('.project-categories .-inner').outerHeight($li.closest('ul').outerHeight() + 20);
-      }
-
-      // Toggle corresponding header bars
-      if ($li.parent('ul').is('.categories-parent')) {
-        $('.bar.-two, .bar.-three').removeClass('active');
-        if (!$li.is('.active')) {
-          $('.bar.-two').addClass('active');
-        }
-      } else if ($li.parent('ul').is('.children')) {
-        if ($li.is('.active') && $('.bar.-three').is('.active') || !$li.find('ul').length && $('.bar.-three').is('.active')) {
-          $('.bar.-three').removeClass('active');
-        } else if ($li.find('ul').length) {
-          $('.bar.-three').addClass('active');
-        }
-      }
-
-      // Toggle active status
-      if (!$li.hasClass('active')) {
-        $li.addClass('active');
-      } else {
-        $li.removeClass('active');
-        $li.find('ul, li').removeClass('active');
-      }
-
-      // Activate/deactivate the parent ul
-      var $parentUl = $li.parent('ul');
-      if (!$parentUl.is('.active')) {
-        $li.parent('ul').addClass('active');
-      } else if ($parentUl.hasClass('active') && !$activeSiblings.length) {
-        $parentUl.removeClass('active');
-      }
-
-      // If toggling a child, give the whole thing a relative class
-      if ($li.closest('ul').is('.children') && $li.find('.children').length) {
-        $('.categories-parent').toggleClass('grandchildren-active');
-      }
-
-      // If there are active siblings, deactivate them and their children
-      if ($activeSiblings.length) {
-        $activeSiblings.find('.active').removeClass('active');
-        $activeSiblings.removeClass('active');
-      }
-
-      // Update state
-      if ($('.project-categories li.active').length) {
-        $('.project-categories li.active:last>a').each(function() {
-          History.replaceState({'ignore_change': true}, $(this).text() + ' – SCB', $(this).attr('href'));
-        });
-      } else {
-        // No active projects, default to homepage
-        History.replaceState({}, 'SCB – ' + $('.site-header .description').text(), '/');
-      }
-
-    }
-
-    function _updateContent() {
-      var State = History.getState();
-      var new_content = page_cache[encodeURIComponent(State.url)];
-
-      // track page view in Analytics
-      _trackPage();
-
-      setTimeout(function() {
-        // $content.html(new_content);
-        // pull in body class from data attribute
-        // $body.attr('class', $content.find('.content:first').attr('data-body-class'));
-        // if (loadingTimer) clearTimeout(loadingTimer);
-
-        _updateTitle();
-        $('main').fitVids();
-
-        // Update meta tags
-        _initCommentForm();
-        if ($('#og-updates').length) {
-          $('meta[property="og:url"]').attr('content', State.url);
-          $('meta[property="og:title"]').attr('content', document.title);
-          $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
-          $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
-        }
-
-        // scroll to top
-        // _scrollBody($body, 250, 0);
-
-      }, 150);
-    }
-
-    function _updateTitle() {
-      var title = $content.find('.content:first').attr('data-post-title');
-      if (title === '' || title === 'Main') {
-        title = 'SCB';
-      } else {
-        title = title + ' | SCB'; 
-      }
-      // this bit also borrowed from Ajaxify
-      document.title = title;
-      try {
-        document.getElementsByTagName('title')[0].innerHTML = document.title.replace('<','&lt;').replace('>','&gt;').replace(' & ',' &amp; ');
-      } catch (Exception) {}
-    }
-
-    // Toggle Categories filter
-    $document.on('click', '.categories-toggle', function(e) {
-      $('.project-categories').toggleClass('expanded');
-    });
-
-    function _checkCatScrollPos() {
-      if($(window).scrollTop() >= $('.main .projects').offset().top - $('.site-header').outerHeight()) {
-        $('.project-categories').addClass('fixed');
-        if ($('.categories-toggle').is('.expanded') && !$('.project-categories').is('.expanded')) {
-          $('.categories-toggle').removeClass('expanded');
-        }
-      } else if ($(window).scrollTop() <= $('.main').offset().top + $('.site-header').outerHeight()) {
-        $('.project-categories').removeClass('fixed expanded');
-        $('.categories-toggle').addClass('expanded');
-      }
-    }
-
-    if ($('.project-categories').length) {
-
-      _checkCatScrollPos();
-
-      $(window).on('scroll', function() {
-        _checkCatScrollPos();
       });
     }
 
@@ -463,13 +315,167 @@ console.log('category-' + project_category, category_cache['category-' + project
 
   } // end init()
 
+  // Collapse category nav?
+  function _checkCatScrollPos() {
+    if($(window).scrollTop() >= $('.main .projects').offset().top - $('.site-header').outerHeight()) {
+      $('.project-categories').addClass('fixed');
+      if ($('.categories-toggle').is('.expanded') && !$('.project-categories').is('.expanded')) {
+        $('.categories-toggle').removeClass('expanded');
+      }
+    } else if ($(window).scrollTop() <= $('.main').offset().top + $('.site-header').outerHeight()) {
+      $('.project-categories').removeClass('fixed expanded');
+      $('.categories-toggle').addClass('expanded');
+    }
+  }
+
+  // Custom AJAX function to pull in new Projects (first two pages strange grids)
+  function _updateProjects(data) {
+    $data = $(data);
+    // Remove load-more DOM elements from returned HTML
+    $data.find('.load-more-container').remove();
+    var new_load_more = $data.find('.load-more').detach();
+
+    // Update load more container & empty load-more container
+    $('.load-more').replaceWith(new_load_more);
+    $('.load-more-container').empty();
+
+    // Populate new projects in grid
+    $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
+
+    // Pull intro and replace on page
+    $('.page-intro').html( $data.find('.page-intro').html() );
+
+    _checkLoadMore();
+  }
+
+  // Should we hide "Load More"?
+  function _checkLoadMore() {
+    $('.load-more').toggleClass('hide', $('.load-more').attr('data-page-at') >= $('.load-more').attr('data-total-pages'));
+  }
+
+  // Update active state in hierarchical category nav (used on page load, and interacting w/ categories)
+  function _updateProjectCategoryNav(el) {
+    var thisUrl = $(el).attr('href'),
+        $li = $(el).parent('li'),
+        $activeSiblings = $li.siblings('.active');
+
+    // Match height of absolutely-positioned children lists
+    if ($li.find('ul.children').length && !$li.is('.active')) {
+      var childHeight = $li.find('ul.children').outerHeight();
+      $('.project-categories .-inner').outerHeight(childHeight + 20);
+    } else {
+      $('.project-categories .-inner').outerHeight($li.closest('ul').outerHeight() + 20);
+    }
+
+    // Toggle corresponding header bars
+    if ($li.parent('ul').is('.categories-parent')) {
+      $('.bar.-two, .bar.-three').removeClass('active');
+      if (!$li.is('.active')) {
+        $('.bar.-two').addClass('active');
+      }
+    } else if ($li.parent('ul').is('.children')) {
+      if ($li.is('.active') && $('.bar.-three').is('.active') || !$li.find('ul').length && $('.bar.-three').is('.active')) {
+        $('.bar.-three').removeClass('active');
+      } else if ($li.find('ul').length) {
+        $('.bar.-three').addClass('active');
+      }
+    }
+
+    // Toggle active status
+    if (!$li.hasClass('active')) {
+      $li.addClass('active');
+    } else {
+      $li.removeClass('active');
+      $li.find('ul, li').removeClass('active');
+    }
+
+    // Activate/deactivate the parent ul
+    var $parentUl = $li.parent('ul');
+    if (!$parentUl.is('.active')) {
+      $li.parent('ul').addClass('active');
+    } else if ($parentUl.hasClass('active') && !$activeSiblings.length) {
+      $parentUl.removeClass('active');
+    }
+
+    // If toggling a child, give the whole thing a relative class
+    if ($li.closest('ul').is('.children') && $li.find('.children').length) {
+      $('.categories-parent').toggleClass('grandchildren-active');
+    }
+
+    // If there are active siblings, deactivate them and their children
+    if ($activeSiblings.length) {
+      $activeSiblings.find('.active').removeClass('active');
+      $activeSiblings.removeClass('active');
+    }
+
+    // Update state
+    if ($('.project-categories li.active').length) {
+      $('.project-categories li.active:last>a').each(function() {
+        History.replaceState({'ignore_change': true}, $(this).text() + ' – SCB', $(this).attr('href'));
+      });
+    } else {
+      // No active projects, default to homepage
+      History.replaceState({}, 'SCB – ' + $('.site-header .description').text(), '/');
+    }
+
+  }
+
+  // Function to update document content (and og: tags) after state change (unused right now)
+  function _updateContent() {
+    var State = History.getState();
+    var new_content = page_cache[encodeURIComponent(State.url)];
+
+    // track page view in Analytics
+    _trackPage();
+
+    setTimeout(function() {
+      // $content.html(new_content);
+      // pull in body class from data attribute
+      // $body.attr('class', $content.find('.content:first').attr('data-body-class'));
+      // if (loadingTimer) clearTimeout(loadingTimer);
+
+      _updateTitle();
+      $('main').fitVids();
+
+      // Update meta tags
+      _initCommentForm();
+      if ($('#og-updates').length) {
+        $('meta[property="og:url"]').attr('content', State.url);
+        $('meta[property="og:title"]').attr('content', document.title);
+        $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
+        $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
+      }
+
+      // scroll to top
+      // _scrollBody($body, 250, 0);
+
+    }, 150);
+  }
+
+  // Function to update document title after state change (unused right now)
+  function _updateTitle() {
+    var title = $content.find('.content:first').attr('data-post-title');
+    if (title === '' || title === 'Main') {
+      title = 'SCB';
+    } else {
+      title = title + ' | SCB'; 
+    }
+    // this bit also borrowed from Ajaxify
+    document.title = title;
+    try {
+      document.getElementsByTagName('title')[0].innerHTML = document.title.replace('<','&lt;').replace('>','&gt;').replace(' & ',' &amp; ');
+    } catch (Exception) {}
+  }
+
   function _showEmailForm() {
     $('#email-collection-form').addClass('active');
     _scrollBody($('.collection .collection-actions'), 250, 0, 0);
   }
+
   function _hideEmailForm() {
     $('#email-collection-form').removeClass('active');
   }
+
   // AJAX Application form submissions
   function _initApplicationForms() {
     $document.on('click', '.application-form input[type=submit]', function(e) {
@@ -909,7 +915,7 @@ console.log('category-' + project_category, category_cache['category-' + project
             if (loadingTimer) { clearTimeout(loadingTimer); }
             more_container.append($data).removeClass('loading');
             $load_more.attr('data-page-at', page+1);
-            _checkLoadMore();
+            SCB.checkLoadMore();
           }
       });
     });
@@ -946,6 +952,7 @@ console.log('category-' + project_category, category_cache['category-' + project
   return {
     init: _init,
     resize: _resize,
+    checkLoadMore: _checkLoadMore,
     scrollBody: function(section, duration, delay, offset) {
       _scrollBody(section, duration, delay, offset);
     }
