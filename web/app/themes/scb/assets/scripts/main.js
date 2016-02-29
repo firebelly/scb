@@ -245,7 +245,7 @@ var SCB = (function($) {
                 .attr('src', response.data.pdf.url)
                 .hide()
                 .load(function(){
-                  this.focus();
+                  this.contentWindow.focus();
                   this.contentWindow.print();
                  });
             } else {
