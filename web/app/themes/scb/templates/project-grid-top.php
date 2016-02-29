@@ -126,5 +126,5 @@ if (empty($grid_description)) {
 
 <div class="load-more-container"></div>
 
-<div class="load-more" data-post-type="project" data-page-at="1" data-per-page="9" data-total-pages="<?= ceil(($num_projects - 6)/9) ?>" data-category="<?= $load_more_category ?>"><a href="#"><span>Load More Projects</span> <span><button class="plus-button"><div class="plus"></div></button></span></a></div>
+<div class="load-more" data-post-type="project" data-page-at="1" data-per-page="9" data-total-pages="<?= ceil(($num_projects - 6)/9)+1 ?>" data-category="<?= $load_more_category ?>"><a href="#"><span>Load More Projects</span> <span><button class="plus-button"><div class="plus"></div></button></span></a></div>
 </section>

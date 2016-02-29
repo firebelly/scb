@@ -30,7 +30,14 @@ function load_more_posts() {
   // get page offsets
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
-  $offset = ($page-1) * $per_page;
+  
+  // Page 1 of projects has 6, other pages have 9, wtf
+  if ($post_type=='project' && $page>1) {
+    $offset = 6 + ($page-2) * $per_page;
+  } else {
+    $offset = ($page-1) * $per_page;
+  }
+
   $args = [
     'offset' => $offset,
     'posts_per_page' => $per_page,
@@ -93,7 +100,14 @@ function load_more_projects() {
   // get page offsets
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
-  $offset = ($page-1) * $per_page;
+
+  // Page 1 of projects has 6, other pages have 9, wtf
+  if ($page>1) {
+    $offset = 6 + ($page-2) * $per_page;
+  } else {
+    $offset = ($page-1) * $per_page;
+  }
+
   $args = [
     'offset' => $offset,
     'posts_per_page' => $per_page,
