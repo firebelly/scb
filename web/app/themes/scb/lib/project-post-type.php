@@ -315,10 +315,12 @@ function get_num_projects() {
 function get_projects($filters=[]) {
   $output = '';
   $args = array(
-    'numberposts' => 6, // temporary
+    'numberposts' => -1,
     'post_type' => 'project',
-    'orderby' => ['date' => 'ASC'],
     );
+  if (!empty($filters['num_posts'])) {
+    $args['numberposts'] = $filters['num_posts'];
+  }
   if (!empty($filters['category'])) {
     $args['tax_query'] = array(
       array(
@@ -430,7 +432,8 @@ function sort_projects_form() {
     </select>
       <ul>
       <?php 
-      $projects = \Firebelly\PostTypes\Project\get_projects(['category' => $_GET['category_name']]);
+      $category = !empty($_GET['category_name']) ? $_GET['category_name'] : '';
+      $projects = \Firebelly\PostTypes\Project\get_projects(['category' => $category]);
       foreach ($projects as $project_post):
       ?>
         <li class="project" id="post-<?= $project_post->ID ?>">

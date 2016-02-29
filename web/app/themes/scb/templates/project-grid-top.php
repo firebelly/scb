@@ -9,7 +9,7 @@ if (!empty($term)) {
   $load_more_category = $term->slug;
 
   $grid_stat = \Firebelly\PostTypes\Stat\get_stat(['related_category' => $term->term_id]);
-  $grid_projects = \Firebelly\PostTypes\Project\get_projects(['category' => $term->slug]);
+  $grid_projects = \Firebelly\PostTypes\Project\get_projects(['category' => $term->slug, 'num_posts' => 6]);
   $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false, 'category' => $term->term_id]);
   // Does this term have a description set?
   if (!empty($term->description)) {
@@ -37,7 +37,7 @@ if (!empty($term)) {
   $load_more_category = '';
 
   $grid_stat = \Firebelly\PostTypes\Stat\get_stat();
-  $grid_projects = \Firebelly\PostTypes\Project\get_projects();
+  $grid_projects = \Firebelly\PostTypes\Project\get_projects(['num_posts' => 6]);
   $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false]);
 
 }

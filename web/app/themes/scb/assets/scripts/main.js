@@ -16,8 +16,8 @@ var SCB = (function($) {
       loadingTimer,
       History = window.History,
       rootUrl = History.getRootUrl(),
-      page_cache,
-      category_cache,
+      page_cache = [],
+      category_cache = [],
       collection_message_timer,
       page_at;
 
@@ -87,10 +87,12 @@ var SCB = (function($) {
     });
     // Are we on a page with project category nav?
     if ($('.project-categories').length) {
+
       // Init active nav categories on page load
       $('.project-categories').find('.current-cat-parent>a, .current-cat>a').each(function() {
         _updateProjectCategoryNav(this);
       });
+
       // Active grandparent doesn't get a .current-cat class of any sort
       $('.project-categories .current-cat-parent').parents('li').find('>a').each(function() {
         _updateProjectCategoryNav(this);
@@ -99,52 +101,68 @@ var SCB = (function($) {
       // Project category filter
       $('.project-categories').on('click', 'a', function(e) {
         e.preventDefault();
+
         var $category = $(this);
         _updateProjectCategoryNav(this);
 
         // Build array of selected category slugs
         var project_categories = [];
         $('.project-categories li.active>a').each(function() {
-          var slug = $category.attr('href').split('/')[2];
+          var slug = $(this).attr('href').split('/')[2];
           project_categories.push(slug);
         });
 
-        $.ajax({
-            url: wp_ajax_url,
-            method: 'post',
-            data: {
-                action: 'load_more_projects',
-                page: 1,
-                per_page: 6,
-                project_category: project_categories.slice(-1).pop()
-            },
-            success: function(data) {
-              var $data = $(data);
-              if (loadingTimer) { clearTimeout(loadingTimer); }
-              
-              // Remove load-more DOM elements from returned HTML
-              $data.find('.load-more-container').remove();
-              var new_load_more = $data.find('.load-more').detach();
+        // Pull last category to use for filtering
+        project_category = project_categories.slice(-1).pop();
 
-              // Update load more container & empty load-more container
-              $('.load-more').replaceWith(new_load_more);
-              $('.load-more-container').empty();
+        if (typeof project_category === 'undefined') {
+          project_category = '';
+        }
 
-              // Populate new projects in grid
-              $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
-              
-              // Pull intro and replace on page
-              $('.page-intro').html( $data.find('.page-intro').html() );
-
-              // Set data-pageClass to parent category (first in array) for color theme styling
-              $('body').attr('data-pageClass', project_categories[0]);
-
-              History.replaceState({}, $category.text() + ' – SCB', $category.attr('href'));
-              
-              _checkLoadMore();
-            }
-        });
+        // Set data-pageClass to parent category (first in array) for color theme styling
+        $('body').attr('data-pageClass', project_categories[0]);
+console.log('category-' + project_category, category_cache['category-' + project_category]);
+        // Cached?
+        if (!category_cache['category-' + project_category]) {
+          $.ajax({
+              url: wp_ajax_url,
+              method: 'post',
+              data: {
+                  action: 'load_more_projects',
+                  page: 1,
+                  per_page: 6,
+                  project_category: project_category
+              },
+              success: function(data) {
+                if (loadingTimer) { clearTimeout(loadingTimer); }
+                // Cache ajax return
+                category_cache['category-' + project_category] = data;
+                _updateProjects(data);
+              }
+          });
+        } else {
+          _updateProjects(category_cache['category-' + project_category]);
+        }
       });
+    }
+
+    function _updateProjects(data) {
+      $data = $(data);
+      // Remove load-more DOM elements from returned HTML
+      $data.find('.load-more-container').remove();
+      var new_load_more = $data.find('.load-more').detach();
+
+      // Update load more container & empty load-more container
+      $('.load-more').replaceWith(new_load_more);
+      $('.load-more-container').empty();
+
+      // Populate new projects in grid
+      $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
+
+      // Pull intro and replace on page
+      $('.page-intro').html( $data.find('.page-intro').html() );
+
+      _checkLoadMore();
     }
 
 
@@ -205,6 +223,17 @@ var SCB = (function($) {
         $activeSiblings.find('.active').removeClass('active');
         $activeSiblings.removeClass('active');
       }
+
+      // Update state
+      if ($('.project-categories li.active').length) {
+        $('.project-categories li.active:last>a').each(function() {
+          History.replaceState({'ignore_change': true}, $(this).text() + ' – SCB', $(this).attr('href'));
+        });
+      } else {
+        // No active projects, default to homepage
+        History.replaceState({}, 'SCB – ' + $('.site-header .description').text(), '/');
+      }
+
     }
 
     function _updateContent() {
@@ -745,7 +774,6 @@ var SCB = (function($) {
         success: function(response) {
           var $postData = $(response);
           $('.post-modal .modal-content').append($postData);
-          // console.log($postData.attr('data-page-title'), location.href);
           History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
           _showModal();
         },
@@ -812,7 +840,6 @@ var SCB = (function($) {
       }
     });
     $('.search-modal .hide-search, .search-modal').on('click', function(e) {
-      console.log($(e.target));
       if (!$(e.target).is('.search-field')) {
         _hideSearch();
       }
