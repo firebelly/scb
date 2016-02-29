@@ -514,10 +514,11 @@ var SCB = (function($) {
     _showPageOverlay(); 
     $('body').addClass('modal-active');
     $modal.addClass('display');
+    $modal.find('.modal-content').scrollTop(0);
     setTimeout(function() {
       $modal.addClass('active');
     }, 100);
-    _scrollBody($('body'), 250, 0, 0);
+    // _scrollBody($('body'), 250, 0, 0);
     if ($modal.find('.modal-content').is(':empty')) {
       $modal.addClass('empty');
     } else {
@@ -547,7 +548,7 @@ var SCB = (function($) {
     setTimeout(function() {
       $collection.addClass('active');
     }, 100);
-    _scrollBody($('body'), 250, 0, 0);
+    // _scrollBody($('body'), 250, 0, 0);
     if (!$collection.find('article').length) {
       $collection.addClass('empty');
     } else {
@@ -575,6 +576,7 @@ var SCB = (function($) {
         $modal.find('.modal-content').empty();
         $app_form.clone(true).addClass('active').appendTo($modal.find('.modal-content'));
       }
+      $modal.addClass('application-modal');
       _showModal();
     }
   }

@@ -45,6 +45,16 @@ body.single-project {
 // Project Modal
 .modal.project-modal{
   padding: 0;
+  
+  &.active {
+    .actions {
+      display: block;
+    }
+  }
+
+  .actions {
+    display: none;
+  }
 
   @include min-screen($breakpoint-medium) {
 
@@ -58,18 +68,11 @@ body.single-project {
 .single-project,
 .project-modal {
 
-  &.active {
-    .actions {
-      display: block;
-    }
-  }
-
   .actions {
     top: 40px;
     z-index: 1;
     left: -32px;
-    display: none;
-    position: absolute;
+    position: fixed;
     a {
       color: $black;
     }
@@ -82,7 +85,7 @@ body.single-project {
     }
 
     @include min-screen($breakpoint-medium) {
-      left: -60px;
+      left: -61px;
       .icon-remove {
         left: -1px;
         position: relative;

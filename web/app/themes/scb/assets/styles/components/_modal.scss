@@ -3,26 +3,28 @@
 // WP Admin bar adjustment
 .admin-bar {
   .modal {
-    top: 208px;
+    top: 40px;
     @include min-screen($breakpoint-medium) {
-      top: 226px;
+      top: 170px;
     }
     @include min-screen($breakpoint-nav) {
-      top: 210px;
+      top: 140px;
     }
   }
 }
 
 .modal {
   right: 0;
-  top: 162px;
-  z-index: 50; 
+  bottom: 0;
+  top: 40px;
+  z-index: 50;
   display: none;
   padding: 20px;
-  position: absolute;
+  position: fixed;
   background: $white;
   width: calc(100% - 40px);
   transform: translateX(100%);
+  -webkit-overflow-scrolling: touch;
   transition: transform .5s ease-out;
   &.display {
     display: block;
@@ -40,9 +42,22 @@
   }
 
   @include min-screen($breakpoint-medium) {
-    top: 194px;
+    top: 140px;
     padding: 40px;
     width: calc(50% + 30px);
+  }
+
+  @include min-screen($breakpoint-nav) {
+    top: 110px;
+  }
+
+  .modal-content {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    position: absolute;
   }
 
   // Close modal button

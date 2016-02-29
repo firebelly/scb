@@ -160,6 +160,15 @@ section.collection {
   &.mini {
     // see _modal.scss for global modal styles
 
+    .overflow-wrapper {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: auto;
+      position: absolute;
+    }
+
     .collection-content {
       padding: 20px;
       @include min-screen($breakpoint-medium) {

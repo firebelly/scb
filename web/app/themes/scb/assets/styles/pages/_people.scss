@@ -84,6 +84,13 @@
 // Single Person in modal
 .modal.person-modal {
 
+  .modal-content {
+    padding: 20px;
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
+  }
+
   .article-header {
     position: relative;
     padding: 20px 60px 20px 0;

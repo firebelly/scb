@@ -120,7 +120,14 @@
 .modal.position-modal {
 
   @include min-screen($breakpoint-medium) {
-    width: calc(70% + 30px);
+    width: calc(73% + 30px);
+  }
+
+  .modal-content {
+    padding: 20px;
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
   }
 
   .article-body {
