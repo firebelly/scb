@@ -350,7 +350,7 @@ var SCB = (function($) {
 
   // Should we hide "Load More"?
   function _checkLoadMore() {
-    $('.load-more').toggleClass('hide', $('.load-more').attr('data-page-at') >= $('.load-more').attr('data-total-pages'));
+    $('.load-more').toggleClass('hide', parseInt($('.load-more').attr('data-page-at')) >= parseInt($('.load-more').attr('data-total-pages')));
   }
 
   // Update active state in hierarchical category nav (used on page load, and interacting w/ categories)
