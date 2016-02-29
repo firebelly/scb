@@ -79,11 +79,14 @@ if (empty($grid_description)) {
       include(locate_template('templates/article-project.php'));
       
       if (count($grid_projects)>=3 && $i===3) {
-        echo '<article class="grid-item stat">
+        $long_stat = strlen($grid_stat['_cmb2_stat_number'][0]) > 2 ? ' long-stat' : '';
+        echo '<article class="grid-item stat '.$long_stat.'">
                 <div class="wrap">
-                  <p class="stat-number">' . $grid_stat['_cmb2_stat_number'][0] . '</p>
-                  <p class="stat-label">' . $grid_stat['_cmb2_stat_label'][0] . '</p>
-                  ' . (!empty($grid_stat['_cmb2_stat_url'][0]) ? '<p class="stat-link"><a href="' . $grid_stat['_cmb2_stat_url'][0] . '">' . $grid_stat['_cmb2_stat_callout'][0] . '</a></p>' : '') . '
+                  <div class="stat-content">
+                    <p class="stat-number">' . $grid_stat['_cmb2_stat_number'][0] . '</p>
+                    <p class="stat-label">' . $grid_stat['_cmb2_stat_label'][0] . '</p>
+                    ' . (!empty($grid_stat['_cmb2_stat_url'][0]) ? '<p class="stat-link"><a href="' . $grid_stat['_cmb2_stat_url'][0] . '">' . $grid_stat['_cmb2_stat_callout'][0] . '</a></p>' : '') . '
+                  </div>
                 </div>
               </article>
         ';

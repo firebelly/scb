@@ -456,7 +456,8 @@
     }
 
     // The secondary stat
-    &.stat-secondary {
+    &.stat-secondary,
+    &.long-stat {
       .stat-content {
         @include min-screen($breakpoint-medium) {            
           top: 50%;
