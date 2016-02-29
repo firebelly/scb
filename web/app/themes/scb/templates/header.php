@@ -1,6 +1,6 @@
 <?php 
+  global $collection;
   if (!isset($collection)) {
-    global $collection;
     $collection = \Firebelly\Collections\get_active_collection();
   }
 ?>

@@ -285,7 +285,7 @@ var SCB = (function($) {
       e.preventDefault();
       var href = $(this).attr('href'),
           navHeight = 96;
-      _scrollBody($(href), 500,0,navHeight);
+      _scrollBody($(href), 500, 0, navHeight);
     });
 
     // Scroll down to hash afer page load
@@ -469,7 +469,7 @@ var SCB = (function($) {
 
   function _showEmailForm() {
     $('#email-collection-form').addClass('active');
-    _scrollBody($('.collection .collection-actions'), 250, 0, 0);
+    _scrollBody($('.collection .collection-actions'), 250, 0, 0, $('.overflow-wrapper'));
   }
 
   function _hideEmailForm() {
@@ -583,7 +583,6 @@ var SCB = (function($) {
     setTimeout(function() {
       $collection.addClass('active');
     }, 100);
-    // _scrollBody($('body'), 250, 0, 0);
     if (!$collection.find('article').length) {
       $collection.addClass('empty');
     } else {
@@ -641,6 +640,8 @@ var SCB = (function($) {
     }).on('mouseleave', function() {
       setTimeout(_hideCollectionMessage, 1000);
     });
+
+    _scrollBody($('.collection .feedback-container'), 250, 0, 0, $('.overflow-wrapper'));
     
   }
 
@@ -662,18 +663,15 @@ var SCB = (function($) {
               url: wp_ajax_url,
               method: 'post',
               dataType: 'json',
-              data: $(this).serialize()
+              data: $(form).serialize()
           }).done(function(response) {
             if (response.success) {
               _hideEmailForm();
-              _scrollBody($('.collection .feedback-container'), 250, 0, 0);
               _collectionMessage('Your email was sent successfully.');
             } else {
-              _scrollBody($('.collection .feedback-container'), 250, 0, 0);
               _collectionMessage('There was an error sending your email: ' + response.data.message);
             }
           }).fail(function(response) {
-            _scrollBody($('.collection .feedback-container'), 250, 0, 0);
             _collectionMessage('There was an error sending your email.');
           });
         }
@@ -821,7 +819,7 @@ var SCB = (function($) {
     });
   }
 
-  function _scrollBody(element, duration, delay, offset) {
+  function _scrollBody(element, duration, delay, offset, container) {
     if ($('#wpadminbar').length) {
       wpOffset = $('#wpadminbar').height();
     } else {
@@ -830,7 +828,8 @@ var SCB = (function($) {
     element.velocity("scroll", {
       duration: duration,
       delay: delay,
-      offset: -offset - wpOffset
+      offset: -offset - wpOffset,
+      container: (typeof container !== 'undefined' ? container : null)
     }, 'easeOutSine');
   }
 
@@ -955,8 +954,8 @@ var SCB = (function($) {
     init: _init,
     resize: _resize,
     checkLoadMore: _checkLoadMore,
-    scrollBody: function(section, duration, delay, offset) {
-      _scrollBody(section, duration, delay, offset);
+    scrollBody: function(section, duration, delay, offset, container) {
+      _scrollBody(section, duration, delay, offset, container);
     }
   };
 
