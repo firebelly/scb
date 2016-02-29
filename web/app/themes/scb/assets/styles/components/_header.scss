@@ -37,7 +37,7 @@
         }
       }
     }
-  }
+  }  
 
   .wrap {
     padding: 0 10px;
@@ -159,5 +159,13 @@ body.tax-project_category {
     .bar.-one {
       @extend .bar.active;
     }
+  }
+}
+
+// Also shrink the header when a modal is active
+body.modal-active,
+body.collection-active {
+  .site-header {
+    @extend .shrink;
   }
 }

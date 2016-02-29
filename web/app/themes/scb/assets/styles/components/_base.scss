@@ -17,6 +17,11 @@ body {
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern" 1;
 
+  &.modal-active,
+  &.collection-active {
+    overflow: hidden;
+  }
+
   @include min-screen($breakpoint-medium) {
     padding: 200px 30px 0;
   }

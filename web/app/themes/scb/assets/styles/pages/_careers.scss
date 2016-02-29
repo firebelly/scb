@@ -12,6 +12,15 @@
     margin: 40px 0 20px;
   }
 }
+// Application Modal styles
+.modal.application-modal {
+  .modal-content {
+    padding: 20px;
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
+  }
+}
 
 .page.careers {
   .page-intro {

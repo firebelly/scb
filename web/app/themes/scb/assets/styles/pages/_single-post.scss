@@ -2,9 +2,19 @@
 
 .modal.news-modal {
   padding: 0;
+  background: transparent;
+
   @include min-screen($breakpoint-medium) {
-    width: calc(50% + 30px);
+    width: calc(50% + 82px);
+    .modal-content {
+      padding-left: 52px; 
+    }
+    .hide-modal {
+      left: -8px;
+      z-index: 2;
+    }
   }
+
 
   // If their is a featured image
   .has-post-thumbnail {
@@ -92,5 +102,9 @@
     @include min-screen($breakpoint-large) {
       padding-right: 100% * 1 / 6;
     }
+  }
+
+  .article {
+    background: $white;
   }
 }
