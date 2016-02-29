@@ -22,10 +22,14 @@ var SCB = (function($) {
       page_at;
 
   function _init() {
-    // touch-friendly fast clicks
+    // Touch-friendly fast clicks
     FastClick.attach(document.body);
 
-    // init state
+    // Barf-o-rama
+    $('body').on('contextmenu', 'main img', function(e) { e.preventDefault(); });
+    $('body').on('dragstart', 'main img', function(e) { e.preventDefault(); });
+
+    // Init state
     State = History.getState();
 
     // Cache some common DOM queries
@@ -247,11 +251,14 @@ var SCB = (function($) {
             } else {
               // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
               var link = document.createElement('a');
-              link.href = response.data.pdf.url;
-              link.download = response.data.pdf.name;
-              link.click();
-              // Perhaps this is needed for <=IE10?
-              // window.location = response.data.pdf.url;
+              if (typeof link.download === 'undefined') {
+                // Old browsers just open the pdf
+                window.location = response.data.pdf.url;
+              } else {
+                link.href = response.data.pdf.url;
+                link.download = response.data.pdf.name;
+                link.click();
+              }
             }
           } else {
             _collectionMessage(response.data.message);
