@@ -520,9 +520,21 @@ var SCB = (function($) {
               success: function(response) {
                 form.reset();
                 _feedbackMessage('Your application was submitted successfully!');
+                $('.modal.active .modal-content .feedback-container').velocity('scroll', {
+                  container: $('.modal.active .modal-content'),
+                  duration: 250,
+                  offset: -40,
+                  delay: 250
+                });
               },
               error: function(response) {
                 _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
+                $('.modal.active .modal-content .feedback-container').velocity('scroll', {
+                  container: $('.modal.active .modal-content'),
+                  duration: 250,
+                  offset: -40,
+                  delay: 250
+                });
               }
             });
           } else {
