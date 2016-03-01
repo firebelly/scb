@@ -274,6 +274,7 @@
         @include min-screen($breakpoint-medium) {
           float: left;
           width: $column * 9;
+          padding-right: 10px;
         }
       }
     }
