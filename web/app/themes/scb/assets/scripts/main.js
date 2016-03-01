@@ -522,7 +522,7 @@ var SCB = (function($) {
                 _feedbackMessage('Your application was submitted successfully!');
               },
               error: function(response) {
-                _feedbackMessage('Sorry, there was an error submitting your application: 'response.data.message);
+                _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
               }
             });
           } else {
