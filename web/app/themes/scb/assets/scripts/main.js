@@ -248,9 +248,12 @@ var SCB = (function($) {
               $('<iframe id="pdf-print"></iframe>').appendTo('body')
                 .attr('src', response.data.pdf.url)
                 .hide()
-                .load(function(){
-                  this.contentWindow.focus();
-                  this.contentWindow.print();
+                .on('load', function(){
+                  var frm = this.contentWindow;
+                  setTimeout(function() {
+                    frm.focus();
+                    frm.print();
+                  }, 500);
                  });
             } else {
               // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
