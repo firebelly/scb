@@ -9,6 +9,7 @@ var SCB = (function($) {
       breakpoint_medium = false,
       breakpoint_large = false,
       breakpoint_array = [480,1000,1200],
+      $body,
       $document,
       $sidebar,
       $collection,
@@ -25,18 +26,20 @@ var SCB = (function($) {
     // Touch-friendly fast clicks
     FastClick.attach(document.body);
 
-    // Barf-o-rama
-    $('body').on('contextmenu', 'main img', function(e) { e.preventDefault(); });
-    $('body').on('dragstart', 'main img', function(e) { e.preventDefault(); });
-
     // Init state
     State = History.getState();
 
     // Cache some common DOM queries
     $document = $(document);
+    $body = $('body');
     $collection = $('.collection.mini');
     $modal = $('.global-modal');
-    $('body').addClass('loaded');
+    $body.addClass('loaded');
+
+    // Barf-o-rama
+    $body.on('contextmenu', 'main img', function(e) { e.preventDefault(); });
+    $body.on('dragstart', 'main img', function(e) { e.preventDefault(); });
+
 
     // Set screen size vars
     _resize();
@@ -137,7 +140,7 @@ var SCB = (function($) {
         }
 
         // Set data-pageClass to parent category (first in array) for color theme styling
-        $('body').attr('data-pageClass', project_categories[0]);
+        $body.attr('data-pageClass', project_categories[0]);
 
         // Cached?
         if (!category_cache['category-' + project_category]) {
@@ -155,6 +158,7 @@ var SCB = (function($) {
                 // Cache ajax return
                 category_cache['category-' + project_category] = data;
                 _updateProjects(data);
+                _scrollBody($body, 250, 0);
               }
           });
         } else {
@@ -554,13 +558,13 @@ var SCB = (function($) {
 
   function _showModal() {
     _showPageOverlay(); 
-    $('body').addClass('modal-active');
+    $body.addClass('modal-active');
     $modal.addClass('display');
     $modal.find('.modal-content').scrollTop(0);
     setTimeout(function() {
       $modal.addClass('active');
     }, 100);
-    // _scrollBody($('body'), 250, 0, 0);
+    // _scrollBody($body, 250, 0, 0);
     if ($modal.find('.modal-content').is(':empty')) {
       $modal.addClass('empty');
     } else {
@@ -571,7 +575,7 @@ var SCB = (function($) {
   function _hideModal() {
     State = History.getState();
     _hidePageOverlay();
-    $('body').removeClass('modal-active');
+    $body.removeClass('modal-active');
     $modal.removeClass('active');
     setTimeout(function() {
       $modal.removeClass('display');
@@ -585,7 +589,7 @@ var SCB = (function($) {
   function _showCollection() {
     _hideModal();
     _showPageOverlay(); 
-    $('body').addClass('collection-active');
+    $body.addClass('collection-active');
     $collection.addClass('display');
     setTimeout(function() {
       $collection.addClass('active');
@@ -603,7 +607,7 @@ var SCB = (function($) {
 
   function _hideCollection() {
     _hidePageOverlay();
-    $('body').removeClass('collection-active');
+    $body.removeClass('collection-active');
     $collection.removeClass('active');
     setTimeout(function() {
       $collection.removeClass('display');
@@ -798,7 +802,7 @@ var SCB = (function($) {
 
   function _showPageOverlay() {
     if (!$('#page-over').length) {
-      $('body').prepend('<div id="page-overlay"></div>');
+      $body.prepend('<div id="page-overlay"></div>');
     }
     setTimeout(function() {
       $('#page-overlay').addClass('active');
