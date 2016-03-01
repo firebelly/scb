@@ -24,3 +24,13 @@
 
   }
 }
+
+// Office modals
+.modal.office {
+  .modal-content {
+    padding: 20px;
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
+  }
+}
