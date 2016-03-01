@@ -9,6 +9,7 @@ var SCB = (function($) {
       breakpoint_medium = false,
       breakpoint_large = false,
       breakpoint_array = [480,1000,1200],
+      $body,
       $document,
       $sidebar,
       $collection,
@@ -22,17 +23,23 @@ var SCB = (function($) {
       page_at;
 
   function _init() {
-    // touch-friendly fast clicks
+    // Touch-friendly fast clicks
     FastClick.attach(document.body);
 
-    // init state
+    // Init state
     State = History.getState();
 
     // Cache some common DOM queries
     $document = $(document);
+    $body = $('body');
     $collection = $('.collection.mini');
     $modal = $('.global-modal');
-    $('body').addClass('loaded');
+    $body.addClass('loaded');
+
+    // Barf-o-rama
+    $body.on('contextmenu', 'main img', function(e) { e.preventDefault(); });
+    $body.on('dragstart', 'main img', function(e) { e.preventDefault(); });
+
 
     // Set screen size vars
     _resize();
@@ -133,7 +140,7 @@ var SCB = (function($) {
         }
 
         // Set data-pageClass to parent category (first in array) for color theme styling
-        $('body').attr('data-pageClass', project_categories[0]);
+        $body.attr('data-pageClass', project_categories[0]);
 
         // Cached?
         if (!category_cache['category-' + project_category]) {
@@ -151,6 +158,7 @@ var SCB = (function($) {
                 // Cache ajax return
                 category_cache['category-' + project_category] = data;
                 _updateProjects(data);
+                _scrollBody($body, 250, 0);
               }
           });
         } else {
@@ -241,17 +249,20 @@ var SCB = (function($) {
                 .attr('src', response.data.pdf.url)
                 .hide()
                 .load(function(){
-                  this.focus();
+                  this.contentWindow.focus();
                   this.contentWindow.print();
                  });
             } else {
               // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
               var link = document.createElement('a');
-              link.href = response.data.pdf.url;
-              link.download = response.data.pdf.name;
-              link.click();
-              // Perhaps this is needed for <=IE10?
-              // window.location = response.data.pdf.url;
+              if (typeof link.download === 'undefined') {
+                // Old browsers just open the pdf
+                window.location = response.data.pdf.url;
+              } else {
+                link.href = response.data.pdf.url;
+                link.download = response.data.pdf.name;
+                link.click();
+              }
             }
           } else {
             _feedbackMessage(response.data.message);
@@ -285,7 +296,7 @@ var SCB = (function($) {
       e.preventDefault();
       var href = $(this).attr('href'),
           navHeight = 96;
-      _scrollBody($(href), 500,0,navHeight);
+      _scrollBody($(href), 500, 0, navHeight);
     });
 
     // Scroll down to hash afer page load
@@ -350,7 +361,7 @@ var SCB = (function($) {
 
   // Should we hide "Load More"?
   function _checkLoadMore() {
-    $('.load-more').toggleClass('hide', $('.load-more').attr('data-page-at') >= $('.load-more').attr('data-total-pages'));
+    $('.load-more').toggleClass('hide', parseInt($('.load-more').attr('data-page-at')) >= parseInt($('.load-more').attr('data-total-pages')));
   }
 
   // Update active state in hierarchical category nav (used on page load, and interacting w/ categories)
@@ -475,6 +486,7 @@ var SCB = (function($) {
       duration: 250,
       delay: 0
     });
+    _scrollBody($('.collection .collection-actions'), 250, 0, 0, $('.overflow-wrapper'));
   }
 
   function _hideEmailForm() {
@@ -507,10 +519,10 @@ var SCB = (function($) {
               cache: false,
               success: function(response) {
                 form.reset();
-                _feedbackMessage('Your aaplication was submitted successfully!');
+                _feedbackMessage('Your application was submitted successfully!');
               },
               error: function(response) {
-                _feedbackMessage(response.data.message);
+                _feedbackMessage('Sorry, there was an error submitting your application: 'response.data.message);
               }
             });
           } else {
@@ -558,13 +570,13 @@ var SCB = (function($) {
 
   function _showModal() {
     _showPageOverlay(); 
-    $('body').addClass('modal-active');
+    $body.addClass('modal-active');
     $modal.addClass('display');
     $modal.find('.modal-content').scrollTop(0);
     setTimeout(function() {
       $modal.addClass('active');
     }, 100);
-    // _scrollBody($('body'), 250, 0, 0);
+    // _scrollBody($body, 250, 0, 0);
     if ($modal.find('.modal-content').is(':empty')) {
       $modal.addClass('empty');
     } else {
@@ -575,7 +587,7 @@ var SCB = (function($) {
   function _hideModal() {
     State = History.getState();
     _hidePageOverlay();
-    $('body').removeClass('modal-active');
+    $body.removeClass('modal-active');
     $modal.removeClass('active');
     setTimeout(function() {
       $modal.removeClass('display');
@@ -589,12 +601,11 @@ var SCB = (function($) {
   function _showCollection() {
     _hideModal();
     _showPageOverlay(); 
-    $('body').addClass('collection-active');
+    $body.addClass('collection-active');
     $collection.addClass('display');
     setTimeout(function() {
       $collection.addClass('active');
     }, 100);
-    // _scrollBody($('body'), 250, 0, 0);
     if (!$collection.find('article').length) {
       $collection.addClass('empty');
     } else {
@@ -608,7 +619,7 @@ var SCB = (function($) {
 
   function _hideCollection() {
     _hidePageOverlay();
-    $('body').removeClass('collection-active');
+    $body.removeClass('collection-active');
     $collection.removeClass('active');
     setTimeout(function() {
       $collection.removeClass('display');
@@ -653,6 +664,8 @@ var SCB = (function($) {
     }).on('mouseleave', function() {
       setTimeout(_hideCollectionMessage, 1000);
     });
+
+    _scrollBody($('.collection .feedback-container'), 250, 0, 0, $('.overflow-wrapper'));
     
   }
 
@@ -674,16 +687,16 @@ var SCB = (function($) {
               url: wp_ajax_url,
               method: 'post',
               dataType: 'json',
-              data: $(this).serialize()
+              data: $(form).serialize()
           }).done(function(response) {
             if (response.success) {
               _hideEmailForm();
-              _feedbackMessage('Your email was sent successfully.');
+              _feedbackMessage('Your email was sent successfully!');
             } else {
-              _feedbackMessage('There was an error sending your email: ' + response.data.message);
+              _feedbackMessage('Sorry, there was an error sending your email: ' + response.data.message);
             }
           }).fail(function(response) {
-            _feedbackMessage('There was an error sending your email.');
+            _feedbackMessage('Sorry, there was an error sending your email.');
           });
         }
     });
@@ -802,7 +815,7 @@ var SCB = (function($) {
 
   function _showPageOverlay() {
     if (!$('#page-over').length) {
-      $('body').prepend('<div id="page-overlay"></div>');
+      $body.prepend('<div id="page-overlay"></div>');
     }
     setTimeout(function() {
       $('#page-overlay').addClass('active');
@@ -830,7 +843,7 @@ var SCB = (function($) {
     });
   }
 
-  function _scrollBody(element, duration, delay, offset) {
+  function _scrollBody(element, duration, delay, offset, container) {
     if ($('#wpadminbar').length) {
       wpOffset = $('#wpadminbar').height();
     } else {
@@ -839,7 +852,8 @@ var SCB = (function($) {
     element.velocity("scroll", {
       duration: duration,
       delay: delay,
-      offset: -offset - wpOffset
+      offset: -offset - wpOffset,
+      container: (typeof container !== 'undefined' ? container : null)
     }, 'easeOutSine');
   }
 
@@ -964,8 +978,8 @@ var SCB = (function($) {
     init: _init,
     resize: _resize,
     checkLoadMore: _checkLoadMore,
-    scrollBody: function(section, duration, delay, offset) {
-      _scrollBody(section, duration, delay, offset);
+    scrollBody: function(section, duration, delay, offset, container) {
+      _scrollBody(section, duration, delay, offset, container);
     }
   };
 
