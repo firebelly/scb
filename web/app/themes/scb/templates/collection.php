@@ -20,7 +20,7 @@ $post_type_plurals = [
 
   <div class="overflow-wrapper">
 
-  <div class="feedback-container"><div class="feedback"><p></p></div></div>
+    <div class="feedback-container"><div class="feedback"><p></p></div></div>
 
     <div class="collection-content">
 

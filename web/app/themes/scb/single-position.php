@@ -3,6 +3,7 @@ $office = \Firebelly\Utils\get_office($post);
 $open_for_applications = get_post_meta($post->ID, '_cmb2_open_for_applications', true);
 $discipline = \Firebelly\Utils\get_first_term($post, 'project_category');
 ?>
+<div class="feedback-container"><div class="feedback"><p></p></div></div></div>
 <article class="position" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>

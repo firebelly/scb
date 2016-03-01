@@ -80,3 +80,12 @@ input[type=file]:active {
 input[type=file]:active::before {
   
 }
+
+// Form feedback
+label.error {
+  padding: 20px;
+  display: block;
+  margin-bottom: 20px;
+  background: $brand-primary;
+  line-height: 1.428571429em;
+}

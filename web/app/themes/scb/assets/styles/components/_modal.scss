@@ -83,4 +83,31 @@
       left: -60px;
     }
   }
+
+  // Feedback dialog
+  .feedback-container {
+    z-index: 1;
+    overflow: hidden;
+    &.show-feedback {
+      .feedback {
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .feedback {
+    margin-top: -100%;
+    transition: margin .5s ease-out;
+  }
+
+  &:not(.collection) {
+    .feedback-container {
+      width: calc(100% + 40px);
+      margin: -20px 0 20px -20px;
+      @include min-screen($breakpoint-medium) {
+        width: calc(100% + 80px);
+        margin: -40px 0 40px -40px;
+      }
+    }
+  }
 }
