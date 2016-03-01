@@ -20,7 +20,7 @@ $post_type_plurals = [
 
   <div class="overflow-wrapper">
 
-  <div class="feedback-container"><div class="feedback"><p></p></div></div>
+    <div class="feedback-container"><div class="feedback"><p></p></div></div>
 
     <div class="collection-content">
 
@@ -64,7 +64,7 @@ $post_type_plurals = [
           <input name="action" type="hidden" value="email_collection">
           <label><input id="cc_me" name="cc_me" type="checkbox"> Send me a copy</label>
           <div>
-            <input type="submit">
+            <input type="submit" class="button">
           </div>
         </form>
       </div>

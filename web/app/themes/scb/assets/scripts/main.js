@@ -230,7 +230,7 @@ var SCB = (function($) {
           _showCollection();
           // Just show empty message if removing last item to avoid confusing, stacked feedback
           if (!response.data.collection_html.match(/empty/)) {
-            _collectionMessage(action);
+            _feedbackMessage(action);
           }
         } else if (action.match(/pdf/)) {
           var buttonText = $(e.target).text();
@@ -254,7 +254,7 @@ var SCB = (function($) {
               // window.location = response.data.pdf.url;
             }
           } else {
-            _collectionMessage(response.data.message);
+            _feedbackMessage(response.data.message);
           }
         }
       });
@@ -469,7 +469,12 @@ var SCB = (function($) {
 
   function _showEmailForm() {
     $('#email-collection-form').addClass('active');
-    _scrollBody($('.collection .collection-actions'), 250, 0, 0);
+    $('#email-collection-form input:first').focus();
+    $('.collection .collection-actions').velocity('scroll', { 
+      container: $('.modal.active .overflow-wrapper'),
+      duration: 250,
+      delay: 0
+    });
   }
 
   function _hideEmailForm() {
@@ -481,6 +486,12 @@ var SCB = (function($) {
     $document.on('click', '.application-form input[type=submit]', function(e) {
       var $form = $(this).closest('form');
       $form.validate({
+        messages: {
+          application_first_name: "Please leave us your first name",
+          application_last_name: "Please leave us your last name",
+          application_email: "We will need a valid email to contact you at",
+          application_phone: "In case we need to call you"
+        },
         submitHandler: function(form) {
           // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
           if( window.FormData !== undefined ) {
@@ -496,10 +507,10 @@ var SCB = (function($) {
               cache: false,
               success: function(response) {
                 form.reset();
-                _generalMessage(response.data.message);
+                _feedbackMessage('Your aaplication was submitted successfully!');
               },
               error: function(response) {
-                _generalMessage(response.data.message);
+                _feedbackMessage(response.data.message);
               }
             });
           } else {
@@ -605,7 +616,7 @@ var SCB = (function($) {
   }
 
   function _showApplicationForm() {
-    $modal.find('.modal-content').empty();
+    $modal.find('.modal-content').empty().prepend('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>');
     var $app_form = $('.application-form-template');
     if ($app_form.length) {
       if ($modal.find('.application-form').length===0) {
@@ -613,11 +624,12 @@ var SCB = (function($) {
       }
       $modal.addClass('application-modal');
       _showModal();
+      $modal.find('.application-form input:first').focus();
     }
   }
 
   // Show collection message dialog
-  function _collectionMessage(messageType) {
+  function _feedbackMessage(messageType) {
     var message;
 
     if (messageType === 'remove') {
@@ -628,15 +640,15 @@ var SCB = (function($) {
       message = messageType;
     }
 
-    $collection.find('.feedback-container .feedback p').text(message);
+    $('.modal').find('.feedback-container .feedback p').text(message);
     setTimeout(function(){
-      $collection.find('.feedback-container').addClass('show-feedback');
+      $('.modal').find('.feedback-container').addClass('show-feedback');
     }, 250);
 
     if (collection_message_timer) { clearTimeout(collection_message_timer); }
     collection_message_timer = setTimeout(_hideCollectionMessage, 3000);
 
-    $collection.find('.feedback-container').on('mouseenter', function() {
+    $('.modal').find('.feedback-container').on('mouseenter', function() {
       clearTimeout(collection_message_timer);
     }).on('mouseleave', function() {
       setTimeout(_hideCollectionMessage, 1000);
@@ -645,8 +657,8 @@ var SCB = (function($) {
   }
 
   function _hideCollectionMessage() {
-    $collection.find('.feedback-container').removeClass('show-feedback');
-    $collection.find('.feedback-container .feedback p').text('');
+    $('.modal').find('.feedback-container').removeClass('show-feedback');
+    $('.modal').find('.feedback-container .feedback p').text('');
   }
 
   // Init collection sorting, title editing, etc
@@ -666,15 +678,12 @@ var SCB = (function($) {
           }).done(function(response) {
             if (response.success) {
               _hideEmailForm();
-              _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-              _collectionMessage('Your email was sent successfully.');
+              _feedbackMessage('Your email was sent successfully.');
             } else {
-              _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-              _collectionMessage('There was an error sending your email: ' + response.data.message);
+              _feedbackMessage('There was an error sending your email: ' + response.data.message);
             }
           }).fail(function(response) {
-            _scrollBody($('.collection .feedback-container'), 250, 0, 0);
-            _collectionMessage('There was an error sending your email.');
+            _feedbackMessage('There was an error sending your email.');
           });
         }
     });
@@ -741,7 +750,7 @@ var SCB = (function($) {
             $(container.el[0]).addClass('updated');
             setTimeout(function() { $(container.el[0]).addClass('updated'); }, 1500);
           }).fail(function(response) {
-            _collectionMessage(response.data.message);
+            _feedbackMessage(response.data.message);
           });
 
           _super($item, container);
