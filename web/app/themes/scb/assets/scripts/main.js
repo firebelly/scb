@@ -497,6 +497,16 @@ var SCB = (function($) {
   function _initApplicationForms() {
     $document.on('click', '.application-form input[type=submit]', function(e) {
       var $form = $(this).closest('form');
+
+      function scrollTopModal() {
+        $('.modal.active .modal-content .feedback-container').velocity('scroll', {
+          container: $('.modal.active .modal-content'),
+          duration: 250,
+          offset: -40,
+          delay: 250
+        });
+      }
+
       $form.validate({
         messages: {
           application_first_name: "Please leave us your first name",
@@ -520,21 +530,11 @@ var SCB = (function($) {
               success: function(response) {
                 form.reset();
                 _feedbackMessage('Your application was submitted successfully!');
-                $('.modal.active .modal-content .feedback-container').velocity('scroll', {
-                  container: $('.modal.active .modal-content'),
-                  duration: 250,
-                  offset: -40,
-                  delay: 250
-                });
+                scrollTopModal();
               },
               error: function(response) {
                 _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
-                $('.modal.active .modal-content .feedback-container').velocity('scroll', {
-                  container: $('.modal.active .modal-content'),
-                  duration: 250,
-                  offset: -40,
-                  delay: 250
-                });
+                scrollTopModal();
               }
             });
           } else {
