@@ -500,6 +500,7 @@ var SCB = (function($) {
   function _initApplicationForms() {
     $document.on('click', '.application-form input[type=submit]', function(e) {
       var $form = $(this).closest('form');
+
       $form.validate({
         messages: {
           application_first_name: "Please leave us your first name",
@@ -523,9 +524,11 @@ var SCB = (function($) {
               success: function(response) {
                 form.reset();
                 _feedbackMessage('Your application was submitted successfully!');
+                _scrollBody($('.modal.active .modal-content .feedback-container'), 250,0,0,$('.modal.active .modal-content'));
               },
               error: function(response) {
                 _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
+                _scrollBody($('.modal.active .modal-content .feedback-container'), 250,0,0,$('.modal.active .modal-content'));
               }
             });
           } else {
@@ -855,7 +858,7 @@ var SCB = (function($) {
     element.velocity("scroll", {
       duration: duration,
       delay: delay,
-      offset: -offset - wpOffset,
+      offset: -wpOffset - (typeof offset !== 'undefined' ? offset : 0),
       container: (typeof container !== 'undefined' ? container : null)
     }, 'easeOutSine');
   }

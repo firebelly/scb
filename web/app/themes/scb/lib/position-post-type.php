@@ -141,13 +141,22 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 /**
  * Get Positions matching office
  */
-function get_positions() {
+function get_positions($filters=[]) {
   $output = '';
   $args = array(
     'numberposts' => -1,
     'post_type' => 'position',
     'orderby' => ['date' => 'ASC'],
     );
+  if (!empty($filters['office'])) {
+    $args['tax_query'] = array(
+      array(
+        'taxonomy' => 'office',
+        'field' => 'slug',
+        'terms' => $filters['office']
+      )
+    );
+  }
 
   $positions = get_posts($args);
   return $positions;

@@ -23,4 +23,46 @@
     }
 
   }
+
+}
+
+// Office modals
+.modal.office {
+  .modal-content {
+    padding: 20px;
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
+
+    .info-section {
+      h3 {
+        @include sc();
+      }
+      border-top: 1px solid $gray;
+      &:first-of-type {
+        border-top: none;
+      }
+    }
+
+    .location {
+      padding-top: 15px;
+      padding-bottom: 10px;
+    }
+
+    .positions {
+      &::before {
+        display: none;
+      }
+      @include min-screen($breakpoint-medium) {
+        padding-left: 0;
+      }
+    }
+
+    .portfolio-submission {
+      padding-top: 20px;
+      .button {
+        margin-top: 20px;
+      }
+    }
+  }
 }
