@@ -76,7 +76,7 @@ $san_francisco_id = url_to_postid('/office/san-francisco');
         <div class="wrap">
           <p class="stat-number"><?= $num_people ?></p>
           <p class="stat-label">Design Professionals</p>
-          <p class="stat-link"><a href="#">View on map</a></p>
+          <p class="stat-link"><a href="people">Meet our people</a></p>
         </div>
       </div>
     </div>
