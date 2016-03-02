@@ -875,7 +875,7 @@ var SCB = (function($) {
       }
     });
     $('.search-modal .hide-search, .search-modal').on('click', function(e) {
-      if (!$(e.target).is('.search-field')) {
+      if (!$(e.target).is('.search-field, .search-submit')) {
         _hideSearch();
       }
     });
