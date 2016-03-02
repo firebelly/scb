@@ -18,7 +18,7 @@ $submitPortfolioCall = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', t
   <div class="article-body -two-column">
 
     <div class="info -left">
-      <div class="info-section" id="location">
+      <div class="info-section location">
         <h3>Location</h3>
         <p>
         <?= $address['address-1'] ?>

@@ -33,12 +33,7 @@
     @include min-screen($breakpoint-medium) {
       padding: 40px;
     }
-
-    #location {
-      padding-top: 15px;
-      padding-bottom: 10px;
-    }
-
+    
     .positions {
       &::before {
         display: none;

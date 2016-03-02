@@ -82,6 +82,10 @@ body.single:not(.single-project) {
       }
     }
 
+    .content > p:first-of-type {
+      margin-top: 0;
+    }
+
     .info {
       -webkit-font-smoothing: antialiased;
 
