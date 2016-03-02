@@ -77,6 +77,24 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['careers_content'] = array(
+    'id'            => 'careers_content',
+    'title'         => __( 'Secondary content areas', 'cmb2' ),
+    'object_types'  => array( 'page', ), // Post type
+    'show_on'       => array( 'key' => 'id', 'value' => 1783 ), // Only show on 'Internships' page
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      
+      // General page fields
+      array(
+        'name' => 'Intro Content',
+        'id'   => $prefix . 'intro_content',
+        'type' => 'wysiwyg',
+      )
+    ),
+  );
 
   return $meta_boxes;
 }

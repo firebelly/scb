@@ -155,11 +155,14 @@ function load_post_modal() {
 
   if(!empty($_POST['post_id'])) {
     $post = get_post($_POST['post_id']);
-    $post_type= get_post_type($post);
+    $post_type = get_post_type($post);
+    $page_name = $post->post_name; 
 
     if ($post_type == 'post') {
       $news_post = $post;
       include(locate_template('templates/article-news.php'));
+    } elseif ($post_type == 'page') {
+      include(locate_template('page-'.$page_name.'.php'));
     } else {
       include(locate_template('single-'.get_post_type($post).'.php'));
     }

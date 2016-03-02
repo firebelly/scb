@@ -1,0 +1,25 @@
+// Internships
+
+.single.internships {
+  .info-section.locations {
+    a {
+      color: $gray-dark;
+      position: relative;
+      padding-bottom: 2px;
+      text-decoration: none;
+      transition: color .2s ease-out;
+      &::after {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: '';
+        height: 1px;
+        background: black;
+        position: absolute;
+      }
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+}

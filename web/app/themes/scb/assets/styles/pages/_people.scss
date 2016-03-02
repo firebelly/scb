@@ -44,30 +44,6 @@
     margin-top: 0;
   }
 
-  .info {
-    -webkit-font-smoothing: antialiased;
-
-    .info-section {
-      padding: 20px 0;
-      border-top: 1px solid $gray;
-      &:first-of-type {
-        padding-top: 0;
-        border-top: none;
-      }
-    }
-    h3 {
-      @include sc();
-      margin-bottom: 10px;
-    }
-    p {
-      margin: 0;
-      font-size: 14px;
-      font-weight: 200;
-      color: $gray-dark;
-      line-height: 1.5em;
-    }
-  }
-
   .education {
     em {
       font-size: 10px;
