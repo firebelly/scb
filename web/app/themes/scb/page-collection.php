@@ -2,22 +2,8 @@
 /**
  * Template Name: Collection
  */
-
-if ($collection_id = get_query_var('collection_id')) {
-  $collection = \Firebelly\Collections\get_collection($collection_id);
-}
 ?>
 
-<?= $post->post_content ?>
-
-<?php if (!empty($collection)): ?>
-
-  <section class="collection" data-id="<?= $collection->ID ?>">
-    <?php include(locate_template('templates/collection.php')); ?>
-  </section>
-
-<?php else: ?>
-
-  <p>You've reached this page in error.</p>
-
-<?php endif; ?>
+<section class="collection <?= (empty($collection) || empty($collection->posts)) ? 'empty' : '' ?>" data-id="<?= !empty($collection) ? $collection->ID : '' ?>">
+  <?php include(locate_template('templates/collection.php')); ?>
+</section>
