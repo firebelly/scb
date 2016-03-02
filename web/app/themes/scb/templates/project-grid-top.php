@@ -10,7 +10,7 @@ if (!empty($term)) {
 
   $grid_stat = \Firebelly\PostTypes\Stat\get_stat(['related_category' => $term->term_id]);
   $grid_projects = \Firebelly\PostTypes\Project\get_projects(['category' => $term->slug, 'num_posts' => 6]);
-  $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false, 'category' => $term->term_id]);
+  $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false, 'project_category' => $term->slug]);
   // Does this term have a description set?
   if (!empty($term->description)) {
     $grid_description = '<h2>'.$term->description.'</h2>';
