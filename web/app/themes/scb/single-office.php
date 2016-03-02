@@ -1,6 +1,7 @@
 <?php 
 $intro = get_post_meta($post->ID, '_cmb2_intro', true);
 $address = get_post_meta($post->ID, '_cmb2_address', true);
+$submitPortfolioCall = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', true);
 ?>
 <article class="single single-office" data-id="<?= $post->ID ?>">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>
@@ -17,7 +18,7 @@ $address = get_post_meta($post->ID, '_cmb2_address', true);
   <div class="article-body -two-column">
 
     <div class="info -left">
-      <div class="info-section">
+      <div class="info-section location">
         <h3>Location</h3>
         <p>
         <?= $address['address-1'] ?>
@@ -45,6 +46,13 @@ $address = get_post_meta($post->ID, '_cmb2_address', true);
           echo '</ul></div>';
         }
       ?>
+
+      <?php if ($submitPortfolioCall) { ?>
+        <div class="info-section portfolio-submission">
+          <p><?= $submitPortfolioCall ?></p>    
+          <a href="#" class="button submit-portfolio">Submit your portfolio</a>
+        </div>
+      <?php } ?>
     </div>
 
     <div class="content user-content -right">
