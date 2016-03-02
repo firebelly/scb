@@ -858,7 +858,7 @@ var SCB = (function($) {
     element.velocity("scroll", {
       duration: duration,
       delay: delay,
-      offset: -offset - wpOffset,
+      offset: -wpOffset - (typeof offset !== 'undefined' ? offset : 0),
       container: (typeof container !== 'undefined' ? container : null)
     }, 'easeOutSine');
   }
