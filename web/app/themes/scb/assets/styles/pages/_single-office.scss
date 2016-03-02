@@ -23,6 +23,7 @@
     }
 
   }
+
 }
 
 // Office modals
@@ -31,6 +32,16 @@
     padding: 20px;
     @include min-screen($breakpoint-medium) {
       padding: 40px;
+    }
+
+    .positions {
+      @include min-screen($breakpoint-medium) {
+        &::before {
+          left: 0;
+          right: 0;
+        }
+        padding-left: 0;
+      }
     }
   }
 }
