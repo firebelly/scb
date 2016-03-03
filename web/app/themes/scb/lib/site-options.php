@@ -127,13 +127,6 @@ class FbSiteOptions {
 			'type'    => 'file',
 		) );
 
-		$cmb->add_field( array(
-			'name'    => __( 'Number of Interns this year', 'firebelly' ),
-			'desc'    => __( 'This is displayed on the careers page', 'firebelly' ),
-			'id'      => 'number_of_interns',
-			'type'    => 'text',
-		) );
-
 	}
 
 	/**

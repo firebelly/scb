@@ -1,4 +1,7 @@
 <?php 
+/**
+ * Template Name: Internships
+ */
 
 $intro_content = get_post_meta($post->ID, '_cmb2_intro_content', true);
 

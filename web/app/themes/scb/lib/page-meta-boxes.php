@@ -77,11 +77,11 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-  $meta_boxes['careers_content'] = array(
-    'id'            => 'careers_content',
+  $meta_boxes['internships_content'] = array(
+    'id'            => 'internships_content',
     'title'         => __( 'Secondary content areas', 'cmb2' ),
     'object_types'  => array( 'page', ), // Post type
-    'show_on'       => array( 'key' => 'id', 'value' => 1783 ), // Only show on 'Internships' page
+    'show_on'       => array( 'key' => 'id', 'value' => 1043 ), // 1783 Only show on 'Internships' page
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
@@ -92,6 +92,11 @@ function metaboxes( array $meta_boxes ) {
         'name' => 'Intro Content',
         'id'   => $prefix . 'intro_content',
         'type' => 'wysiwyg',
+      ),
+      array(
+        'name' => 'Number of internships',
+        'id'   => $prefix . 'num_internships',
+        'type' => 'text_small',
       )
     ),
   );
