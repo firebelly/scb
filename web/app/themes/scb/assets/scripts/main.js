@@ -870,7 +870,10 @@ var SCB = (function($) {
 
       } else {
         e.preventDefault();
-        $('.search-modal').addClass('active');
+        $('.search-modal').addClass('display');
+        setTimeout(function() {
+          $('.search-modal').addClass('active');
+        }, 50);
         $('.search-field:first').focus();
       }
     });
@@ -883,6 +886,9 @@ var SCB = (function($) {
 
   function _hideSearch() {
     $('.search-modal').removeClass('active');
+    setTimeout(function() {
+      $('.search-modal').removeClass('display');
+    }, 500);
   }
 
   // Handles main nav

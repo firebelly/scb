@@ -127,12 +127,12 @@ body {
     @include colorScheme($brand-primary);
   }
   &.architecture, &[data-pageClass=architecture] {
-    @include colorScheme($blue);
+    @include colorScheme($architecture-color);
   }
   &.interior-design, &[data-pageClass="interior-design"] {
-    @include colorScheme($red);
+    @include colorScheme($interior-design-color);
   }
   &.planning, &[data-pageClass="planning"] {
-    @include colorScheme($yellow);
+    @include colorScheme($planning-color);
   }
 }

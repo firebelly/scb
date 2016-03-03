@@ -68,6 +68,49 @@ body.single-project {
 .single-project,
 .project-modal {
 
+  // Color scheme stuff
+  article {
+    &[data-pageClass=architecture] {
+      .article-title {
+        color: $architecture-color;
+      }
+      .stat-number {
+        color: $architecture-color;
+      }
+      a {
+        &:hover, &:focus {
+          color: $architecture-color;
+        }
+      }
+    }
+    &[data-pageClass=planning] {
+      .article-title {
+        color: $planning-color;
+      }
+      .stat-number {
+        color: $planning-color;
+      }
+      a {
+        &:hover, &:focus {
+          color: $planning-color;
+        }
+      }
+    }
+    &[data-pageClass=interior-design] {
+      .article-title {
+        color: $interior-design-color;
+      }
+      .stat-number {
+        color: $interior-design-color;
+      }
+      a {
+        &:hover, &:focus {
+          color: $interior-design-color;
+        }
+      }
+    }
+  }
+
   .actions {
     top: 40px;
     z-index: 1;
@@ -94,6 +137,7 @@ body.single-project {
   }
 
   .project {
+    background: $white;
     padding-bottom: 20px;
 
     @include min-screen($breakpoint-medium) {
