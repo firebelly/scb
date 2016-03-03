@@ -81,7 +81,7 @@ function metaboxes( array $meta_boxes ) {
     'id'            => 'internships_content',
     'title'         => __( 'Secondary content areas', 'cmb2' ),
     'object_types'  => array( 'page', ), // Post type
-    'show_on'       => array( 'key' => 'id', 'value' => 1043 ), // 1783 Only show on 'Internships' page
+    'show_on'       => array( 'key' => 'id', 'value' => 1783 ), // Only show on 'Internships' page
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
