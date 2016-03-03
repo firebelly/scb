@@ -807,7 +807,7 @@ var SCB = (function($) {
         },
         success: function(response) {
           var $postData = $(response);
-          $('.post-modal .modal-content').append($postData);
+          $('.post-modal .modal-content').append($postData).prepend('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>');
           History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
           _showModal();
         },
