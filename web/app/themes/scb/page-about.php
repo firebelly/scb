@@ -9,6 +9,8 @@ $num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 
 $chicagoId = url_to_postid('office/chicago');
 $sanFranciscoId = url_to_postid('office/san-francisco');
+
+$map_id = \Firebelly\Utils\get_id_by_slug('map');
 ?>
 
 
@@ -40,7 +42,7 @@ $sanFranciscoId = url_to_postid('office/san-francisco');
         <div class="wrap">
           <p class="stat-number"><?= $num_projects ?></p>
           <p class="stat-label">Active Projects</p>
-          <p class="stat-link"><a href="#">View on map</a></p>
+          <p class="stat-link"><a href="map" class="show-map" data-id="<?= $map_id ?>">View on map</a></p>
         </div>
       </div>
     </div>

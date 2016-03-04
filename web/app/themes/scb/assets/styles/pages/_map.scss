@@ -1,9 +1,60 @@
 // General page elements
 
-.page.map {
-	#map {
-		width: 800px;
-		height: 600px;
-		border: 1px solid blue;
-	}
+#map {
+  max-width: 992px;
+  margin: 60px auto;
+}
+
+// Map Modal
+.map-modal {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: 200;
+  display: none;
+  overflow: auto;
+  position: fixed;
+  padding: 72px 20px;
+  background: rgba($white,.97);
+  transition: opacity .5s ease-out;
+  &.active {
+    opacity: 1;
+    .search-form {
+      transform: translateY(0);
+    }
+  }
+  &.display {
+    display: block;
+  }
+
+  @include min-screen($breakpoint-medium) {
+    padding: 72px 40px;
+  }
+
+  .hide-map {
+    z-index: 1;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    .plus {
+      width: 20px;
+      height: 20px;
+      &::before,
+      &::after {
+        width: 20px;
+        background: $black;
+      }
+    }
+
+    @include min-screen($breakpoint-medium) {
+      right: 40px;
+    }
+  }
+
+  h1 {
+    @include sc();
+  }
 }

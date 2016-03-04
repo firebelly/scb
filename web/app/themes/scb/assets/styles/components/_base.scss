@@ -18,6 +18,7 @@ body {
   font-feature-settings: "kern" 1;
 
   &.modal-active,
+  &.no-scroll,
   &.collection-active {
     overflow: hidden;
   }

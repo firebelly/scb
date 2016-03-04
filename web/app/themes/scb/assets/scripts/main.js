@@ -286,6 +286,7 @@ var SCB = (function($) {
     $document.keyup(function(e) {
       if (e.keyCode === 27) {
         _hideSearch();
+        _hideMap();
         _hideCollection();
         _hideModal();
         _hideMobileNav();
@@ -311,6 +312,7 @@ var SCB = (function($) {
 
     _initNav();
     _initSearch();
+    _initMapModal();
     _initLoadMore();
     _initPostModals();
     _initBigClicky();
@@ -888,6 +890,62 @@ var SCB = (function($) {
     $('.search-modal').removeClass('active');
     setTimeout(function() {
       $('.search-modal').removeClass('display');
+    }, 500);
+  }
+
+  function _initMapModal() {
+    $document.on('click', '.show-map', function(e) {
+      e.preventDefault();
+
+      var post_id = $(this).attr('data-id'),
+          $mapModal = '<div class="map-modal"><button class="plus-button close hide-map"><div class="plus"></div></button></div>';
+
+      // Hide the collection/modal if it's open
+      _hideCollection();
+      _hideModal();
+
+      if (!$('.map-modal').length) {
+        $.ajax({
+          url: wp_ajax_url,
+          method: 'post',
+          dataType: 'html',
+          data: {
+              'action': 'load_post_modal',
+              'post_id': post_id
+          },
+          success: function(response) {
+            var $postData = $(response);
+            $('.site-footer').prepend($mapModal);
+            $('.map-modal').append($postData);
+            _showMap();
+            History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
+          },
+          error: function(error){
+            console.log(error);
+          }
+        }); 
+      } else {
+        _showMap();
+      }
+    });
+
+    // Close it
+    $document.on('click', '.hide-map', _hideMap);       
+  }
+
+  function _showMap() {
+    $body.addClass('no-scroll');
+    $('.map-modal').addClass('display');
+    setTimeout(function() {
+      $('.map-modal').addClass('active');
+    },50);
+  }
+
+  function _hideMap() {
+    $body.removeClass('no-scroll');
+    $('.map-modal').removeClass('active');
+    setTimeout(function() {
+      $('.map-modal').removeClass('display');
     }, 500);
   }
 

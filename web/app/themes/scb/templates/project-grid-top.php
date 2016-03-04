@@ -3,6 +3,8 @@
  * Crazy ass project grid
  */
 
+$map_id = \Firebelly\Utils\get_id_by_slug('map');
+
 if (!empty($term)) {
   // Taxonomy filtered
   $num_projects = \Firebelly\Utils\get_num_posts_in_category('project', 'project_category', $term->term_id);
@@ -117,7 +119,7 @@ if (empty($grid_description)) {
                   <div class="stat-content">
                     <p class="stat-number">'.$num_projects.'</p>
                     <p class="stat-label">Active Projects</p>
-                    <p class="stat-link"><a href="map">View on map</a></p>
+                    <p class="stat-link"><a href="map" class="show-map" data-id="'.$map_id.'">View on map</a></p>
                   </div>
                 </div>
               </article>

@@ -127,6 +127,13 @@ class FbSiteOptions {
 			'type'    => 'file',
 		) );
 
+		$cmb->add_field( array(
+			'name'    => __( 'Projects Map Image', 'firebelly' ),
+			'desc'    => __( 'This is the projects map viewable from links throughout the site', 'firebelly' ),
+			'id'      => 'projects_map_image',
+			'type'    => 'file',
+		) );
+
 	}
 
 	/**
