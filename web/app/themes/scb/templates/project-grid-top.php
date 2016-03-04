@@ -81,8 +81,8 @@ if (empty($grid_description)) {
       include(locate_template('templates/article-project.php'));
       
       if (count($grid_projects)>=3 && $i===3) {
-        $long_stat = strlen($grid_stat['_cmb2_stat_number'][0]) > 2 ? ' long-stat' : '';
-        echo '<article class="grid-item stat '.$long_stat.'">
+        $stat_length_class = strlen($grid_stat['_cmb2_stat_number'][0]) > 2 ? (strlen($grid_stat['_cmb2_stat_number'][0]) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
+        echo '<article class="grid-item stat '.$stat_length_class.'">
                 <div class="wrap">
                   <div class="stat-content">
                     <p class="stat-number">' . $grid_stat['_cmb2_stat_number'][0] . '</p>
@@ -114,6 +114,7 @@ if (empty($grid_description)) {
       }
 
       if (count($grid_projects)>=5 && $i===5) {
+        $stat_length_class = strlen($num_projects) > 4 ? ' extra-long-stat' : '';
         echo '<article class="grid-item stat stat-secondary">
                 <div class="wrap">
                   <div class="stat-content">
