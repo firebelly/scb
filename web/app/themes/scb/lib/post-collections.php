@@ -186,7 +186,7 @@ function email_collection() {
   } else {
     $subject = !empty($_REQUEST['subject']) ? stripslashes($_REQUEST['subject']) : 'A collection of projects from SCB';
     $message = !empty($_REQUEST['message']) ? stripslashes($_REQUEST['message']) : 'Please see attached PDF.';
-    $headers[] = 'From: SCB <hello@scb.org>';
+    $headers = ['From: SCB <hello@scb.org>'];
     // Add Reply-to header?
     if (!empty($_REQUEST['replyto_email']) && is_email($_REQUEST['replyto_email'])) {
       // Send user email?
