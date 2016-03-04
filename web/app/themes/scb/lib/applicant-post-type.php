@@ -280,7 +280,12 @@ function new_applicant() {
       $message .= 'Email: ' . $_POST['application_email'] . "\n";
       $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
       $message .= get_edit_post_link($post_id, 'email');
-      wp_mail($notification_email, $subject, $message, $headers, $attachments);
+      if (!empty($attachment_id)) {
+        $attachment_path = get_attached_file($attachment_id);
+        wp_mail($notification_email, $subject, $message, $headers, [$attachment_path]);
+      } else {
+        wp_mail($notification_email, $subject, $message, $headers);
+      }
     }
 
   } else {
