@@ -130,6 +130,12 @@ function metaboxes( array $meta_boxes ) {
         'id'   => $prefix . 'open_for_applications',
         'type' => 'checkbox',
       ),
+      array(
+        'name' => 'Email to Notify',
+        'desc' => 'Receive an email when someone applies for this position',
+        'id'   => $prefix . 'notification_email',
+        'type' => 'text_email',
+      ),
     ),
   );
 
