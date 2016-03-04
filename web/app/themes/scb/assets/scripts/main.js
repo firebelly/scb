@@ -942,11 +942,15 @@ var SCB = (function($) {
   }
 
   function _hideMap() {
+    State = History.getState();
     $body.removeClass('no-scroll');
     $('.map-modal').removeClass('active');
     setTimeout(function() {
       $('.map-modal').removeClass('display');
     }, 500);
+    if (State.data.previousURL) {
+      History.replaceState({}, State.data.previousTitle, State.data.previousURL);
+    }
   }
 
   // Handles main nav
