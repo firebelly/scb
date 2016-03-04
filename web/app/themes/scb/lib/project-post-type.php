@@ -359,7 +359,7 @@ function get_project_blocks($post) {
         $output .= '</div><!-- .image-grid -->';
       }
       if (!empty($project_block['stat_number']) || !empty($project_block['stat_label'])) {
-        $long_stat = strlen($project_block['stat_number']) > 2 ? ' long-stat' : '';
+        $long_stat = strlen($project_block['stat_number']) > 2 ? (strlen($project_block['stat_number']) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
         $output .= '<div class="stat'.$long_stat.'">';
         $output .= !empty($project_block['stat_number']) ? '<div class="stat-number">' . $project_block['stat_number'] . '</div>' : '';
         $output .= !empty($project_block['stat_label']) ? '<div class="stat-label">' . $project_block['stat_label'] . '</div>' : '';

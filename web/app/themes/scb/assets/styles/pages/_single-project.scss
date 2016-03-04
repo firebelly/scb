@@ -163,6 +163,15 @@ body.single-project {
             font-size: 6vw;
           }
         }
+        // Extra long (>4)
+        &.extra-long-stat {
+          .stat-number {
+            font-size: 28px;
+            @include min-screen($breakpoint-medium) {
+              font-size: 4vw;
+            }
+          }
+        }
       }
     }
 
