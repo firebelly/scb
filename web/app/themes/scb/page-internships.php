@@ -40,6 +40,7 @@ $san_francisco_id = url_to_postid('/office/san-francisco');
         <h3>Apply Now</h3>  
         <?php 
         $position_id = $post->ID; // Associate Application with this Position when submitted
+        $application_type = 'internship';
         include(locate_template('templates/application-form.php')); 
         ?>
       </div>

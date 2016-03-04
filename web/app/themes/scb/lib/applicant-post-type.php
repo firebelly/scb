@@ -83,6 +83,7 @@ function edit_columns($columns){
     'cb' => '<input type="checkbox" />',
     'title' => 'Title',
     '_cmb2_related_position' => 'Position',
+    '_cmb2_application_type' => 'Application Type',
     // 'featured_image' => 'Image',
     'date' => 'Date',
   );
