@@ -82,5 +82,52 @@ body.single:not(.single-project) {
       }
     }
 
+    .content > p:first-of-type {
+      margin-top: 0;
+    }
+
+    .info {
+      -webkit-font-smoothing: antialiased;
+
+      .info-section {
+        padding: 20px 0;
+        border-top: 1px solid $gray;
+        &:first-of-type {
+          padding-top: 0;
+          border-top: none;
+        }
+      }
+      h3 {
+        @include sc();
+        margin-bottom: 10px;
+      }
+      p {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 200;
+        color: $gray-dark;
+        line-height: 1.5em;
+      }
+      a:not(.button, .plus-button) {
+        color: $gray-dark;
+        position: relative;
+        padding-bottom: 2px;
+        text-decoration: none;
+        transition: color .2s ease-out;
+        &::after {
+          left: 0;
+          right: 0;
+          bottom: 0;
+          content: '';
+          height: 1px;
+          background: black;
+          position: absolute;
+        }
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+
   }
 }

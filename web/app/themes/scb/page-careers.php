@@ -23,6 +23,8 @@ $terms_right = get_post_meta($post->ID, '_cmb2_terms_right', true);
 
 $chicago_id = url_to_postid('/office/chicago');
 $san_francisco_id = url_to_postid('/office/san-francisco');
+$internships_id = url_to_postid('/careers/internships');
+$num_interns = get_post_meta($internships_id, '_cmb2_num_internships', true);
 ?>
 
 <div class="grid wrap -top">
@@ -77,6 +79,13 @@ $san_francisco_id = url_to_postid('/office/san-francisco');
           <p class="stat-number"><?= $num_people ?></p>
           <p class="stat-label">Design Professionals</p>
           <p class="stat-link"><a href="people">Meet our people</a></p>
+        </div>
+      </div>
+      <div class="stat long-stat">
+        <div class="wrap">
+          <p class="stat-number"><?= $num_interns ?></p>
+          <p class="stat-label">Interns This Year</p>
+          <p class="stat-link"><a href="careers/internships" class="show-post-modal" data-id="<?= $internships_id ?>" data-modal-type="office internships">Intern Program</a></p>
         </div>
       </div>
     </div>

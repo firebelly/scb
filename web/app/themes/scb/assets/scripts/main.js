@@ -286,6 +286,7 @@ var SCB = (function($) {
     $document.keyup(function(e) {
       if (e.keyCode === 27) {
         _hideSearch();
+        _hideMap();
         _hideCollection();
         _hideModal();
         _hideMobileNav();
@@ -311,6 +312,7 @@ var SCB = (function($) {
 
     _initNav();
     _initSearch();
+    _initMapModal();
     _initLoadMore();
     _initPostModals();
     _initBigClicky();
@@ -807,7 +809,7 @@ var SCB = (function($) {
         },
         success: function(response) {
           var $postData = $(response);
-          $('.post-modal .modal-content').append($postData);
+          $('.post-modal .modal-content').append($postData).prepend('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>');
           History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
           _showModal();
         },
@@ -870,12 +872,15 @@ var SCB = (function($) {
 
       } else {
         e.preventDefault();
-        $('.search-modal').addClass('active');
+        $('.search-modal').addClass('display');
+        setTimeout(function() {
+          $('.search-modal').addClass('active');
+        }, 50);
         $('.search-field:first').focus();
       }
     });
     $('.search-modal .hide-search, .search-modal').on('click', function(e) {
-      if (!$(e.target).is('.search-field')) {
+      if (!$(e.target).is('.search-field, .search-submit')) {
         _hideSearch();
       }
     });
@@ -883,6 +888,69 @@ var SCB = (function($) {
 
   function _hideSearch() {
     $('.search-modal').removeClass('active');
+    setTimeout(function() {
+      $('.search-modal').removeClass('display');
+    }, 500);
+  }
+
+  function _initMapModal() {
+    $document.on('click', '.show-map', function(e) {
+      e.preventDefault();
+
+      var post_id = $(this).attr('data-id'),
+          $mapModal = '<div class="map-modal"><button class="plus-button close hide-map"><div class="plus"></div></button></div>';
+
+      // Hide the collection/modal if it's open
+      _hideCollection();
+      _hideModal();
+
+      if (!$('.map-modal').length) {
+        $.ajax({
+          url: wp_ajax_url,
+          method: 'post',
+          dataType: 'html',
+          data: {
+              'action': 'load_post_modal',
+              'post_id': post_id
+          },
+          success: function(response) {
+            var $postData = $(response);
+            $('.site-footer').prepend($mapModal);
+            $('.map-modal').append($postData);
+            _showMap();
+            History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
+          },
+          error: function(error){
+            console.log(error);
+          }
+        }); 
+      } else {
+        _showMap();
+      }
+    });
+
+    // Close it
+    $document.on('click', '.hide-map', _hideMap);       
+  }
+
+  function _showMap() {
+    $body.addClass('no-scroll');
+    $('.map-modal').addClass('display');
+    setTimeout(function() {
+      $('.map-modal').addClass('active');
+    },50);
+  }
+
+  function _hideMap() {
+    State = History.getState();
+    $body.removeClass('no-scroll');
+    $('.map-modal').removeClass('active');
+    setTimeout(function() {
+      $('.map-modal').removeClass('display');
+    }, 500);
+    if (State.data.previousURL) {
+      History.replaceState({}, State.data.previousTitle, State.data.previousURL);
+    }
   }
 
   // Handles main nav

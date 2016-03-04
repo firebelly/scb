@@ -3,7 +3,7 @@ $intro = get_post_meta($post->ID, '_cmb2_intro', true);
 $address = get_post_meta($post->ID, '_cmb2_address', true);
 $submitPortfolioCall = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', true);
 ?>
-<article class="single single-office" data-id="<?= $post->ID ?>">
+<article class="single single-office" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
   <?php endif; ?>
