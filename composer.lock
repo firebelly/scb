@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c582dc2edf616129b09c3863bcfbda92",
-    "content-hash": "d09bed710f8923f49960b290f819b41d",
+    "hash": "91343cbcb69269613362ed3db33f4bb2",
+    "content-hash": "798f2e1b9b35af09f73bfd25c1f90a38",
     "packages": [
         {
             "name": "composer/installers",
@@ -509,15 +509,15 @@
         },
         {
             "name": "wpackagist-plugin/akismet",
-            "version": "3.1.7",
+            "version": "3.1.8",
             "source": {
                 "type": "svn",
                 "url": "http://plugins.svn.wordpress.org/akismet/",
-                "reference": "tags/3.1.7"
+                "reference": "tags/3.1.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/akismet.3.1.7.zip",
+                "url": "https://downloads.wordpress.org/plugin/akismet.3.1.8.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -706,26 +706,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/update-from-bottom/"
-        },
-        {
-            "name": "wpackagist-plugin/wordpress-sphinx-plugin",
-            "version": "3.9.8",
-            "source": {
-                "type": "svn",
-                "url": "http://plugins.svn.wordpress.org/wordpress-sphinx-plugin/",
-                "reference": "tags/3.9.8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-sphinx-plugin.3.9.8.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wordpress-sphinx-plugin/"
         },
         {
             "name": "wpackagist-plugin/wp-session-manager",
