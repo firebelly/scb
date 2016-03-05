@@ -316,6 +316,7 @@ var SCB = (function($) {
     _initLoadMore();
     _initPostModals();
     _initBigClicky();
+    _initMasonryGrid();
 
     // AJAX form submissions
     _initApplicationForms();
@@ -348,15 +349,16 @@ var SCB = (function($) {
   function _updateProjects(data) {
     $data = $(data);
     // Remove load-more DOM elements from returned HTML
-    $data.find('.load-more-container').remove();
     var new_load_more = $data.find('.load-more').detach();
 
     // Update load more container & empty load-more container
     $('.load-more').replaceWith(new_load_more);
-    $('.load-more-container').empty();
+
+    $('.masonry-grid').masonry('destroy');
 
     // Populate new projects in grid
     $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
+    _initMasonryGrid();
 
     // Pull intro and replace on page
     $('.page-intro').html( $data.find('.page-intro').html() );
@@ -851,6 +853,16 @@ var SCB = (function($) {
     });
   }
 
+  function _initMasonryGrid() {
+    // Add special classes for special styles
+    $('.masonry-grid').find('.vertical').first().addClass('-first');
+    var $grid = $('.masonry-grid').masonry({
+      itemSelector: '.grid-item',
+      columnWidth: '.grid-sizer',
+      hiddenStyle: { opacity: 0 }
+    });
+  }
+
   function _scrollBody(element, duration, delay, offset, container) {
     if ($('#wpadminbar').length) {
       wpOffset = $('#wpadminbar').height();
@@ -1012,7 +1024,8 @@ var SCB = (function($) {
           success: function(data) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
-            more_container.append($data).removeClass('loading');
+            $('.masonry-grid').append($data).removeClass('loading');
+            $('.masonry-grid').masonry('appended', $data);
             $load_more.attr('data-page-at', page+1);
             SCB.checkLoadMore();
           }

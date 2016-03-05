@@ -150,8 +150,10 @@
 
   // Offset the grid for the padding of the items
   @include min-screen($breakpoint-medium) {
-    margin-left: -10px;
-    width: calc(100% + 20px);
+    .masonry-grid {    
+      margin-left: -20px;
+      width: calc(100% + 20px);
+    }
   }
 
   .initial-section,
@@ -160,6 +162,7 @@
   }
 
   .grid-item {
+    width: 100%;
     color: $white;
     margin-bottom: 20px;
     transition: color 1s ease-out;
@@ -171,6 +174,7 @@
 
     .wrap {
       padding: 20px;
+      min-height: 300px;
       position: relative;
       transition: background-color .2s ease-out;
     }
@@ -209,8 +213,19 @@
 
     @include min-screen($breakpoint-medium) {
       width: 50%;
-      margin-bottom: 0;
       position: relative;
+      &:not(.news) {
+        &::after {
+          top: 0;
+          left: 0;
+          bottom: 0;
+          z-index: 1;
+          content: '';
+          width: 20px;
+          background: $white;
+          position: absolute;
+        }
+      }
 
       .article-inner { 
         max-width: 280px;
@@ -218,24 +233,17 @@
 
       .wrap {        
         height: 0;
+        min-height: 1px;
         overflow: hidden;
-        margin: 0 10px 20px;
+        padding-left: 40px;
         padding-bottom: calc(117.242% + 40px);
       }
 
-      &:first-of-type {
+      &.horizontal {
         width: 100%;
-        margin-bottom: 20px;
         .wrap {
           margin-bottom: 0;
           padding-bottom: 58.621%;
-        }
-      }
-
-      &:nth-of-type(6) {
-        width: 100%;
-        .wrap {
-          padding-bottom: 60.2272727%;
         }
       }
     }
@@ -248,63 +256,33 @@
       }
 
       .wrap {
-        padding-bottom: 128.5714286%;
+        padding-bottom: 124.137931%;
       }
 
-      &:first-of-type {
+      &.vertical.-first {
         width: 50%;
-        margin-bottom: 0;
         .wrap {
-          padding-bottom: calc(117.242% + 40px);
+          padding-bottom: calc(124.137931% + 40px);
         }
         .big-plus {
           display: block;
         }
       }
 
-      &:nth-of-type(2) {
-        width: 50%;
-
-        .wrap {
-          margin-bottom: 10px;
-          padding-bottom: calc(58.621% + 10px);
-        }
+      &.horizontal {
         .big-plus {
           display: block;
         }
-      }
-
-      &:nth-of-type(3) {
+        width: 50%;
         .wrap {
-          margin-top: 10px;
+          padding-bottom: 62.0689655%;
         }
       }
 
-      &:nth-of-type(3),
-      &:nth-of-type(4) {
-        .wrap {
-          margin-top: 10px;
-          padding-bottom: 117.242%;
-        }
-      }
-
-      &:nth-of-type(6) {
+      &.horizontal.-wide {
         width: 75%;
         .wrap {
-          padding-bottom: 60.2272727%;
-        }
-        .big-plus {
-          display: block;
-        }
-      }
-
-      &:nth-of-type(7) {
-        .big-plus {
-          display: block;
-        }
-        width: 50%;
-        .wrap {
-          padding-bottom: 62.248132244%;
+          padding-bottom: 41.379310334%;
         }
       }
     }
@@ -314,18 +292,12 @@
         display: block;
       }
     }
-  }
-
-  .grid-item {
-    @include min-screen($breakpoint-medium) {
-      padding: 0 20px;
-    }
 
     .actions {
       margin-bottom: 0;
 
       @include min-screen($breakpoint-medium) {
-        left: 20px;
+        left: 40px;
         right: 20px;
         bottom: 20px;
         margin-top: 0;
@@ -336,7 +308,7 @@
       }
     }
   }
-
+  
   // Blog/news posts
   .grid-item.news {
     color: $black;
@@ -355,11 +327,11 @@
     }
 
     @include min-screen($breakpoint-medium) {
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-right: 0;
+      padding-left: 20px;
       &::before {
-        left: 10px;
-        right: 10px;
+        right: 0;
+        left: 20px;
       }
     }
 
@@ -419,7 +391,6 @@
     color: $black;
     -webkit-font-smoothing: auto;
     .stat-number {
-      margin: 0;
       font-size: 52px;
       pointer-events: none;
       letter-spacing: -.1em;
@@ -437,95 +408,59 @@
       color: $black;
     }
 
-    @include screen($breakpoint-medium, $breakpoint-large - 1) {
-      &:not(.stat-secondary) {
-        .wrap {
-          height: auto;
-          padding-bottom: 0;
+    .wrap {
+      display: flex;
+    }
+    .stat-content {
+      margin: auto;
+    }
+
+    @include min-screen($breakpoint-medium) {
+      .wrap {
+        display: block;
+        overflow: visible;
+      }
+      &:not(.long-stat) {
+        .stat-meta {
+          margin: auto;
+        }
+        .stat-number {
+          top: 0;
+          left: 50%;
+          position: absolute;
+          transform: translate(-50%, -45%);
+        }
+      }
+
+      .stat-content {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+        left: 20px;
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+      }
+
+      &.long-stat {
+        .stat-content {
+          justify-content: center; 
         }
       }
     }
 
     @include min-screen($breakpoint-large) {
-      .wrap {
-        overflow: visible;
-      }
-      .stat-number {
-        margin-top: -.5em;
-      }
+
     }
 
-    // The secondary stat
-    &.stat-secondary,
     &.long-stat {
-      .stat-content {
-        @include min-screen($breakpoint-medium) {            
-          top: 50%;
-          left: 50%;
-          position: absolute;
-          transform: translate(-50%, -50%);
-        }
-      }
       .stat-number {
-        margin: 0;
+        margin-top: 0;
         @include thin();
         font-size: 52px;
         letter-spacing: .2em;
         line-height: .961538462em;
-      }
-    }
-  }
-}
-
-// Various grid layouts
-.home, 
-body[data-pageClass=planning],
-body.tax-project_category.planning {
-  .projects.main-project-grid {
-    .grid-item {
-      @include min-screen($breakpoint-medium) {
-        float: right;
-        &:not(.news) {
-          padding-left: 0;
-        }
-      }
-    }
-    // Load more container flipped layout
-    .load-more-container {
-      .grid-item {
-        @include min-screen($breakpoint-medium) {
-          float: left;
-          &:not(.news) {
-            padding-left: 0;
-          }
-        }
-      }
-    }
-  }
-}
-// Architecture layout
-body[data-pageClass=architecture],
-body[data-pageClass=interior-design],
-body.tax-project_category.architecture,
-body.tax-project_category.interior-design {
-  .projects.main-project-grid {
-    .grid-item {
-      @include min-screen($breakpoint-medium) {
-        float: left;
-        &:not(.news) {
-          padding-left: 0;
-        }
-      }
-    }
-    // Load more container flipped layout
-    .load-more-container {
-      .grid-item {
-        @include min-screen($breakpoint-medium) {
-          float: right;
-          &:not(.news) {
-            padding-left: 0;
-          }
-        }
       }
     }
   }
@@ -562,6 +497,7 @@ body.tax-project_category.interior-design {
   clear: both;
   margin: 30px 0;
   padding: 0 20px;
+  @include clearfix();
 
   a {
     color: $black;
@@ -581,5 +517,12 @@ body.tax-project_category.interior-design {
   @include min-screen($breakpoint-medium) {
     padding: 0 10px;
     margin: 90px 0 120px;
+  }
+}
+
+// Masonry
+.masonry-grid {
+  .grid-sizer {
+    width: 25%;
   }
 }

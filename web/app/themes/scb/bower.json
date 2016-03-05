@@ -16,7 +16,8 @@
     "fastclick": "~1.0.6",
     "jquery-sortable": "~0.9.13",
     "boomsvgloader": "~0.0.2",
-    "jquery-validation": "^1.15.0"
+    "jquery-validation": "^1.15.0",
+    "masonry": "~4.0.0"
   },
   "overrides": {
     "modernizr": {
@@ -24,6 +25,9 @@
     },
     "boomsvgloader": {
       "main": "./dist/js/boomsvgloader.js"
+    },
+    "masonry": {
+      "main": "./dist/masonry.pkgd.js"
     }
   }
 }
