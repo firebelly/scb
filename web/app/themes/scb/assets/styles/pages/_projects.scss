@@ -178,6 +178,12 @@
       position: relative;
       transition: background-color .2s ease-out;
     }
+    // Make verticle projects taller
+    &.vertical {
+      .wrap {
+        min-height: 500px;
+      }
+    }
 
     .article-inner {
       z-index: 2;
@@ -308,7 +314,7 @@
       }
     }
   }
-  
+
   // Blog/news posts
   .grid-item.news {
     color: $black;
