@@ -29,7 +29,7 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "http://wpackagist.org"
+      "url": "https://wpackagist.org"
     },
     {
       "type": "git",
@@ -55,8 +55,7 @@
     "iio/libmergepdf": ">=2.4",
     "wpackagist-plugin/category-checklist-tree": ">=1.3.2",
     "wpackagist-plugin/regenerate-thumbnails": ">=2.2.4",
-    "wpackagist-plugin/wp-session-manager": ">=1.1.2",
-    "wpackagist-plugin/wordpress-sphinx-plugin": ">=3.9.8"
+    "wpackagist-plugin/wp-session-manager": ">=1.1.2"
   },
   "extra": {
     "installer-paths": {

@@ -203,7 +203,10 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 function new_applicant() {
   $errors = [];
+  $attachments = [];
+  $notification_email = false;
   $name = $_POST['application_first_name'] .' '. $_POST['application_last_name'];
+
   $applicant_post = array(
     'post_title'    => 'Application from ' . $name,
     'post_type'     => 'applicant',
@@ -219,7 +222,6 @@ function new_applicant() {
     update_post_meta($post_id, '_cmb2_email', $_POST['application_email']);
     update_post_meta($post_id, '_cmb2_phone', $_POST['application_phone']);
 
-    $attachments = [];
     if (!empty($_FILES['application_files'])) {
       require_once(ABSPATH . 'wp-admin/includes/image.php');
       require_once(ABSPATH . 'wp-admin/includes/file.php');
@@ -250,6 +252,7 @@ function new_applicant() {
         update_post_meta($post_id, '_cmb2_attachments', $attachments);
       }
     }
+
     // Relate to Position post?
     if (!empty($_POST['position_id']) && is_numeric($_POST['position_id'])) {
       update_post_meta($post_id, '_cmb2_related_position', (int)$_POST['position_id']);
@@ -258,16 +261,31 @@ function new_applicant() {
       $notification_email = get_post_meta((int)$_POST['position_id'], '_cmb2_notification_email', true);
       if ($notification_email) {
         $position = get_post((int)$_POST['position_id']);
-        $headers = ['From: SCB <www-data@scb.org>'];
         $subject = 'New application for ' . $position->post_title . ' from ' . $_POST['application_first_name'] . ' ' . $_POST['application_last_name'];
-        $message = "A new application was received for " . $position->post_title . ":\n\n";
-        $message .= $_POST['application_first_name'] . ' ' . $_POST['application_last_name'] . "\n";
-        $message .= 'Email: ' . $_POST['application_email'] . "\n";
-        $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
-        $message .= get_edit_post_link($post_id);
-        wp_mail($notification_email, $subject, $message, $headers, $attachments);
+        $message = 'A new application was received for ' . $position->post_title . ":\n\n";
       }
+    }
 
+    if (preg_match('/(internship|portfolio)/',$_POST['application_type'])) {
+      // Pull notification email from site_options
+      $notification_email = \Firebelly\SiteOptions\get_option($_POST['application_type'].'_notification_email');
+      $subject = 'New ' . ucfirst($_POST['application_type']) . ' submission from ' . $_POST['application_first_name'] . ' ' . $_POST['application_last_name'];
+      $message = 'A new ' . ucfirst($_POST['application_type']) . " submission was received:\n\n";
+    }
+
+    // Send email if notification_email was set for position or in site_options for internships/portfolio
+    if ($notification_email) {
+      $headers = ['From: SCB <www-data@scb.org>'];
+      $message .= $_POST['application_first_name'] . ' ' . $_POST['application_last_name'] . "\n";
+      $message .= 'Email: ' . $_POST['application_email'] . "\n";
+      $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
+      $message .= get_edit_post_link($post_id, 'email');
+      if (!empty($attachment_id)) {
+        $attachment_path = get_attached_file($attachment_id);
+        wp_mail($notification_email, $subject, $message, $headers, [$attachment_path]);
+      } else {
+        wp_mail($notification_email, $subject, $message, $headers);
+      }
     }
 
   } else {

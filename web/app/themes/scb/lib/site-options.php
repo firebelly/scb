@@ -117,7 +117,7 @@ class FbSiteOptions {
 		$cmb->add_field( array(
 			'name' => __( 'Contact Email', 'firebelly' ),
 			'id'   => 'contact_email',
-			'type' => 'text',
+			'type' => 'text_email',
 		) );
 
 		$cmb->add_field( array(
@@ -132,6 +132,20 @@ class FbSiteOptions {
 			'desc'    => __( 'This is the projects map viewable from links throughout the site', 'firebelly' ),
 			'id'      => 'projects_map_image',
 			'type'    => 'file',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => __( 'Portfolio submission email notifications', 'firebelly' ),
+			'desc'    => __( 'If set, emails will be sent here when a new portfolio is submitted', 'firebelly' ),
+			'id'      => 'portfolio_notification_email',
+			'type'    => 'text_email',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => __( 'Internship submission email notifications', 'firebelly' ),
+			'desc'    => __( 'If set, emails will be sent here when a new internship is submitted', 'firebelly' ),
+			'id'      => 'internship_notification_email',
+			'type'    => 'text_email',
 		) );
 
 	}
