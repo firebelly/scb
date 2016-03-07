@@ -80,3 +80,43 @@ function simplify_tinymce($settings) {
   return $settings;
 }
 add_filter('tiny_mce_before_init', __NAMESPACE__ . '\simplify_tinymce');
+
+/**
+ * Also search postmeta
+ */
+function search_join($join) {
+  global $wpdb;
+  if (is_search()) {
+    $join .=' LEFT JOIN '.$wpdb->postmeta. ' ON '. $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id ';
+  }
+  return $join;
+}
+add_filter('posts_join', __NAMESPACE__ . '\search_join');
+
+function search_where($where) {
+  global $wpdb;
+  if (is_search()) {
+    $where = preg_replace(
+      "/\(\s*".$wpdb->posts.".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/",
+      "(".$wpdb->posts.".post_title LIKE $1) OR (".$wpdb->postmeta.".meta_value LIKE $1)", $where);
+  }
+  return $where;
+}
+add_filter('posts_where', __NAMESPACE__ . '\search_where');
+
+function search_distinct($where) {
+  global $wpdb;
+  if (is_search()) {
+    return "DISTINCT";
+  }
+  return $where;
+}
+add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');
+
+function search_num( $query ) {
+  if ( !is_admin() && is_search() ) {
+    $query->set( 'posts_per_page', 250 );
+  }
+  return $query;
+}
+add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_num' );

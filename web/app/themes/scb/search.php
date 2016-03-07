@@ -1,8 +1,21 @@
+<?php
+// Build arrays of matching post types from main search query
+$news_posts = $other_posts = $project_posts = [];
+while (have_posts()) : the_post();
+  if ($post->post_type=='post') {
+    $news_posts[] = $post;
+  } elseif ($post->post_type=='project') {
+    $project_posts[] = $post;
+  } else {
+    // Not currently using this anywhere
+    $other_posts[] = $post;
+  }
+endwhile;
+?>
+
 <?php get_search_form(); ?>
 
 <div class="search-container">
-
-  <!-- <?php get_template_part('templates/page', 'header'); ?> -->
 
   <?php if (!have_posts()) : ?>
     <div class="alert alert-warning">
@@ -17,16 +30,19 @@
     'interior-design' => 'Interior Design',
   ];
 
+  // Loop through matching projects and search for category
   foreach ($search_arr as $cat_slug => $cat_title) {
+    $matching_posts = [];
+    foreach($project_posts as $project_post) {
+      if (has_term($cat_slug, 'project_category', $project_post)) {
+        $matching_posts[] = $project_post;
+      }
+    }
 
-    $project_posts = \Firebelly\PostTypes\Project\get_projects([
-      'category' => $cat_slug,
-      'search' => get_search_query(),
-    ]);
-
-    if ($project_posts) {
+    // Did any projects match this category column?
+    if (!empty($matching_posts)) {
       echo '<div class="search-column"><h2 class="cat-title">'.$cat_title.'</h2>';
-      foreach ($project_posts as $project_post) {
+      foreach ($matching_posts as $project_post) {
         include(locate_template('templates/article-project-excerpt.php'));
       }
       echo '</div>';
@@ -34,19 +50,16 @@
   }
   ?>
   <div class="search-column">
-
     <?php 
-    $count = 0;
-    if (have_posts()) { echo '<h2 class="cat-title">News</h2>';}
-    while (have_posts()) : the_post();
-      if ($post->post_type=='post') {
-        $count++;
-        echo '
-        <article class="article show-post-modal" data-modal-type="news-modal" data-id="'.$post->ID.'">
-          <h2 class="entry-title"><a href="'.get_permalink($post).'">'.wp_trim_words($post->post_title, 10).'</a></h2>
+    // Any news posts match?
+    if (!empty($news_posts)) { 
+      echo '<h2 class="cat-title">News</h2>';
+      foreach ($news_posts as $news_post) {
+        echo '<article class="article show-post-modal" data-modal-type="news-modal" data-id="'.$news_post->ID.'">
+          <h2 class="entry-title"><a href="'.get_permalink($news_post).'">'.wp_trim_words($news_post->post_title, 10).'</a></h2>
         </article>';
       }
-    endwhile;
+    }
     ?>
   </div>
 
