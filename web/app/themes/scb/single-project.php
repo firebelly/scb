@@ -34,7 +34,7 @@ $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
           </p>
         <?php endif ?>
         <div class="project-meta">
-          <div class="show-details"><button class="plus-button details-toggle">Project details <div class="plus"></div></button></a></div>
+          <div class="show-details"><button class="plus-button details-toggle -expandable">Project details <div class="plus"></div></button></a></div>
           <div class="project-meta-content">
             <div class="grid-item one-half -left">              
               <div class="-inner grid">
