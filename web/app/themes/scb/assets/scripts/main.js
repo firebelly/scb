@@ -37,8 +37,8 @@ var SCB = (function($) {
     $body.addClass('loaded');
 
     // Barf-o-rama
-    $body.on('contextmenu', 'main img', function(e) { e.preventDefault(); });
-    $body.on('dragstart', 'main img', function(e) { e.preventDefault(); });
+    $body.on('contextmenu', '.modal-content img, main img', function(e) { e.preventDefault(); });
+    $body.on('dragstart', '.modal-content img, main img', function(e) { e.preventDefault(); });
 
 
     // Set screen size vars
