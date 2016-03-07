@@ -262,7 +262,14 @@
       }
 
       .wrap {
+        min-height: 1px;
         padding-bottom: 124.137931%;
+      }
+
+      &.vertical {
+        .wrap {
+          min-height: 1px;
+        }
       }
 
       &.vertical.-first {
