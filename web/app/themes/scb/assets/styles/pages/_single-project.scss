@@ -13,10 +13,6 @@ body.single-project {
   }
 
   .main {
-    
-    .project {
-      background: $white;
-    }
 
     .project-block {    
       .column.-right {
@@ -37,6 +33,17 @@ body.single-project {
       margin-left: -40px;
       margin-right: -40px;
       padding-left: $column;
+
+      .project {
+        background: $white;
+        &.vertical {
+          .project-intro {
+            .column.-right {
+              padding-left: 32px;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -230,6 +237,14 @@ body.single-project {
         padding-bottom: 64.1975309%;
       }
 
+      .column {
+        &.-right {
+          @include min-screen($breakpoint-medium) {
+            padding-left: 35px;
+          }
+        }
+      }
+
       .project-intro {
         .column {
           &.-right {
@@ -246,8 +261,9 @@ body.single-project {
 
           .column {
             &.-right {
+              padding-top: 60px;
               background: $white;
-              padding: 60px 0 0 0;
+              padding-left: 35px;
             }
           }
         }
@@ -331,6 +347,10 @@ body.single-project {
       @include min-screen($breakpoint-huge) {
         font-size: 84px;
       }
+    }
+
+    .column-text-wrap {
+      padding: 0 20px;
     }
   }
 
@@ -513,10 +533,14 @@ body.single-project {
 
     // Gray-background emphasis block
     &.emphasis-block {
+      padding: 20px;
       color: $white;
       margin: 20px 0;
-      padding: 40px 20px;
       background: $gray-dark;
+
+      .column-text-wrap {
+        padding: 0;
+      }
 
       .left-column-text {
         ul {
@@ -545,6 +569,9 @@ body.single-project {
         .column {
           &.-left {
             padding-left: $project-padding;
+          }
+          &.-right {
+            padding-left: 14px;
           }
         }
       }
@@ -744,10 +771,12 @@ body.single-project {
           width: 100%;
         }
         .stat {
-          top: 50%;
-          right: $column;
-          position: absolute;
-          transform: translate(-40px, -50%);
+          @include min-screen($breakpoint-medium) {          
+            float: right;
+            right: $column;
+            position: relative;
+            transform: translate(-40px, -45%);
+          }
         }
       }
     }
