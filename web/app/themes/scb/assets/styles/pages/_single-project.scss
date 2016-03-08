@@ -20,6 +20,29 @@ body.single-project {
           padding-left: 10px;
         }
       }
+
+      &.image-layout-3 {
+        @include min-screen($breakpoint-medium) {
+          .image-1 {
+            flex-basis: calc((5 * #{$project-col} + 10px);
+          }
+          .image-2 {
+            flex-basis: calc((6 * #{$project-col}) - 10px);
+          }
+        }
+      }
+
+      &.image-layout-4 {
+        @include min-screen($breakpoint-medium) {
+          .image-1 {
+            flex-basis: calc((5 * #{$project-col}) + 10px);
+          }
+          .image-2 {
+            flex-basis: calc((6 * #{$project-col}) - 10px);
+          }
+        }
+      }
+
     }
     .column {
       @include min-screen($breakpoint-medium) {      
@@ -36,10 +59,33 @@ body.single-project {
 
       .project {
         background: $white;
-        &.vertical {
-          .project-intro {
-            .column.-right {
-              padding-left: 32px;
+      }
+    }
+
+    // Vertical mods
+    .project.vertical {
+      
+      .project-intro {
+        .column {
+          @include min-screen($breakpoint-medium) {
+            &.-left {
+              width: calc((5 * #{$project-col}) + 12px);
+            }
+            &.-right {
+              width: calc((6 * #{$project-col}) - 12px);
+            }
+          }
+        }
+      }
+
+      .project-blocks .project-block {
+        &.image-layout-1 {
+          @include min-screen($breakpoint-medium) {              
+            .image-1 {
+              flex-basis: calc((5 * #{$project-col}) + 10px);
+            }
+            .image-2 {
+              flex-basis: calc((6 * #{$project-col}) - 10px);
             }
           }
         }
@@ -67,6 +113,23 @@ body.single-project {
 
     &.active {
       width: 100% - $column; 
+    }
+  }
+
+  // Vertical mods
+  .project.vertical {
+    
+    .project-intro {
+      .column {
+        @include min-screen($breakpoint-medium) {
+          &.-left {
+            width: calc((5 * #{$project-col}) + 8px);
+          }
+          &.-right {
+            width: calc((6 * #{$project-col}) - 8px);
+          }
+        }
+      }
     }
   }
 }
@@ -153,7 +216,7 @@ body.single-project {
 
     // Stat defaults
     .stat {
-      padding: 40px 0 60px;
+      padding: 60px 0 40px;
       @include min-screen($breakpoint-medium) {
         padding: 0;
       }
@@ -205,15 +268,6 @@ body.single-project {
       }
     }
 
-    // Adjusted column for project blocks
-    .project-block {    
-      .column.-right {
-        @include min-screen($breakpoint-medium) {
-          padding-left: 6px;
-        }
-      }
-    }
-
     // Horizontal orientation
     &.horizontal {
       .image-wrap {
@@ -234,15 +288,7 @@ body.single-project {
     // Vertical orientation
     &.vertical {
       .image-wrap {
-        padding-bottom: 64.1975309%;
-      }
-
-      .column {
-        &.-right {
-          @include min-screen($breakpoint-medium) {
-            padding-left: 35px;
-          }
-        }
+        padding-bottom: 125%;
       }
 
       .project-intro {
@@ -254,16 +300,15 @@ body.single-project {
 
         @include min-screen($breakpoint-medium) {
           padding-right: 40px;
-          
+
           .image-wrap {
-            border-right: 20px solid $white;
+            padding-bottom: 64.1975309%;
           }
 
           .column {
             &.-right {
               padding-top: 60px;
               background: $white;
-              padding-left: 35px;
             }
           }
         }
@@ -291,13 +336,10 @@ body.single-project {
             &.image-layout-1 {
               @include min-screen($breakpoint-medium) {              
                 .image-1 {
-                  flex-basis: 5 * $project-col;
+                  flex-basis: calc((5 * #{$project-col}) + 6px);
                 }
                 .image-2 {
-                  flex-basis: 6 * $project-col;
-                }
-                .stat {
-                  width: 6 * $project-col;
+                  flex-basis: calc((6 * #{$project-col}) - 6px);
                 }
               }
             }
@@ -310,7 +352,7 @@ body.single-project {
       padding-bottom: 20px;
 
       @include min-screen($breakpoint-medium) {
-        padding-bottom: 0;
+        padding-bottom: 40px;
         
         > .wrap {
           display: flex;
@@ -350,7 +392,10 @@ body.single-project {
     }
 
     .column-text-wrap {
-      padding: 0 20px;
+      padding: 0;
+      @include min-screen($breakpoint-medium) {
+        padding: 0 20px;
+      }
     }
   }
 
@@ -454,6 +499,12 @@ body.single-project {
 
   .project-intro-text {
     @include h2();
+    @include min-screen($breakpoint-medium) {
+      font-size: 22px;
+    }
+    @include min-screen($breakpoint-nav) {
+      font-size: 28px;
+    }
   }
 }
 
@@ -461,10 +512,16 @@ body.single-project {
 .project-blocks {
   .project-block {
     margin: 20px;
+    padding: 40px 0;
     @include clearfix();
 
+    &:not(.image-block),
+    &:not(.emphasis-block) {
+      margin-bottom: 40px;
+    }
+
     @include min-screen($breakpoint-medium) {
-      margin: 40px;
+      padding: 60px 0;
     }
 
     .user-content {
@@ -474,14 +531,20 @@ body.single-project {
       }
     }
 
-    .right-column-text {
+    .left-column-text.-empty {
+      margin-bottom: -40px;
+      @include min-screen($breakpoint-medium) {
+        margin-bottom: 0;
+      }
+    }
+
+    .right-column-text:not(.-empty) {
       margin-top: 40px;
       @include min-screen($breakpoint-medium) {
         margin-top: 0;
       }
     }
 
-    // Emphasized block
     .full-width-text {
 
       h2, h3 {
@@ -533,9 +596,9 @@ body.single-project {
 
     // Gray-background emphasis block
     &.emphasis-block {
-      padding: 20px;
       color: $white;
       margin: 20px 0;
+      padding: 40px 20px;
       background: $gray-dark;
 
       .column-text-wrap {
@@ -557,7 +620,7 @@ body.single-project {
       }
 
       @include min-screen($breakpoint-medium) {
-        padding: 80px 0;
+        padding: 60px 0;
         margin-left: 40px;
         margin-right: 40px;
 
@@ -569,9 +632,6 @@ body.single-project {
         .column {
           &.-left {
             padding-left: $project-padding;
-          }
-          &.-right {
-            padding-left: 14px;
           }
         }
       }
@@ -614,19 +674,49 @@ body.single-project {
     // Image block layouts
     &.image-block {
       margin: 0;
+      padding: 0;
       position: relative;
 
       .image-grid {
         position: relative;
       }
 
-      @include min-screen($breakpoint-medium) {
-        &:not(.image-layout-5) {
-          margin: 40px;
+      // Has a stat?
+      &.has-stat {
+        .image {
+          span {
+            display: block;
+            position: relative;
+          }
         }
+      }
 
+      @include min-screen($breakpoint-medium) {
+        margin: 0 40px;
+    
         .image-grid {
           display: flex;
+        }
+
+        &.has-stat {
+          .image:last-of-type {
+            margin-bottom: 130px;
+          }
+        }
+
+        .stat {
+          right: 0;
+          top: 100%;
+          width: 100%;
+          padding: 0 20px;
+          position: absolute;
+          transform: translateY(-8vw);
+          &.long-stat {
+            transform: translateY(-3vw);
+          }
+          &.long-stat {
+            transform: translateY(-2vw);
+          }
         }
       }
 
@@ -642,27 +732,13 @@ body.single-project {
       &.image-layout-1 {
 
         @include min-screen($breakpoint-medium) {
-          margin-left: 0;
-          &.has-stat {
-            margin-bottom: 80px;
-          }
 
           .image-1 {
-            padding-left: 40px;
             flex-basis: 8 * $project-col;
             border-right: 20px solid $white;
           }
           .image-2 {
             flex-basis: 3 * $project-col;
-          }
-          .stat {
-            right: 0;
-            bottom: -60px;
-            position: absolute;
-            width: 3 * $project-col;
-            &.long-stat {
-              bottom: -.5em;
-            }
           }
         }
 
@@ -671,7 +747,6 @@ body.single-project {
       &.image-layout-2 {
 
         @include min-screen($breakpoint-medium) {
-          margin-left: 0;
 
           .image-grid {
             flex-wrap: wrap;
@@ -679,11 +754,9 @@ body.single-project {
 
           .image-1 {
             flex-basis: 100%;
-            padding-left: 40px;
           }
 
           .image-2 {
-            padding-left: 40px;
             flex-basis: 5 * $project-col;
             border-right: 20px solid $white;
           }
@@ -699,25 +772,22 @@ body.single-project {
       &.image-layout-3 {
 
         @include min-screen($breakpoint-medium) {
-          margin-left: 0;
 
           .image-grid {
             flex-wrap: wrap;
           }
 
           .image-1 {
-            padding-left: 40px;
-            flex-basis: 5 * $project-col;
             border-right: 20px solid $white;
+            flex-basis: calc((5 * #{$project-col} + 6px);
           }
 
           .image-2 {
-            flex-basis: 6 * $project-col;
+            flex-basis: calc((6 * #{$project-col}) - 6px);
           }
 
           .image-3 {
             flex-basis: 100%;
-            padding-left: 40px;
           }
 
         }
@@ -727,24 +797,21 @@ body.single-project {
       &.image-layout-4 {
 
         @include min-screen($breakpoint-medium) {
-          margin-left: 0;
 
           .image-grid {
             flex-wrap: wrap;
           }
 
           .image-1 {
-            padding-left: 40px;
-            flex-basis: 5 * $project-col;
             border-right: 20px solid $white;
+            flex-basis: calc((5 * #{$project-col}) + 6px);
           }
 
           .image-2 {
-            flex-basis: 6 * $project-col;
+            flex-basis: calc((6 * #{$project-col}) - 6px);
           }
 
           .image-3 {
-            padding-left: 40px;
             flex-basis: 6 * $project-col;
             border-right: 20px solid $white;
           }
@@ -761,8 +828,6 @@ body.single-project {
       &.image-layout-5 {
 
         @include min-screen($breakpoint-medium) {
-          margin-right: 0;
-
           .image-grid {
             display: block;
           }
@@ -772,10 +837,11 @@ body.single-project {
         }
         .stat {
           @include min-screen($breakpoint-medium) {          
+            width: auto;
             float: right;
             right: $column;
             position: relative;
-            transform: translate(-40px, -45%);
+            transform: translateY(-8vw);
           }
         }
       }

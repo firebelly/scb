@@ -354,16 +354,19 @@ function get_project_blocks($post) {
         $i = 1;
         foreach ($project_block['images'] as $image_id => $image_src) {
           $image = wp_get_attachment_image_src($image_id, 'large');
-          $output .= '<div class="image image-' . $i++ . '"><img src="' . $image[0] . '"></div>';
+          $output .= '<div class="image image-' . $i++ . '"><span><img src="' . $image[0] . '">';
+            if ($i - 1 == count($project_block['images'])) {
+              if (!empty($project_block['stat_number']) || !empty($project_block['stat_label'])) {
+                $long_stat = strlen($project_block['stat_number']) > 2 ? (strlen($project_block['stat_number']) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
+                $output .= '<div class="stat'.$long_stat.'">';
+                $output .= !empty($project_block['stat_number']) ? '<div class="stat-number">' . $project_block['stat_number'] . '</div>' : '';
+                $output .= !empty($project_block['stat_label']) ? '<div class="stat-label">' . $project_block['stat_label'] . '</div>' : '';
+                $output .= '</span></div>';
+              }
+            }
+          $output .= '</div>';
         }
         $output .= '</div><!-- .image-grid -->';
-      }
-      if (!empty($project_block['stat_number']) || !empty($project_block['stat_label'])) {
-        $long_stat = strlen($project_block['stat_number']) > 2 ? (strlen($project_block['stat_number']) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
-        $output .= '<div class="stat'.$long_stat.'">';
-        $output .= !empty($project_block['stat_number']) ? '<div class="stat-number">' . $project_block['stat_number'] . '</div>' : '';
-        $output .= !empty($project_block['stat_label']) ? '<div class="stat-label">' . $project_block['stat_label'] . '</div>' : '';
-        $output .= '</div>';
       }
 
       if (!empty($project_block['full_width_text'])) {
@@ -376,13 +379,13 @@ function get_project_blocks($post) {
           if (!empty($project_block['left_column_text'])) {
             $output .= '<div class="left-column-text user-content column -left">' . apply_filters('the_content', $project_block['left_column_text']) . '</div>';
             if (empty($project_block['right_column_text'])) {
-              $output .='<div class="right-column-text user-content column -right"></div>';
+              $output .='<div class="right-column-text user-content column -right -empty"></div>';
             }
           }
 
           if (!empty($project_block['right_column_text'])) {
             if (empty($project_block['left_column_text'])) {
-              $output .='<div class="left-column-text user-content column -left"></div>';
+              $output .='<div class="left-column-text user-content column -left -empty"></div>';
             }
             $output .= '<div class="right-column-text user-content column -right">' . apply_filters('the_content', $project_block['right_column_text']) . '</div>';
           }

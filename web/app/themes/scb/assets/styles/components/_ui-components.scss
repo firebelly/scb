@@ -76,7 +76,8 @@
     margin: 0;
   }
   .stat-number {
-    @include thin();
+    @include lazer();
+    margin-left: -.05em;
     margin-bottom: 40px;
     color: $brand-primary;
   }
@@ -120,12 +121,6 @@
           background: $brand-primary;
         }
       }
-    }
-  }
-
-  @include min-screen($breakpoint-medium) {
-    .stat-number {
-      @include lazer();
     }
   }
 
