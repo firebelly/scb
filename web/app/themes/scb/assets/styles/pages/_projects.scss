@@ -541,6 +541,11 @@
 
 // Masonry
 .masonry-grid {
+  opacity: 0;
+  transition: opacity .5s ease-out;
+  &.loaded {
+    opacity: 1;
+  }
   .grid-sizer {
     width: 25%;
   }

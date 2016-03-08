@@ -895,6 +895,9 @@ var SCB = (function($) {
       columnWidth: '.grid-sizer',
       hiddenStyle: { opacity: 0 }
     });
+    $grid.imagesLoaded(function() {
+      $grid.addClass('loaded');
+    });
   }
 
   function _scrollBody(element, duration, delay, offset, container) {
