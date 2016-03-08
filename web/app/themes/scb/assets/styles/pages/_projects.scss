@@ -151,7 +151,7 @@
   // Offset the grid for the padding of the items
   @include min-screen($breakpoint-medium) {
     .masonry-grid {    
-      margin-left: -20px;
+      margin-left: -10px;
       width: calc(100% + 20px);
     }
   }
@@ -221,15 +221,21 @@
       width: 50%;
       position: relative;
       &:not(.news) {
+        &::before,
         &::after {
           top: 0;
-          left: 0;
           bottom: 0;
           z-index: 1;
           content: '';
-          width: 20px;
+          width: 10px;
           background: $white;
           position: absolute;
+        }
+        &::before {
+          left: 0;
+        }
+        &::after {
+          right: 0;
         }
       }
 
