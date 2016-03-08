@@ -647,6 +647,9 @@ body.single-project {
         }
         .full-width-text {
           padding-left: calc(#{$project-padding} + 16px);
+          blockquote {
+            margin: 0 16px;
+          }
         }
       }
     }
