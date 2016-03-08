@@ -893,6 +893,7 @@ var SCB = (function($) {
     var $grid = $('.masonry-grid').masonry({
       itemSelector: '.grid-item',
       columnWidth: '.grid-sizer',
+      transitionDuration: '0.2s',
       hiddenStyle: { opacity: 0 }
     });
     $grid.imagesLoaded(function() {
