@@ -521,6 +521,8 @@ body.single-project {
     }
 
     @include min-screen($breakpoint-medium) {
+      margin-left: 0;
+      margin-right: 0;
       padding: 60px 0;
     }
 
@@ -570,7 +572,7 @@ body.single-project {
 
       @include min-screen($breakpoint-medium) {
         overflow: hidden;
-        padding: 0 $project-padding;
+        padding: 0 calc(#{$project-padding} + 33px);
 
         .column {
           padding: 0;
@@ -633,6 +635,15 @@ body.single-project {
           &.-left {
             padding-left: $project-padding;
           }
+        }
+      }
+    }
+
+    // Adjust left text columns when not an emphasis block
+    &:not(.emphasis-block) {
+      @include min-screen($breakpoint-medium) {
+        .left-column-text.column.-left {
+          padding-left: calc(#{$project-padding} + 16px);
         }
       }
     }
