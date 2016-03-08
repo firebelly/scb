@@ -572,7 +572,7 @@ body.single-project {
 
       @include min-screen($breakpoint-medium) {
         overflow: hidden;
-        padding: 0 calc(#{$project-padding} + 33px);
+        padding: 0 $project-padding;
 
         .column {
           padding: 0;
@@ -643,6 +643,9 @@ body.single-project {
     &:not(.emphasis-block) {
       @include min-screen($breakpoint-medium) {
         .left-column-text.column.-left {
+          padding-left: calc(#{$project-padding} + 16px);
+        }
+        .full-width-text {
           padding-left: calc(#{$project-padding} + 16px);
         }
       }
