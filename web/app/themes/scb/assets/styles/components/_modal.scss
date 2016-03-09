@@ -67,17 +67,6 @@
     left: -31px;
     position: absolute;
     pointer-events: none;
-    transition: opacity .5s ease-out;
-    .plus {
-      width: 20px;
-      height: 20px;
-    }
-    .plus::before,
-    .plus::after {
-      width: 20px;
-      height: 2px;
-      background: $black;
-    }
 
     @include min-screen($breakpoint-medium) {
       left: -60px;
@@ -109,5 +98,20 @@
         margin: -40px 0 40px -40px;
       }
     }
+  }
+}
+
+// Close modal button
+.plus-button.hide-modal {
+  transition: opacity .5s ease-out;
+  .plus {
+    width: 20px;
+    height: 20px;
+  }
+  .plus::before,
+  .plus::after {
+    width: 20px;
+    height: 2px;
+    background: $black;
   }
 }
