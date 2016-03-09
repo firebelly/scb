@@ -58,9 +58,11 @@ endwhile;
   if (!empty($people_posts)) { 
     echo '<div class="search-column"><h2 class="cat-title">People</h2>';
     foreach ($people_posts as $people_post) {
-      echo '<article class="article show-post-modal" data-modal-type="person-modal" data-id="'.$people_post->ID.'">
-        <h2 class="entry-title"><a href="'.get_permalink($people_post).'">'.wp_trim_words($people_post->post_title, 10).'</a></h2>
-      </article>';
+      if (!empty($people_post->post_content)) {
+        echo '<article class="article show-post-modal" data-modal-type="person-modal" data-id="'.$people_post->ID.'">
+          <h2 class="entry-title"><a href="'.get_permalink($people_post).'">'.wp_trim_words($people_post->post_title, 10).'</a></h2>
+        </article>';
+      }
     }
     echo '</div>';
   }
