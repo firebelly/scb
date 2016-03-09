@@ -524,6 +524,9 @@
       span:first-of-type {
         @include underline($black);
       }
+      .plus-button {
+        animation: hover 1.5s ease-in-out infinite;
+      }
     }
     span {
       display: block;
