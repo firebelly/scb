@@ -229,12 +229,14 @@ function metaboxes( array $meta_boxes ) {
       'name' => 'Images',
       'id'   => 'images',
       'type' => 'file_list',
+      'description' => __( 'If you are adding images to a block then the block should:<br> 1) be for <strong>images only</strong> (leave all text areas blank)<br> 2) should <strong>NOT</strong> be checked as an emphasis block', 'cmb' ),
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
     'name' => 'Image Layout',
     'id'   => 'image_layout',
     'type' => 'radio_inline',
+    'description' => __( 'If you have added images you <strong>must</strong> select an image layout to ensure proper formatting', 'cmb' ),
     'options' => [
       1 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-1.png">', 
       2 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-2.png">', 
