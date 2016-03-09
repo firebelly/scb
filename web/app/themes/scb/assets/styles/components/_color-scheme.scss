@@ -31,6 +31,24 @@
     }
   }
 
+  // Force treatment of singles as children
+  &.single-project,
+  &.tax-project_category {
+    .menu-portfolio a::after {
+      opacity: 1;
+    }
+  }
+  &.single-person {
+    .menu-people a::after {
+      opacity: 1;
+    }
+  }
+  &.single-office {
+    .menu-careers a::after {
+      opacity: 1;
+    }
+  }
+
   // Project categories
   .project-categories {
     a:hover,
