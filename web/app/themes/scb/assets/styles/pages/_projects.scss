@@ -331,9 +331,7 @@
   // Blog/news posts
   .grid-item.news {
     color: $black;
-    padding-top: 30px;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 30px 20px;
     position: relative;
     &::before {
       top: 0;
@@ -348,6 +346,7 @@
     @include min-screen($breakpoint-medium) {
       padding-left: 10px;
       padding-right: 10px;
+      padding-bottom: 60px;
       &::before {
         left: 10px;
         right: 10px;
@@ -412,7 +411,6 @@
     .stat-number {
       font-size: 52px;
       pointer-events: none;
-      letter-spacing: -.1em;
       @include min-screen($breakpoint-medium) {
         font-size: 26vw;
       }
@@ -478,7 +476,6 @@
         margin-top: 0;
         @include thin();
         font-size: 52px;
-        letter-spacing: .2em;
         line-height: .961538462em;
       }
     }
