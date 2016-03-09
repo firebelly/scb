@@ -934,6 +934,22 @@ var SCB = (function($) {
         _hideSearch();
       }
     });
+
+    // Stickify search column titles for single-column layout
+    if($('body.search-results').length) {
+      var $searchColumns = $('.search-column');
+
+      $(window).on('scroll', function() {
+        $searchColumns.each(function() {
+          var $thisColumn = $(this);
+          if ($(window).scrollTop() >= $thisColumn.offset().top && $(window).scrollTop() <= $thisColumn.offset().top + $thisColumn.outerHeight(true)) {
+            $thisColumn.addClass('inView');
+          } else if ($thisColumn.is('.inView') && $(window).scrollTop() >= $thisColumn.offset().top + $thisColumn.outerHeight(true) || $(window).scrollTop() <= $thisColumn.offset().top) {
+            $thisColumn.removeClass('inView');
+          }
+        });
+      });
+    }
   }
 
   function _hideSearch() {

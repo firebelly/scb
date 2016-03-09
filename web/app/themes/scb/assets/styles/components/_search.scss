@@ -66,19 +66,15 @@ body.search {
     @include clearfix();
 
     @include min-screen($breakpoint-medium) {
-      padding: 30px $column * 2;
+      display: flex;
+      padding: 30px $column;
+      justify-content: center;
     }
   }
 
   .search-column {
     margin-bottom: 30px;
     @include clearfix();
-
-    .cat-title {
-      @include sc();
-      margin-bottom: 30px;
-      border-bottom: 2px solid $black;
-    }
 
     @include min-screen($breakpoint-medium) {
       width: 50%;
@@ -88,6 +84,13 @@ body.search {
 
     @include min-screen($breakpoint-huge) {
       width: 25%;
+    }
+
+    .cat-title {
+      @include sc();
+      padding-top: 10px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid $black;
     }
 
     article {
@@ -127,6 +130,21 @@ body.search {
       background-size: 100% 1px;
       &:hover {
         color: $black;
+      }
+    }
+  }
+
+  // Stickify search column titles for single-column view
+  @include max-screen($breakpoint-medium) {
+    .search-column.inView {
+      padding-top: 62px;
+      .cat-title {
+        top: 0;
+        z-index: 1;
+        left: 20px;
+        right: 20px;
+        position: fixed;
+        background: $white;
       }
     }
   }
