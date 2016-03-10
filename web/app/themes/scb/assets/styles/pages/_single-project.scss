@@ -312,7 +312,11 @@ body.single-project {
       .image-wrap {
         height: 0;
         width: 100%;
+        margin-bottom: 30px;
         padding-bottom: 62.8571429%;
+        @include min-screen($breakpoint-medium) {
+          margin-bottom: 70px;
+        }
       }
 
       .project-meta {
@@ -407,13 +411,8 @@ body.single-project {
 
     .image-wrap {
       position: relative;
-      margin-bottom: 30px;
       background: 50% 50% no-repeat scroll;
       background-size: cover;
-
-      @include min-screen($breakpoint-medium) {
-        margin-bottom: 70px;
-      }
     }
 
     .article-title {
