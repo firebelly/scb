@@ -414,6 +414,17 @@ function sort_projects_admin_menu() {
   add_submenu_page('edit.php?post_type=project', 'Sort Projects', 'Sort Projects', 'manage_options', 'sort_projects', __NAMESPACE__ . '\sort_projects_form');
 }
 
+function project_metatag_description($string) {
+  global $post;
+  $intro = get_post_meta($post->ID, '_cmb2_intro', true);
+  if ($intro) {
+    return $intro;
+  } else {
+    return $string;
+  }
+}
+add_filter('fb_metatag_description', __NAMESPACE__ . '\project_metatag_description');
+
 /**
  * Basic Sort Projects admin page
  */

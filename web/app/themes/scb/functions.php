@@ -24,6 +24,7 @@ $firebelly_includes = [
   'lib/disable-comments.php',          // Disables WP comments in admin and frontend
   'lib/fb_init.php',                   // FB theme setups
   'lib/fb_assets.php',                 // FB assets
+  'lib/fb_metatags.php',               // FB metatags / ogtags
   'lib/media.php',                     // FB media
   'lib/ajax.php',                      // AJAX functions
   'lib/map.php',                       // Map functions
@@ -38,7 +39,6 @@ $firebelly_includes = [
   'lib/post-collections.php',          // Post collections
   'lib/project_category-taxonomy.php', // Project Categories
   'lib/person_category-taxonomy.php',  // Person Categories
-  // 'lib/taxonomy-meta-boxes.php',       // Extra CMB2 Taxonomy fields
   'lib/cmb2-custom-fields.php',        // Custom CMB2
   'lib/site-options.php',              // Site Options page with CMB2 fields
   'lib/post-meta-boxes.php',           // Various tweaks for multiple post types
