@@ -104,20 +104,37 @@ class FbSiteOptions {
 			'id'   => 'twitter_id',
 			'type' => 'text',
 		) );
+
 		$cmb->add_field( array(
 			'name' => __( 'Facebook ID', 'firebelly' ),
 			'id'   => 'facebook_id',
 			'type' => 'text',
 		) );
+
 		$cmb->add_field( array(
 			'name' => __( 'LinkedIn ID', 'firebelly' ),
 			'id'   => 'linkedin_id',
 			'type' => 'text',
 		) );
+
 		$cmb->add_field( array(
 			'name' => __( 'Contact Email', 'firebelly' ),
 			'id'   => 'contact_email',
 			'type' => 'text_email',
+		) );
+
+		$cmb->add_field( array(
+			'name' => __( 'Facebook App ID', 'firebelly' ),
+			'desc'    => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'firebelly' ),
+			'id'   => 'facebook_app_id',
+			'type' => 'text',
+		) );
+
+		$cmb->add_field( array(
+			'name' => __( 'Default Facebook Sharing Image', 'firebelly' ),
+			'desc'    => __( 'This will be used if unable to find an image for shared post/page', 'firebelly' ),
+			'id'   => 'default_metatag_image',
+			'type' => 'file',
 		) );
 
 		$cmb->add_field( array(
