@@ -81,27 +81,6 @@
     }
   }
 
-  // Project grids
-  .home.page .projects.main-project-grid .project a,
-  body.tax-project_category .projects.main-project-grid .project a {
-    transition: color .2s ease-out;
-    &:hover,
-    &:focus {
-      color: $color;
-    }
-  }
-  .projects .project {
-    .big-plus {
-      &:hover,
-      &:focus {
-        &::before,
-        &::after {
-          background: $color;
-        }
-      }
-    }
-  }
-
   // Project pages
   .project {
     .article-title {
@@ -144,13 +123,19 @@ body {
   &.home, &.single:not(.single-project) {
     @include colorScheme($brand-primary);
   }
-  &.architecture, &[data-pageClass=architecture] {
+  &.architecture,
+  &[data-pageClass=architecture],
+  &.term-architecture {
     @include colorScheme($architecture-color);
   }
-  &.interior-design, &[data-pageClass="interior-design"] {
+  &.interior-design, 
+  &[data-pageClass="interior-design"],
+  &.term-interior-design {
     @include colorScheme($interior-design-color);
   }
-  &.planning, &[data-pageClass="planning"] {
+  &.planning,
+  &[data-pageClass="planning"],
+  &.term-planning {
     @include colorScheme($planning-color);
   }
 }

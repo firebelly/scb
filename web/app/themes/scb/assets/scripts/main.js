@@ -160,11 +160,13 @@ var SCB = (function($) {
                 // Cache ajax return
                 category_cache['category-' + project_category] = data;
                 _updateProjects(data);
+                $body.addClass('term-' + project_category);
                 _scrollBody($body, 250, 0);
               }
           });
         } else {
           _updateProjects(category_cache['category-' + project_category]);
+          $body.addClass('term-' + project_category);
         }
       });
     }
@@ -383,6 +385,14 @@ var SCB = (function($) {
     $('.load-more').replaceWith(new_load_more);
 
     $('.masonry-grid').masonry('destroy');
+
+    // Update page classes
+    var termClasses = $('body').attr('class').match(/\bterm-\S+/g);
+    if (termClasses) {    
+      $.each(termClasses, function(){
+        $body.removeClass(this.toString());
+      });
+    }
 
     // Populate new projects in grid
     $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
