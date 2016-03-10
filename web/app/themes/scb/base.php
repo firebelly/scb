@@ -2,14 +2,22 @@
 
 use Roots\Sage\Config;
 use Roots\Sage\Wrapper;
-$parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
+if (is_tax()) {
+  $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+  $parent = get_term($term->parent, get_query_var('taxonomy') );
+  $parentTerm = ($term->parent == 0) ? '' : $parent->slug;
+} elseif ($post->post_type=='project') {
+  $parentTerm = \Firebelly\Utils\get_top_parent_cat($post);
+} else {
+  $parentTerm = '';
+}
 
 ?>
 
 <!doctype html>
 <html class="no-js" <?php language_attributes(); ?>>
   <?php get_template_part('templates/head'); ?>
-  <body <?php body_class($parent_cat); ?>>
+  <body <?php body_class(); ?> data-pageClass="<?= $parentTerm ?>">
     <!--[if lt IE 9]>
       <div class="alert alert-warning">
         <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'sage'); ?>

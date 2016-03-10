@@ -31,6 +31,24 @@
     }
   }
 
+  // Force treatment of singles as children
+  &.single-project,
+  &.tax-project_category {
+    .menu-portfolio a::after {
+      opacity: 1;
+    }
+  }
+  &.single-person {
+    .menu-people a::after {
+      opacity: 1;
+    }
+  }
+  &.single-office {
+    .menu-careers a::after {
+      opacity: 1;
+    }
+  }
+
   // Project categories
   .project-categories {
     a:hover,
@@ -60,27 +78,6 @@
   .stat {
     .stat-number {
       color: $color;
-    }
-  }
-
-  // Project grids
-  .home.page .projects.main-project-grid .project a,
-  body.tax-project_category .projects.main-project-grid .project a {
-    transition: color .2s ease-out;
-    &:hover,
-    &:focus {
-      color: $color;
-    }
-  }
-  .projects .project {
-    .big-plus {
-      &:hover,
-      &:focus {
-        &::before,
-        &::after {
-          background: $color;
-        }
-      }
     }
   }
 
@@ -126,13 +123,19 @@ body {
   &.home, &.single:not(.single-project) {
     @include colorScheme($brand-primary);
   }
-  &.architecture, &[data-pageClass=architecture] {
+  &.architecture,
+  [data-pageClass=architecture],
+  &.term-architecture {
     @include colorScheme($architecture-color);
   }
-  &.interior-design, &[data-pageClass="interior-design"] {
+  &.interior-design, 
+  [data-pageClass="interior-design"],
+  &.term-interior-design {
     @include colorScheme($interior-design-color);
   }
-  &.planning, &[data-pageClass="planning"] {
+  &.planning,
+  [data-pageClass="planning"],
+  &.term-planning {
     @include colorScheme($planning-color);
   }
 }

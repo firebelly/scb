@@ -13,6 +13,7 @@ $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
 ?>
 <article class="project <?= $orientation ?>" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-pageclass="<?= $parent_cat ?>">
   <div class="actions">
+  <a href="portfolio/" class="plus-button close single-project-close"><div class="plus"></div></a href="projects/">
   <?php if (\Firebelly\Collections\post_in_collection($collection,$post->ID, 'large')): ?>
     <a href="#" class="collection-action collection-remove" data-action="remove" data-id="<?= $post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><span class="icon icon-remove"><?php include(get_template_directory().'/assets/svgs/icon-remove.svg'); ?></span> <span class="sr-only">Remove from Collection</span></a>
   <?php else: ?>
@@ -34,7 +35,7 @@ $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
           </p>
         <?php endif ?>
         <div class="project-meta">
-          <div class="show-details"><button class="plus-button details-toggle">Project details <div class="plus"></div></button></a></div>
+          <div class="show-details"><button class="plus-button details-toggle -expandable">Project details <div class="plus"></div></button></a></div>
           <div class="project-meta-content">
             <div class="grid-item one-half -left">              
               <div class="-inner grid">

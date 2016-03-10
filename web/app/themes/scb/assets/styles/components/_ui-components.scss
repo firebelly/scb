@@ -76,7 +76,7 @@
     margin: 0;
   }
   .stat-number {
-    @include thin();
+    @include lazer();
     margin-bottom: 40px;
     color: $brand-primary;
   }
@@ -123,18 +123,11 @@
     }
   }
 
-  @include min-screen($breakpoint-medium) {
-    .stat-number {
-      @include lazer();
-    }
-  }
-
   // Long Stats (>2)
   &.long-stat {
     .stat-number {
       @include thin();
       font-size: 52px;
-      letter-spacing: .2em;
       line-height: .961538462em;
     }
     // Extra long (>4)

@@ -13,9 +13,9 @@ body.single-project {
   }
 
   .main {
-    
+
     .project {
-      background: $white;
+      position: relative;
     }
 
     .project-block {    
@@ -24,6 +24,29 @@ body.single-project {
           padding-left: 10px;
         }
       }
+
+      &.image-layout-3 {
+        @include min-screen($breakpoint-medium) {
+          .image-1 {
+            flex-basis: calc((5 * #{$project-col} + 10px);
+          }
+          .image-2 {
+            flex-basis: calc((6 * #{$project-col}) - 10px);
+          }
+        }
+      }
+
+      &.image-layout-4 {
+        @include min-screen($breakpoint-medium) {
+          .image-1 {
+            flex-basis: calc((5 * #{$project-col}) + 10px);
+          }
+          .image-2 {
+            flex-basis: calc((6 * #{$project-col}) - 10px);
+          }
+        }
+      }
+
     }
     .column {
       @include min-screen($breakpoint-medium) {      
@@ -37,6 +60,72 @@ body.single-project {
       margin-left: -40px;
       margin-right: -40px;
       padding-left: $column;
+
+      .project {
+        background: $white;
+      }
+    }
+
+    // Vertical mods
+    .project.vertical {
+      
+      .project-intro {
+        .column {
+          @include min-screen($breakpoint-medium) {
+            &.-left {
+              width: calc((5 * #{$project-col}) + 12px);
+            }
+            &.-right {
+              width: calc((6 * #{$project-col}) - 12px);
+            }
+          }
+        }
+      }
+
+      .project-blocks .project-block {
+        &.image-layout-1 {
+          @include min-screen($breakpoint-medium) {              
+            .image-1 {
+              flex-basis: calc((5 * #{$project-col}) + 10px);
+            }
+            .image-2 {
+              flex-basis: calc((6 * #{$project-col}) - 10px);
+            }
+          }
+        }
+      }
+    }
+
+    .actions {
+      top: 20px;
+      left: 20px;
+      position: absolute;
+      @include min-screen($breakpoint-medium) {
+        top: 0;
+        left: calc((-#{$column / 2}) - 12px);
+      }
+
+      .single-project-close {
+        display: block;
+        margin-bottom: 20px;
+        @extend .plus-button.hide-modal;
+      }
+    }
+  }
+
+  // Collection modal mods
+  section.collection {
+    .project {
+      .wrap::before {
+        z-index: 1;
+      }
+      .image-wrap {
+        z-index: 0;
+      }
+      .article-title {
+        margin: 0;
+        font-size: 14px;
+      }
     }
   }
 
@@ -54,12 +143,32 @@ body.single-project {
 
   .actions {
     display: none;
+    .single-project-close {
+      display: none;
+    }
   }
 
   @include min-screen($breakpoint-medium) {
 
     &.active {
       width: 100% - $column; 
+    }
+  }
+
+  // Vertical mods
+  .project.vertical {
+    
+    .project-intro {
+      .column {
+        @include min-screen($breakpoint-medium) {
+          &.-left {
+            width: calc((5 * #{$project-col}) + 8px);
+          }
+          &.-right {
+            width: calc((6 * #{$project-col}) - 8px);
+          }
+        }
+      }
     }
   }
 }
@@ -146,7 +255,7 @@ body.single-project {
 
     // Stat defaults
     .stat {
-      padding: 40px 0 60px;
+      padding: 60px 0 40px;
       @include min-screen($breakpoint-medium) {
         padding: 0;
       }
@@ -198,21 +307,16 @@ body.single-project {
       }
     }
 
-    // Adjusted column for project blocks
-    .project-block {    
-      .column.-right {
-        @include min-screen($breakpoint-medium) {
-          padding-left: 6px;
-        }
-      }
-    }
-
     // Horizontal orientation
     &.horizontal {
       .image-wrap {
         height: 0;
         width: 100%;
+        margin-bottom: 30px;
         padding-bottom: 62.8571429%;
+        @include min-screen($breakpoint-medium) {
+          margin-bottom: 70px;
+        }
       }
 
       .project-meta {
@@ -227,7 +331,7 @@ body.single-project {
     // Vertical orientation
     &.vertical {
       .image-wrap {
-        padding-bottom: 64.1975309%;
+        padding-bottom: 125%;
       }
 
       .project-intro {
@@ -239,15 +343,15 @@ body.single-project {
 
         @include min-screen($breakpoint-medium) {
           padding-right: 40px;
-          
+
           .image-wrap {
-            border-right: 20px solid $white;
+            padding-bottom: 64.1975309%;
           }
 
           .column {
             &.-right {
+              padding-top: 60px;
               background: $white;
-              padding: 60px 0 0 0;
             }
           }
         }
@@ -275,13 +379,10 @@ body.single-project {
             &.image-layout-1 {
               @include min-screen($breakpoint-medium) {              
                 .image-1 {
-                  flex-basis: 5 * $project-col;
+                  flex-basis: calc((5 * #{$project-col}) + 6px);
                 }
                 .image-2 {
-                  flex-basis: 6 * $project-col;
-                }
-                .stat {
-                  width: 6 * $project-col;
+                  flex-basis: calc((6 * #{$project-col}) - 6px);
                 }
               }
             }
@@ -294,7 +395,7 @@ body.single-project {
       padding-bottom: 20px;
 
       @include min-screen($breakpoint-medium) {
-        padding-bottom: 0;
+        padding-bottom: 40px;
         
         > .wrap {
           display: flex;
@@ -310,13 +411,8 @@ body.single-project {
 
     .image-wrap {
       position: relative;
-      margin-bottom: 30px;
       background: 50% 50% no-repeat scroll;
       background-size: cover;
-
-      @include min-screen($breakpoint-medium) {
-        margin-bottom: 70px;
-      }
     }
 
     .article-title {
@@ -330,6 +426,13 @@ body.single-project {
       }
       @include min-screen($breakpoint-huge) {
         font-size: 84px;
+      }
+    }
+
+    .column-text-wrap {
+      padding: 0;
+      @include min-screen($breakpoint-medium) {
+        padding: 0 20px;
       }
     }
   }
@@ -434,6 +537,12 @@ body.single-project {
 
   .project-intro-text {
     @include h2();
+    @include min-screen($breakpoint-medium) {
+      font-size: 22px;
+    }
+    @include min-screen($breakpoint-nav) {
+      font-size: 28px;
+    }
   }
 }
 
@@ -441,10 +550,18 @@ body.single-project {
 .project-blocks {
   .project-block {
     margin: 20px;
+    padding: 40px 0;
     @include clearfix();
 
+    &:not(.image-block),
+    &:not(.emphasis-block) {
+      margin-bottom: 40px;
+    }
+
     @include min-screen($breakpoint-medium) {
-      margin: 40px;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 60px 0;
     }
 
     .user-content {
@@ -454,14 +571,20 @@ body.single-project {
       }
     }
 
-    .right-column-text {
+    .left-column-text.-empty {
+      margin-bottom: -40px;
+      @include min-screen($breakpoint-medium) {
+        margin-bottom: 0;
+      }
+    }
+
+    .right-column-text:not(.-empty) {
       margin-top: 40px;
       @include min-screen($breakpoint-medium) {
         margin-top: 0;
       }
     }
 
-    // Emphasized block
     .full-width-text {
 
       h2, h3 {
@@ -518,6 +641,10 @@ body.single-project {
       padding: 40px 20px;
       background: $gray-dark;
 
+      .column-text-wrap {
+        padding: 0;
+      }
+
       .left-column-text {
         ul {
           li {
@@ -533,7 +660,7 @@ body.single-project {
       }
 
       @include min-screen($breakpoint-medium) {
-        padding: 80px 0;
+        padding: 60px 0;
         margin-left: 40px;
         margin-right: 40px;
 
@@ -545,6 +672,21 @@ body.single-project {
         .column {
           &.-left {
             padding-left: $project-padding;
+          }
+        }
+      }
+    }
+
+    // Adjust left text columns when not an emphasis block
+    &:not(.emphasis-block) {
+      @include min-screen($breakpoint-medium) {
+        .left-column-text.column.-left {
+          padding-left: calc(#{$project-padding} + 16px);
+        }
+        .full-width-text {
+          padding-left: calc(#{$project-padding} + 16px);
+          blockquote {
+            margin: 0 16px;
           }
         }
       }
@@ -587,19 +729,54 @@ body.single-project {
     // Image block layouts
     &.image-block {
       margin: 0;
+      padding: 0;
       position: relative;
 
       .image-grid {
         position: relative;
       }
 
-      @include min-screen($breakpoint-medium) {
-        &:not(.image-layout-5) {
-          margin: 40px;
+      // Has a stat?
+      &.has-stat {
+        .image {
+          span {
+            display: block;
+            position: relative;
+          }
         }
+      }
 
+      // Is followed by an emphasis block
+      + .emphasis-block {
+        margin-top: 0;
+      }
+
+      @include min-screen($breakpoint-medium) {
+        margin: 0 40px;
+    
         .image-grid {
           display: flex;
+        }
+
+        &.has-stat {
+          .image:last-of-type {
+            margin-bottom: 130px;
+          }
+        }
+
+        .stat {
+          right: 0;
+          top: 100%;
+          width: 100%;
+          padding: 0 20px;
+          position: absolute;
+          transform: translateY(-8vw);
+          &.long-stat {
+            transform: translateY(-3vw);
+          }
+          &.extra-long-stat {
+            transform: translateY(-2vw);
+          }
         }
       }
 
@@ -615,27 +792,13 @@ body.single-project {
       &.image-layout-1 {
 
         @include min-screen($breakpoint-medium) {
-          margin-left: 0;
-          &.has-stat {
-            margin-bottom: 80px;
-          }
 
           .image-1 {
-            padding-left: 40px;
             flex-basis: 8 * $project-col;
             border-right: 20px solid $white;
           }
           .image-2 {
             flex-basis: 3 * $project-col;
-          }
-          .stat {
-            right: 0;
-            bottom: -60px;
-            position: absolute;
-            width: 3 * $project-col;
-            &.long-stat {
-              bottom: -.5em;
-            }
           }
         }
 
@@ -644,7 +807,6 @@ body.single-project {
       &.image-layout-2 {
 
         @include min-screen($breakpoint-medium) {
-          margin-left: 0;
 
           .image-grid {
             flex-wrap: wrap;
@@ -652,11 +814,9 @@ body.single-project {
 
           .image-1 {
             flex-basis: 100%;
-            padding-left: 40px;
           }
 
           .image-2 {
-            padding-left: 40px;
             flex-basis: 5 * $project-col;
             border-right: 20px solid $white;
           }
@@ -672,25 +832,22 @@ body.single-project {
       &.image-layout-3 {
 
         @include min-screen($breakpoint-medium) {
-          margin-left: 0;
 
           .image-grid {
             flex-wrap: wrap;
           }
 
           .image-1 {
-            padding-left: 40px;
-            flex-basis: 5 * $project-col;
             border-right: 20px solid $white;
+            flex-basis: calc((5 * #{$project-col} + 6px);
           }
 
           .image-2 {
-            flex-basis: 6 * $project-col;
+            flex-basis: calc((6 * #{$project-col}) - 6px);
           }
 
           .image-3 {
             flex-basis: 100%;
-            padding-left: 40px;
           }
 
         }
@@ -700,24 +857,21 @@ body.single-project {
       &.image-layout-4 {
 
         @include min-screen($breakpoint-medium) {
-          margin-left: 0;
 
           .image-grid {
             flex-wrap: wrap;
           }
 
           .image-1 {
-            padding-left: 40px;
-            flex-basis: 5 * $project-col;
             border-right: 20px solid $white;
+            flex-basis: calc((5 * #{$project-col}) + 6px);
           }
 
           .image-2 {
-            flex-basis: 6 * $project-col;
+            flex-basis: calc((6 * #{$project-col}) - 6px);
           }
 
           .image-3 {
-            padding-left: 40px;
             flex-basis: 6 * $project-col;
             border-right: 20px solid $white;
           }
@@ -734,8 +888,6 @@ body.single-project {
       &.image-layout-5 {
 
         @include min-screen($breakpoint-medium) {
-          margin-right: 0;
-
           .image-grid {
             display: block;
           }
@@ -744,10 +896,12 @@ body.single-project {
           width: 100%;
         }
         .stat {
-          top: 50%;
-          right: $column;
-          position: absolute;
-          transform: translate(-40px, -50%);
+          @include min-screen($breakpoint-medium) {          
+            width: auto;
+            float: right;
+            right: $column;
+            position: relative;
+          }
         }
       }
     }

@@ -15,6 +15,8 @@ var SCB = (function($) {
       $collection,
       $modal,
       loadingTimer,
+      // Get scrollbar width on page load
+      scrollbarWidth = _getScrollbarWidth(),
       History = window.History,
       rootUrl = History.getRootUrl(),
       page_cache = [],
@@ -158,11 +160,13 @@ var SCB = (function($) {
                 // Cache ajax return
                 category_cache['category-' + project_category] = data;
                 _updateProjects(data);
+                $body.addClass('term-' + project_category);
                 _scrollBody($body, 250, 0);
               }
           });
         } else {
           _updateProjects(category_cache['category-' + project_category]);
+          $body.addClass('term-' + project_category);
         }
       });
     }
@@ -332,6 +336,32 @@ var SCB = (function($) {
 
   } // end init()
 
+  // Get scrollbar width for open modal offset
+  function _getScrollbarWidth() {
+    var outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.width = "100px";
+    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+
+    document.body.appendChild(outer);
+
+    var widthNoScroll = outer.offsetWidth;
+    // force scrollbars
+    outer.style.overflow = "scroll";
+
+    // add innerdiv
+    var inner = document.createElement("div");
+    inner.style.width = "100%";
+    outer.appendChild(inner);        
+
+    var widthWithScroll = inner.offsetWidth;
+
+    // remove divs
+    outer.parentNode.removeChild(outer);
+
+    return widthNoScroll - widthWithScroll;
+  }
+
   // Collapse category nav?
   function _checkCatScrollPos() {
     if($(window).scrollTop() >= $('.main .projects').offset().top - $('.site-header').outerHeight()) {
@@ -355,6 +385,14 @@ var SCB = (function($) {
     $('.load-more').replaceWith(new_load_more);
 
     $('.masonry-grid').masonry('destroy');
+
+    // Update page classes
+    var termClasses = $('body').attr('class').match(/\bterm-\S+/g);
+    if (termClasses) {    
+      $.each(termClasses, function(){
+        $body.removeClass(this.toString());
+      });
+    }
 
     // Populate new projects in grid
     $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
@@ -581,6 +619,8 @@ var SCB = (function($) {
   function _showModal() {
     _showPageOverlay(); 
     $body.addClass('modal-active');
+    // Offset body for scrollbar width
+    $('body, .site-header').css('margin-right', scrollbarWidth);
     $modal.addClass('display');
     $modal.find('.modal-content').scrollTop(0);
     setTimeout(function() {
@@ -597,6 +637,7 @@ var SCB = (function($) {
   function _hideModal() {
     State = History.getState();
     _hidePageOverlay();
+    $('body, .site-header').css('margin-right', 0);
     $body.removeClass('modal-active');
     $modal.removeClass('active');
     setTimeout(function() {
@@ -612,6 +653,8 @@ var SCB = (function($) {
     _hideModal();
     _showPageOverlay(); 
     $body.addClass('collection-active');
+    // Offset body for scrollbar width
+    $('body, .site-header').css('margin-right', scrollbarWidth);
     $collection.addClass('display');
     setTimeout(function() {
       $collection.addClass('active');
@@ -631,6 +674,7 @@ var SCB = (function($) {
     _hidePageOverlay();
     $body.removeClass('collection-active');
     $collection.removeClass('active');
+    $('body, .site-header').css('margin-right', 0);
     setTimeout(function() {
       $collection.removeClass('display');
     }, 500);
@@ -859,7 +903,11 @@ var SCB = (function($) {
     var $grid = $('.masonry-grid').masonry({
       itemSelector: '.grid-item',
       columnWidth: '.grid-sizer',
+      transitionDuration: '0.2s',
       hiddenStyle: { opacity: 0 }
+    });
+    $grid.imagesLoaded(function() {
+      $grid.addClass('loaded');
     });
   }
 
@@ -896,6 +944,22 @@ var SCB = (function($) {
         _hideSearch();
       }
     });
+
+    // Stickify search column titles for single-column layout
+    if($('body.search-results').length) {
+      var $searchColumns = $('.search-column');
+
+      $(window).on('scroll', function() {
+        $searchColumns.each(function() {
+          var $thisColumn = $(this);
+          if ($(window).scrollTop() >= $thisColumn.offset().top && $(window).scrollTop() <= $thisColumn.offset().top + $thisColumn.outerHeight(true)) {
+            $thisColumn.addClass('inView');
+          } else if ($thisColumn.is('.inView') && $(window).scrollTop() >= $thisColumn.offset().top + $thisColumn.outerHeight(true) || $(window).scrollTop() <= $thisColumn.offset().top) {
+            $thisColumn.removeClass('inView');
+          }
+        });
+      });
+    }
   }
 
   function _hideSearch() {

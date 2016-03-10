@@ -4,7 +4,9 @@
 .admin-bar {
   .project-categories {
     &.fixed {
-      top: 158px;
+      @include min-screen($breakpoint-medium) {
+        top: 158px;
+      }
       @include min-screen($breakpoint-nav) {
         top: 128px;
       }
@@ -28,12 +30,14 @@
       left: 0;
       z-index: 2;
       top: 126px;
+      opacity: 0;
       width: 100%;
       position: fixed;
       padding: 0 20px 50px 50%;
       transform: translateY(-100%);
       transition: transform .35s ease-out;
       &.expanded {
+        opacity: 1;
         transform: translateY(0);
       }
 

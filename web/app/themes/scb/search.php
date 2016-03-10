@@ -6,6 +6,8 @@ while (have_posts()) : the_post();
     $news_posts[] = $post;
   } elseif ($post->post_type=='project') {
     $project_posts[] = $post;
+  } elseif ($post->post_type=='person') {
+    $people_posts[] = $post;
   } else {
     // Not currently using this anywhere
     $other_posts[] = $post;
@@ -49,18 +51,34 @@ endwhile;
     }
   }
   ?>
-  <div class="search-column">
-    <?php 
-    // Any news posts match?
-    if (!empty($news_posts)) { 
-      echo '<h2 class="cat-title">News</h2>';
-      foreach ($news_posts as $news_post) {
-        echo '<article class="article show-post-modal" data-modal-type="news-modal" data-id="'.$news_post->ID.'">
-          <h2 class="entry-title"><a href="'.get_permalink($news_post).'">'.wp_trim_words($news_post->post_title, 10).'</a></h2>
+
+
+  <?php 
+  // Any news posts match?
+  if (!empty($people_posts)) { 
+    echo '<div class="search-column"><h2 class="cat-title">People</h2>';
+    foreach ($people_posts as $people_post) {
+      if (!empty($people_post->post_content)) {
+        echo '<article class="article show-post-modal" data-modal-type="person-modal" data-id="'.$people_post->ID.'">
+          <h2 class="entry-title"><a href="'.get_permalink($people_post).'">'.wp_trim_words($people_post->post_title, 10).'</a></h2>
         </article>';
       }
     }
-    ?>
-  </div>
+    echo '</div>';
+  }
+  ?>
+
+  <?php 
+  // Any news posts match?
+  if (!empty($news_posts)) { 
+    echo '<div class="search-column"><h2 class="cat-title">News</h2>';
+    foreach ($news_posts as $news_post) {
+      echo '<article class="article show-post-modal" data-modal-type="news-modal" data-id="'.$news_post->ID.'">
+        <h2 class="entry-title"><a href="'.get_permalink($news_post).'">'.wp_trim_words($news_post->post_title, 10).'</a></h2>
+      </article>';
+    }
+    echo '</div>';
+  }
+  ?>
 
 </div><!-- .search-container -->

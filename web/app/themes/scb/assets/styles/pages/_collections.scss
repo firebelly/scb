@@ -18,16 +18,16 @@ section.collection {
   }
 
   h1 {
-    margin-bottom: 8px;
     @include sc();
+    margin-bottom: 8px;
     .collection-title {
+      padding: 0;
+      border: none;
       @include h1();
       display: block;
+      max-width: 100%;
       text-transform: none;
       color: $brand-primary;
-      border: none;
-      padding: 0;
-      max-width: 100%;
       &::placeholder {
         color: $brand-primary;
       }
@@ -83,6 +83,14 @@ section.collection {
     
     .wrap {
       padding: 20px;
+    }
+
+    &.vertical,
+    &.horizontal {
+      .image-wrap {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
     }
 
     h1 {
@@ -303,6 +311,7 @@ section.collection {
       .actions {
         margin: 0;
         top: 20px;
+        left: auto;
         right: 20px;
         position: absolute;
         .remove-text {
