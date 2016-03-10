@@ -242,16 +242,16 @@
         },
         {
             "name": "roots/soil",
-            "version": "3.6.2",
+            "version": "3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/soil.git",
-                "reference": "8b534d4b271033d22b8fa0d055c740f7f9c4ca58"
+                "reference": "085fd3c9b16df5b72dce4fba09de0207937ef721"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roots/soil/zipball/8b534d4b271033d22b8fa0d055c740f7f9c4ca58",
-                "reference": "8b534d4b271033d22b8fa0d055c740f7f9c4ca58",
+                "url": "https://api.github.com/repos/roots/soil/zipball/085fd3c9b16df5b72dce4fba09de0207937ef721",
+                "reference": "085fd3c9b16df5b72dce4fba09de0207937ef721",
                 "shasum": ""
             },
             "require": {
@@ -280,7 +280,7 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2015-12-24 19:42:34"
+            "time": "2016-03-07 19:49:21"
         },
         {
             "name": "setasign/fpdf",
@@ -729,15 +729,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-super-cache",
-            "version": "1.4.7",
+            "version": "1.4.8",
             "source": {
                 "type": "svn",
                 "url": "http://plugins.svn.wordpress.org/wp-super-cache/",
-                "reference": "tags/1.4.7"
+                "reference": "tags/1.4.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-super-cache.1.4.7.zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-super-cache.1.4.8.zip",
                 "reference": null,
                 "shasum": null
             },
