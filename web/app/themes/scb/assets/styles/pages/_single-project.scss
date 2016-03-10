@@ -282,6 +282,16 @@ body.single-project {
           }
         }
       }
+
+      // Solo stat (not associated with image block)
+      &.solo-stat {
+        @include min-screen($breakpoint-medium) {
+          float: right;
+          padding-left: 10px;
+          padding-right: 40px;
+          width: 6 * $project-col;
+        }
+      }
     }
 
     // Columns
@@ -583,6 +593,10 @@ body.single-project {
       @include min-screen($breakpoint-medium) {
         margin-top: 0;
       }
+
+      p:first-of-type {
+        margin-top: 0;
+      }
     }
 
     .full-width-text {
@@ -744,6 +758,11 @@ body.single-project {
             position: relative;
           }
         }
+      }
+
+      // If they checked emphasis on accident (or purpose)
+      &.emphasis {
+        background: transparent;
       }
 
       // Is followed by an emphasis block

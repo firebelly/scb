@@ -250,6 +250,7 @@ function metaboxes( array $meta_boxes ) {
     'name' => 'Emphasis Block',
     'id'   => 'emphasis_block',
     'type' => 'checkbox',
+    'desc' => '<strong>Do not</strong> check this box if this is an image block.'
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
@@ -265,8 +266,8 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Full-width Text',
-    'desc' => 'Full-width text area (no columns); e.g. blockquotes',
+    'name' => 'Callout/Full-width Text',
+    'desc' => 'This should not be regular body copy, but call-out style text added as a blockquote (“). Regular body copy should be placed in the <strong>Body copy/Right Column Text</strong> area.',
     'id'   => 'full_width_text',
     'type' => 'wysiwyg',
     'options' => array(
@@ -275,8 +276,8 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Left Column Text',
-    'desc' => 'e.g. stats, awards; always paired with Right Column Text',
+    'name' => 'Secondary content/Left Column Text',
+    'desc' => 'e.g. stats, awards; <strong>always</strong> paired with Right Column Text',
     'id'   => 'left_column_text',
     'type' => 'wysiwyg',
     'options' => array(
@@ -285,8 +286,8 @@ function metaboxes( array $meta_boxes ) {
   ) );
 
   $cmb_group->add_group_field( $group_field_id, array(
-    'name' => 'Right Column Text',
-    'desc' => 'e.g. design; always paired with Left Column Text',
+    'name' => 'Body copy/Right Column Text',
+    'desc' => 'Used for regular body copy, either alone or paired with secondary content (like stats, awards, etc) in the Left Column Text area',
     'id'   => 'right_column_text',
     'type' => 'wysiwyg',
     'options' => array(
@@ -372,6 +373,15 @@ function get_project_blocks($post) {
             $output .= '</div>';
           }
           $output .= '</div><!-- .image-grid -->';
+        }
+
+        // if they enter only a stat
+        if (!empty($project_block['stat_number']) && empty($project_block['images']) && empty($project_block['full_width_text']) && empty($project_block['left_column_text']) && empty($project_block['right_column_text'])) {
+          $long_stat = strlen($project_block['stat_number']) > 2 ? (strlen($project_block['stat_number']) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
+          $output .= '<div class="stat solo-stat'.$long_stat.'">';
+          $output .= !empty($project_block['stat_number']) ? '<div class="stat-number">' . $project_block['stat_number'] . '</div>' : '';
+          $output .= !empty($project_block['stat_label']) ? '<div class="stat-label">' . $project_block['stat_label'] . '</div>' : '';
+          $output .= '</span></div>';
         }
 
         if (!empty($project_block['full_width_text'])) {
