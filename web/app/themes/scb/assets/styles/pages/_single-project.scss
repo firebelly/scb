@@ -746,6 +746,11 @@ body.single-project {
         }
       }
 
+      // Is followed by an emphasis block
+      + .emphasis-block {
+        margin-top: 0;
+      }
+
       @include min-screen($breakpoint-medium) {
         margin: 0 40px;
     
