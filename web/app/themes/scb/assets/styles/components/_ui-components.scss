@@ -76,9 +76,12 @@
     margin: 0;
   }
   .stat-number {
-    @include lazer();
+    @include thin();
     margin-bottom: 40px;
     color: $brand-primary;
+    @include min-screen($breakpoint-medium) {
+      @include lazer();
+    }
   }
   .stat-label {
     @include sc();
