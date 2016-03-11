@@ -124,7 +124,8 @@
   }
 
   .contact {
-    a {
+    .email a {
+      font-size: 10px;
       text-decoration: none;
       @include underline($black);
       &:hover, &:focus {
@@ -146,6 +147,9 @@
     }
 
     @include min-screen($breakpoint-small) {
+      .email a {
+        font-size: 14px;
+      }
     }
   }
 
