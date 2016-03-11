@@ -398,9 +398,11 @@ body.single-project {
             &.image-layout-1 {
               @include min-screen($breakpoint-medium) {              
                 .image-1 {
+                  max-width: calc((5 * #{$project-col}) + 6px);
                   flex-basis: calc((5 * #{$project-col}) + 6px);
                 }
                 .image-2 {
+                  max-width: calc((6 * #{$project-col}) - 6px);
                   flex-basis: calc((6 * #{$project-col}) - 6px);
                 }
               }
@@ -822,10 +824,12 @@ body.single-project {
         @include min-screen($breakpoint-medium) {
 
           .image-1 {
+            max-width: 8 * $project-col;
             flex-basis: 8 * $project-col;
             border-right: 20px solid $white;
           }
           .image-2 {
+            max-width: 3 * $project-col;
             flex-basis: 3 * $project-col;
           }
         }
@@ -841,15 +845,18 @@ body.single-project {
           }
 
           .image-1 {
+            max-width 100%;
             flex-basis: 100%;
           }
 
           .image-2 {
+            max-width: 5 * $project-col;
             flex-basis: 5 * $project-col;
             border-right: 20px solid $white;
           }
 
           .image-3 {
+            max-width: 6 * $project-col;
             flex-basis: 6 * $project-col;
           }
 
@@ -867,14 +874,17 @@ body.single-project {
 
           .image-1 {
             border-right: 20px solid $white;
+            max-width: calc((5 * #{$project-col} + 6px);
             flex-basis: calc((5 * #{$project-col} + 6px);
           }
 
           .image-2 {
+            max-width: calc((6 * #{$project-col}) - 6px);
             flex-basis: calc((6 * #{$project-col}) - 6px);
           }
 
           .image-3 {
+            max-width: 100%;
             flex-basis: 100%;
           }
 
@@ -892,19 +902,23 @@ body.single-project {
 
           .image-1 {
             border-right: 20px solid $white;
+            max-width: calc((5 * #{$project-col}) + 6px);
             flex-basis: calc((5 * #{$project-col}) + 6px);
           }
 
           .image-2 {
+            max-width: calc((6 * #{$project-col}) - 6px);
             flex-basis: calc((6 * #{$project-col}) - 6px);
           }
 
           .image-3 {
+            max-width: 6 * $project-col;
             flex-basis: 6 * $project-col;
             border-right: 20px solid $white;
           }
 
           .image-4 {
+            max-width: 5 * $project-col;
             flex-basis: 5 * $project-col;
           }
 
