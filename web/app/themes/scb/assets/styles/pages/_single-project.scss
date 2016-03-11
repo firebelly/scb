@@ -348,6 +348,7 @@ body.single-project {
     // Vertical orientation
     &.vertical {
       .image-wrap {
+        margin-bottom: 20px;
         padding-bottom: 125%;
       }
 
@@ -362,6 +363,7 @@ body.single-project {
           padding-right: 40px;
 
           .image-wrap {
+            margin-bottom: 0; 
             padding-bottom: 64.1975309%;
           }
 
