@@ -146,6 +146,13 @@ body.single-project {
     .single-project-close {
       display: none;
     }
+
+    .icon-download {
+      transition: fill .2s ease-out;
+      &:hover {
+        fill: $brand-primary;
+      }
+    }
   }
 
   @include min-screen($breakpoint-medium) {
