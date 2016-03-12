@@ -155,6 +155,10 @@ body.single-project {
     }
   }
 
+  article {
+    overflow: visible;
+  }
+
   @include min-screen($breakpoint-medium) {
 
     &.active {
