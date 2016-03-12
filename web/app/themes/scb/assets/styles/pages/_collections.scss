@@ -394,6 +394,13 @@ body.dragging * {
 
 // Collection page only styles
 .page.collection {
+  main {
+    .hide-modal,
+    .feedback-container {
+      display: none;
+    }
+  }
+
   .project {
     .wrap {
       min-height: 300px;

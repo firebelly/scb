@@ -20,6 +20,8 @@
   }
 
   .article-header {
+    position: relative;
+    padding: 20px 60px 20px 0;
     h3 {
       font-size: 14px;
       font-weight: 200;
@@ -29,6 +31,11 @@
     }
 
     .actions {
+      right: 0;
+      top: 20px;
+      margin: 0;
+      line-height: 54px;
+      position: absolute;
       .collection-action {
         .icon {
           fill: $black;
@@ -36,6 +43,15 @@
             fill: $red;
           }
         }
+      }
+    }
+
+    @include min-screen($breakpoint-medium) {
+      padding: 40px 80px 40px 0;
+
+      .actions {
+        right: 0;
+        top: 40px;
       }
     }
   }
@@ -53,6 +69,7 @@
   }
 
 }
+
 // Single Person in modal
 .modal.person-modal {
 
@@ -60,27 +77,6 @@
     padding: 20px;
     @include min-screen($breakpoint-medium) {
       padding: 40px;
-    }
-  }
-
-  .article-header {
-    position: relative;
-    padding: 20px 60px 20px 0;
-    .actions {
-      right: 0;
-      top: 20px;
-      margin: 0;
-      line-height: 54px;
-      position: absolute;
-    }
-
-    @include min-screen($breakpoint-medium) {
-      padding: 40px 80px 40px 0;
-
-      .actions {
-        right: 0;
-        top: 40px;
-      }
     }
   }
 
@@ -120,6 +116,16 @@
       .content {
         width: 100% / 3 * 2;
       }
+    }
+  }
+}
+// Single person page
+body.single-person {
+  article {
+    padding: 20px;
+
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
     }
   }
 }
