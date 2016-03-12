@@ -11,14 +11,22 @@ body.single:not(.single-project) {
     @include clearfix();
 
     article {
-      padding: 20px;
       background: $white;
 
       @include min-screen($breakpoint-medium) {
         float: right;
-        padding: 40px;
         margin-right: -40px;
         width: calc(50% + 70px);
+      }
+    }
+  }  
+}
+body.single:not(.single-project, .single-post) {
+  .main {
+    article {
+      padding: 20px;
+      @include min-screen($breakpoint-medium) {
+        padding: 40px;
       }
     }
   }  

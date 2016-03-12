@@ -1,20 +1,9 @@
 // Single Posts
 
+body.single-post main,
 .modal.news-modal {
   padding: 0;
   background: transparent;
-
-  @include min-screen($breakpoint-medium) {
-    width: calc(50% + 82px);
-    .modal-content {
-      padding-left: 52px; 
-    }
-    .hide-modal {
-      left: -8px;
-      z-index: 2;
-    }
-  }
-
 
   // If their is a featured image
   .has-post-thumbnail {
@@ -105,5 +94,33 @@
 
   .article {
     background: $white;
+  }
+}
+
+// Single page only
+body.single-post {
+  article {
+    .article-date {
+      opacity: 1;
+    }
+    background: $white;
+    @include min-screen($breakpoint-medium) {
+      padding: 0;
+    }
+  }
+}
+
+// Modal only
+.modal.news-modal {
+  @include min-screen($breakpoint-medium) {
+    width: calc(50% + 82px);
+
+    .modal-content {
+      padding-left: 52px; 
+    }
+    .hide-modal {
+      left: -8px;
+      z-index: 2;
+    }
   }
 }
