@@ -86,14 +86,14 @@ body.about {
 
   .design-principles {
 
-    div {
+    .design-principle {
       margin-top: 20px;
+      @include clearfix();
       &:first-of-type {
         margin-top: 0;
       }
       
       h3, .dash {
-        flex-grow: 1;
         @include h2();
       }
 
@@ -102,12 +102,14 @@ body.about {
         @include min-screen($breakpoint-medium) {        
           width: 100%;
           max-width: 130px;
+          flex-basis: 130px;
         }
       }
 
       .dash {
         width: 100%;
         max-width: 50px;
+        flex-basis: 50px;
         color: $brand-primary;
       }
 
@@ -117,7 +119,20 @@ body.about {
       }
 
       @include min-screen($breakpoint-medium) {
-        display: flex;
+        .-left {
+          width: 100%;
+          float: left;
+          max-width: 180px;
+        }
+
+        h3, .dash {
+          float: left;
+        }
+
+        p {
+          float: right;
+          width: calc(100% - 180px);
+        }
 
       }
     }

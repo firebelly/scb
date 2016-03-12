@@ -49,10 +49,10 @@ $map_id = \Firebelly\Utils\get_id_by_slug('map');
 
     <section class="design-principles">
       <h2>Principles</h2>
-      <div><h3>Interpret</h3> <span class="dash">—</span> <p>Every project begins with a conversation. We work closely with our clients to understand their goals and interpret their vision.</p></div>
-      <div><h3>Envision</h3> <span class="dash">—</span> <p>Our designs combine artistic expression with technical rigor, integrating sustainability and vision to create solutions that uniquely suit our clients’ needs.</p></div>
-      <div><h3>Execute</h3> <span class="dash">—</span> <p>A project isn’t successful until it’s delivered successfully. Our team has developed a strong reputation for seamless project management that ensures projects are delivered on time and on budget.</p></div>
-      <div><h3>Inspire</h3> <span class="dash">—</span> <p>Real design solutions inspire. SCB’s work is tangible, and our projects strive to make positive contributions to people’s lives and the urban fabric.</p></div>
+      <div class="design-principle"><div class="-left"><h3>Interpret</h3> <span class="dash">—</span></div><p>Every project begins with a conversation. We work closely with our clients to understand their goals and interpret their vision.</p></div>
+      <div class="design-principle"><div class="-left"><h3>Envision</h3> <span class="dash">—</span></div><p>Our designs combine artistic expression with technical rigor, integrating sustainability and vision to create solutions that uniquely suit our clients’ needs.</p></div>
+      <div class="design-principle"><div class="-left"><h3>Execute</h3> <span class="dash">—</span></div><p>A project isn’t successful until it’s delivered successfully. Our team has developed a strong reputation for seamless project management that ensures projects are delivered on time and on budget.</p></div>
+      <div class="design-principle"><div class="-left"><h3>Inspire</h3> <span class="dash">—</span></div><p>Real design solutions inspire. SCB’s work is tangible, and our projects strive to make positive contributions to people’s lives and the urban fabric.</p></div>
     </section>
   </div>
 
