@@ -4,13 +4,13 @@
  */
 
 $num_design_professionals = \Firebelly\SiteOptions\get_option('num_design_professionals');
-$num_active_projects = \Firebelly\SiteOptions\get_option('num_active_projects');
+$num_completed_projects = \Firebelly\SiteOptions\get_option('num_completed_projects');
 $num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 
 $chicagoId = url_to_postid('office/chicago');
 $sanFranciscoId = url_to_postid('office/san-francisco');
 
-$map_id = \Firebelly\Utils\get_id_by_slug('map');
+$completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_projects_map_image');
 ?>
 
 
@@ -18,7 +18,7 @@ $map_id = \Firebelly\Utils\get_id_by_slug('map');
 
   <div class="page-intro grid-item one-half -left">
     <div class="-top">    
-      <?= $post->post_content ?>
+      <?= apply_filters('the_content', $post->post_content) ?>
     </div>
   </div>
 
@@ -40,9 +40,11 @@ $map_id = \Firebelly\Utils\get_id_by_slug('map');
       </div>
       <div class="stat long-stat">
         <div class="wrap">
-          <p class="stat-number"><?= $num_active_projects ?></p>
-          <p class="stat-label">Active Projects</p>
-          <p class="stat-link"><a href="map" class="show-map" data-id="<?= $map_id ?>">View on map</a></p>
+          <p class="stat-number"><?= $num_completed_projects ?></p>
+          <p class="stat-label">Completed Projects</p>
+          <?php if ($completed_projects_map_image): ?>
+            <p class="stat-link"><a href="<?= $completed_projects_map_image ?>" class="show-image-modal">View on Map</a></p>
+          <?php endif; ?>
         </div>
       </div>
     </div>

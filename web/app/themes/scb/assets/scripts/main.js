@@ -14,6 +14,7 @@ var SCB = (function($) {
       $sidebar,
       $collection,
       $modal,
+      $mapModal,
       loadingTimer,
       // Get scrollbar width on page load
       scrollbarWidth = _getScrollbarWidth(),
@@ -290,7 +291,7 @@ var SCB = (function($) {
     $document.keyup(function(e) {
       if (e.keyCode === 27) {
         _hideSearch();
-        _hideMap();
+        _hideImageModal();
         _hideCollection();
         _hideModal();
         _hideMobileNav();
@@ -316,7 +317,7 @@ var SCB = (function($) {
 
     _initNav();
     _initSearch();
-    _initMapModal();
+    _initImageModals();
     _initLoadMore();
     _initPostModals();
     _initBigClicky();
@@ -969,64 +970,47 @@ var SCB = (function($) {
     }, 500);
   }
 
-  function _initMapModal() {
-    $document.on('click', '.show-map', function(e) {
-      e.preventDefault();
+  function _initImageModals() {
+    // Append image modal markup
+    $mapModal = $('<div class="image-modal"><button class="plus-button close hide-image-modal"><div class="plus"></div></button><div class="image-wrap"><img src=""></div></div>').prependTo('.site-footer');
 
-      var post_id = $(this).attr('data-id'),
-          $mapModal = '<div class="map-modal"><button class="plus-button close hide-map"><div class="plus"></div></button></div>';
+    // All map links open up in modal
+    $document.on('click', '.show-image-modal', function(e) {
+      e.preventDefault();
 
       // Hide the collection/modal if it's open
       _hideCollection();
       _hideModal();
 
-      if (!$('.map-modal').length) {
-        $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
-          dataType: 'html',
-          data: {
-              'action': 'load_post_modal',
-              'post_id': post_id
-          },
-          success: function(response) {
-            var $postData = $(response);
-            $('.site-footer').prepend($mapModal);
-            $('.map-modal').append($postData);
-            _showMap();
-            History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
-          },
-          error: function(error){
-            console.log(error);
-          }
-        }); 
-      } else {
-        _showMap();
-      }
+      $mapModal.find('img').attr('src', $(this).attr('href'));
+      $mapModal.imagesLoaded(function() {
+        _showImageModal();
+      });
+      // History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
     });
 
     // Close it
-    $document.on('click', '.hide-map', _hideMap);       
+    $document.on('click', '.hide-image-modal', _hideImageModal);
   }
 
-  function _showMap() {
+  function _showImageModal() {
     $body.addClass('no-scroll');
-    $('.map-modal').addClass('display');
+    $('.image-modal').addClass('display');
     setTimeout(function() {
-      $('.map-modal').addClass('active');
+      $('.image-modal').addClass('active');
     },50);
   }
 
-  function _hideMap() {
+  function _hideImageModal() {
     State = History.getState();
     $body.removeClass('no-scroll');
-    $('.map-modal').removeClass('active');
+    $('.image-modal').removeClass('active');
     setTimeout(function() {
-      $('.map-modal').removeClass('display');
+      $('.image-modal').removeClass('display');
     }, 500);
-    if (State.data.previousURL) {
-      History.replaceState({}, State.data.previousTitle, State.data.previousURL);
-    }
+    // if (State.data.previousURL) {
+    //   History.replaceState({}, State.data.previousTitle, State.data.previousURL);
+    // }
   }
 
   // Handles main nav

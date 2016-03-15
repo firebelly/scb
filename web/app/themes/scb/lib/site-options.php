@@ -160,9 +160,16 @@ class FbSiteOptions {
 		) );
 
 		$cmb->add_field( array(
-			'name'    => __( 'Projects Map Image', 'firebelly' ),
-			'desc'    => __( 'This is the projects map viewable from links throughout the site', 'firebelly' ),
+			'name'    => __( 'Active Projects Map Image', 'firebelly' ),
+			'desc'    => __( 'This is the active projects map viewable from links throughout the site', 'firebelly' ),
 			'id'      => 'projects_map_image',
+			'type'    => 'file',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => __( 'Completed Projects Map Image', 'firebelly' ),
+			'desc'    => __( 'This is the completed projects map viewable from links throughout the site', 'firebelly' ),
+			'id'      => 'completed_projects_map_image',
 			'type'    => 'file',
 		) );
 
@@ -196,8 +203,15 @@ class FbSiteOptions {
 
 		$cmb->add_field( array(
 			'name'    => __( 'Number of Active Projects', 'firebelly' ),
-			'desc'    => __( 'This number shows on Portfolio and About pages', 'firebelly' ),
+			'desc'    => __( 'This number shows on Portfolio page', 'firebelly' ),
 			'id'      => 'num_active_projects',
+			'type'    => 'text_small',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => __( 'Number of Completed Projects', 'firebelly' ),
+			'desc'    => __( 'This number shows on About page', 'firebelly' ),
+			'id'      => 'num_completed_projects',
 			'type'    => 'text_small',
 		) );
 

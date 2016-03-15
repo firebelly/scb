@@ -3,7 +3,6 @@
  * Crazy ass project grid
  */
 
-$map_id = \Firebelly\Utils\get_id_by_slug('map');
 $is_homepage = false;
 
 if (!empty($term)) {
@@ -48,6 +47,8 @@ if (!empty($term)) {
   $grid_stat = \Firebelly\PostTypes\Stat\get_stat();
   $grid_projects = \Firebelly\PostTypes\Project\get_projects(['num_posts' => 6]);
   $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false]);
+
+  $projects_map_image = \Firebelly\SiteOptions\get_option('projects_map_image');
 
 }
 
@@ -132,7 +133,7 @@ if (empty($grid_description)) {
                     <p class="stat-number">'.$num_active_projects.'</p>
                     <div class="stat-meta">
                       <p class="stat-label">' . ($is_homepage ? 'Active' : 'Featured') .' Projects</p>
-                      ' . ($is_homepage ? '<p class="stat-link"><a href="map" class="show-map" data-id="'.$map_id.'">View on map</a></p>' : '') . '
+                      ' . ($is_homepage ? '<p class="stat-link"><a href="' . $projects_map_image . '" class="show-image-modal">View on map</a></p>' : '') . '
                     </div>
                   </div>
                 </div>

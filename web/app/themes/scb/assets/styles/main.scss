@@ -20,6 +20,7 @@
 // Components
 @import "components/base";
 @import "components/modal";
+@import "components/image-modal";
 @import "components/user-content";
 @import "components/ui-components";
 @import "components/header";
@@ -48,7 +49,6 @@
 @import "pages/blog";
 @import "pages/careers";
 @import "pages/internships";
-@import "pages/map";
 
 // WP specifics
 @import 'helpers/wp-classes';

@@ -1,12 +1,9 @@
-// General page elements
-
-#map {
-  max-width: 992px;
-  margin: 60px auto;
-}
-
-// Map Modal
-.map-modal {
+// Image modals
+.image-modal {
+  .image-wrap {
+    max-width: 992px;
+    margin: 60px auto;
+  }
   top: 0;
   left: 0;
   right: 0;
@@ -33,7 +30,7 @@
     padding: 72px 40px;
   }
 
-  .hide-map {
+  .hide-image-modal {
     z-index: 1;
     right: 20px;
     width: 20px;
