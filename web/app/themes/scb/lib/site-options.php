@@ -8,16 +8,16 @@ namespace Firebelly\SiteOptions;
 class FbSiteOptions {
 
 	/**
- 	 * Option key, and option page slug
- 	 * @var string
- 	 */
-	private $key = 'fb_site_options_options';
+	 * Option key, and option page slug
+	 * @var string
+	 */
+	private $key = 'fb_site_options';
 
 	/**
- 	 * Options page metabox id
- 	 * @var string
- 	 */
-	private $metabox_id = 'fb_site_options_option_metabox';
+	 * Options page metabox id
+	 * @var string
+	 */
+	private $metabox_id = 'fb_site_options_metabox';
 
 	/**
 	 * Options Page title
@@ -45,6 +45,7 @@ class FbSiteOptions {
 	public function hooks() {
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
+		add_action( 'admin_bar_menu', array( $this, 'add_options_menu_bar' ), 999 );
 		add_action( 'cmb2_admin_init', array( $this, 'add_options_page_metabox' ) );
 	}
 
@@ -65,6 +66,20 @@ class FbSiteOptions {
 		// Include CMB CSS in the head to avoid FOUC
 		add_action( "admin_print_styles-{$this->options_page}", array( 'CMB2_hookup', 'enqueue_cmb_css' ) );
 	}
+
+
+	/**
+	 * Add menu bar options page
+	 */
+	public function add_options_menu_bar($wp_admin_bar) {
+		$wp_admin_bar->add_node(array(
+			'parent' => 'site-name',
+			'id'     => 'site-options',
+			'title'  => 'Site Options',
+			'href'   => esc_url(admin_url('admin.php?page='.$this->key)),
+		));
+	}
+
 
 	/**
 	 * Admin page markup. Mostly handled by CMB2
