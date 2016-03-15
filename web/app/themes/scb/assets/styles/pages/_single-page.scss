@@ -12,6 +12,7 @@ body.single:not(.single-project) {
 
     article {
       background: $white;
+      padding: 40px;
 
       @include min-screen($breakpoint-medium) {
         float: right;
