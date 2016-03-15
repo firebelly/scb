@@ -165,6 +165,27 @@ class FbSiteOptions {
 			'type'    => 'text_email',
 		) );
 
+		$cmb->add_field( array(
+			'name'    => __( 'Number of Internships This Year', 'firebelly' ),
+			'desc'    => __( 'This number shows on Careers page', 'firebelly' ),
+			'id'      => 'num_internships',
+			'type'    => 'text_small',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => __( 'Number of Design Professionals', 'firebelly' ),
+			'desc'    => __( 'This number shows on About and Careers pages', 'firebelly' ),
+			'id'      => 'num_design_professionals',
+			'type'    => 'text_small',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => __( 'Number of Active Projects', 'firebelly' ),
+			'desc'    => __( 'This number shows on Portfolio and About pages', 'firebelly' ),
+			'id'      => 'num_active_projects',
+			'type'    => 'text_small',
+		) );
+
 	}
 
 	/**

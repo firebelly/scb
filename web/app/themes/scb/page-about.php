@@ -3,8 +3,8 @@
  * Template Name: About
  */
 
-$num_projects = \Firebelly\PostTypes\Project\get_num_projects();
-$num_people = \Firebelly\PostTypes\Person\get_num_people();
+$num_design_professionals = \Firebelly\SiteOptions\get_option('num_design_professionals');
+$num_active_projects = \Firebelly\SiteOptions\get_option('num_active_projects');
 $num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 
 $chicagoId = url_to_postid('office/chicago');
@@ -33,14 +33,14 @@ $map_id = \Firebelly\Utils\get_id_by_slug('map');
       </div>
       <div class="stat long-stat">
         <div class="wrap">
-          <p class="stat-number"><?= $num_people ?></p>
+          <p class="stat-number"><?= $num_design_professionals ?></p>
           <p class="stat-label">Design Professionals</p>
           <p class="stat-link"><a href="people">Meet our people</a></p>
         </div>
       </div>
       <div class="stat long-stat">
         <div class="wrap">
-          <p class="stat-number"><?= $num_projects ?></p>
+          <p class="stat-number"><?= $num_active_projects ?></p>
           <p class="stat-label">Active Projects</p>
           <p class="stat-link"><a href="map" class="show-map" data-id="<?= $map_id ?>">View on map</a></p>
         </div>
@@ -99,7 +99,8 @@ $map_id = \Firebelly\Utils\get_id_by_slug('map');
   <div class="section -third grid">
 
     <div class="grid-item -right">
-      <p>In 1956, Lou Solomon met John Cordwell. An Englishman who fought as a bombardier in World War II, and whose experience in a Nazi POW camp was inspiration for the movie The Great Escape, Cordwell had recently resigned as Chicago’s Director of Planning. During his tenure, he had been instrumental in convincing Mayor Kennelly to plan for mass transit trains down the center of the city’s new expressways. In 1957, Solomon and Cordwell won a citywide competition to design Carl Sandburg Village. With its mix of residential building types and amenities like underground parking and landscaped plazas, the project became a national model for urban redevelopment. A year later, when Solomon was on a business trip, Cordwell had new business cards made: L.R. Solomon and J.D. Cordwell & Associates Architects. The bold tactic solidified their partnership.</p>
+      <p>In 1956, Lou Solomon met John Cordwell. An Englishman who fought as a bombardier in World War II, and whose experience in a Nazi POW camp was inspiration for the movie The Great Escape, Cordwell had recently resigned as Chicago’s Director of Planning. During his tenure, he had been instrumental in convincing Mayor Kennelly to plan for mass transit trains down the center of the city’s new expressways.</p>
+      <p>In 1957, Solomon and Cordwell won a citywide competition to design Carl Sandburg Village. With its mix of residential building types and amenities like underground parking and landscaped plazas, the project became a national model for urban redevelopment. A year later, when Solomon was on a business trip, Cordwell had new business cards made: L.R. Solomon and J.D. Cordwell & Associates Architects. The bold tactic solidified their partnership.</p>
     </div>
 
   </div>

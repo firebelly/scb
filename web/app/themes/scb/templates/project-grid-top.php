@@ -4,10 +4,12 @@
  */
 
 $map_id = \Firebelly\Utils\get_id_by_slug('map');
+$is_homepage = false;
 
 if (!empty($term)) {
   // Taxonomy filtered
   $num_projects = \Firebelly\Utils\get_num_posts_in_category('project', 'project_category', $term->term_id);
+  $num_active_projects = $num_projects;
   $load_more_category = $term->slug;
 
   $grid_stat = \Firebelly\PostTypes\Stat\get_stat(['related_category' => $term->term_id]);
@@ -39,7 +41,9 @@ if (!empty($term)) {
 
   // Homepage, no filter
   $num_projects = \Firebelly\PostTypes\Project\get_num_projects();
+  $num_active_projects = \Firebelly\SiteOptions\get_option('num_active_projects');
   $load_more_category = '';
+  $is_homepage = true;
 
   $grid_stat = \Firebelly\PostTypes\Stat\get_stat();
   $grid_projects = \Firebelly\PostTypes\Project\get_projects(['num_posts' => 6]);
@@ -119,21 +123,22 @@ if (empty($grid_description)) {
         endif;
       }
 
-      // if (count($grid_projects)>=5 && $i===5) {
-      //   $stat_length_class = strlen($num_projects) > 2 ? (strlen($num_projects) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
-      //   echo '<article class="grid-item stat'.$stat_length_class.'">
-      //           <div class="wrap">
-      //             <div class="stat-content">
-      //               <p class="stat-number">'.$num_projects.'</p>
-      //               <div class="stat-meta">
-      //                 <p class="stat-label">Active Projects</p>
-      //                 <p class="stat-link"><a href="map" class="show-map" data-id="'.$map_id.'">View on map</a></p>
-      //               </div>
-      //             </div>
-      //           </div>
-      //         </article>
-      //   ';
-      // }
+      // Homepage gets num_active_projects (via site options), filtered views get active projects per category
+      if (count($grid_projects)>=5 && $i===5) {
+        $stat_length_class = strlen($num_active_projects) > 2 ? (strlen($num_active_projects) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
+        echo '<article class="grid-item stat'.$stat_length_class.'">
+                <div class="wrap">
+                  <div class="stat-content">
+                    <p class="stat-number">'.$num_active_projects.'</p>
+                    <div class="stat-meta">
+                      <p class="stat-label">' . ($is_homepage ? 'Active' : 'Featured') .' Projects</p>
+                      ' . ($is_homepage ? '<p class="stat-link"><a href="map" class="show-map" data-id="'.$map_id.'">View on map</a></p>' : '') . '
+                    </div>
+                  </div>
+                </div>
+              </article>
+        ';
+      }
     }
   ?>    
   </div>

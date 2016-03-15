@@ -3,8 +3,6 @@
  * Template Name: Careers
  */
 
-$num_people = \Firebelly\PostTypes\Person\get_num_people();
-$num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 $project_images = get_post_meta($post->ID, '_cmb2_careers_images', true);
 if ($project_images) {
@@ -24,7 +22,10 @@ $terms_right = get_post_meta($post->ID, '_cmb2_terms_right', true);
 $chicago_id = url_to_postid('/office/chicago');
 $san_francisco_id = url_to_postid('/office/san-francisco');
 $internships_id = url_to_postid('/careers/internships');
-$num_interns = get_post_meta($internships_id, '_cmb2_num_internships', true);
+
+$num_offices = \Firebelly\PostTypes\Office\get_num_offices();
+$num_design_professionals = \Firebelly\SiteOptions\get_option('num_design_professionals');
+$num_internships = \Firebelly\SiteOptions\get_option('num_internships');
 ?>
 
 <div class="grid wrap -top">
@@ -76,14 +77,14 @@ $num_interns = get_post_meta($internships_id, '_cmb2_num_internships', true);
       </div>
       <div class="stat long-stat">
         <div class="wrap">
-          <p class="stat-number"><?= $num_people ?></p>
+          <p class="stat-number"><?= $num_design_professionals ?></p>
           <p class="stat-label">Design Professionals</p>
           <p class="stat-link"><a href="people">Meet our people</a></p>
         </div>
       </div>
       <div class="stat long-stat">
         <div class="wrap">
-          <p class="stat-number"><?= $num_interns ?></p>
+          <p class="stat-number"><?= $num_internships ?></p>
           <p class="stat-label">Interns This Year</p>
           <p class="stat-link"><a href="careers/internships" class="show-post-modal" data-id="<?= $internships_id ?>" data-modal-type="office internships">Intern Program</a></p>
         </div>
