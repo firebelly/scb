@@ -168,4 +168,4 @@ function flush_ob() {
 }
 
 add_action('init', __NAMESPACE__ . '\start_ob', 0);
-add_action('wp_footer', __NAMESPACE__ . 'flush_ob', 10000); // Fire after other plugins (which default to priority 10)
+add_action('wp_footer', __NAMESPACE__ . '\flush_ob', 10000); // Fire after other plugins (which default to priority 10)
