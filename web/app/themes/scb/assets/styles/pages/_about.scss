@@ -218,10 +218,6 @@ body.about {
     .-third {
       padding: 0 0 20px;
 
-      p {
-        margin: 0;
-      }
-
       @include min-screen($breakpoint-medium) {
         padding: 60px 0;
 
@@ -232,6 +228,21 @@ body.about {
     }
 
     .-fourth {
+      .grid-item.-left {
+        @include min-screen($breakpoint-medium) {
+          padding-right: 10px;
+        }
+      }
+
+      .image-with-stat {
+        .stat {
+          position: relative;
+          transform: translateY(-25%);
+        }
+      }
+    }
+
+    .-fifth {
       .grid-item.-left {
         @include min-screen($breakpoint-medium) {
           padding-right: 10px;
