@@ -1,6 +1,16 @@
 // Single Position
 
 // Global
+.single.single-position {
+    article {
+    padding: 20px;
+
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
+  }
+}
+
 .single.single-position,
 .position-modal {
   article {
