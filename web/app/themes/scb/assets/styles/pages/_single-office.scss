@@ -1,7 +1,13 @@
 // Single Office
 
 .single.single-office {
+  article {
+    padding: 20px;
 
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
+  }
   .article-header {
     padding: 20px 0;
     
@@ -21,9 +27,7 @@
         margin-bottom: 40px;
       }
     }
-
   }
-
 }
 
 // Office modals

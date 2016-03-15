@@ -10,6 +10,10 @@ $office = \Firebelly\Utils\get_office($post);
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
   <?php endif; ?>
 
+  <div class="actions">
+    <a href="/people/" class="plus-button close single-close"><div class="plus"></div></a>
+  </div>
+
   <header class="article-header">    
     <h1 class="article-title"><?= !empty($display_title) ? $display_title : $post->post_title ?></h1>
     <?php if (!empty($subtitle)): ?>

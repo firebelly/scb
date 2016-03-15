@@ -11,8 +11,8 @@ body.single:not(.single-project) {
     @include clearfix();
 
     article {
+      position: relative;
       background: $white;
-      padding: 40px;
 
       @include min-screen($breakpoint-medium) {
         float: right;
@@ -20,7 +20,27 @@ body.single:not(.single-project) {
         width: calc(50% + 70px);
       }
     }
-  }  
+  }
+
+  article>.actions {
+    top: 20px;
+    left: 20px;
+    position: absolute;
+    a {
+      color: $black;
+    }
+    @include min-screen($breakpoint-medium) {
+      top: 0;
+      left: calc((-#{$column / 2}) - 12px);
+    }
+
+    .single-close {
+      display: block;
+      margin-bottom: 20px;
+      @extend .plus-button.hide-modal;
+    }
+  }
+
 }
 body.single:not(.single-project, .single-post) {
   .main {
