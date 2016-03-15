@@ -629,15 +629,15 @@
         },
         {
             "name": "wpackagist-plugin/quick-navigation-interface",
-            "version": "0.5",
+            "version": "0.6",
             "source": {
                 "type": "svn",
                 "url": "http://plugins.svn.wordpress.org/quick-navigation-interface/",
-                "reference": "tags/0.5"
+                "reference": "tags/0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/quick-navigation-interface.0.5.zip",
+                "url": "https://downloads.wordpress.org/plugin/quick-navigation-interface.0.6.zip",
                 "reference": null,
                 "shasum": null
             },
