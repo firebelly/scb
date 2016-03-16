@@ -25,7 +25,7 @@
   width: calc(100% - 40px);
   transform: translateX(100%);
   -webkit-overflow-scrolling: touch;
-  transition: transform .5s ease-out;
+  transition: transform .5s $cubic-ease2;
   &.display {
     display: block;
   }
