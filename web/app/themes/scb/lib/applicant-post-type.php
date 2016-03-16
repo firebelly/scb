@@ -346,7 +346,7 @@ add_action('wp_ajax_nopriv_application_submission', __NAMESPACE__ . '\\applicati
 
 // Inject application form in footer if on career page
 function application_form() {
-  if (preg_match('/\/careers\//', $_SERVER['REQUEST_URI'])) {
+  if (preg_match('/\/(careers|about)\//', $_SERVER['REQUEST_URI'])) {
     echo '<div class="application-form-template">';
     include(locate_template('templates/application-form.php'));
     echo '</div>';
