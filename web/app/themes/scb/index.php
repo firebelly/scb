@@ -7,8 +7,13 @@
   <?php get_search_form(); ?>
 <?php endif; ?>
 
+<div class="article-list">
 <?php while (have_posts()) : the_post(); ?>
-  <?php get_template_part('templates/content', get_post_type() != 'post' ? get_post_type() : get_post_format()); ?>
+	<?php 
+	$news_post = $post;
+	include(locate_template('templates/article-news-excerpt.php'));
+	?>
 <?php endwhile; ?>
+</div>
 
 <?php the_posts_navigation(); ?>
