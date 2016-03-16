@@ -15,6 +15,7 @@ var SCB = (function($) {
       $collection,
       $modal,
       $mapModal,
+      modal_animating = false,
       loadingTimer,
       // Get scrollbar width on page load
       scrollbarWidth = _getScrollbarWidth(),
@@ -65,36 +66,6 @@ var SCB = (function($) {
       if (State.data.ignore_change) {
         return;
       }
-
-      // if (relative_url === '') {
-      //   // homepage?
-      //   $nav.find('li').removeClass('active');
-      //   _updateNav();
-      // } else if (relative_url.match(/^news/)) {
-      //   // blog post?
-      //   parent_li = $nav.find('li.menu-what-were-learning').addClass('active');
-      //   $nav.find('li').not(parent_li).removeClass('active');
-      //   _updateNav();
-      // } else {
-      //   var nav_link = $nav.find('a[href="' + url + '"]');
-      //   if (nav_link) {
-      //     parent_li = nav_link.closest('li.dropdown').addClass('active');
-      //     $nav.find('li').not(parent_li).removeClass('active');
-      //     _updateNav();
-      //   }
-      // }
-      // if (!page_cache[encodeURIComponent(url)]) {
-      //   loadingTimer = setTimeout(function() { $content.addClass('loading'); }, 500);
-      //   $.post(
-      //     url,
-      //     function(res) {
-      //       page_cache[encodeURIComponent(url)] = res;
-      //       // SCB.updateContent();
-      //     }
-      //   );
-      // } else {
-      //   _updateContent();
-      // }
     });
 
     // Are we on a page with project category nav?
@@ -469,10 +440,12 @@ var SCB = (function($) {
     if ($('.project-categories li.active').length) {
       $('.project-categories li.active:last>a').each(function() {
         History.replaceState({'ignore_change': true}, $(this).text() + ' – SCB', $(this).attr('href'));
+        _trackPage();
       });
     } else {
       // No active projects, default to homepage
       History.replaceState({}, 'SCB – ' + $('.site-header .description').text(), '/');
+      _trackPage();
     }
 
   }
@@ -480,32 +453,19 @@ var SCB = (function($) {
   // Function to update document content (and og: tags) after state change (unused right now)
   function _updateContent() {
     var State = History.getState();
-    var new_content = page_cache[encodeURIComponent(State.url)];
 
     // track page view in Analytics
     _trackPage();
 
     setTimeout(function() {
-      // $content.html(new_content);
-      // pull in body class from data attribute
-      // $body.attr('class', $content.find('.content:first').attr('data-body-class'));
-      // if (loadingTimer) clearTimeout(loadingTimer);
-
       _updateTitle();
-      $('main').fitVids();
-
       // Update meta tags
-      _initCommentForm();
       if ($('#og-updates').length) {
         $('meta[property="og:url"]').attr('content', State.url);
         $('meta[property="og:title"]').attr('content', document.title);
         $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
         $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
       }
-
-      // scroll to top
-      // _scrollBody($body, 250, 0);
-
     }, 150);
   }
 
@@ -515,7 +475,7 @@ var SCB = (function($) {
     if (title === '' || title === 'Main') {
       title = 'SCB';
     } else {
-      title = title + ' | SCB'; 
+      title = title + ' – SCB'; 
     }
     // this bit also borrowed from Ajaxify
     document.title = title;
@@ -636,18 +596,20 @@ var SCB = (function($) {
   }
 
   function _hideModal() {
+    modal_animating = true;
     State = History.getState();
     _hidePageOverlay();
     $('body, .site-header').css('margin-right', 0);
     $body.removeClass('modal-active');
     $modal.removeClass('active');
     setTimeout(function() {
+      modal_animating = false;
       $modal.removeClass('display');
       $modal.removeClass('news-modal post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
-
     }, 500);
     if (State.data.previousURL) {
       History.replaceState({}, State.data.previousTitle, State.data.previousURL);
+      _trackPage();
     }
   }
 
@@ -830,6 +792,7 @@ var SCB = (function($) {
 
   function _initPostModals() {
     $document.on('click', '.show-post-modal', function(e) {
+      if (modal_animating) return;
       var $thisTarget = $(e.target);
       // Ignore links inside that do something else
       if ($thisTarget.is('.no-ajaxy') || $thisTarget.parents('.no-ajaxy').length) {
@@ -859,6 +822,7 @@ var SCB = (function($) {
           var $postData = $(response);
           $('.post-modal .modal-content').append($postData).prepend('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>');
           History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
+          _trackPage();
           _showModal();
         },
         error: function(error){
