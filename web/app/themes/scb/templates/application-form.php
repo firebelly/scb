@@ -1,4 +1,5 @@
-<?php 
+<?php
+// Set application_type if it isn't sent along
 if (empty($application_type)) {
   $application_type = !empty($position_id) ? 'position' : 'portfolio';
 }

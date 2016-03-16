@@ -6,7 +6,7 @@ while (have_posts()) : the_post();
     $news_posts[] = $post;
   } elseif ($post->post_type=='project') {
     $project_posts[] = $post;
-  } elseif ($post->post_type=='person' && !empty($post->post_content)) {
+  } elseif ($post->post_type=='person' && !empty($post->post_content)) { // Only show matching people that have bios
     $people_posts[] = $post;
   } else {
     // Not currently using this anywhere
@@ -26,6 +26,7 @@ endwhile;
   <?php endif; ?>
 
   <?php 
+  // Projects are split into three category columns
   $search_arr = [
     'architecture' => 'Architecture',
     'planning' => 'Planning',
@@ -52,9 +53,8 @@ endwhile;
   }
   ?>
 
-
   <?php 
-  // Any news posts match?
+  // Any People posts match?
   if (!empty($people_posts)) { 
     echo '<div class="search-column"><h2 class="cat-title">People</h2>';
     foreach ($people_posts as $people_post) {
@@ -67,7 +67,7 @@ endwhile;
   ?>
 
   <?php 
-  // Any news posts match?
+  // Any News posts match?
   if (!empty($news_posts)) { 
     echo '<div class="search-column"><h2 class="cat-title">News</h2>';
     foreach ($news_posts as $news_post) {

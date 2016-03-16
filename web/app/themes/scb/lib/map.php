@@ -2,7 +2,7 @@
 /**
  * Map Functions
  *
- * Pull project locations, office locations, 
+ * Pull project locations, office locations
  */
 
 namespace Firebelly\Map;
