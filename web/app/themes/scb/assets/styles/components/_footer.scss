@@ -3,7 +3,7 @@
 .site-footer {
   padding: 20px;
   @include min-screen($breakpoint-medium) {
-    padding: 40px 10px;
+    padding: 140px 10px 40px;
   }
   
   > .wrap > .one-half.-left {
