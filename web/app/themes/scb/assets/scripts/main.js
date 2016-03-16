@@ -797,7 +797,7 @@ var SCB = (function($) {
       if ($thisTarget.is('.no-ajaxy') || $thisTarget.parents('.no-ajaxy').length) {
         return;
       }
-      if (modal_animating) return false;
+      if (modal_animating) { return false; }
       e.preventDefault();
 
       var post_id = $(this).attr('data-id'),
