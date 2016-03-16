@@ -125,7 +125,7 @@ if (empty($grid_description)) {
       }
 
       // Homepage gets num_active_projects (via site options), filtered views get active projects per category
-      if (count($grid_projects)>=5 && $i===5):
+      if ($is_homepage && count($grid_projects)>=5 && $i===5):
         $stat_length_class = strlen($num_active_projects) > 2 ? (strlen($num_active_projects) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
         ?>
         <article class="grid-item stat <?= $stat_length_class ?>">
@@ -133,13 +133,13 @@ if (empty($grid_description)) {
               <div class="stat-content">
                 <p class="stat-number"><?= $num_active_projects ?></p>
                 <div class="stat-meta">
-                <?php if ($is_homepage): ?>
-                  <p class="stat-label">Active Projects</p>
-                  <p class="stat-link"><a href="<?= $projects_map_image ?>" class="show-image-modal">View on map</a></p>
-                <?php else: ?>
-                  <p class="stat-label">Featured Projects</p>
-                  <p class="stat-link"><?= $term->name ?></p>
-                <?php endif; ?>
+                  <?php if ($is_homepage): ?>
+                    <p class="stat-label">Active Projects</p>
+                    <p class="stat-link"><a href="<?= $projects_map_image ?>" class="show-image-modal">View on map</a></p>
+                  <?php else: // currently doesn't ever show, remove $is_homepage check above to enable again ?>
+                    <p class="stat-label">Featured Projects</p>
+                    <p class="stat-link"><?= $term->name ?></p>
+                  <?php endif; ?>
               </div>
             </div>
           </div>
