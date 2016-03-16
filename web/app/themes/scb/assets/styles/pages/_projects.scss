@@ -168,10 +168,6 @@
     transition: color 1s ease-out;
     -webkit-font-smoothing: antialiased;
 
-    &.project {
-      cursor: pointer;
-    }
-
     .wrap {
       padding: 20px;
       min-height: 300px;
@@ -548,5 +544,24 @@
   }
   .grid-sizer {
     width: 25%;
+  }
+}
+
+// Non-touch hover effects
+.no-touchevents .projects {
+  .project {
+    cursor: pointer;
+    
+    @include min-screen($breakpoint-medium) {
+      .image-wrap {
+        transition: transform .8s ease-out;
+      }
+      // Hover
+      &:hover {
+        .image-wrap {
+          transform: scale(1.15);
+        }
+      }
+    }
   }
 }
