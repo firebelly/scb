@@ -73,11 +73,13 @@ function load_more_posts() {
   if ($posts): 
     foreach ($posts as $post) {
       // set local var for post type — avoiding using $post in global namespace
-      if ($post_type == 'project')
+      if ($post_type == 'project') {
         $project_post = $post;
-      else
+        include(locate_template('templates/article-'.$post_type.'.php'));
+      } else {
         $news_post = $post;
-      include(locate_template('templates/article-'.$post_type.'.php'));
+        include(locate_template('templates/article-news-excerpt.php'));
+      }
     }
   endif;
 

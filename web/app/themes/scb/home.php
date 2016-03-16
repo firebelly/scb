@@ -1,22 +1,29 @@
-<?php get_template_part('templates/page', 'header'); ?>
+<?php 
+/**
+ * News landing page
+ */
 
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$per_page = get_option('posts_per_page');
+$total_posts = $GLOBALS['wp_query']->found_posts;
+$total_pages = ($total_posts > 0) ? ceil($total_posts / $per_page) : 1;
+$page = get_page_by_path('/news'); // may use this down the line to pull editable metadata from page for og tags/etc
+?>
 <?php if (!have_posts()) : ?>
   <div class="alert alert-warning">
     <?php _e('Sorry, no results were found.', 'sage'); ?>
   </div>
   <?php get_search_form(); ?>
-<?php endif; ?>
+<?php else: ?>
 
-<div class="article-list">
-<?php 
-  // Recent Blog & News posts
-  $i = 0;
-  $news_posts = get_posts(['posts_per_page' => 10, 'suppress_filters' => false]);
-  if ($news_posts):
-    foreach ($news_posts as $news_post) {
+  <div class="article-list"><div class="first-grid">
+  <?php 
+    $i = 0;
+    while (have_posts()) : the_post();
+      $news_post = $post;
       $i++;
       include(locate_template('templates/article-news-excerpt.php'));
-      if (count($news_posts)>=6 && $i===6) {
+      if (count($total_posts)>=6 && $i===6) {
         echo '<article class="resource-list">
           <div class="background-image-wrap">
             <div class="article-inner">
@@ -30,7 +37,7 @@
             </div>
           </div>
         </article>';
-      } elseif (count($news_posts)>=6 && $i===7) {
+      } elseif (count($total_posts)>=6 && $i===7) {
         echo '<article class="resource-list">
           <div class="background-image-wrap">
             <div class="article-inner">
@@ -45,9 +52,14 @@
           </div>
         </article>';
       }
-    }
-  endif;
-?>
-</div>
+    endwhile;
+  ?>
+  </div><!-- END .first-grid -->
 
-<?php the_posts_navigation(); ?>
+  <div class="masonry-grid"></div>
+  <?php if ($total_pages>1): ?>
+    <div class="load-more" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy" href="#"><span>Load More News</span> <span><button class="plus-button"><div class="plus"></div></button></span></a></div>
+  <?php endif ?>
+
+  </div><!-- END .article-list -->
+<?php endif; ?>
