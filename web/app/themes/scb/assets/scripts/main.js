@@ -242,7 +242,7 @@ var SCB = (function($) {
           _initCollectionBehavior();
           _showCollection();
           // Just show empty message if removing last item to avoid confusing, stacked feedback
-          if (!response.data.collection_html.match(/empty/)) {
+          if (!$collection.hasClass('active') && !response.data.collection_html.match(/empty/)) {
             _feedbackMessage(action);
           }
         } else if (action.match(/pdf/)) {
