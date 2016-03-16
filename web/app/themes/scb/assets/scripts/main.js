@@ -792,12 +792,12 @@ var SCB = (function($) {
 
   function _initPostModals() {
     $document.on('click', '.show-post-modal', function(e) {
-      if (modal_animating) return;
       var $thisTarget = $(e.target);
       // Ignore links inside that do something else
       if ($thisTarget.is('.no-ajaxy') || $thisTarget.parents('.no-ajaxy').length) {
         return;
       }
+      if (modal_animating) return false;
       e.preventDefault();
 
       var post_id = $(this).attr('data-id'),
