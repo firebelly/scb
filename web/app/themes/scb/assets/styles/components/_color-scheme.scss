@@ -59,7 +59,7 @@
 
   // UI Components
   .highlight-hover {
-    @include underline($color);
+    @include underline($color, '', '', 2px);
     &:hover, &:focus {
       &::after {
         height: .75em;
@@ -114,6 +114,9 @@
       a:before {
         background: $color;
       }
+    }
+    .contact-group ul .email a:before {
+      background: $color;
     }
   }
 }

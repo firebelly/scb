@@ -15,14 +15,14 @@
 }
 
 // Faux link underlines
-@mixin underline($color, $link:"", $hoverColor:"") {
+@mixin underline($color, $link:"", $hoverColor:"", $height: 1px) {
   position: relative;
   text-decoration: none;
   display: inline-block;
   &::after {
     left: 0;
     z-index: -1;
-    height: 2px;
+    height: $height;
     width: 100%;
     bottom: 2px;
     content: '';
@@ -35,15 +35,15 @@
     &::before {
       left: 0;
       z-index: 0;
-      height: 2px;
+      height: $height;
       width: 100%;
       bottom: 2px;
       content: '';
       position: absolute;
       transform: scaleY(0);
       background: $hoverColor;
-      transform-origin: bottom; 
-      transition: transform .2s ease-out;
+      // transform-origin: bottom; 
+      // transition: transform .2s ease-out;
     }
     &:hover,
     &:focus {

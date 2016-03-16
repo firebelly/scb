@@ -93,6 +93,7 @@
 // Fonts
 $sans: 'Circular-Book', sans-serif;
 $sans-medium: 'Circular-Medium', sans-serif;
+$sans-bold: 'Circular-Bold', sans-serif;
 $serif: Georgia, serif;
 $lazer: 'GT-Haptik-Lazer', serif;
 $thin: 'GT-Haptik-Thin', serif;
@@ -137,6 +138,7 @@ $big: 3em;
 // Small Caps style
 @mixin sc() {
   font-size: 11px;
+  font-family: $sans-bold;
   letter-spacing: .2em;
   text-transform: uppercase;
   line-height: 1.818181818em;
