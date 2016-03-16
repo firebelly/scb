@@ -58,6 +58,9 @@
     bottom: 0;
     overflow: auto;
     position: absolute;
+    article>.actions {
+      display: none;
+    }
   }
 
   // Close modal button

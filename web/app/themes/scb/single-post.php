@@ -6,6 +6,9 @@ $thumb = \Firebelly\Media\get_post_thumbnail($post->ID);
 $featured_class = get_post_meta($post->ID, '_featured', true) ? ' featured-post' : '';
 ?>
 <article <?php post_class("article".$featured_class, $post->ID); ?> data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>">
+  <div class="actions">
+    <a href="/news/" class="plus-button close single-close"><div class="plus"></div></a>
+  </div>
   <div class="background-image-wrap" <?php if ($thumb) { echo 'style="background-image:url('.$thumb.');"'; } ?>>
     <time class="article-date" datetime="<?= date('c', $post_date_timestamp); ?>"><span><?= date('m/', $post_date_timestamp); ?></span><span><?= date('d/', $post_date_timestamp); ?></span><span><?= date('y', $post_date_timestamp); ?></span></time>
   </div>

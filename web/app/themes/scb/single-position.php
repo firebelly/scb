@@ -5,6 +5,11 @@ $discipline = \Firebelly\Utils\get_first_term($post, 'project_category');
 ?>
 
 <article class="position single" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>">
+
+  <div class="actions">
+    <a href="/news/" class="plus-button close single-close"><div class="plus"></div></a>
+  </div>
+
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
   <?php endif; ?>

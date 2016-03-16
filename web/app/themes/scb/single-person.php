@@ -6,13 +6,13 @@ $education = get_post_meta($post->ID, '_cmb2_education', true);
 $office = \Firebelly\Utils\get_office($post);
 ?>
 <article class="person single" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>">
-  <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>
-    <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
-  <?php endif; ?>
-
   <div class="actions">
     <a href="/people/" class="plus-button close single-close"><div class="plus"></div></a>
   </div>
+
+  <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>
+    <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
+  <?php endif; ?>
 
   <header class="article-header">    
     <h1 class="article-title"><?= !empty($display_title) ? $display_title : $post->post_title ?></h1>
