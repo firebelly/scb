@@ -643,11 +643,12 @@ var SCB = (function($) {
     $modal.removeClass('active');
     setTimeout(function() {
       $modal.removeClass('display');
+      $modal.removeClass('post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
+
     }, 500);
     if (State.data.previousURL) {
       History.replaceState({}, State.data.previousTitle, State.data.previousURL);
     }
-    $modal.removeClass('application-modal position-modal'); // doing this the lazy way for now
   }
 
   function _showCollection() {
@@ -838,7 +839,7 @@ var SCB = (function($) {
 
       var post_id = $(this).attr('data-id'),
           modal_type = $(this).attr('data-modal-type');
-          $modal.removeClass('post-modal project-modal person-modal application-modal position-modal'); // doing this the lazy way for now
+          $modal.removeClass('post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
           $postModal = $modal.addClass('post-modal ' + modal_type);
 
       // Hide the collection if it's open
