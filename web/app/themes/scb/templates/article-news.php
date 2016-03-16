@@ -11,7 +11,7 @@ $featured_class = get_post_meta($news_post->ID, '_featured', true) ? ' featured-
   </div>
     <div class="article-body">
       <header>
-        <?php if ($category): ?><div class="article-category"><a href="<?= get_term_link($category); ?>"><?= $category->name; ?></a></div><?php endif; ?>
+        <?php if ($category): ?><div class="article-category"><?= $category->name; ?></div><?php endif; ?>
         <h1 class="article-title"><?= $news_post->post_title ?></h1>
       </header>
       <div class="entry-content">
