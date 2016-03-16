@@ -1,12 +1,12 @@
 <?php
 // Build arrays of matching post types from main search query
-$news_posts = $other_posts = $project_posts = [];
+$news_posts = $other_posts = $people_posts = $project_posts = [];
 while (have_posts()) : the_post();
   if ($post->post_type=='post') {
     $news_posts[] = $post;
   } elseif ($post->post_type=='project') {
     $project_posts[] = $post;
-  } elseif ($post->post_type=='person') {
+  } elseif ($post->post_type=='person' && !empty($post->post_content)) {
     $people_posts[] = $post;
   } else {
     // Not currently using this anywhere
@@ -19,7 +19,7 @@ endwhile;
 
 <div class="search-container">
 
-  <?php if (!have_posts()) : ?>
+  <?php if (empty($news_posts) && empty($people_posts) && empty($project_posts)): ?>
     <div class="alert alert-warning">
       <?php _e('Sorry, we couldn\'t find anything that matched your search. Try refining your search terms.', 'sage'); ?>
     </div>
@@ -58,11 +58,9 @@ endwhile;
   if (!empty($people_posts)) { 
     echo '<div class="search-column"><h2 class="cat-title">People</h2>';
     foreach ($people_posts as $people_post) {
-      if (!empty($people_post->post_content)) {
-        echo '<article class="article show-post-modal" data-modal-type="person-modal" data-id="'.$people_post->ID.'">
-          <h2 class="entry-title"><a href="'.get_permalink($people_post).'">'.wp_trim_words($people_post->post_title, 10).'</a></h2>
-        </article>';
-      }
+      echo '<article class="article show-post-modal" data-modal-type="person-modal" data-id="'.$people_post->ID.'">
+        <h2 class="entry-title"><a href="'.get_permalink($people_post).'">'.wp_trim_words($people_post->post_title, 10).'</a></h2>
+      </article>';
     }
     echo '</div>';
   }
