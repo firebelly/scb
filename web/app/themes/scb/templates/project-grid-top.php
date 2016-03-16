@@ -85,7 +85,7 @@ if (empty($grid_description)) {
   <div class="grid-sizer"></div>
   <?php
     $i = 0;
-    foreach ($grid_projects as $project_post) {
+    foreach ($grid_projects as $project_post):
       $i++;
       include(locate_template('templates/article-project.php'));
       
@@ -125,23 +125,27 @@ if (empty($grid_description)) {
       }
 
       // Homepage gets num_active_projects (via site options), filtered views get active projects per category
-      if (count($grid_projects)>=5 && $i===5) {
+      if (count($grid_projects)>=5 && $i===5):
         $stat_length_class = strlen($num_active_projects) > 2 ? (strlen($num_active_projects) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
-        echo '<article class="grid-item stat'.$stat_length_class.'">
-                <div class="wrap">
-                  <div class="stat-content">
-                    <p class="stat-number">'.$num_active_projects.'</p>
-                    <div class="stat-meta">
-                      <p class="stat-label">' . ($is_homepage ? 'Active' : 'Featured') .' Projects</p>
-                      ' . ($is_homepage ? '<p class="stat-link"><a href="' . $projects_map_image . '" class="show-image-modal">View on map</a></p>' : '') . '
-                    </div>
-                  </div>
-                </div>
-              </article>
-        ';
-      }
-    }
-  ?>    
+        ?>
+        <article class="grid-item stat <?= $stat_length_class ?>">
+          <div class="wrap">
+              <div class="stat-content">
+                <p class="stat-number"><?= $num_active_projects ?></p>
+                <div class="stat-meta">
+                <?php if ($is_homepage): ?>
+                  <p class="stat-label">Active Projects</p>
+                  <p class="stat-link"><a href="<?= $projects_map_image ?>" class="show-image-modal">View on map</a></p>
+                <?php else: ?>
+                  <p class="stat-label">Featured Projects</p>
+                  <p class="stat-link"><?= $term->name ?></p>
+                <?php endif; ?>
+              </div>
+            </div>
+          </div>
+        </article>
+      <?php endif; ?>
+    <?php endforeach; ?>
   </div>
 
 <div class="load-more" data-post-type="project" data-page-at="1" data-per-page="9" data-total-pages="<?= ceil(($num_projects - 6)/9)+1 ?>" data-category="<?= $load_more_category ?>"><a href="#"><span>Load More Projects</span> <span><button class="plus-button"><div class="plus"></div></button></span></a></div>
