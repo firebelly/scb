@@ -187,7 +187,7 @@ body.people {
     a {
       color: $black;
       padding-bottom: 2px;
-      @include underline($gray-light, link, $black);
+      @include underline($gray-dark, link, $black);
     }
 
     @include min-screen($breakpoint-medium) {
