@@ -32,13 +32,13 @@
 }
 
 // Modal only
-.modal.internships {
-  @include min-screen($breakpoint-medium) {
-    width: calc(73% + 30px);
-  }
-  .single.internships {
-    .article-header {
-      padding-top: 0;
-    }
-  }
-}
+// .modal.internships {
+//   @include min-screen($breakpoint-medium) {
+//     width: calc(73% + 30px);
+//   }
+//   .single.internships {
+//     .article-header {
+//       padding-top: 0;
+//     }
+//   }
+// }

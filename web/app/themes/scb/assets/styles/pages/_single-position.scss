@@ -130,9 +130,9 @@
 // Modal only
 .modal.position-modal {
 
-  @include min-screen($breakpoint-medium) {
-    width: calc(73% + 30px);
-  }
+  // @include min-screen($breakpoint-medium) {
+  //   width: calc(73% + 30px);
+  // }
 
   .modal-content {
     padding: 20px;
