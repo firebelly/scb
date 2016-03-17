@@ -719,6 +719,13 @@ var SCB = (function($) {
         }
     });
 
+    // Check for pressing enter, blur to update collection-title
+    $('.collection-title').on('keydown', function(e) {  
+      if(e.keyCode === 13) {
+        e.preventDefault();
+        this.blur();
+      }
+    });
     // Update collection title
     $('.collection-title').on('blur', function() {
       var title = $('.collection-title').text();
