@@ -17,13 +17,15 @@ section.collection {
     }
   }
 
-  h1 {
+  .collection-content>h1 {
     @include sc();
     margin-bottom: 8px;
     .collection-title {
       padding: 0;
       border: none;
       @include h1();
+      font-size: 74px;
+      margin-bottom: 20px;
       display: block;
       max-width: 100%;
       text-transform: none;
@@ -147,7 +149,7 @@ section.collection {
         margin-top: 0;
       }
       &:hover {
-        color: $white;
+        color: $black;
       }
     }
 
