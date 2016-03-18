@@ -94,6 +94,10 @@
         color: $color;
       }
     }
+    .big-plus:hover::after,
+    .big-plus:hover::before {
+      background: $color;
+    }
   }
   .project-blocks {
     .project-block {
