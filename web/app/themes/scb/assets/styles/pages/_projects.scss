@@ -1,5 +1,13 @@
 // Project Grid Card Styles
 
+.page-intro,
+.projects {
+  transition: opacity .15s ease-out;
+  &.loading {
+    opacity: 0;
+  }
+}
+
 .projects {
   @include clearfix();
 

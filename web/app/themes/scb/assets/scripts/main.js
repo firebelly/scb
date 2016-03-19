@@ -116,6 +116,8 @@ var SCB = (function($) {
         // Set data-pageClass to parent category (first in array) for color theme styling
         $body.attr('data-pageClass', project_categories[0]);
 
+        $('.page-intro,.projects').addClass('loading');
+
         // Cached?
         if (!category_cache['category-' + project_category]) {
           $.ajax({
@@ -128,18 +130,22 @@ var SCB = (function($) {
                   project_category: project_category
               },
               success: function(data) {
-                if (loadingTimer) { clearTimeout(loadingTimer); }
                 // Cache ajax return
                 category_cache['category-' + project_category] = data;
-                _updateProjects(data);
-                $body.addClass('term-' + project_category);
+                setTimeout(function() {
+                  _updateProjects(data);
+                  $body.addClass('term-' + project_categories[0]);
+                }, 150);
                 _scrollBody($body, 250, 0);
               }
           });
         } else {
-          _updateProjects(category_cache['category-' + project_category]);
-          $body.addClass('term-' + project_category);
+          setTimeout(function() {
+            _updateProjects(category_cache['category-' + project_category]);
+            $body.addClass('term-' + project_categories[0]);
+          }, 150);
         }
+
       });
     }
 
@@ -360,6 +366,7 @@ var SCB = (function($) {
 
     // Update page classes
     var termClasses = $('body').attr('class').match(/\bterm-\S+/g);
+    console.log(termClasses);
     if (termClasses) {    
       $.each(termClasses, function(){
         $body.removeClass(this.toString());
@@ -374,6 +381,7 @@ var SCB = (function($) {
     $('.page-intro').html( $data.find('.page-intro').html() );
 
     _checkLoadMore();
+    $('.page-intro,.projects').removeClass('loading');
   }
 
   // Should we hide "Load More"?
