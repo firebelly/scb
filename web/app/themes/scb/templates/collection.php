@@ -24,7 +24,7 @@ $post_type_plurals = [
 
     <div class="collection-content">
 
-      <h1 class="collection-name">Collection <span class="collection-title" contentEditable data-id="<?= $collection->ID ?>"><?= !empty($collection->title) ? stripslashes($collection->title) : $collection->ID ?></span></h1>
+      <h1 class="collection-name">Collection <span class="collection-title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contentEditable data-id="<?= $collection->ID ?>"><?= !empty($collection->title) ? stripslashes($collection->title) : $collection->ID ?></span></h1>
       <div class="post-group" data-id="<?= $collection->ID ?>">
 
       <?php 

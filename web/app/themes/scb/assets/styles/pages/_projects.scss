@@ -1,5 +1,13 @@
 // Project Grid Card Styles
 
+.page-intro,
+.projects {
+  transition: opacity .15s ease-out;
+  &.loading {
+    opacity: 0;
+  }
+}
+
 .projects {
   @include clearfix();
 
@@ -54,13 +62,15 @@
       position: relative;
       line-height: 1.428571429em;
     }
-    h1, .location {
-      &::after {
+    .categories, .location {
+      @include sc();
+      padding: 8px 0 20px;
+      &::before {
         left: 0;
-        bottom: 4px;
+        top: 0;
         width: 10px;
         content: '';
-        height: 2px;
+        height: 1px;
         position: absolute;
         background: $white;
       }
@@ -68,12 +78,7 @@
     h1 {
       padding-bottom: 30px;
     }
-    .location {
-      padding-top: 3px;
-      padding-bottom: 13px;
-    }
     .categories {
-      line-height: 24px;
       .slash:last-of-type {
         display: none;
       }
