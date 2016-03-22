@@ -240,8 +240,7 @@ var SCB = (function($) {
         _hideCollection();
       }
 
-      if (relative_url.match(/\/^(project|person|position|office)\//)) {
-
+      if (relative_url.match(/^\/(project|person|position|office)\//)) {
         // Standard post modals
         if (page_cache[encodeURIComponent(State.url)]) {
           _updateModal();
