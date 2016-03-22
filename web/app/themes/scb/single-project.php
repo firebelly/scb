@@ -11,7 +11,7 @@ if ($categories):
 endif;
 $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
 ?>
-<article class="project <?= $orientation ?>" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-pageclass="<?= $parent_cat ?>">
+<article class="project <?= $orientation ?>" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-pageclass="<?= $parent_cat ?>" data-modal-type="project">
   <div class="actions">
     <a href="/" class="plus-button close single-project-close"><div class="plus"></div></a>
     <?php if (\Firebelly\Collections\post_in_collection($collection,$post->ID, 'large')): ?>

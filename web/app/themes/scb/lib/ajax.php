@@ -83,7 +83,6 @@ function load_more_posts() {
     }
   endif;
 
-  // we use this call outside AJAX calls; WP likes die() after an AJAX call
   if (is_ajax()) die();
 }
 add_action( 'wp_ajax_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
@@ -138,7 +137,6 @@ function load_more_projects() {
     }
   endif;
 
-  // we use this call outside AJAX calls; WP likes die() after an AJAX call
   if (is_ajax()) die();
 }
 add_action( 'wp_ajax_load_more_projects', __NAMESPACE__ . '\\load_more_projects' );
@@ -155,25 +153,28 @@ function load_post_modal() {
     $collection = \Firebelly\Collections\get_active_collection();
   }
 
-  if(!empty($_POST['post_id'])) {
-    $post = get_post($_POST['post_id']);
-    $post_type = get_post_type($post);
-    $page_name = $post->post_name; 
+  if(!empty($_POST['post_url'])) {
+    $post_id = url_to_postid($_POST['post_url']);
+    if ($post_id) {
+      $post = get_post($post_id);
+      $post_type = get_post_type($post);
+      $page_name = $post->post_name; 
 
-    if ($post_type == 'post') {
-      $news_post = $post;
-      include(locate_template('templates/article-news.php'));
-    } elseif ($post_type == 'page') {
-      include(locate_template('page-'.$page_name.'.php'));
+      if ($post_type == 'post') {
+        $news_post = $post;
+        include(locate_template('templates/article-news.php'));
+      } elseif ($post_type == 'page') {
+        include(locate_template('page-'.$page_name.'.php'));
+      } else {
+        include(locate_template('single-'.get_post_type($post).'.php'));
+      }
     } else {
-      include(locate_template('single-'.get_post_type($post).'.php'));
+      echo 'Post not found.';
     }
-
   } else {
-    echo 'empty request';
+    echo 'Post not found.';
   }
 
-  // we use this call outside AJAX calls; WP likes die() after an AJAX call
   if (is_ajax()) die();
 }
 add_action( 'wp_ajax_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );

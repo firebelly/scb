@@ -31,7 +31,7 @@
 }
 
 // Office modals
-.modal.office {
+.office-modal {
   .modal-content {
     padding: 20px;
     @include min-screen($breakpoint-medium) {

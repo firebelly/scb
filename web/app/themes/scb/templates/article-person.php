@@ -1,4 +1,4 @@
-<article class="person" data-id="<?= $person_post->ID ?>">
+<article class="person" data-id="<?= $person_post->ID ?>" data-page-title="<?= $person_post->post_title ?>" data-page-url="<?= get_permalink($person_post) ?>" data-modal-type="person">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($person_post->ID)): ?>
     <div class="image-wrap" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
   <?php endif; ?>

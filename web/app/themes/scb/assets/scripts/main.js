@@ -1,4 +1,4 @@
-// SCB - Firebelly 2015
+// SCB - Firebelly 2016
 /*jshint latedef:false*/
 
 // Good Design for Good Reason for Good Namespace
@@ -14,17 +14,16 @@ var SCB = (function($) {
       $sidebar,
       $collection,
       $modal,
-      $mapModal,
+      $map_modal,
+      $category_nav,
       modal_animating = false,
-      loadingTimer,
-      // Get scrollbar width on page load
-      scrollbarWidth = _getScrollbarWidth(),
+      scrollbar_width = _getScrollbarWidth(), // Get scrollbar width on page load
       History = window.History,
-      rootUrl = History.getRootUrl(),
+      State,
+      root_url = History.getRootUrl(),
+      relative_url,
       page_cache = [],
-      category_cache = [],
-      collection_message_timer,
-      page_at;
+      collection_message_timer;
 
   function _init() {
     // Touch-friendly fast clicks
@@ -32,18 +31,18 @@ var SCB = (function($) {
 
     // Init state
     State = History.getState();
+    relative_url = '/' + State.url.replace(root_url,'');
+    History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
 
     // Cache some common DOM queries
     $document = $(document);
-    $body = $('body');
+    $body = $('body').addClass('loaded');
     $collection = $('.collection.mini');
     $modal = $('.global-modal');
-    $body.addClass('loaded');
 
-    // Barf-o-rama
+    // Highly questionable disabling of default browser behavior to avoid "stealing" images
     $body.on('contextmenu', '.modal-content img, main img', function(e) { e.preventDefault(); });
     $body.on('dragstart', '.modal-content img, main img', function(e) { e.preventDefault(); });
-
 
     // Set screen size vars
     _resize();
@@ -51,96 +50,9 @@ var SCB = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
-    // Global application form, shown (in a modal of course!) when clicking "Submit Portfolio"
-    $document.on('click', 'a.submit-portfolio', function(e) {
-      e.preventDefault();
-      _showApplicationForm();
-    });
-
-    // Bind to state changes (unused right now)
-    $(window).bind('Xstatechange',function(){
-      var State = History.getState(),
-          url = State.url,
-          relative_url = url.replace(rootUrl,'');
-
-      if (State.data.ignore_change) {
-        return;
-      }
-    });
-
     // Are we on a page with project category nav?
     if ($('.project-categories').length) {
-
-      // Category nav scrolling behavior
-      _checkCatScrollPos();
-      $(window).on('scroll', function() {
-        _checkCatScrollPos();
-      });
-
-      // Toggle Categories filter
-      $document.on('click', '.categories-toggle', function(e) {
-        $('.project-categories').toggleClass('expanded');
-      });
-
-      // Init active nav categories on page load
-      $('.project-categories').find('.current-cat-parent>a, .current-cat>a').each(function() {
-        _updateProjectCategoryNav(this);
-      });
-
-      // Active grandparent doesn't get a .current-cat class of any sort
-      $('.project-categories .current-cat-parent').parents('li').find('>a').each(function() {
-        _updateProjectCategoryNav(this);
-      });
-
-      // Project category filter
-      $('.project-categories').on('click', 'a', function(e) {
-        e.preventDefault();
-
-        var $category = $(this);
-        _updateProjectCategoryNav(this);
-
-        // Build array of selected category slugs
-        var project_categories = [];
-        $('.project-categories li.active>a').each(function() {
-          var slug = $(this).attr('href').split('/')[2];
-          project_categories.push(slug);
-        });
-
-        // Pull last category to use for filtering
-        project_category = project_categories.slice(-1).pop();
-
-        if (typeof project_category === 'undefined') {
-          project_category = '';
-        }
-
-        // Set data-pageClass to parent category (first in array) for color theme styling
-        $body.attr('data-pageClass', project_categories[0]);
-
-        // Cached?
-        if (!category_cache['category-' + project_category]) {
-          $.ajax({
-              url: wp_ajax_url,
-              method: 'post',
-              data: {
-                  action: 'load_more_projects',
-                  page: 1,
-                  per_page: 6,
-                  project_category: project_category
-              },
-              success: function(data) {
-                if (loadingTimer) { clearTimeout(loadingTimer); }
-                // Cache ajax return
-                category_cache['category-' + project_category] = data;
-                _updateProjects(data);
-                $body.addClass('term-' + project_category);
-                _scrollBody($body, 250, 0);
-              }
-          });
-        } else {
-          _updateProjects(category_cache['category-' + project_category]);
-          $body.addClass('term-' + project_category);
-        }
-      });
+      _initProjectCategories();
     }
 
     // Show/hide project details
@@ -152,7 +64,8 @@ var SCB = (function($) {
     $document.on('click', '.show-collection', function(e) {
       e.preventDefault();
       if ($collection.hasClass('active')) {
-        _hideCollection();
+        History.back();
+        // _hideCollection();
       } else {
         _showCollection();
       }
@@ -160,7 +73,8 @@ var SCB = (function($) {
     $document.on('click', '.hide-collection', function(e) {
       e.preventDefault();
       if ($collection.hasClass('active')) {
-        _hideCollection();
+        History.back();
+        // _hideCollection();
       }
     });
 
@@ -168,7 +82,8 @@ var SCB = (function($) {
     $document.on('click', '.show-modal', function(e) {
       e.preventDefault();
       if ($modal.hasClass('active')) {
-        _hideModal();
+        History.back();
+        // _hideModal();
       } else {
         _showModal();
       }
@@ -176,8 +91,9 @@ var SCB = (function($) {
     $document.on('click', '.hide-modal', function(e) {
       e.preventDefault();
       if ($modal.hasClass('active')) {
-        _hideModal();
-        _hidePageOverlay();
+        History.back();
+        // _hideModal();
+        // _hidePageOverlay();
       }
     });
 
@@ -286,6 +202,13 @@ var SCB = (function($) {
       }
     });
 
+    // Global application form, shown (in a modal of course!) when clicking "Submit Portfolio"
+    $document.on('click', 'a.submit-portfolio', function(e) {
+      e.preventDefault();
+      _showApplicationForm();
+    });
+
+    _initStateHandling();
     _initNav();
     _initSearch();
     _initImageModals();
@@ -293,42 +216,88 @@ var SCB = (function($) {
     _initPostModals();
     _initBigClicky();
     _initMasonryGrid();
-
-    // AJAX form submissions
-    _initApplicationForms();
-
-    // Drag-sorting of Collections
-    _initCollectionBehavior();
-
-    // Init SVG Injection
     _injectSvgSprite();
-
+    _initApplicationForms();
+    _initCollectionBehavior();
     _plusButtons();
     _shrinkHeader();
 
   } // end init()
 
+  // Bind to state changes and handle back/next
+  function _initStateHandling() {
+    $(window).bind('statechange',function(){
+      State = History.getState();
+      relative_url = '/' + State.url.replace(root_url,'');
+
+      if (State.data.ignore_change) {
+        return;
+      }
+
+      // Original page before any modals
+      if (State.data.originalURL) {
+        _hideModal();
+        _hideCollection();
+      }
+
+      if (relative_url.match(/\/^(project|person|position|office)\//)) {
+
+        // Standard post modals
+        if (page_cache[encodeURIComponent(State.url)]) {
+          _updateModal();
+        } else {
+          _loadModal();
+        }
+
+      } else if (relative_url==='/' || relative_url.match(/^\/projects\//)) {
+
+        _hideModal();
+        _hideCollection();
+
+        // Project category navigation
+        if (page_cache[encodeURIComponent(State.url)]) {
+          _updateProjects();
+        } else {
+          _loadProjects();
+        }
+
+      } else if (relative_url.match(/^\/collection\//)) {
+
+        // Collection
+        _showCollection();
+
+      } else {
+
+        // ?
+
+      }
+
+      // Track URL change in analytics
+      _trackPage();
+    });
+  }
+
   // Get scrollbar width for open modal offset
   function _getScrollbarWidth() {
-    var outer = document.createElement("div");
-    outer.style.visibility = "hidden";
-    outer.style.width = "100px";
-    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+    var outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.width = '100px';
+    outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
 
     document.body.appendChild(outer);
 
     var widthNoScroll = outer.offsetWidth;
-    // force scrollbars
-    outer.style.overflow = "scroll";
+    // Force scrollbars
+    outer.style.overflow = 'scroll';
 
-    // add innerdiv
-    var inner = document.createElement("div");
-    inner.style.width = "100%";
+    // Add innerdiv
+    var inner = document.createElement('div');
+    inner.style.width = '100%';
     outer.appendChild(inner);        
 
     var widthWithScroll = inner.offsetWidth;
 
-    // remove divs
+    // Remove divs
     outer.parentNode.removeChild(outer);
 
     return widthNoScroll - widthWithScroll;
@@ -337,142 +306,49 @@ var SCB = (function($) {
   // Collapse category nav?
   function _checkCatScrollPos() {
     if($(window).scrollTop() >= $('.main .projects').offset().top - $('.site-header').outerHeight()) {
-      $('.project-categories').addClass('fixed');
-      if ($('.categories-toggle').is('.expanded') && !$('.project-categories').is('.expanded')) {
+      $category_nav.addClass('fixed');
+      if ($('.categories-toggle').is('.expanded') && !$category_nav.is('.expanded')) {
         $('.categories-toggle').removeClass('expanded');
       }
     } else if ($(window).scrollTop() <= $('.main').offset().top + $('.site-header').outerHeight()) {
-      $('.project-categories').removeClass('fixed expanded');
+      $category_nav.removeClass('fixed expanded');
       $('.categories-toggle').addClass('expanded');
     }
   }
 
-  // Custom AJAX function to pull in new Projects (first two pages strange grids)
-  function _updateProjects(data) {
-    $data = $(data);
-    // Remove load-more DOM elements from returned HTML
-    var new_load_more = $data.find('.load-more').detach();
-
-    // Update load more container & empty load-more container
-    $('.load-more').replaceWith(new_load_more);
-
-    $('.masonry-grid').masonry('destroy');
-
-    // Update page classes
-    var termClasses = $('body').attr('class').match(/\bterm-\S+/g);
-    if (termClasses) {    
-      $.each(termClasses, function(){
-        $body.removeClass(this.toString());
-      });
-    }
-
-    // Populate new projects in grid
-    $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
-    _initMasonryGrid();
-
-    // Pull intro and replace on page
-    $('.page-intro').html( $data.find('.page-intro').html() );
-
-    _checkLoadMore();
-  }
-
-  // Should we hide "Load More"?
+  // Hide "Load More" if there are no more pages
   function _checkLoadMore() {
     $('.load-more').toggleClass('hide', parseInt($('.load-more').attr('data-page-at')) >= parseInt($('.load-more').attr('data-total-pages')));
   }
 
-  // Update active state in hierarchical category nav (used on page load, and interacting w/ categories)
-  function _updateProjectCategoryNav(el) {
-    var thisUrl = $(el).attr('href'),
-        $li = $(el).parent('li'),
-        $activeSiblings = $li.siblings('.active');
-
-    // Match height of absolutely-positioned children lists
-    if ($li.find('ul.children').length && !$li.is('.active')) {
-      var childHeight = $li.find('ul.children').outerHeight();
-      $('.project-categories .-inner').outerHeight(childHeight + 20);
-    } else {
-      $('.project-categories .-inner').outerHeight($li.closest('ul').outerHeight() + 20);
-    }
-
-    // Toggle corresponding header bars
-    if ($li.parent('ul').is('.categories-parent')) {
-      $('.bar.-two, .bar.-three').removeClass('active');
-      if (!$li.is('.active')) {
-        $('.bar.-two').addClass('active');
-      }
-    } else if ($li.parent('ul').is('.children')) {
-      if ($li.is('.active') && $('.bar.-three').is('.active') || !$li.find('ul').length && $('.bar.-three').is('.active')) {
-        $('.bar.-three').removeClass('active');
-      } else if ($li.find('ul').length) {
-        $('.bar.-three').addClass('active');
-      }
-    }
-
-    // Toggle active status
-    if (!$li.hasClass('active')) {
-      $li.addClass('active');
-    } else {
-      $li.removeClass('active');
-      $li.find('ul, li').removeClass('active');
-    }
-
-    // Activate/deactivate the parent ul
-    var $parentUl = $li.parent('ul');
-    if (!$parentUl.is('.active')) {
-      $li.parent('ul').addClass('active');
-    } else if ($parentUl.hasClass('active') && !$activeSiblings.length) {
-      $parentUl.removeClass('active');
-    }
-
-    // If toggling a child, give the whole thing a relative class
-    if ($li.closest('ul').is('.children') && $li.find('.children').length) {
-      $('.categories-parent').toggleClass('grandchildren-active');
-    }
-
-    // If there are active siblings, deactivate them and their children
-    if ($activeSiblings.length) {
-      $activeSiblings.find('.active').removeClass('active');
-      $activeSiblings.removeClass('active');
-    }
-
-    // Update state
-    if ($('.project-categories li.active').length) {
-      $('.project-categories li.active:last>a').each(function() {
-        History.replaceState({'ignore_change': true}, $(this).text() + ' – SCB', $(this).attr('href'));
-        _trackPage();
-      });
-    } else {
-      // No active projects, default to homepage
-      History.replaceState({}, 'SCB – ' + $('.site-header .description').text(), '/');
-      _trackPage();
-    }
-
-  }
-
   // Function to update document content (and og: tags) after state change (unused right now)
-  function _updateContent() {
-    var State = History.getState();
+  // function _updateContent() {
+  //   var State = History.getState();
 
-    // track page view in Analytics
-    _trackPage();
+  //   // track page view in Analytics
+  //   _trackPage();
 
-    setTimeout(function() {
-      _updateTitle();
-      // Update meta tags
-      if ($('#og-updates').length) {
-        $('meta[property="og:url"]').attr('content', State.url);
-        $('meta[property="og:title"]').attr('content', document.title);
-        $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
-        $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
-      }
-    }, 150);
-  }
+  //   setTimeout(function() {
+  //     _updateTitle();
+  //     // Update meta tags
+  //     if ($('#og-updates').length) {
+  //       $('meta[property="og:url"]').attr('content', State.url);
+  //       $('meta[property="og:title"]').attr('content', document.title);
+  //       $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
+  //       $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
+  //     }
+  //   }, 150);
+  // }
 
-  // Function to update document title after state change (unused right now)
+  // Function to update document title after state change
   function _updateTitle() {
-    var title = $content.find('.content:first').attr('data-post-title');
-    if (title === '' || title === 'Main') {
+    var title;
+    if ($modal.is('.active')) {
+      title = $('.modal-content [data-page-title]').first().attr('data-page-title');
+    } else {
+      title = $('[data-page-title]').first().attr('data-page-title');
+    }
+    if (title === '') {
       title = 'SCB';
     } else {
       title = title + ' – SCB'; 
@@ -484,6 +360,7 @@ var SCB = (function($) {
     } catch (Exception) {}
   }
 
+  // Show email form in Collection
   function _showEmailForm() {
     $('#email-collection-form').addClass('active');
     $('#email-collection-form input:first').focus();
@@ -494,7 +371,6 @@ var SCB = (function($) {
     });
     _scrollBody($('.collection .collection-actions'), 250, 0, 0, $('.overflow-wrapper'));
   }
-
   function _hideEmailForm() {
     $('#email-collection-form').removeClass('active');
   }
@@ -552,6 +428,7 @@ var SCB = (function($) {
     });
   }
 
+  // Shrink header as you scroll down
   function _shrinkHeader() {
     if ($document.scrollTop() > 100) {
       $('.site-header').addClass('shrink');
@@ -565,7 +442,8 @@ var SCB = (function($) {
     });
   }
 
-  function _updatePostCollectionLinks(id,action) {
+  // Update all Collection add/remove links on page after action
+  function _updatePostCollectionLinks(id, action) {
     $('article[data-id='+id+'] .collection-action').each(function() {
       if (action==='add') {
         $(this).removeClass('collection-add').addClass('collection-remove').attr('data-action', 'remove');
@@ -577,48 +455,43 @@ var SCB = (function($) {
     });
   }
 
+  // Everybody loves a modal!
   function _showModal() {
+    _hideCollection();
     _showPageOverlay(); 
     $body.addClass('modal-active');
     // Offset body for scrollbar width
-    $('body, .site-header').css('margin-right', scrollbarWidth);
+    $('body, .site-header').css('margin-right', scrollbar_width);
     $modal.addClass('display');
     $modal.find('.modal-content').scrollTop(0);
     setTimeout(function() {
       $modal.addClass('active');
     }, 100);
-    // _scrollBody($body, 250, 0, 0);
     if ($modal.find('.modal-content').is(':empty')) {
       $modal.addClass('empty');
     } else {
       $modal.removeClass('empty');
     }
   }
-
   function _hideModal() {
     modal_animating = true;
-    State = History.getState();
     _hidePageOverlay();
     $('body, .site-header').css('margin-right', 0);
     $body.removeClass('modal-active');
     $modal.removeClass('active');
     setTimeout(function() {
       modal_animating = false;
-      $modal.removeClass('display');
-      $modal.removeClass('news-modal post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
+      $modal.removeClass('display news-modal post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
     }, 500);
-    if (State.data.previousURL) {
-      History.replaceState({}, State.data.previousTitle, State.data.previousURL);
-      _trackPage();
-    }
   }
 
+  // Show Collection modal
   function _showCollection() {
     _hideModal();
     _showPageOverlay(); 
     $body.addClass('collection-active');
     // Offset body for scrollbar width
-    $('body, .site-header').css('margin-right', scrollbarWidth);
+    $('body, .site-header').css('margin-right', scrollbar_width);
     $collection.addClass('display');
     setTimeout(function() {
       $collection.addClass('active');
@@ -632,8 +505,8 @@ var SCB = (function($) {
     if($('.site-nav').is('.active')) {
       _hideMobileNav();
     }
+    History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
   }
-
   function _hideCollection() {
     _hidePageOverlay();
     $body.removeClass('collection-active');
@@ -644,6 +517,7 @@ var SCB = (function($) {
     }, 500);
   }
 
+  // Show Application form! In a modal!
   function _showApplicationForm() {
     $modal.find('.modal-content').empty().prepend('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>');
     var $app_form = $('.application-form-template');
@@ -686,7 +560,6 @@ var SCB = (function($) {
     _scrollBody($('.collection .feedback-container'), 250, 0, 0, $('.overflow-wrapper'));
     
   }
-
   function _hideCollectionMessage() {
     $('.modal').find('.feedback-container').removeClass('show-feedback');
     $('.modal').find('.feedback-container .feedback p').text('');
@@ -790,47 +663,169 @@ var SCB = (function($) {
     });
   }
 
+  // Ajaxify .show-post-modal links
   function _initPostModals() {
     $document.on('click', '.show-post-modal', function(e) {
-      var $thisTarget = $(e.target);
-      // Ignore links inside that do something else
-      if ($thisTarget.is('.no-ajaxy') || $thisTarget.parents('.no-ajaxy').length) {
-        return;
+      if (modal_animating) {
+        return false;
       }
-      if (modal_animating) { return false; }
-      e.preventDefault();
+      var $thisTarget = $(e.target);
+      if (!$thisTarget.is('.no-ajaxy')) {
+        e.preventDefault();
+        History.pushState({ modal: true }, '', $(this).attr('data-page-url') || $(this).attr('href'));
+      }
+    });
+  }
 
-      var post_id = $(this).attr('data-id'),
-          modal_type = $(this).attr('data-modal-type');
-          $modal.removeClass('news-modal post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
-          $postModal = $modal.addClass('post-modal ' + modal_type);
+  // Load AJAX content to show in a modal & store in page_cache array
+  function _loadModal() {
+    $.ajax({
+      url: wp_ajax_url,
+      method: 'post',
+      dataType: 'html',
+      data: {
+        'action': 'load_post_modal',
+        'post_url': State.url
+      },
+      success: function(response) {
+        page_cache[encodeURIComponent(State.url)] = response;
+        _updateModal();
+      }
+    }); 
+  }
 
-      // Hide the collection if it's open
-      _hideCollection();
+  // Update modal with cached content for current URL and show it
+  function _updateModal() {
+    $postModal = $(page_cache[encodeURIComponent(State.url)]);
+    $modal.removeClass('news-modal project-modal person-modal application-modal position-modal').addClass($postModal.attr('data-modal-type') + '-modal');
+    $modal.find('.modal-content').html('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>' + page_cache[encodeURIComponent(State.url)]);
+    _trackPage();
+    _showModal();
+    _updateTitle();
+  }
 
-      $postModal.find('.modal-content').empty();
+  // Load AJAX content for projects (triggered when clicking category nav)
+  function _loadProjects() {
+    var product_category = '';
+    if (State.url !== '/') {
+      project_category = relative_url.split('/')[2];
+    }
 
-      $.ajax({
+    $.ajax({
         url: wp_ajax_url,
         method: 'post',
-        dataType: 'html',
         data: {
-            'action': 'load_post_modal',
-            'post_id': post_id
+            action: 'load_more_projects',
+            page: 1,
+            per_page: 6,
+            project_category: project_category
         },
         success: function(response) {
-          var $postData = $(response);
-          $('.post-modal .modal-content').append($postData).prepend('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>');
-          History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
-          _trackPage();
-          _showModal();
-        },
-        error: function(error){
-          console.log(error);
+          page_cache[encodeURIComponent(State.url)] = response;
+          _updateProjects();
         }
-      }); 
+    });
+  }
 
-    });       
+  function _initProjectCategories() {
+    $category_nav = $('.project-categories');
+
+    // Set initial active state (if on category page)    
+    _updateProjectCategoryNavByURL();
+
+    // Category nav scrolling behavior
+    _checkCatScrollPos();
+    $(window).on('scroll', function() {
+      _checkCatScrollPos();
+    });
+
+    // Toggle category filters when scrolling
+    $document.on('click', '.categories-toggle', function(e) {
+      $category_nav.toggleClass('expanded');
+    });
+
+    // Project category filters
+    $category_nav.on('click', 'a', function(e) {
+      e.preventDefault();
+      var $li = $(this).parent('li'),
+          url = this.href;
+      if ($li.is('.active')) {
+        if ($li.parents('li:first').length) {
+          url = $li.parents('li:first').find('a:first').attr('href');
+        } else {
+          url = '/';
+        }
+      }
+
+      // Push active category URL
+      History.pushState({ category: true }, '', url);
+    });
+  }
+
+  // Populate Project grid with category output
+  function _updateProjects() {
+    var $data = $(page_cache[encodeURIComponent(State.url)]),
+        $category_link = $('.project-categories a[href="' + relative_url + '"]');
+
+    // Show active category in nav
+    _updateProjectCategoryNavByURL();
+
+    // Build array of selected category slugs
+    var project_categories = [];
+    $('.project-categories li.active>a').each(function() {
+      var slug = $($category_link).attr('href').split('/')[2];
+      project_categories.push(slug);
+    });
+
+    // Pull last category to use for filtering
+    project_category = project_categories.slice(-1).pop();
+    // No categories selected?
+    if (typeof project_category === 'undefined') {
+      project_category = '';
+    }
+
+    // Set data-pageClass to parent category (first in array) for color theme styling
+    $body.attr('data-pageClass', project_categories[0]);
+
+    // Remove load-more DOM elements from returned HTML
+    var new_load_more = $data.find('.load-more').detach();
+
+    // Update load more container & empty load-more container
+    $('.load-more').replaceWith(new_load_more);
+
+    // Clear out any existing Masonry
+    $('.masonry-grid').masonry('destroy');
+
+    // Populate new projects in grid
+    $('section.projects .initial-section').html( $data.find('.initial-section').html() ).removeClass('loading');
+    _initMasonryGrid();
+
+    // Pull intro and replace on page
+    $('.page-intro').html( $data.find('.page-intro').html() );
+
+    _scrollBody($body, 250, 0);
+    _checkLoadMore();
+  }
+
+  // Set active state in category nav based on current URL (used in statechange & on page load)
+  function _updateProjectCategoryNavByURL() {
+    $category_nav.find('ul, li, .bar').removeClass('active grandchildren-active');
+    if (relative_url !== '/') {
+      var $li = $category_nav.find('a[href="' + relative_url + '"]').parent('li').addClass('active');
+      $li.parents('ul,li').addClass('active');
+
+      // Add grandchildren class if more than one active column
+      if ($category_nav.find('li.active>ul').length > 1) {
+        $('.bar').addClass('active');
+        $('.categories-parent').addClass('grandchildren-active');
+      } else {
+        $('.bar.-one, .bar.-two').addClass('active');
+      }
+      $category_nav.find('.-inner').outerHeight($category_nav.find('li.active:last ul:first,ul.active').maxHeight() + 20);
+    } else {
+      $('.bar.-one').addClass('active');
+      $category_nav.find('.-inner').outerHeight($category_nav.find('ul.categories-parent') .outerHeight() + 20);
+    }
   }
 
   function _showPageOverlay() {
@@ -877,6 +872,7 @@ var SCB = (function($) {
     });
   }
 
+  // Scroll to location in body or container element
   function _scrollBody(element, duration, delay, offset, container) {
     if ($('#wpadminbar').length) {
       wpOffset = $('#wpadminbar').height();
@@ -891,6 +887,7 @@ var SCB = (function($) {
     }, 'easeOutSine');
   }
 
+  // Search handler to show form in overlay
   function _initSearch() {
     $('.show-search').on('click', function (e) {
       e.preventDefault();
@@ -927,7 +924,6 @@ var SCB = (function($) {
       });
     }
   }
-
   function _hideSearch() {
     $('.search-modal').removeClass('active');
     setTimeout(function() {
@@ -935,9 +931,10 @@ var SCB = (function($) {
     }, 500);
   }
 
+  // Handler for image modals (currently map images)
   function _initImageModals() {
     // Append image modal markup
-    $mapModal = $('<div class="image-modal"><button class="plus-button close hide-image-modal"><div class="plus"></div></button><div class="image-wrap"><img src=""></div></div>').prependTo('.site-footer');
+    $map_modal = $('<div class="image-modal"><button class="plus-button close hide-image-modal"><div class="plus"></div></button><div class="image-wrap"><img src=""></div></div>').prependTo('.site-footer');
 
     // All map links open up in modal
     $document.on('click', '.show-image-modal', function(e) {
@@ -947,8 +944,8 @@ var SCB = (function($) {
       _hideCollection();
       _hideModal();
 
-      $mapModal.find('img').attr('src', $(this).attr('href'));
-      $mapModal.imagesLoaded(function() {
+      $map_modal.find('img').attr('src', $(this).attr('href'));
+      $map_modal.imagesLoaded(function() {
         _showImageModal();
       });
       // History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
@@ -957,7 +954,6 @@ var SCB = (function($) {
     // Close it
     $document.on('click', '.hide-image-modal', _hideImageModal);
   }
-
   function _showImageModal() {
     $body.addClass('no-scroll');
     $('.image-modal').addClass('display');
@@ -965,7 +961,6 @@ var SCB = (function($) {
       $('.image-modal').addClass('active');
     },50);
   }
-
   function _hideImageModal() {
     State = History.getState();
     $body.removeClass('no-scroll');
@@ -973,9 +968,6 @@ var SCB = (function($) {
     setTimeout(function() {
       $('.image-modal').removeClass('display');
     }, 500);
-    // if (State.data.previousURL) {
-    //   History.replaceState({}, State.data.previousTitle, State.data.previousURL);
-    // }
   }
 
   // Handles main nav
@@ -1000,19 +992,18 @@ var SCB = (function($) {
         _hidePageOverlay();
       });
   }
-
   function _showMobileNav() {
     _hideModal();
     _hideCollection();
     $('body, .menu-toggle').addClass('menu-open');
     $('.site-nav').addClass('active');
   }
-
   function _hideMobileNav() {
     $('body, .menu-toggle').removeClass('menu-open');
     $('.site-nav').removeClass('active');
   }
 
+  // Load More handler: loads AJAX content and updates various pagination/category attributes in Load More
   function _initLoadMore() {
     $document.on('click', '.load-more a', function(e) {
       e.preventDefault();
@@ -1022,7 +1013,6 @@ var SCB = (function($) {
       var per_page = parseInt($load_more.attr('data-per-page'));
       var category = $load_more.attr('data-category');
       var more_container = $load_more.parents('section,main').find('.load-more-container');
-      loadingTimer = setTimeout(function() { more_container.addClass('loading'); }, 500);
 
       $.ajax({
           url: wp_ajax_url,
@@ -1036,7 +1026,6 @@ var SCB = (function($) {
           },
           success: function(data) {
             var $data = $(data);
-            if (loadingTimer) { clearTimeout(loadingTimer); }
             $('.masonry-grid').append($data).removeClass('loading');
             $('.masonry-grid').masonry('appended', $data);
             $load_more.attr('data-page-at', page+1);
@@ -1046,7 +1035,7 @@ var SCB = (function($) {
     });
   }
 
-  // Track ajax pages in Analytics
+  // Track AJAX pages in Analytics
   function _trackPage() {
     if (typeof ga !== 'undefined') {
       ga('send', 'pageview', location.pathname);
@@ -1068,11 +1057,6 @@ var SCB = (function($) {
     breakpoint_large = (screenWidth > breakpoint_array[2]);
   }
 
-  // Called on scroll
-  // function _scroll(dir) {
-  //   var wintop = $(window).scrollTop();
-  // }
-
   // Public functions
   return {
     init: _init,
@@ -1090,3 +1074,11 @@ jQuery(document).ready(SCB.init);
 
 // Zig-zag the mothership
 jQuery(window).resize(SCB.resize);
+
+// returns max height of elements passed in
+jQuery.fn.maxHeight = function(){
+    var maxHeight = Math.max.apply(null, jQuery(this).map(function() {
+        return jQuery(this).outerHeight();
+    }).get());
+    return maxHeight;
+};

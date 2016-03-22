@@ -7,8 +7,8 @@ $num_design_professionals = \Firebelly\SiteOptions\get_option('num_design_profes
 $num_completed_projects = \Firebelly\SiteOptions\get_option('num_completed_projects');
 $num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 
-$chicagoId = url_to_postid('office/chicago');
-$sanFranciscoId = url_to_postid('office/san-francisco');
+$chicagoId = url_to_postid('/office/chicago');
+$sanFranciscoId = url_to_postid('/office/san-francisco');
 
 $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_projects_map_image');
 ?>
@@ -28,7 +28,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
         <div class="wrap">
           <p class="stat-number"><?= $num_offices ?></p>
           <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="office/chicago" class="show-post-modal" data-id="<?= $chicagoId ?>" data-modal-type="office">Chicago</a> / <a href="office/san-francisco" class="show-post-modal" data-id="<?= $sanFranciscoId ?>" data-modal-type="office">San Francisco</a></p>
+          <p class="stat-link"><a href="/office/chicago" class="show-post-modal" data-id="<?= $chicagoId ?>" data-modal-type="office">Chicago</a> / <a href="/office/san-francisco" class="show-post-modal" data-id="<?= $sanFranciscoId ?>" data-modal-type="office">San Francisco</a></p>
         </div>
       </div>
       <div class="stat long-stat">
