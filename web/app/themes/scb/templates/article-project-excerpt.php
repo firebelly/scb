@@ -1,4 +1,4 @@
-<article class="project show-post-modal" data-id="<?= $project_post->ID ?>" data-modal-type="project-modal">
+<article class="project show-post-modal" data-id="<?= $project_post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-pageClass="<?= $parent_cat ?>" data-modal-type="project">
   <div class="wrap">
     <h1 class="article-title"><a href="<?= get_permalink($project_post) ?>"><?= $project_post->post_title ?></a></h1>
 

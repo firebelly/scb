@@ -131,18 +131,15 @@ body {
     @include colorScheme($brand-primary);
   }
   &.architecture,
-  [data-pageClass=architecture],
-  &.term-architecture {
+  &[data-pageClass=architecture] {
     @include colorScheme($architecture-color);
   }
-  &.interior-design, 
-  [data-pageClass="interior-design"],
-  &.term-interior-design {
+  &.interior-design,
+  &[data-pageClass=interior-design] {
     @include colorScheme($interior-design-color);
   }
   &.planning,
-  [data-pageClass="planning"],
-  &.term-planning {
+  &[data-pageClass=planning] {
     @include colorScheme($planning-color);
   }
 }

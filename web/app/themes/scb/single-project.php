@@ -1,4 +1,4 @@
-<?php 
+<?php
 $orientation = get_post_meta($post->ID, '_cmb2_orientation', true);
 $client = get_post_meta($post->ID, '_cmb2_client', true);
 $location = get_post_meta($post->ID, '_cmb2_location', true);
@@ -11,7 +11,7 @@ if ($categories):
 endif;
 $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
 ?>
-<article class="project <?= $orientation ?>" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-pageclass="<?= $parent_cat ?>" data-modal-type="project">
+<article class="project <?= $orientation ?>" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-pageClass="<?= $parent_cat ?>" data-modal-type="project">
   <div class="actions">
     <a href="/" class="plus-button close single-project-close"><div class="plus"></div></a>
     <?php if (\Firebelly\Collections\post_in_collection($collection,$post->ID, 'large')): ?>
@@ -31,13 +31,13 @@ $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
         <h1 class="article-title"><?= $post->post_title ?></h1>
         <?php if ($intro): ?>
           <p class="project-intro-text">
-            <?= $intro ?>          
+            <?= $intro ?>
           </p>
         <?php endif ?>
         <div class="project-meta">
           <div class="show-details"><button class="plus-button details-toggle -expandable">Project details <div class="plus"></div></button></a></div>
           <div class="project-meta-content">
-            <div class="grid-item one-half -left">              
+            <div class="grid-item one-half -left">
               <div class="-inner grid">
                 <?php if ($client): ?>
                   <h3>Client</h3>
@@ -73,7 +73,7 @@ $parent_cat = \Firebelly\Utils\get_top_parent_cat($post);
           <h1 class="article-title"><?= $post->post_title ?></h1>
           <?php if ($intro): ?>
             <p class="project-intro-text">
-              <?= $intro ?>          
+              <?= $intro ?>
             </p>
           <?php endif ?>
         </div>

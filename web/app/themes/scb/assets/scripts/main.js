@@ -792,9 +792,6 @@ var SCB = (function($) {
       project_category = '';
     }
 
-    // Set data-pageClass to parent category (first in array) for color theme styling
-    $body.attr('data-pageClass', project_categories[0]);
-
     // Remove load-more DOM elements from returned HTML
     var new_load_more = $data.find('.load-more').detach();
 
@@ -836,6 +833,12 @@ var SCB = (function($) {
       $('.bar.-one').addClass('active');
       $category_nav.find('.-inner').outerHeight($category_nav.find('ul.categories-parent') .outerHeight() + 20);
     }
+    _setCategoryPageClass();
+  }
+
+  function _setCategoryPageClass() {
+    var slug = $('.project-categories li.active:first>a').attr('href').split('/')[2];
+    $body.attr('data-pageClass', slug);
   }
 
   // Gray out page contents under modal
