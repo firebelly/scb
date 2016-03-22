@@ -198,7 +198,7 @@ var SCB = (function($) {
     // Scroll down to hash afer page load
     $(window).load(function() {
       if (window.location.hash) {
-        _scrollBody($(window.location.hash)); 
+        _scrollBody($(window.location.hash));
       }
     });
 
@@ -252,10 +252,11 @@ var SCB = (function($) {
 
         _hideModal();
         _hideCollection();
+        $('.page-intro,.projects').addClass('loading');
 
         // Project category navigation
         if (page_cache[encodeURIComponent(State.url)]) {
-          _updateProjects();
+          setTimeout(_updateProjects, 150);
         } else {
           _loadProjects();
         }
@@ -292,7 +293,7 @@ var SCB = (function($) {
     // Add innerdiv
     var inner = document.createElement('div');
     inner.style.width = '100%';
-    outer.appendChild(inner);        
+    outer.appendChild(inner);
 
     var widthWithScroll = inner.offsetWidth;
 
@@ -350,7 +351,7 @@ var SCB = (function($) {
     if (title === '') {
       title = 'SCB';
     } else {
-      title = title + ' – SCB'; 
+      title = title + ' – SCB';
     }
     // this bit also borrowed from Ajaxify
     document.title = title;
@@ -363,7 +364,7 @@ var SCB = (function($) {
   function _showEmailForm() {
     $('#email-collection-form').addClass('active');
     $('#email-collection-form input:first').focus();
-    $('.collection .collection-actions').velocity('scroll', { 
+    $('.collection .collection-actions').velocity('scroll', {
       container: $('.modal.active .overflow-wrapper'),
       duration: 250,
       delay: 0
@@ -418,7 +419,7 @@ var SCB = (function($) {
   }
 
   function _injectSvgSprite() {
-    boomsvgloader.load('/app/themes/scb/assets/svgs/build/svgs-defs.svg'); 
+    boomsvgloader.load('/app/themes/scb/assets/svgs/build/svgs-defs.svg');
   }
 
   function _plusButtons() {
@@ -457,7 +458,7 @@ var SCB = (function($) {
   // Everybody loves a modal!
   function _showModal() {
     _hideCollection();
-    _showPageOverlay(); 
+    _showPageOverlay();
     $body.addClass('modal-active');
     // Offset body for scrollbar width
     $('body, .site-header').css('margin-right', scrollbar_width);
@@ -487,7 +488,7 @@ var SCB = (function($) {
   // Show Collection modal
   function _showCollection() {
     _hideModal();
-    _showPageOverlay(); 
+    _showPageOverlay();
     $body.addClass('collection-active');
     // Offset body for scrollbar width
     $('body, .site-header').css('margin-right', scrollbar_width);
@@ -557,7 +558,7 @@ var SCB = (function($) {
     });
 
     _scrollBody($('.collection .feedback-container'), 250, 0, 0, $('.overflow-wrapper'));
-    
+
   }
   function _hideCollectionMessage() {
     $('.modal').find('.feedback-container').removeClass('show-feedback');
@@ -590,6 +591,14 @@ var SCB = (function($) {
           });
         }
     });
+
+      // Check for pressing enter, blur to update collection-title
+      $('.collection-title').on('keydown', function(e) {
+        if(e.keyCode === 13) {
+          e.preventDefault();
+          this.blur();
+        }
+      });
 
     // Update collection title
     $('.collection-title').on('blur', function() {
@@ -690,7 +699,7 @@ var SCB = (function($) {
         page_cache[encodeURIComponent(State.url)] = response;
         _updateModal();
       }
-    }); 
+    });
   }
 
   // Update modal with cached content for current URL and show it
@@ -721,7 +730,7 @@ var SCB = (function($) {
         },
         success: function(response) {
           page_cache[encodeURIComponent(State.url)] = response;
-          _updateProjects();
+          setTimeout(_updateProjects, 150);
         }
     });
   }
@@ -729,7 +738,7 @@ var SCB = (function($) {
   function _initProjectCategories() {
     $category_nav = $('.project-categories');
 
-    // Set initial active state (if on category page)    
+    // Set initial active state (if on category page)
     _updateProjectCategoryNavByURL();
 
     // Category nav scrolling behavior
@@ -802,6 +811,8 @@ var SCB = (function($) {
     // Pull intro and replace on page
     $('.page-intro').html( $data.find('.page-intro').html() );
 
+    $('.page-intro,.projects').removeClass('loading');
+
     _scrollBody($body, 250, 0);
     _checkLoadMore();
   }
@@ -827,6 +838,7 @@ var SCB = (function($) {
     }
   }
 
+  // Gray out page contents under modal
   function _showPageOverlay() {
     if (!$('#page-over').length) {
       $body.prepend('<div id="page-overlay"></div>');
@@ -835,11 +847,11 @@ var SCB = (function($) {
       $('#page-overlay').addClass('active');
     }, 50);
   }
-
   function _hidePageOverlay() {
     $('#page-overlay').remove();
   }
 
+  // Larger clicker areas ftw (w/ support for target and ctrl/cmd+click)
   function _initBigClicky() {
     $document.on('click', '.bigclicky', function(e) {
       if (!$(e.target).is('a')) {
@@ -1043,8 +1055,8 @@ var SCB = (function($) {
 
   // Track events in Analytics
   function _trackEvent(category, action) {
-    if (typeof ga !== 'undefined') { 
-      ga('send', 'event', category, action); 
+    if (typeof ga !== 'undefined') {
+      ga('send', 'event', category, action);
     }
   }
 
