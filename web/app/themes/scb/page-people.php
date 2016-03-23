@@ -12,12 +12,12 @@ $person_categories = get_terms('person_category');
     <?= $post->post_content ?>
     <div class="stat">
       <div class="stat-number">77</div>
-      <div class="stat-label">Universities studied at</div>
+      <div class="stat-label">Universities Represented</div>
     </div>
   </section>
 
   <section class="people-section grid-item one-half">
-    <?php 
+    <?php
     foreach($person_categories as $person_category) {
     	echo '<div class="category-group"><h2>'.$person_category->name.'</h2>';
     	if ($people_posts = Firebelly\PostTypes\Person\get_people(['person_category' => $person_category->slug])) {

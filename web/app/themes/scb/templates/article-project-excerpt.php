@@ -5,9 +5,9 @@
     <p class="actions">
       <a href="<?= get_permalink($project_post) ?>"><button class="plus-button"><div class="plus"></div></button></a>
       <?php if (\Firebelly\Collections\post_in_collection($collection,$project_post->ID)): ?>
-        <a href="#" class="collection-action collection-remove no-ajaxy" data-action="remove" data-id="<?= $project_post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><span class="icon icon-remove"><?php include(get_template_directory().'/assets/svgs/icon-remove.svg'); ?></span> <span class="collection-text sr-only">Remove from Collection</span></a>
+        <a href="#" class="collection-action collection-remove" data-action="remove" data-id="<?= $project_post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><span class="icon icon-remove"><?php include(get_template_directory().'/assets/svgs/icon-remove.svg'); ?></span> <span class="collection-text sr-only">Remove from Collection</span></a>
       <?php else: ?>
-        <a href="#" class="collection-action collection-add no-ajaxy" data-action="add" data-id="<?= $project_post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><span class="icon icon-remove"><?php include(get_template_directory().'/assets/svgs/icon-remove.svg'); ?></span> <span class="collection-text sr-only">Add to Collection</span></a>
+        <a href="#" class="collection-action collection-add" data-action="add" data-id="<?= $project_post->ID ?>"><span class="icon icon-download"><?php include(get_template_directory().'/assets/svgs/icon-download.svg'); ?></span><span class="icon icon-remove"><?php include(get_template_directory().'/assets/svgs/icon-remove.svg'); ?></span> <span class="collection-text sr-only">Add to Collection</span></a>
       <?php endif; ?>
     </p>
   </div>

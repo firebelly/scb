@@ -1,4 +1,4 @@
-<?php 
+<?php
 $post_type = '';
 $post_type_titles = [
   'person' => 'Bios',
@@ -27,7 +27,7 @@ $post_type_plurals = [
       <h1 class="collection-name">Collection <span class="collection-title" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contentEditable data-id="<?= $collection->ID ?>"><?= !empty($collection->title) ? stripslashes($collection->title) : $collection->ID ?></span></h1>
       <div class="post-group" data-id="<?= $collection->ID ?>">
 
-      <?php 
+      <?php
       foreach ($collection->posts as $collection_post):
         // Show header above each group of post types
         if ($post_type != $collection_post->post_type) {
@@ -35,7 +35,7 @@ $post_type_plurals = [
           echo '<h2>'.$post_type_titles[$collection_post->post_type].'</h2><div class="grid-wrapper sortable">';
           $post_type = $collection_post->post_type;
         }
-        
+
         if ($post_type=='project') {
           $project_post = $collection_post;
           include(locate_template('templates/article-project.php'));
@@ -62,7 +62,7 @@ $post_type_plurals = [
           <textarea name="message" cols="30" rows="10" placeholder="message"></textarea><br>
           <input name="collection_id" type="hidden" value="<?= $collection->ID ?>">
           <input name="action" type="hidden" value="email_collection">
-          <label><input id="cc_me" name="cc_me" type="checkbox"> Send me a copy</label>
+          <label><input id="cc_me" name="cc_me" type="checkbox" value="1"> Send me a copy</label>
           <div>
             <input type="submit" class="button">
           </div>

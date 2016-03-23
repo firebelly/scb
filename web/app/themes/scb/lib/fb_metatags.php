@@ -100,6 +100,9 @@ function build_tags() {
     foreach ($metatag_images as $image) {
       echo '<meta property="og:image" content="' . esc_url(apply_filters('fb_metatag_image', $image)) . '"/>' . "\n";
     }
+  } else {
+    // Placeholder tag for AJAX content
+    echo '<meta property="og:image" content=""/>' . "\n";
   }
 
   // Locale

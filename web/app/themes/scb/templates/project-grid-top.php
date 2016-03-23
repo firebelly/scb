@@ -1,9 +1,10 @@
-<?php 
+<?php
 /**
  * Crazy ass project grid
  */
 
 $is_homepage = false;
+$per_page = get_option('posts_per_page');
 
 if (!empty($term)) {
   // Taxonomy filtered
@@ -12,7 +13,7 @@ if (!empty($term)) {
   $load_more_category = $term->slug;
 
   $grid_stat = \Firebelly\PostTypes\Stat\get_stat(['related_category' => $term->term_id]);
-  $grid_projects = \Firebelly\PostTypes\Project\get_projects(['category' => $term->slug, 'num_posts' => 6]);
+  $grid_projects = \Firebelly\PostTypes\Project\get_projects(['category' => $term->slug, 'num_posts' => $per_page]);
   $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false, 'project_category' => $term->slug]);
   if (!$grid_news_posts) {
     $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false]);
@@ -45,7 +46,7 @@ if (!empty($term)) {
   $is_homepage = true;
 
   $grid_stat = \Firebelly\PostTypes\Stat\get_stat();
-  $grid_projects = \Firebelly\PostTypes\Project\get_projects(['num_posts' => 6]);
+  $grid_projects = \Firebelly\PostTypes\Project\get_projects(['num_posts' => $per_page]);
   $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false]);
 
   $projects_map_image = \Firebelly\SiteOptions\get_option('projects_map_image');
@@ -68,9 +69,9 @@ if (empty($grid_description)) {
   <div class="project-categories grid-item one-half -right">
     <div class="-inner">
       <ul class="categories-parent">
-      <?php 
-      wp_list_categories([ 
-        'taxonomy' => 'project_category', 
+      <?php
+      wp_list_categories([
+        'taxonomy' => 'project_category',
         'hide_empty' => 0,
         'title_li' => '',
       ]);
@@ -88,7 +89,7 @@ if (empty($grid_description)) {
     foreach ($grid_projects as $project_post):
       $i++;
       include(locate_template('templates/article-project.php'));
-      
+
       if (count($grid_projects)>=3 && $i===3) {
         $stat_length_class = strlen($grid_stat['_cmb2_stat_number'][0]) > 2 ? (strlen($grid_stat['_cmb2_stat_number'][0]) > 4 ? ' long-stat extra-long-stat' : ' long-stat') : '';
         echo '<article class="grid-item stat '.$stat_length_class.'">
@@ -135,7 +136,9 @@ if (empty($grid_description)) {
                 <div class="stat-meta">
                   <?php if ($is_homepage): ?>
                     <p class="stat-label">Active Projects</p>
-                    <p class="stat-link"><a href="<?= $projects_map_image ?>" class="show-image-modal">View on map</a></p>
+                    <?php if ($projects_map_image): ?>
+                      <p class="stat-link"><a href="<?= $projects_map_image ?>" class="show-image-modal">View on map</a></p>
+                    <?php endif; ?>
                   <?php else: // currently doesn't ever show, remove $is_homepage check above to enable again ?>
                     <p class="stat-label">Featured Projects</p>
                     <p class="stat-link"><?= $term->name ?></p>
@@ -148,5 +151,5 @@ if (empty($grid_description)) {
     <?php endforeach; ?>
   </div>
 
-<div class="load-more" data-post-type="project" data-page-at="1" data-per-page="9" data-total-pages="<?= ceil(($num_projects - 6)/9)+1 ?>" data-category="<?= $load_more_category ?>"><a href="#"><span>Load More Projects</span> <span><button class="plus-button"><div class="plus"></div></button></span></a></div>
+<div class="load-more" data-post-type="project" data-page-at="1" data-per-page="<?= $per_page ?>" data-total-pages="<?= ceil($num_projects/$per_page) ?>" data-category="<?= $load_more_category ?>"><a href="#"><span>Load More Projects</span> <span><button class="plus-button"><div class="plus"></div></button></span></a></div>
 </section>

@@ -1,11 +1,14 @@
-<?php 
+<?php
 use Firebelly\Utils;
 $category = Utils\get_category($news_post);
 $post_date_timestamp = strtotime($news_post->post_date);
 $thumb = \Firebelly\Media\get_post_thumbnail($news_post->ID);
 $featured_class = get_post_meta($news_post->ID, '_featured', true) ? ' featured-post' : '';
 ?>
-<article <?php post_class("article".$featured_class, $news_post->ID); ?> data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-modal-type="post">
+<article <?php post_class("article".$featured_class, $news_post->ID); ?> data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-modal-type="news">
+  <div class="actions">
+    <a href="/news/" class="plus-button close single-close"><div class="plus"></div></a>
+  </div>
   <div class="background-image-wrap" <?php if ($thumb) { echo 'style="background-image:url('.$thumb.');"'; } ?>>
     <time class="article-date" datetime="<?= date('c', $post_date_timestamp); ?>"><span><?= date('m/', $post_date_timestamp); ?></span><span><?= date('d/', $post_date_timestamp); ?></span><span><?= date('y', $post_date_timestamp); ?></span></time>
   </div>

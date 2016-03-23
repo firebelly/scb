@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * News landing page
  */
@@ -17,7 +17,7 @@ $page = get_page_by_path('/news'); // may use this down the line to pull editabl
 <?php else: ?>
 
   <div class="article-list"><div class="first-grid">
-  <?php 
+  <?php
     $i = 0;
     while (have_posts()) : the_post();
       $news_post = $post;
@@ -58,7 +58,7 @@ $page = get_page_by_path('/news'); // may use this down the line to pull editabl
 
   <div class="masonry-grid"></div>
   <?php if ($total_pages>1): ?>
-    <div class="load-more" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy" href="#"><span>Load More News</span> <span><button class="plus-button"><div class="plus"></div></button></span></a></div>
+    <div class="load-more" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a href="#"><span>Load More News</span> <span><button class="plus-button"><div class="plus"></div></button></span></a></div>
   <?php endif ?>
 
   </div><!-- END .article-list -->

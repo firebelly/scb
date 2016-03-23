@@ -30,13 +30,7 @@ function load_more_posts() {
   // get page offsets
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
-  
-  // Page 1 of projects has 6, other pages have 9, wtf
-  if ($post_type=='project' && $page>1) {
-    $offset = 6 + ($page-2) * $per_page;
-  } else {
-    $offset = ($page-1) * $per_page;
-  }
+  $offset = ($page-1) * $per_page;
 
   $args = [
     'offset' => $offset,
@@ -70,7 +64,7 @@ function load_more_posts() {
 
   $posts = get_posts($args);
 
-  if ($posts): 
+  if ($posts):
     foreach ($posts as $post) {
       // set local var for post type — avoiding using $post in global namespace
       if ($post_type == 'project') {
@@ -101,13 +95,7 @@ function load_more_projects() {
   // get page offsets
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
-
-  // Page 1 of projects has 6, other pages have 9, wtf
-  if ($page>1) {
-    $offset = 6 + ($page-2) * $per_page;
-  } else {
-    $offset = ($page-1) * $per_page;
-  }
+  $offset = ($page-1) * $per_page;
 
   $args = [
     'offset' => $offset,
@@ -158,7 +146,7 @@ function load_post_modal() {
     if ($post_id) {
       $post = get_post($post_id);
       $post_type = get_post_type($post);
-      $page_name = $post->post_name; 
+      $page_name = $post->post_name;
 
       if ($post_type == 'post') {
         $news_post = $post;

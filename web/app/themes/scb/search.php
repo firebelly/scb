@@ -25,7 +25,7 @@ endwhile;
     </div>
   <?php endif; ?>
 
-  <?php 
+  <?php
   // Projects are split into three category columns
   $search_arr = [
     'architecture' => 'Architecture',
@@ -53,12 +53,12 @@ endwhile;
   }
   ?>
 
-  <?php 
+  <?php
   // Any People posts match?
-  if (!empty($people_posts)) { 
+  if (!empty($people_posts)) {
     echo '<div class="search-column"><h2 class="cat-title">People</h2>';
     foreach ($people_posts as $people_post) {
-      echo '<article class="article show-post-modal" data-modal-type="person-modal" data-id="'.$people_post->ID.'">
+      echo '<article class="article show-post-modal" data-modal-type="person" data-id="'.$people_post->ID.'" data-page-title="' . $people_post->post_title . '" data-page-url="' . get_permalink($people_post) . '">
         <h2 class="entry-title"><a href="'.get_permalink($people_post).'">'.wp_trim_words($people_post->post_title, 10).'</a></h2>
       </article>';
     }
@@ -66,12 +66,12 @@ endwhile;
   }
   ?>
 
-  <?php 
+  <?php
   // Any News posts match?
-  if (!empty($news_posts)) { 
+  if (!empty($news_posts)) {
     echo '<div class="search-column"><h2 class="cat-title">News</h2>';
     foreach ($news_posts as $news_post) {
-      echo '<article class="article show-post-modal" data-modal-type="news-modal" data-id="'.$news_post->ID.'">
+      echo '<article class="article show-post-modal" data-modal-type="news-modal" data-id="'.$news_post->ID.'" data-page-title="' . $news_post->post_title . '" data-page-url="' . get_permalink($news_post) . '">
         <h2 class="entry-title"><a href="'.get_permalink($news_post).'">'.wp_trim_words($news_post->post_title, 10).'</a></h2>
       </article>';
     }
