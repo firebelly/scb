@@ -7,6 +7,9 @@
   background: $white;
   @include clearfix();
   transition: padding .35s ease-out;
+  &.shrink {
+    opacity: .15;
+  }
 
   @include min-screen($breakpoint-medium) {
     top: 0;
@@ -19,6 +22,7 @@
     }
     &.shrink {
       padding: 20px 30px;
+      opacity: 1;
       .logo {
         a {
           top: -5px;
