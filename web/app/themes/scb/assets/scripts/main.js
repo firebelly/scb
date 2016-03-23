@@ -81,7 +81,6 @@ var SCB = (function($) {
       e.preventDefault();
       if ($collection.hasClass('active')) {
         History.back();
-        // _hideCollection();
       } else {
         _showCollection();
       }
@@ -90,7 +89,6 @@ var SCB = (function($) {
       e.preventDefault();
       if ($collection.hasClass('active')) {
         History.back();
-        // _hideCollection();
       }
     });
 
@@ -99,7 +97,6 @@ var SCB = (function($) {
       e.preventDefault();
       if ($modal.hasClass('active')) {
         History.back();
-        // _hideModal();
       } else {
         _showModal();
       }
@@ -108,8 +105,6 @@ var SCB = (function($) {
       e.preventDefault();
       if ($modal.hasClass('active')) {
         History.back();
-        // _hideModal();
-        // _hidePageOverlay();
       }
     });
 
@@ -186,9 +181,11 @@ var SCB = (function($) {
     $document.on('click', '#page-overlay', function() {
       _hidePageOverlay();
       _hideCollection();
-      History.back();
-      // _hideModal();
-      // _hideMobileNav();
+      if ($body.is('.menu-open')) {
+        _hideMobileNav();
+      } else {
+        History.back();
+      }
     });
 
     // Esc handlers
@@ -196,8 +193,6 @@ var SCB = (function($) {
       if (e.keyCode === 27) {
         if ($body.is('.modal-active, .collection-active')) {
           History.back();
-          // _hideCollection();
-          // _hideModal();
         } else {
           _hideSearch();
           _hideImageModal();
