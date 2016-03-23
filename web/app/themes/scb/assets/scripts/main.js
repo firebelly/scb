@@ -23,7 +23,7 @@ var SCB = (function($) {
       root_url = History.getRootUrl(),
       relative_url,
       original_url,
-      page_cache = [],
+      page_cache = {},
       modal_timer,
       collection_message_timer;
 
@@ -254,7 +254,7 @@ var SCB = (function($) {
         return;
       }
 
-      if (relative_url.match(/^\/(project|person|position|office|\d{0,4})\//)) {
+      if (State.url !== original_url && relative_url.match(/^\/(project|person|position|office|\d{0,4})\//)) {
 
         // Standard post modals
         if (page_cache[encodeURIComponent(State.url)]) {
@@ -463,14 +463,16 @@ var SCB = (function($) {
 
   // Update all Collection add/remove links on page after action
   function _updatePostCollectionLinks(id, action) {
-    $('article[data-id='+id+'] .collection-action').each(function() {
-      if (action==='add') {
-        $(this).removeClass('collection-add').addClass('collection-remove').attr('data-action', 'remove');
-        $(this).find('.collection-text').text('Remove from Collection');
-      } else {
-        $(this).removeClass('collection-remove').addClass('collection-add').attr('data-action', 'add');
-        $(this).find('.collection-text').text('Add to Collection');
-      }
+    $.each(page_cache, function(url, block) {
+      $(block).find('article[data-id='+id+'] .collection-action').each(function() {
+        if (action==='add') {
+          $(this).removeClass('collection-add').addClass('collection-remove').attr('data-action', 'remove');
+          $(this).find('.collection-text').text('Remove from Collection');
+        } else {
+          $(this).removeClass('collection-remove').addClass('collection-add').attr('data-action', 'add');
+          $(this).find('.collection-text').text('Add to Collection');
+        }
+      });
     });
   }
 
@@ -694,7 +696,6 @@ var SCB = (function($) {
       var $target = $(e.target);
       if (!$target.is('.no-ajaxy') && !$target.parents('.collection-action').length) {
         e.preventDefault();
-        console.log($target);
         History.pushState({ modal: true }, '', $(this).attr('href') || $(this).attr('data-page-url'));
       }
     });
