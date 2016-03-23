@@ -1,7 +1,7 @@
 section.collection {
   padding: 0;
   @include clearfix();
-  
+
   &:not(.mini) {
     position: relative;
   }
@@ -77,12 +77,12 @@ section.collection {
   .project {
     margin-bottom: 20px;
 
-    @include min-screen($breakpoint-medium) {    
+    @include min-screen($breakpoint-medium) {
       width: 50%;
       float: left;
       margin-bottom: 0;
     }
-    
+
     .wrap {
       padding: 20px;
     }
@@ -273,7 +273,7 @@ section.collection {
       .actions {
         top: 0;
         right: 0;
-        margin: 0; 
+        margin: 0;
         position: absolute;
       }
       .collection-action {
@@ -301,7 +301,7 @@ section.collection {
       }
 
       .article-title{
-        padding-right: 30px;      
+        padding-right: 30px;
         &::after {
           opacity: 0;
           transition: opacity .2s ease-out;
@@ -340,7 +340,7 @@ section.collection {
 
     @include min-screen($breakpoint-huge) {
       width: calc(50% + 30px);
-  
+
       .projects .placeholder,
       .project {
         width: 50%;
@@ -349,14 +349,14 @@ section.collection {
 
       .projects .placeholder {
         .placeholder-inner {
-          height: 0;        
+          height: 0;
           overflow: hidden;
           padding-bottom: calc(71.4285714% + 20px);
         }
       }
 
       .project {
-        .wrap {      
+        .wrap {
           height: 0;
           min-height: 0;
           overflow: hidden;
@@ -406,12 +406,13 @@ body.dragging * {
   .project {
     .wrap {
       min-height: 300px;
+      overflow: hidden;
     }
   }
 
   .projects .placeholder {
     .placeholder-inner {
-      height: 300px;        
+      height: 300px;
       overflow: hidden;
       padding-bottom: 0;
     }

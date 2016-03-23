@@ -22,17 +22,33 @@ var SCB = (function($) {
       State,
       root_url = History.getRootUrl(),
       relative_url,
+      original_url,
       page_cache = [],
+      modal_timer,
       collection_message_timer;
 
   function _init() {
     // Touch-friendly fast clicks
     FastClick.attach(document.body);
 
+
     // Init state
     State = History.getState();
     relative_url = '/' + State.url.replace(root_url,'');
-    History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
+    original_url = State.url;
+
+    // Collection redirects
+    if (window.location.hash && window.location.hash === '#collection') {
+      History.replaceState({ignore_change: true}, null, '##');
+      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
+      setTimeout(_showCollection, 150);
+    } else {
+      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
+    }
+    if(relative_url==='/') {
+      // Cache initial project grid to avoid flash of loading class after closing first project modal
+      page_cache[encodeURIComponent(State.url)] = $('section.main-project-grid').clone()[0];
+    }
 
     // Cache some common DOM queries
     $document = $(document);
@@ -170,20 +186,24 @@ var SCB = (function($) {
     $document.on('click', '#page-overlay', function() {
       _hidePageOverlay();
       _hideCollection();
-      _hideModal();
-      _hideMobileNav();
+      History.back();
+      // _hideModal();
+      // _hideMobileNav();
     });
 
     // Esc handlers
     $document.keyup(function(e) {
       if (e.keyCode === 27) {
-        _hideSearch();
-        _hideImageModal();
-        _hideCollection();
-        _hideModal();
-        _hideMobileNav();
-        _hidePageOverlay();
-        _hideEmailForm();
+        if ($body.is('.modal-active, .collection-active')) {
+          History.back();
+          // _hideCollection();
+          // _hideModal();
+        } else {
+          _hideSearch();
+          _hideImageModal();
+          _hideMobileNav();
+          _hideEmailForm();
+        }
       }
     });
 
@@ -234,13 +254,8 @@ var SCB = (function($) {
         return;
       }
 
-      // Original page before any modals
-      if (State.data.originalURL) {
-        _hideModal();
-        _hideCollection();
-      }
+      if (relative_url.match(/^\/(project|person|position|office|\d{0,4})\//)) {
 
-      if (relative_url.match(/^\/(project|person|position|office)\//)) {
         // Standard post modals
         if (page_cache[encodeURIComponent(State.url)]) {
           _updateModal();
@@ -248,15 +263,15 @@ var SCB = (function($) {
           _loadModal();
         }
 
-      } else if (relative_url==='/' || relative_url.match(/^\/projects\//)) {
-
-        _hideModal();
-        _hideCollection();
-        $('.page-intro,.projects').addClass('loading');
+      } else if ($category_nav && (relative_url==='/' || relative_url.match(/^\/projects\//))) {
 
         // Project category navigation
+        _hideModal();
+        _hideImageModal();
+        _hideCollection();
+
         if (page_cache[encodeURIComponent(State.url)]) {
-          setTimeout(_updateProjects, 150);
+          _updateProjects();
         } else {
           _loadProjects();
         }
@@ -268,12 +283,24 @@ var SCB = (function($) {
 
       } else {
 
-        // ?
+        // URL isn't handled as a modal or isn't project category (or is page without $category_nav)
+        if (State.url !== original_url) {
+          // Just load URL if isn't original_url
+          location.href = State.url;
+        } else {
+          // ..otherwise just hide all modals
+          _hideModal();
+          _hideCollection();
+          _hideImageModal();
+        }
 
       }
 
-      // Track URL change in analytics
+      // Track AJAX URL change in analytics
       _trackPage();
+
+      // Update Facebook tags for any share buttons on the page
+      _updateOGTags();
     });
   }
 
@@ -321,24 +348,16 @@ var SCB = (function($) {
     $('.load-more').toggleClass('hide', parseInt($('.load-more').attr('data-page-at')) >= parseInt($('.load-more').attr('data-total-pages')));
   }
 
-  // Function to update document content (and og: tags) after state change (unused right now)
-  // function _updateContent() {
-  //   var State = History.getState();
-
-  //   // track page view in Analytics
-  //   _trackPage();
-
-  //   setTimeout(function() {
-  //     _updateTitle();
-  //     // Update meta tags
-  //     if ($('#og-updates').length) {
-  //       $('meta[property="og:url"]').attr('content', State.url);
-  //       $('meta[property="og:title"]').attr('content', document.title);
-  //       $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
-  //       $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
-  //     }
-  //   }, 150);
-  // }
+  // Update og: tags after state change
+  function _updateOGTags() {
+    $('meta[property="og:url"]').attr('content', State.url);
+    $('meta[property="og:title"]').attr('content', document.title);
+    $('meta[property="og:type"]').attr('content', ($body.is('.moda-active') ? 'article' : 'website') );
+    if ($('#og-updates').length) {
+      $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
+      $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
+    }
+  }
 
   // Function to update document title after state change
   function _updateTitle() {
@@ -457,16 +476,14 @@ var SCB = (function($) {
 
   // Everybody loves a modal!
   function _showModal() {
+    if (modal_timer) { clearTimeout(modal_timer); }
     _hideCollection();
     _showPageOverlay();
     $body.addClass('modal-active');
     // Offset body for scrollbar width
     $('body, .site-header').css('margin-right', scrollbar_width);
-    $modal.addClass('display');
+    $modal.addClass('active');
     $modal.find('.modal-content').scrollTop(0);
-    setTimeout(function() {
-      $modal.addClass('active');
-    }, 100);
     if ($modal.find('.modal-content').is(':empty')) {
       $modal.addClass('empty');
     } else {
@@ -479,9 +496,10 @@ var SCB = (function($) {
     $('body, .site-header').css('margin-right', 0);
     $body.removeClass('modal-active');
     $modal.removeClass('active');
-    setTimeout(function() {
+    if (modal_timer) { clearTimeout(modal_timer); }
+    modal_timer = setTimeout(function() {
       modal_animating = false;
-      $modal.removeClass('display news-modal post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
+      $modal.removeClass('news-modal post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
     }, 500);
   }
 
@@ -492,15 +510,11 @@ var SCB = (function($) {
     $body.addClass('collection-active');
     // Offset body for scrollbar width
     $('body, .site-header').css('margin-right', scrollbar_width);
-    $collection.addClass('display');
-    setTimeout(function() {
-      $collection.addClass('active');
-    }, 100);
-    if (!$collection.find('article').length) {
-      $collection.addClass('empty');
-    } else {
-      $collection.removeClass('empty');
-    }
+    $collection.addClass('active');
+    // setTimeout(function() { $collection.addClass('active'); }, 150);
+
+    $collection.toggleClass('empty', !$collection.find('article').length);
+
     // Hide mobile nav
     if($('.site-nav').is('.active')) {
       _hideMobileNav();
@@ -513,7 +527,7 @@ var SCB = (function($) {
     $collection.removeClass('active');
     $('body, .site-header').css('margin-right', 0);
     setTimeout(function() {
-      $collection.removeClass('display');
+      $collection.removeClass('foo');
     }, 500);
   }
 
@@ -677,10 +691,11 @@ var SCB = (function($) {
       if (modal_animating) {
         return false;
       }
-      var $thisTarget = $(e.target);
-      if (!$thisTarget.is('.no-ajaxy')) {
+      var $target = $(e.target);
+      if (!$target.is('.no-ajaxy') && !$target.parents('.collection-action').length) {
         e.preventDefault();
-        History.pushState({ modal: true }, '', $(this).attr('data-page-url') || $(this).attr('href'));
+        console.log($target);
+        History.pushState({ modal: true }, '', $(this).attr('href') || $(this).attr('data-page-url'));
       }
     });
   }
@@ -725,11 +740,12 @@ var SCB = (function($) {
         data: {
             action: 'load_more_projects',
             page: 1,
-            per_page: 6,
+            // per_page: 6,
             project_category: project_category
         },
         success: function(response) {
           page_cache[encodeURIComponent(State.url)] = response;
+          $('.page-intro,.projects').addClass('loading');
           setTimeout(_updateProjects, 150);
         }
     });
@@ -737,6 +753,12 @@ var SCB = (function($) {
 
   function _initProjectCategories() {
     $category_nav = $('.project-categories');
+
+    // Modal project category links
+    $document.on('click', '.categories a', function(e) {
+      e.preventDefault();
+      History.pushState({ category: true }, '', this.href);
+    });
 
     // Set initial active state (if on category page)
     _updateProjectCategoryNavByURL();
@@ -764,6 +786,8 @@ var SCB = (function($) {
           url = '/';
         }
       }
+
+      _scrollBody($body, 250, 0);
 
       // Push active category URL
       History.pushState({ category: true }, '', url);
@@ -810,13 +834,13 @@ var SCB = (function($) {
 
     $('.page-intro,.projects').removeClass('loading');
 
-    _scrollBody($body, 250, 0);
     _checkLoadMore();
   }
 
   // Set active state in category nav based on current URL (used in statechange & on page load)
   function _updateProjectCategoryNavByURL() {
-    $category_nav.find('ul, li, .bar').removeClass('active grandchildren-active');
+    $category_nav.find('ul, li').removeClass('active grandchildren-active');
+    $('.bar').removeClass('active');
     if (relative_url !== '/') {
       var $li = $category_nav.find('a[href="' + relative_url + '"]').parent('li').addClass('active');
       $li.parents('ul,li').addClass('active');
@@ -837,18 +861,18 @@ var SCB = (function($) {
   }
 
   function _setCategoryPageClass() {
-    var slug = $('.project-categories li.active:first>a').attr('href').split('/')[2];
-    $body.attr('data-pageClass', slug);
+    var active_cat = $('.project-categories li.active:first>a');
+    if (active_cat.length) {
+      $body.attr('data-pageClass', active_cat.attr('href').split('/')[2]);
+    }
   }
 
   // Gray out page contents under modal
   function _showPageOverlay() {
-    if (!$('#page-over').length) {
-      $body.prepend('<div id="page-overlay"></div>');
-    }
-    setTimeout(function() {
+    if (!$('#page-overlay').length) {
+      $('<div id="page-overlay"></div>').prependTo($body);
       $('#page-overlay').addClass('active');
-    }, 50);
+    }
   }
   function _hidePageOverlay() {
     $('#page-overlay').remove();
