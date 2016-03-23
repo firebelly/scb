@@ -105,7 +105,7 @@
   .categories-parent.active {
     > li:not(.active) {
       > a {
-        color: $gray;
+        color: $gray-dark;
       }
     }
 
@@ -125,7 +125,7 @@
     }
     &.active {
       > li > a {
-        color: $gray;
+        color: $gray-dark;
       }
       > li.active > a {
         color: $black;
@@ -141,7 +141,7 @@
           transition: transform .2s ease-out;
         }
         &::before {
-          transform: translateY(-50%) rotate(-45deg); 
+          transform: translateY(-50%) rotate(-45deg);
         }
         &::after {
           transform: translateY(-50%) rotate(45deg);
@@ -182,7 +182,7 @@
       transition: opacity .2s ease-out, transform .2s cubic-bezier(1,.5,.5,1);
       &.active {
         &::before {
-          transform: translateY(0) rotate(-45deg); 
+          transform: translateY(0) rotate(-45deg);
         }
       }
     }
