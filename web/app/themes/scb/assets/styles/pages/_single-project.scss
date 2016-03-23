@@ -556,8 +556,11 @@ body.single-project {
       br {
         display: none;
       }
-      .slash:last-of-type {
-        display: none;
+      .slash {
+        margin-right: 4px;
+        &:last-of-type {
+          display: none;
+        }
       }
     }
 
