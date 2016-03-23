@@ -7,7 +7,7 @@ $project-padding: (10% * 11/12);
 // Single Project Page (not in modal)
 body.single-project {
   background: $gray-light;
-  
+
   .site-header {
     background: $gray-light;
   }
@@ -18,7 +18,7 @@ body.single-project {
       position: relative;
     }
 
-    .project-block {    
+    .project-block {
       .column.-right {
         @include min-screen($breakpoint-medium) {
           padding-left: 10px;
@@ -49,7 +49,7 @@ body.single-project {
 
     }
     .column {
-      @include min-screen($breakpoint-medium) {      
+      @include min-screen($breakpoint-medium) {
         &.-right {
           padding-left: 10px;
         }
@@ -68,7 +68,7 @@ body.single-project {
 
     // Vertical mods
     .project.vertical {
-      
+
       .project-intro {
         .column {
           @include min-screen($breakpoint-medium) {
@@ -84,7 +84,7 @@ body.single-project {
 
       .project-blocks .project-block {
         &.image-layout-1 {
-          @include min-screen($breakpoint-medium) {              
+          @include min-screen($breakpoint-medium) {
             .image-1 {
               flex-basis: calc((5 * #{$project-col}) + 10px);
             }
@@ -134,7 +134,7 @@ body.single-project {
 // Project Modal
 .modal.project-modal{
   padding: 0;
-  
+
   &.active {
     .actions {
       display: block;
@@ -163,13 +163,13 @@ body.single-project {
   @include min-screen($breakpoint-medium) {
 
     &.active {
-      width: 100% - $column; 
+      width: 100% - $column;
     }
   }
 
   // Vertical mods
   .project.vertical {
-    
+
     .project-intro {
       .column {
         @include min-screen($breakpoint-medium) {
@@ -203,6 +203,9 @@ body.single-project {
           color: $architecture-color;
         }
       }
+      .project-meta h4 a:hover::after {
+        background: $architecture-color;
+      }
     }
     &[data-pageClass=planning] {
       .article-title {
@@ -216,6 +219,9 @@ body.single-project {
           color: $planning-color;
         }
       }
+      .project-meta h4 a:hover::after {
+        background: $planning-color;
+      }
     }
     &[data-pageClass=interior-design] {
       .article-title {
@@ -228,6 +234,9 @@ body.single-project {
         &:hover, &:focus {
           color: $interior-design-color;
         }
+      }
+      .project-meta h4 a:hover::after {
+        background: $interior-design-color;
       }
     }
   }
@@ -309,7 +318,7 @@ body.single-project {
     // Columns
     .column {
 
-      @include min-screen($breakpoint-medium) {      
+      @include min-screen($breakpoint-medium) {
         &.-left {
           width: 5 * $project-col;
           padding: 0 $project-col;
@@ -342,7 +351,7 @@ body.single-project {
       }
 
       .project-meta {
-        @include min-screen($breakpoint-medium) {        
+        @include min-screen($breakpoint-medium) {
           .-inner {
             border-top: 2px solid $black;
           }
@@ -368,7 +377,7 @@ body.single-project {
           padding-right: 40px;
 
           .image-wrap {
-            margin-bottom: 0; 
+            margin-bottom: 0;
             padding-bottom: 64.1975309%;
           }
 
@@ -401,7 +410,7 @@ body.single-project {
         .project-block {
           &.image-block {
             &.image-layout-1 {
-              @include min-screen($breakpoint-medium) {              
+              @include min-screen($breakpoint-medium) {
                 .image-1 {
                   max-width: calc((5 * #{$project-col}) + 6px);
                   flex-basis: calc((5 * #{$project-col}) + 6px);
@@ -422,7 +431,7 @@ body.single-project {
 
       @include min-screen($breakpoint-medium) {
         padding-bottom: 40px;
-        
+
         > .wrap {
           display: flex;
           .-left {
@@ -499,7 +508,7 @@ body.single-project {
       }
     }
 
-    .project-meta-content {    
+    .project-meta-content {
       display: none;
       @include min-screen($breakpoint-medium) {
         display: block!important; // overriding jquery slidetoggle
@@ -517,15 +526,14 @@ body.single-project {
     h4 {
       font-size: 14px;
       margin-top: 20px;
-      color: $gray-dark;
+      color: $black;
       margin-bottom: 10px;
       padding-bottom: 10px;
       border-bottom: 1px solid $gray;
       a {
-        color: inherit;
+        color: $black;
         position: relative;
         text-decoration: none;
-        transition: color .1s ease-out;
         &::after {
           left: 0;
           right: 0;
@@ -535,9 +543,9 @@ body.single-project {
           background: $black;
           position: absolute;
         }
-        &:hover {
-          color: $black;
-        }
+        // &:hover::after {
+        //   background: $black;
+        // }
       }
     }
 
@@ -788,7 +796,7 @@ body.single-project {
 
       @include min-screen($breakpoint-medium) {
         margin: 0 40px;
-    
+
         .image-grid {
           display: flex;
         }
@@ -943,7 +951,7 @@ body.single-project {
           width: 100%;
         }
         .stat {
-          @include min-screen($breakpoint-medium) {          
+          @include min-screen($breakpoint-medium) {
             width: auto;
             float: right;
             right: $column;

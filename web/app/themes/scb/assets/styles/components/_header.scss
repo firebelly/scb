@@ -112,7 +112,7 @@
 body.collection-active .site-header,
 body.modal-active .site-header,
 body.menu-open .site-header {
-  background: rgba(240,240,240,.95);
+  background: rgba(240,240,240,.93);
 
   @include max-screen($breakpoint-medium) {
     margin-right: 0!important;
