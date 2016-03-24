@@ -138,11 +138,11 @@ var SCB = (function($) {
           // repopulate all collections
           $('section.collection').html(response.data.collection_html);
           _initCollectionBehavior();
-          _showCollection();
           // Just show empty message if removing last item to avoid confusing, stacked feedback
           if (!$collection.hasClass('active') && !response.data.collection_html.match(/empty/)) {
             _feedbackMessage(action);
           }
+          _showCollection();
         } else if (action.match(/pdf/)) {
           var buttonText = $(e.target).text();
           if (response.success) {
@@ -417,11 +417,11 @@ var SCB = (function($) {
               success: function(response) {
                 form.reset();
                 _feedbackMessage('Your application was submitted successfully!');
-                _scrollBody($('.modal.active .modal-content .feedback-container'), 250,0,0,$('.modal.active .modal-content'));
+                _scrollBody($('.modal.active .modal-content .feedback-container'), 250, 0, 0, $('.modal.active .modal-content'));
               },
               error: function(response) {
                 _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
-                _scrollBody($('.modal.active .modal-content .feedback-container'), 250,0,0,$('.modal.active .modal-content'));
+                _scrollBody($('.modal.active .modal-content .feedback-container'), 250, 0, 0, $('.modal.active .modal-content'));
               }
             });
           } else {
@@ -459,15 +459,20 @@ var SCB = (function($) {
   // Update all Collection add/remove links on page after action
   function _updatePostCollectionLinks(id, action) {
     $.each(page_cache, function(url, block) {
-      $(block).find('article[data-id='+id+'] .collection-action').each(function() {
-        if (action==='add') {
-          $(this).removeClass('collection-add').addClass('collection-remove').attr('data-action', 'remove');
-          $(this).find('.collection-text').text('Remove from Collection');
-        } else {
-          $(this).removeClass('collection-remove').addClass('collection-add').attr('data-action', 'add');
-          $(this).find('.collection-text').text('Add to Collection');
-        }
-      });
+        _updatePostCollectionLinksInBlock(block, id, action);
+    });
+    _updatePostCollectionLinksInBlock('body', id, action);
+  }
+
+  function _updatePostCollectionLinksInBlock(block, id, action) {
+    $(block).find('a.collection-action[data-id='+id+']').each(function() {
+      if (action==='add') {
+        $(this).removeClass('collection-add').addClass('collection-remove').attr('data-action', 'remove');
+        $(this).find('.collection-text').text('Remove from Collection');
+      } else {
+        $(this).removeClass('collection-remove').addClass('collection-add').attr('data-action', 'add');
+        $(this).find('.collection-text').text('Add to Collection');
+      }
     });
   }
 
@@ -707,7 +712,7 @@ var SCB = (function($) {
         'post_url': State.url
       },
       success: function(response) {
-        page_cache[encodeURIComponent(State.url)] = response;
+        page_cache[encodeURIComponent(State.url)] = $.parseHTML(response);
         _updateModal();
       }
     });
@@ -717,7 +722,7 @@ var SCB = (function($) {
   function _updateModal() {
     $postModal = $(page_cache[encodeURIComponent(State.url)]);
     $modal.removeClass('news-modal project-modal person-modal application-modal position-modal').addClass($postModal.attr('data-modal-type') + '-modal');
-    $modal.find('.modal-content').html('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>' + page_cache[encodeURIComponent(State.url)]);
+    $modal.find('.modal-content').html('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>' + page_cache[encodeURIComponent(State.url)][0].outerHTML);
     _trackPage();
     _showModal();
     _updateTitle();
@@ -740,7 +745,7 @@ var SCB = (function($) {
             project_category: project_category
         },
         success: function(response) {
-          page_cache[encodeURIComponent(State.url)] = response;
+          page_cache[encodeURIComponent(State.url)] = $.parseHTML(response);
           $('.page-intro,.projects').addClass('loading');
           setTimeout(_updateProjects, 150);
         }
@@ -908,7 +913,7 @@ var SCB = (function($) {
 
   // Scroll to location in body or container element
   function _scrollBody(element, duration, delay, offset, container) {
-    if ($('#wpadminbar').length) {
+    if (typeof container === 'undefined' && $('#wpadminbar').length) {
       wpOffset = $('#wpadminbar').height();
     } else {
       wpOffset = 0;
