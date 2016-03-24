@@ -3,7 +3,6 @@ $office = \Firebelly\Utils\get_office($post);
 $open_for_applications = get_post_meta($post->ID, '_cmb2_open_for_applications', true);
 $discipline = \Firebelly\Utils\get_first_term($post, 'project_category');
 ?>
-
 <article class="position single" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-modal-type="position">
 
   <div class="actions">
