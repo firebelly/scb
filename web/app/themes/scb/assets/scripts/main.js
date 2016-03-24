@@ -14,7 +14,7 @@ var SCB = (function($) {
       $sidebar,
       $collection,
       $modal,
-      $map_modal,
+      $image_modal,
       $category_nav,
       modal_animating = false,
       scrollbar_width = _getScrollbarWidth(), // Get scrollbar width on page load
@@ -758,6 +758,7 @@ var SCB = (function($) {
     // Modal project category links
     $document.on('click', '.categories a', function(e) {
       e.preventDefault();
+      _scrollBody($body, 250, 0);
       History.pushState({ category: true }, '', this.href);
     });
 
@@ -973,7 +974,7 @@ var SCB = (function($) {
   // Handler for image modals (currently map images)
   function _initImageModals() {
     // Append image modal markup
-    $map_modal = $('<div class="image-modal"><button class="plus-button close hide-image-modal"><div class="plus"></div></button><div class="image-wrap"><img src=""></div></div>').prependTo('.site-footer');
+    $image_modal = $('<div class="image-modal"><button class="plus-button close hide-image-modal"><div class="plus"></div></button><div class="image-wrap"><img src=""></div></div>').prependTo('.site-footer');
 
     // All map links open up in modal
     $document.on('click', '.show-image-modal', function(e) {
@@ -983,8 +984,8 @@ var SCB = (function($) {
       _hideCollection();
       _hideModal();
 
-      $map_modal.find('img').attr('src', $(this).attr('href'));
-      $map_modal.imagesLoaded(function() {
+      $image_modal.find('img').attr('src', $(this).attr('href'));
+      $image_modal.imagesLoaded(function() {
         _showImageModal();
       });
       // History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
