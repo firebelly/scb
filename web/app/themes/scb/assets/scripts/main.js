@@ -31,24 +31,8 @@ var SCB = (function($) {
     // Touch-friendly fast clicks
     FastClick.attach(document.body);
 
-
-    // Init state
-    State = History.getState();
-    relative_url = '/' + State.url.replace(root_url,'');
-    original_url = State.url;
-
-    // Collection redirects
-    if (window.location.hash && window.location.hash === '#collection') {
-      History.replaceState({ignore_change: true}, null, '##');
-      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
-      setTimeout(_showCollection, 150);
-    } else {
-      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
-    }
-    if(relative_url==='/') {
-      // Cache initial project grid to avoid flash of loading class after closing first project modal
-      page_cache[encodeURIComponent(State.url)] = $('section.main-project-grid').clone()[0];
-    }
+    // Set screen size vars
+    _resize();
 
     // Cache some common DOM queries
     $document = $(document);
@@ -59,9 +43,6 @@ var SCB = (function($) {
     // Highly questionable disabling of default browser behavior to avoid "stealing" images
     $body.on('contextmenu', '.modal-content img, main img', function(e) { e.preventDefault(); });
     $body.on('dragstart', '.modal-content img, main img', function(e) { e.preventDefault(); });
-
-    // Set screen size vars
-    _resize();
 
     // Fit them vids!
     $('main').fitVids();
@@ -76,122 +57,10 @@ var SCB = (function($) {
       $(this).closest('.show-details').next('.project-meta-content').slideToggle(350);
     });
 
-    // Show/hide mini collection in nav
-    $document.on('click', '.show-collection', function(e) {
-      e.preventDefault();
-      if ($collection.hasClass('active')) {
-        History.back();
-      } else {
-        _showCollection();
-      }
-    });
-    $document.on('click', '.hide-collection', function(e) {
-      e.preventDefault();
-      if ($collection.hasClass('active')) {
-        History.back();
-      }
-    });
-
-    // Show/hide global modal in nav
-    $document.on('click', '.show-modal', function(e) {
-      e.preventDefault();
-      if ($modal.hasClass('active')) {
-        History.back();
-      } else {
-        _showModal();
-      }
-    });
-    $document.on('click', '.hide-modal', function(e) {
-      e.preventDefault();
-      if ($modal.hasClass('active')) {
-        History.back();
-      }
-    });
-
-    // Add/Remove from collection links
-    $document.on('click', '.collection-action', function(e) {
-      e.preventDefault();
-      var $link = $(this);
-      var id = $link.attr('data-id') || '';
-      var collection_id = $link.parents('section.collection:first').attr('data-id');
-      var action = $link.attr('data-action');
-
-      // Add action class to article for styling perposes
-      if ($link.parents('section.collection').length) {
-        $(this).closest('article').addClass(action);
-      }
-
-      $.ajax({
-        url: wp_ajax_url,
-        method: 'post',
-        dataType: 'json',
-        data: {
-          action: 'collection_action',
-          do: action,
-          post_id: id,
-          collection_id: collection_id
-        }
-      }).done(function(response) {
-        // if add/remove, repopulate collection & reinit behavior
-        if (action.match(/add|remove/)) {
-          _updatePostCollectionLinks(id,action);
-          // repopulate all collections
-          $('section.collection').html(response.data.collection_html);
-          _initCollectionBehavior();
-          // Just show empty message if removing last item to avoid confusing, stacked feedback
-          if (!$collection.hasClass('active') && !response.data.collection_html.match(/empty/)) {
-            _feedbackMessage(action);
-          }
-          _showCollection();
-        } else if (action.match(/pdf/)) {
-          var buttonText = $(e.target).text();
-          if (response.success) {
-            if (buttonText.match('print')) {
-              // Make tmp iframe with PDF and trigger print()
-              $('<iframe id="pdf-print"></iframe>').appendTo('body')
-                .attr('src', response.data.pdf.url)
-                .hide()
-                .on('load', function(){
-                  var frm = this.contentWindow;
-                  setTimeout(function() {
-                    frm.focus();
-                    frm.print();
-                  }, 500);
-                 });
-            } else {
-              // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
-              var link = document.createElement('a');
-              if (typeof link.download === 'undefined') {
-                // Old browsers just open the pdf
-                window.location = response.data.pdf.url;
-              } else {
-                link.href = response.data.pdf.url;
-                link.download = response.data.pdf.name;
-                link.click();
-              }
-            }
-          } else {
-            _feedbackMessage(response.data.message);
-          }
-        }
-      });
-    });
-
-    // Hide page overlay when clicked
-    $document.on('click', '#page-overlay', function() {
-      _hidePageOverlay();
-      _hideCollection();
-      if ($body.is('.menu-open')) {
-        _hideMobileNav();
-      } else {
-        History.back();
-      }
-    });
-
     // Esc handlers
     $document.keyup(function(e) {
       if (e.keyCode === 27) {
-        if ($body.is('.modal-active, .collection-active') && !$modal.is('.application-modal')) {
+        if ($body.is('.modal-active, .collection-active')) {
           History.back();
         } else {
           _hideSearch();
@@ -211,20 +80,13 @@ var SCB = (function($) {
       _scrollBody($(href), 500, 0, navHeight);
     });
 
-    // Scroll down to hash afer page load
+    // Scroll down to hash after page load
     $(window).load(function() {
       if (window.location.hash) {
-        _scrollBody($(window.location.hash));
+        _scrollBody($(window.location.hash), 250, 0);
       }
     });
 
-    // Global application form, shown (in a modal of course!) when clicking "Submit Portfolio"
-    $document.on('click', 'a.submit-portfolio', function(e) {
-      e.preventDefault();
-      _showApplicationForm();
-    });
-
-    _initStateHandling();
     _initNav();
     _initSearch();
     _initImageModals();
@@ -237,6 +99,41 @@ var SCB = (function($) {
     _initCollectionBehavior();
     _plusButtons();
     _shrinkHeader();
+
+    // Init state
+    State = History.getState();
+    relative_url = '/' + State.url.replace(root_url,'');
+    original_url = State.url;
+
+    _initStateHandling();
+
+    // Init state, handle some faux-link redirects e.g. /collection/, /careers/submit-portfolio/ (see .htaccess)
+    if (window.location.hash && window.location.hash === '#collection') {
+
+      // Collection redirect
+      original_url = root_url;
+      History.replaceState({ignore_change: true}, null, '##');
+      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
+      // setTimeout(_showCollection, 150);
+      setTimeout(History.pushState({ modal: true }, 'Collection – SCB', '/collection/'), 150);
+
+    } else if (window.location.hash && window.location.hash === '#submit-portfolio') {
+
+      // Submit Portfolio redirect
+      original_url = root_url + 'careers/';
+      History.replaceState({ignore_change: true}, null, '##');
+      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
+      setTimeout(History.pushState({ modal: true }, 'Submit Portfolio – SCB', '/careers/submit-portfolio/'), 250);
+      // setTimeout(_showApplicationForm, 150);
+
+    } else {
+      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
+    }
+
+    if(relative_url==='/') {
+      // Cache initial project grid to avoid flash of loading class after closing first project modal
+      page_cache[encodeURIComponent(State.url)] = $('section.main-project-grid').clone()[0];
+    }
 
   } // end init()
 
@@ -277,12 +174,17 @@ var SCB = (function($) {
         // Collection
         _showCollection();
 
+      } else if (relative_url.match(/^\/careers\/submit-portfolio\//)) {
+
+        // Submit Portfolio
+        _showApplicationForm();
+
       } else {
 
         // URL isn't handled as a modal or isn't project category (or is page without $category_nav)
         if (State.url !== original_url) {
           // Just load URL if isn't original_url
-          location.href = State.url;
+          // location.href = State.url;
         } else {
           // ..otherwise just hide all modals
           _hideModal();
@@ -392,6 +294,13 @@ var SCB = (function($) {
 
   // AJAX Application form submissions
   function _initApplicationForms() {
+    // Global application form, shown (in a modal of course!) when clicking "Submit Portfolio"
+    $document.on('click', 'a.submit-portfolio', function(e) {
+      e.preventDefault();
+      // _showApplicationForm();
+      History.pushState({ modal: true }, 'Submit Portfolio – SCB', '/careers/submit-portfolio/');
+    });
+    // Handle application form submissions
     $document.on('click', '.application-form input[type=submit]', function(e) {
       var $form = $(this).closest('form');
 
@@ -524,16 +433,13 @@ var SCB = (function($) {
     if($('.site-nav').is('.active')) {
       _hideMobileNav();
     }
-    History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
+    // History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
   }
   function _hideCollection() {
     _hidePageOverlay();
     $body.removeClass('collection-active');
     $collection.removeClass('active');
     $('body, .site-header').css('margin-right', 0);
-    setTimeout(function() {
-      $collection.removeClass('foo');
-    }, 500);
   }
 
   // Show Application form! In a modal!
@@ -548,6 +454,7 @@ var SCB = (function($) {
       _showModal();
       $modal.find('.application-form input:first').focus();
     }
+    // History.pushState({ modal: true }, 'Submit Portfolio – SCB', '/careers/submit-portfolio/');
   }
 
   // Show collection message dialog
@@ -584,6 +491,91 @@ var SCB = (function($) {
 
   // Init collection sorting, title editing, etc
   function _initCollectionBehavior() {
+    // Show/hide mini collection in nav
+    $document.on('click', '.show-collection', function(e) {
+      e.preventDefault();
+      if ($collection.hasClass('active')) {
+        History.back();
+      } else {
+        History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
+      }
+    });
+    $document.on('click', '.hide-collection', function(e) {
+      e.preventDefault();
+      if ($collection.hasClass('active')) {
+        History.back();
+      }
+    });
+
+    // Add/Remove from collection links
+    $document.on('click', '.collection-action', function(e) {
+      e.preventDefault();
+      var $link = $(this);
+      var id = $link.attr('data-id') || '';
+      var collection_id = $link.parents('section.collection:first').attr('data-id');
+      var action = $link.attr('data-action');
+
+      // Add action class to article for styling perposes
+      if ($link.parents('section.collection').length) {
+        $(this).closest('article').addClass(action);
+      }
+
+      $.ajax({
+        url: wp_ajax_url,
+        method: 'post',
+        dataType: 'json',
+        data: {
+          action: 'collection_action',
+          do: action,
+          post_id: id,
+          collection_id: collection_id
+        }
+      }).done(function(response) {
+        // if add/remove, repopulate collection & reinit behavior
+        if (action.match(/add|remove/)) {
+          _updatePostCollectionLinks(id,action);
+          // repopulate all collections
+          $('section.collection').html(response.data.collection_html);
+          _initCollectionBehavior();
+          // Just show empty message if removing last item to avoid confusing, stacked feedback
+          if (!$collection.hasClass('active') && !response.data.collection_html.match(/empty/)) {
+            _feedbackMessage(action);
+          }
+          _showCollection();
+        } else if (action.match(/pdf/)) {
+          var buttonText = $(e.target).text();
+          if (response.success) {
+            if (buttonText.match('print')) {
+              // Make tmp iframe with PDF and trigger print()
+              $('<iframe id="pdf-print"></iframe>').appendTo('body')
+                .attr('src', response.data.pdf.url)
+                .hide()
+                .on('load', function(){
+                  var frm = this.contentWindow;
+                  setTimeout(function() {
+                    frm.focus();
+                    frm.print();
+                  }, 500);
+                 });
+            } else {
+              // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
+              var link = document.createElement('a');
+              if (typeof link.download === 'undefined') {
+                // Old browsers just open the pdf
+                window.location = response.data.pdf.url;
+              } else {
+                link.href = response.data.pdf.url;
+                link.download = response.data.pdf.name;
+                link.click();
+              }
+            }
+          } else {
+            _feedbackMessage(response.data.message);
+          }
+        }
+      });
+    });
+
     // Email collection
     $('.email-collection').on('click', function(e) {
       e.preventDefault();
@@ -690,6 +682,34 @@ var SCB = (function($) {
 
   // Ajaxify .show-post-modal links
   function _initPostModals() {
+    // Show/hide global modal in nav
+    $document.on('click', '.show-modal', function(e) {
+      e.preventDefault();
+      if ($modal.hasClass('active')) {
+        History.back();
+      } else {
+        _showModal();
+      }
+    });
+    $document.on('click', '.hide-modal', function(e) {
+      e.preventDefault();
+      if ($modal.hasClass('active')) {
+        History.back();
+      }
+    });
+
+    // Hide page overlay when clicked
+    $document.on('click', '#page-overlay', function() {
+      _hidePageOverlay();
+      _hideCollection();
+      if ($body.is('.menu-open')) {
+        _hideMobileNav();
+      } else {
+        History.back();
+      }
+    });
+
+    // AJAXified links that load content in a modal and slide it out
     $document.on('click', '.show-post-modal', function(e) {
       if (modal_animating) {
         return false;
