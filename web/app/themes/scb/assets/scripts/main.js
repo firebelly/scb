@@ -191,10 +191,11 @@ var SCB = (function($) {
     // Esc handlers
     $document.keyup(function(e) {
       if (e.keyCode === 27) {
-        if ($body.is('.modal-active, .collection-active')) {
+        if ($body.is('.modal-active, .collection-active') && !$modal.is('.application-modal')) {
           History.back();
         } else {
           _hideSearch();
+          _hideModal();
           _hideImageModal();
           _hideMobileNav();
           _hideEmailForm();
