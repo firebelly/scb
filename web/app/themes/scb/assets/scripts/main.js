@@ -414,7 +414,7 @@ var SCB = (function($) {
     modal_timer = setTimeout(function() {
       modal_animating = false;
       $modal.removeClass('news-modal post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
-    }, 500);
+    }, 750);
   }
 
   // Show Collection modal
@@ -528,7 +528,7 @@ var SCB = (function($) {
           collection_id: collection_id
         }
       }).done(function(response) {
-        
+
         // If add/remove, repopulate collection & reinit behavior
         if (action.match(/add|remove/)) {
 
