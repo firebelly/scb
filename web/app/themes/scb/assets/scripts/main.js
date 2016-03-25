@@ -96,6 +96,7 @@ var SCB = (function($) {
     _initMasonryGrid();
     _injectSvgSprite();
     _initApplicationForms();
+    _initCollectionLinks();
     _initCollectionBehavior();
     _plusButtons();
     _shrinkHeader();
@@ -375,7 +376,6 @@ var SCB = (function($) {
     });
     _updatePostCollectionLinksInBlock('body', id, action);
   }
-
   function _updatePostCollectionLinksInBlock(block, id, action) {
     $(block).find('a.collection-action[data-id='+id+']').each(function() {
       if (action==='add') {
@@ -425,7 +425,6 @@ var SCB = (function($) {
     // Offset body for scrollbar width
     $('body, .site-header').css('margin-right', scrollbar_width);
     $collection.addClass('active');
-    // setTimeout(function() { $collection.addClass('active'); }, 150);
 
     $collection.toggleClass('empty', !$collection.find('article').length);
 
@@ -433,7 +432,6 @@ var SCB = (function($) {
     if($('.site-nav').is('.active')) {
       _hideMobileNav();
     }
-    // History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
   }
   function _hideCollection() {
     _hidePageOverlay();
@@ -489,8 +487,7 @@ var SCB = (function($) {
     $('.modal').find('.feedback-container').removeClass('show-feedback').find('.feedback p').text('');
   }
 
-  // Init collection sorting, title editing, etc
-  function _initCollectionBehavior() {
+  function _initCollectionLinks() {
     // Show/hide mini collection in nav
     $document.on('click', '.show-collection', function(e) {
       e.preventDefault();
@@ -531,18 +528,23 @@ var SCB = (function($) {
           collection_id: collection_id
         }
       }).done(function(response) {
-        // if add/remove, repopulate collection & reinit behavior
+        
+        // If add/remove, repopulate collection & reinit behavior
         if (action.match(/add|remove/)) {
+
           _updatePostCollectionLinks(id,action);
-          // repopulate all collections
+          // Repopulate all collections
           $('section.collection').html(response.data.collection_html);
           _initCollectionBehavior();
           // Just show empty message if removing last item to avoid confusing, stacked feedback
           if (!$collection.hasClass('active') && !response.data.collection_html.match(/empty/)) {
             _feedbackMessage(action);
           }
-          _showCollection();
+          // Push /collection/ to History to trigger opening Collection
+          History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
+
         } else if (action.match(/pdf/)) {
+
           var buttonText = $(e.target).text();
           if (response.success) {
             if (buttonText.match('print')) {
@@ -572,10 +574,14 @@ var SCB = (function($) {
           } else {
             _feedbackMessage(response.data.message);
           }
+
         }
       });
     });
+  }
 
+  // Init collection sorting, title editing, etc
+  function _initCollectionBehavior() {
     // Email collection
     $('.email-collection').on('click', function(e) {
       e.preventDefault();
@@ -601,13 +607,13 @@ var SCB = (function($) {
         }
     });
 
-      // Check for pressing enter, blur to update collection-title
-      $('.collection-title').on('keydown', function(e) {
-        if(e.keyCode === 13) {
-          e.preventDefault();
-          this.blur();
-        }
-      });
+    // Check for pressing enter, blur to update collection-title
+    $('.collection-title').on('keydown', function(e) {
+      if(e.keyCode === 13) {
+        e.preventDefault();
+        this.blur();
+      }
+    });
 
     // Update collection title
     $('.collection-title').on('blur', function() {
@@ -701,7 +707,6 @@ var SCB = (function($) {
     // Hide page overlay when clicked
     $document.on('click', '#page-overlay', function() {
       _hidePageOverlay();
-      _hideCollection();
       if ($body.is('.menu-open')) {
         _hideMobileNav();
       } else {
