@@ -25,20 +25,28 @@ function load_more_posts() {
     $collection = \Firebelly\Collections\get_active_collection();
   }
 
-  // news or projects?
+  // News or Projects?
   $post_type = (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='project') ? 'project' : 'news';
-  // get page offsets
+
+  // Get page offsets
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
   $offset = ($page-1) * $per_page;
-
   $args = [
     'offset' => $offset,
     'posts_per_page' => $per_page,
   ];
+
+  // Show private posts if logged in
+  if (is_user_logged_in()) {
+    $args['post_status'] = ['publish', 'private'];
+  }
+
+  // Set post type
   if ($post_type == 'project') {
     $args['post_type'] = 'project';
   }
+
   // Filter by Category?
   if (!empty($_REQUEST['project_category'])) {
     if (strpos($_REQUEST['project_category'], ',') !== false) {
@@ -66,7 +74,7 @@ function load_more_posts() {
 
   if ($posts):
     foreach ($posts as $post) {
-      // set local var for post type — avoiding using $post in global namespace
+      // Set local var for post type — avoiding using $post in global namespace
       if ($post_type == 'project') {
         $project_post = $post;
         include(locate_template('templates/article-'.$post_type.'.php'));
@@ -92,7 +100,7 @@ function load_more_projects() {
     $collection = \Firebelly\Collections\get_active_collection();
   }
 
-  // get page offsets
+  // Get page offsets
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
   $offset = ($page-1) * $per_page;
