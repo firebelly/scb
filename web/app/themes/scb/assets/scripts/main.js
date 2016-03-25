@@ -415,13 +415,15 @@ var SCB = (function($) {
               contentType: false,
               cache: false,
               success: function(response) {
-                form.reset();
-                _feedbackMessage('Your application was submitted successfully!');
-                _scrollBody($('.modal.active .modal-content .feedback-container'), 250, 0, 0, $('.modal.active .modal-content'));
+                if (response.success) {
+                  _feedbackMessage('Your application was submitted successfully!');
+                  form.reset();
+                } else {
+                  _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
+                }
               },
               error: function(response) {
                 _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
-                _scrollBody($('.modal.active .modal-content .feedback-container'), 250, 0, 0, $('.modal.active .modal-content'));
               }
             });
           } else {
@@ -573,12 +575,10 @@ var SCB = (function($) {
       setTimeout(_hideCollectionMessage, 1000);
     });
 
-    _scrollBody($('.collection .feedback-container'), 250, 0, 0, $('.overflow-wrapper'));
-
+    _scrollBody($('.modal .feedback-container'), 250, 0, 0, $('.modal-content'));
   }
   function _hideCollectionMessage() {
-    $('.modal').find('.feedback-container').removeClass('show-feedback');
-    $('.modal').find('.feedback-container .feedback p').text('');
+    $('.modal').find('.feedback-container').removeClass('show-feedback').find('.feedback p').text('');
   }
 
   // Init collection sorting, title editing, etc
@@ -633,7 +633,7 @@ var SCB = (function($) {
       }).done(function(response) {
         if (response.success) {
           $('.collection-title').addClass('updated');
-          setTimeout(function() { $('.collection-title').addClass('updated'); }, 1500);
+          setTimeout(function() { $('.collection-title').removeClass('updated'); }, 1500);
         }
       });
     });
@@ -676,7 +676,7 @@ var SCB = (function($) {
               }
           }).done(function(response) {
             $(container.el[0]).addClass('updated');
-            setTimeout(function() { $(container.el[0]).addClass('updated'); }, 1500);
+            setTimeout(function() { $(container.el[0]).removeClass('updated'); }, 1500);
           }).fail(function(response) {
             _feedbackMessage(response.data.message);
           });
