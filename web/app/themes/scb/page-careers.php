@@ -19,9 +19,9 @@ $middle_column_3 = get_post_meta($post->ID, '_cmb2_middle_column_3', true);
 $terms_left = get_post_meta($post->ID, '_cmb2_terms_left', true);
 $terms_right = get_post_meta($post->ID, '_cmb2_terms_right', true);
 
-$chicago_id = url_to_postid('/office/chicago');
-$san_francisco_id = url_to_postid('/office/san-francisco');
-$internships_id = url_to_postid('/careers/internships');
+$chicago_id = url_to_postid('/office/chicago/');
+$san_francisco_id = url_to_postid('/office/san-francisco/');
+$internships_id = url_to_postid('/careers/internships/');
 
 $num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 $num_design_professionals = \Firebelly\SiteOptions\get_option('num_design_professionals');
@@ -72,7 +72,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <div class="wrap">
           <p class="stat-number"><?= $num_offices ?></p>
           <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="/office/chicago" class="show-post-modal" data-id="<?= $chicago_id ?>" data-modal-type="office">Chicago</a> / <a href="/office/san-francisco" class="show-post-modal" data-id="<?= $san_francisco_id ?>" data-modal-type="office">San Francisco</a></p>
+          <p class="stat-link"><a href="/office/chicago/" class="show-post-modal" data-id="<?= $chicago_id ?>" data-modal-type="office">Chicago</a> / <a href="/office/san-francisco/" class="show-post-modal" data-id="<?= $san_francisco_id ?>" data-modal-type="office">San Francisco</a></p>
         </div>
       </div>
       <div class="stat long-stat">
@@ -86,7 +86,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <div class="wrap">
           <p class="stat-number"><?= $num_internships ?></p>
           <p class="stat-label">Interns This Year</p>
-          <p class="stat-link"><a href="careers/internships" class="show-post-modal" data-id="<?= $internships_id ?>" data-modal-type="office internships">Intern Program</a></p>
+          <p class="stat-link"><a href="/careers/internships/" class="show-post-modal" data-id="<?= $internships_id ?>" data-modal-type="office internships">Intern Program</a></p>
         </div>
       </div>
     </div>
