@@ -494,7 +494,7 @@ var SCB = (function($) {
   }
   function _hideCollectionMessage() {
     $('.feedback-container').removeClass('show-feedback');
-    setTimeout(function() { $('.feedback-container .feedback p').text('') }, 250);
+    setTimeout(function() { $('.feedback-container .feedback p').text(''); }, 250);
   }
 
   function _initCollectionLinks() {
