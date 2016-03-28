@@ -140,6 +140,7 @@
     padding: 57px 30px 10px;
 
     li {
+      transition: padding .35s ease-out;
       margin-top: 5px;
       &:first-of-type {
         margin-top: 0;
@@ -191,8 +192,8 @@
         float: left;
         margin-top: 0;
         margin-left: 15px;
-        line-height: 74px;
-        height: 74px;
+        padding-top: 37px;
+        vertical-align: bottom;
         &:first-of-type {
           margin-left: 0;
         }
