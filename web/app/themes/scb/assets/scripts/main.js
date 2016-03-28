@@ -571,11 +571,11 @@ var SCB = (function($) {
                  });
             } else {
               // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
-              var link = document.createElement('a');
-              if (typeof link.download === 'undefined') {
-                // Old browsers just open the pdf
-                window.location = response.data.pdf.url;
+              if (!Modernizr.adownload) {
+                // Old browsers just open the pdf in a new window
+                window.open(response.data.pdf.url);
               } else {
+                var link = document.createElement('a');
                 link.href = response.data.pdf.url;
                 link.download = response.data.pdf.name;
                 link.click();
@@ -759,6 +759,7 @@ var SCB = (function($) {
     $postModal = $(page_cache[encodeURIComponent(State.url)]);
     $modal.removeClass('news-modal post-modal office-modal project-modal person-modal application-modal position-modal').addClass($postModal.attr('data-modal-type') + '-modal');
     $modal.find('.modal-content').html('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>' + page_cache[encodeURIComponent(State.url)][0].outerHTML);
+    // Sadly this is only here to fix IE10 issue with displaying the collection-action content outside .modal-content
     if ($modal.find('.modal-content .collection-action').length) {
       $modal.find('.collection-action-clone').remove();
       $modal.find('.modal-content .collection-action').clone().prependTo($modal).addClass('collection-action-clone');
