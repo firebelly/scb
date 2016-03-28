@@ -759,6 +759,10 @@ var SCB = (function($) {
     $postModal = $(page_cache[encodeURIComponent(State.url)]);
     $modal.removeClass('news-modal post-modal office-modal project-modal person-modal application-modal position-modal').addClass($postModal.attr('data-modal-type') + '-modal');
     $modal.find('.modal-content').html('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>' + page_cache[encodeURIComponent(State.url)][0].outerHTML);
+    if ($modal.find('.modal-content .collection-action').length) {
+      $modal.find('.collection-action-clone').remove();
+      $modal.find('.modal-content .collection-action').clone().prependTo($modal).addClass('collection-action-clone');
+    }
     _trackPage();
     _showModal();
     _updateTitle();

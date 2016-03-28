@@ -92,7 +92,7 @@
   @include clearfix();
   width: calc(100% - 97px);
   transform: translateX(100%);
-  transition: transform .35s ease-out;
+  transition: transform .2s ease-out;
   &.active {
     transform: translateX(0);
   }
@@ -140,7 +140,7 @@
     padding: 57px 30px 10px;
 
     li {
-      transition: padding .35s ease-out;
+      transition: padding .2s ease-out;
       margin-top: 5px;
       &:first-of-type {
         margin-top: 0;

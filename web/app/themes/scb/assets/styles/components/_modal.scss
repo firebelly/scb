@@ -25,6 +25,9 @@
   transform: translateX(100%);
   -webkit-overflow-scrolling: touch;
   transition: transform .5s $cubic-ease2;
+  .collection-action-clone {
+    display: none;
+  }
   &.active {
     transform: translateX(0);
     .close {
@@ -42,6 +45,15 @@
     top: 140px;
     padding: 40px;
     width: calc(50% + 30px);
+    .collection-action-clone {
+      position: absolute;
+      display: block;
+      top: 40px;
+      left: -62px;
+      .icon {
+        fill: $black;
+      }
+    }
   }
 
   @include min-screen($breakpoint-nav) {
