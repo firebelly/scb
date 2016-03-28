@@ -1,6 +1,15 @@
 // UI Components
 
 // Feedback dialog
+.feedback-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: all .2s;
+  &.show-feedback {
+    transition: all .5s;
+    max-height: 200px;
+  }
+}
 .feedback {
   padding: 40px;
   background: $brand-primary;
@@ -61,7 +70,7 @@
       transition: transform .2s ease-out, background .2s ease-out;
     }
     &::before {
-      transform: translateY(-50%); 
+      transform: translateY(-50%);
     }
     &::after {
       transform: translateY(-50%) rotate(90deg);
@@ -186,7 +195,7 @@
     transition: opacity .2s ease-out, transform .2s ease-out;
   }
 
-  &.collection-add {  
+  &.collection-add {
     .icon-remove {
       display: none;
     }

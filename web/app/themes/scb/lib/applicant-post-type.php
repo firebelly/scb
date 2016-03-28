@@ -159,9 +159,9 @@ function metaboxes( array $meta_boxes ) {
         'name'   => 'Type',
         'id'   => $prefix . 'application_type',
         'type' => 'select',
-        'options' => [ 
-          'position' => 'Position', 
-          'internship' => 'Internship', 
+        'options' => [
+          'position' => 'Position',
+          'internship' => 'Internship',
           'portfolio' => 'Portfolio',
         ],
       ),
@@ -316,7 +316,7 @@ function application_submission() {
       foreach($required_fields as $required) {
         if (empty($_POST[$required])) {
           $required_txt = ucwords(str_replace('_', ' ', str_replace('application_','',$required)));
-          wp_send_json_error(['message' => 'Please enter a value for '.$required_txt]);  
+          wp_send_json_error(['message' => 'Please enter a value for '.$required_txt]);
         }
       }
 
@@ -346,7 +346,7 @@ add_action('wp_ajax_nopriv_application_submission', __NAMESPACE__ . '\\applicati
 
 // Inject application form in footer if on career page
 function application_form() {
-  if (preg_match('/\/(careers|about)\//', $_SERVER['REQUEST_URI'])) {
+  if (preg_match('/^\/(careers|about|office)/', $_SERVER['REQUEST_URI'])) {
     echo '<div class="application-form-template">';
     include(locate_template('templates/application-form.php'));
     echo '</div>';

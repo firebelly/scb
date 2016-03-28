@@ -106,16 +106,25 @@ var SCB = (function($) {
     relative_url = '/' + State.url.replace(root_url,'');
     original_url = State.url;
 
+    // Cache initial project grid to avoid flash of loading class after closing first project modal
+    if (relative_url==='/') {
+      page_cache[encodeURIComponent(State.url)] = $('section.main-project-grid').clone()[0];
+    }
+
+    // Single pages with forms: inject .feedback-container at top for non-modal feedback messages
+    if (relative_url.match(/(position|internships)/)) {
+      $('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>').prependTo('main.main');
+    }
+
     _initStateHandling();
 
-    // Init state, handle some faux-link redirects e.g. /collection/, /careers/submit-portfolio/ (see .htaccess)
+    // Handle some faux-link redirects e.g. /collection/, /careers/submit-portfolio/ (see .htaccess)
     if (window.location.hash && window.location.hash === '#collection') {
 
       // Collection redirect
       original_url = root_url;
       History.replaceState({ignore_change: true}, null, '##');
-      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
-      // setTimeout(_showCollection, 150);
+      History.replaceState({}, document.title, location.href);
       setTimeout(History.pushState({ modal: true }, 'Collection – SCB', '/collection/'), 150);
 
     } else if (window.location.hash && window.location.hash === '#submit-portfolio') {
@@ -123,17 +132,9 @@ var SCB = (function($) {
       // Submit Portfolio redirect
       original_url = root_url + 'careers/';
       History.replaceState({ignore_change: true}, null, '##');
-      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
+      History.replaceState({}, document.title, location.href);
       setTimeout(History.pushState({ modal: true }, 'Submit Portfolio – SCB', '/careers/submit-portfolio/'), 250);
-      // setTimeout(_showApplicationForm, 150);
 
-    } else {
-      History.replaceState({ originalTitle: document.title, originalURL: location.href }, document.title, location.href);
-    }
-
-    if(relative_url==='/') {
-      // Cache initial project grid to avoid flash of loading class after closing first project modal
-      page_cache[encodeURIComponent(State.url)] = $('section.main-project-grid').clone()[0];
     }
 
   } // end init()
@@ -148,7 +149,7 @@ var SCB = (function($) {
         return;
       }
 
-      if (State.url !== original_url && relative_url.match(/^\/(project|person|position|office|\d{0,4})\//)) {
+      if (State.url !== original_url && relative_url.match(/^\/(project|person|position|office|\d{0,4}|careers\/internships)\//)) {
 
         // Standard post modals
         if (page_cache[encodeURIComponent(State.url)]) {
@@ -185,7 +186,7 @@ var SCB = (function($) {
         // URL isn't handled as a modal or isn't project category (or is page without $category_nav)
         if (State.url !== original_url) {
           // Just load URL if isn't original_url
-          // location.href = State.url;
+          location.href = State.url;
         } else {
           // ..otherwise just hide all modals
           _hideModal();
@@ -298,7 +299,6 @@ var SCB = (function($) {
     // Global application form, shown (in a modal of course!) when clicking "Submit Portfolio"
     $document.on('click', 'a.submit-portfolio', function(e) {
       e.preventDefault();
-      // _showApplicationForm();
       History.pushState({ modal: true }, 'Submit Portfolio – SCB', '/careers/submit-portfolio/');
     });
     // Handle application form submissions
@@ -413,7 +413,7 @@ var SCB = (function($) {
     if (modal_timer) { clearTimeout(modal_timer); }
     modal_timer = setTimeout(function() {
       modal_animating = false;
-      $modal.removeClass('news-modal post-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
+      $modal.removeClass('news-modal post-modal office-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
     }, 750);
   }
 
@@ -459,6 +459,15 @@ var SCB = (function($) {
   function _feedbackMessage(messageType) {
     var message;
 
+    if ($collection.is('.active')) {
+      _scrollBody($('.modal .feedback-container'), 250, 0, 0, $('.overflow-wrapper'));
+    } else if ($modal.is('.active')) {
+      _scrollBody($('article.single'), 250, 0, 0, $('.modal-content'));
+    } else {
+      // Single page, not a modal!
+      _scrollBody($body, 250, 0);
+    }
+
     if (messageType === 'remove') {
       message = 'Your selection has been removed from the collection.';
     } else if (messageType === 'add') {
@@ -467,24 +476,25 @@ var SCB = (function($) {
       message = messageType;
     }
 
-    $('.modal').find('.feedback-container .feedback p').text(message);
+    $('.feedback-container .feedback p').text(message);
     setTimeout(function(){
-      $('.modal').find('.feedback-container').addClass('show-feedback');
+      $('.feedback-container').addClass('show-feedback');
     }, 250);
 
     if (collection_message_timer) { clearTimeout(collection_message_timer); }
     collection_message_timer = setTimeout(_hideCollectionMessage, 3000);
 
-    $('.modal').find('.feedback-container').on('mouseenter', function() {
-      clearTimeout(collection_message_timer);
+    $('.feedback-container').on('mouseenter', function() {
+      if (collection_message_timer) { clearTimeout(collection_message_timer); }
     }).on('mouseleave', function() {
-      setTimeout(_hideCollectionMessage, 1000);
+      if (collection_message_timer) { clearTimeout(collection_message_timer); }
+      collection_message_timer = setTimeout(_hideCollectionMessage, 1000);
     });
 
-    _scrollBody($('.modal .feedback-container'), 250, 0, 0, $('.modal-content'));
   }
   function _hideCollectionMessage() {
-    $('.modal').find('.feedback-container').removeClass('show-feedback').find('.feedback p').text('');
+    $('.feedback-container').removeClass('show-feedback');
+    setTimeout(function() { $('.feedback-container .feedback p').text('') }, 250);
   }
 
   function _initCollectionLinks() {
@@ -747,7 +757,7 @@ var SCB = (function($) {
   // Update modal with cached content for current URL and show it
   function _updateModal() {
     $postModal = $(page_cache[encodeURIComponent(State.url)]);
-    $modal.removeClass('news-modal project-modal person-modal application-modal position-modal').addClass($postModal.attr('data-modal-type') + '-modal');
+    $modal.removeClass('news-modal post-modal office-modal project-modal person-modal application-modal position-modal').addClass($postModal.attr('data-modal-type') + '-modal');
     $modal.find('.modal-content').html('<div class="feedback-container"><div class="feedback"><p></p></div></div></div>' + page_cache[encodeURIComponent(State.url)][0].outerHTML);
     _trackPage();
     _showModal();
@@ -1129,7 +1139,10 @@ var SCB = (function($) {
     resize: _resize,
     checkLoadMore: _checkLoadMore,
     scrollBody: function(section, duration, delay, offset, container) {
-      _scrollBody(section, duration, delay, offset, container);
+      return _scrollBody(section, duration, delay, offset, container);
+    },
+    feedbackMessage: function(message) {
+      return _feedbackMessage(message);
     }
   };
 

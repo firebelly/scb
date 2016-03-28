@@ -1,6 +1,10 @@
 // Single Page
 
-body.single:not(.single-project) {
+body.page.internships,
+body.single-post,
+body.single-office,
+body.single-position,
+body.single-person {
   background: $gray;
 
   .site-header {
@@ -10,6 +14,7 @@ body.single:not(.single-project) {
   .main {
     @include clearfix();
 
+    .feedback-container,
     article {
       position: relative;
       background: $white;
@@ -40,9 +45,12 @@ body.single:not(.single-project) {
       @extend .plus-button.hide-modal;
     }
   }
-
 }
-body.single:not(.single-project, .single-post) {
+
+body.page.internships,
+body.single-office,
+body.single-position,
+body.single-person {
   .main {
     article {
       padding: 20px;
@@ -54,6 +62,7 @@ body.single:not(.single-project, .single-post) {
 }
 
 // Single page or modal
+.page.internships,
 .single:not(.single-project) {
 
   .image-wrap {

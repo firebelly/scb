@@ -76,17 +76,12 @@
   // Feedback dialog
   .feedback-container {
     z-index: 1;
-    overflow: hidden;
     &.show-feedback {
       .feedback {
         margin-top: 0;
         margin-bottom: 20px;
       }
     }
-  }
-  .feedback {
-    margin-top: -100%;
-    transition: margin .5s ease-out;
   }
 
   &:not(.collection) {

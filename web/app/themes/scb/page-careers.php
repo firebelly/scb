@@ -31,7 +31,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
 <div class="grid wrap -top">
   <div class="page-intro grid-item one-half -left">
     <?= $post->post_content ?>
-    <p class="careers-actions"><a href="#" class="button submit-portfolio">Submit your portfolio</a> <span class="slash">/</span> <a href="#positions" class="view-positions smoothscroll">View open positions</a></p>
+    <p class="careers-actions"><a href="/careers/submit-portfolio/" rel="nofollow" class="button submit-portfolio">Submit your portfolio</a> <span class="slash">/</span> <a href="#positions" class="view-positions smoothscroll">View open positions</a></p>
   </div>
 
   <div class="page-intro grid-item one-half -right">
@@ -72,7 +72,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <div class="wrap">
           <p class="stat-number"><?= $num_offices ?></p>
           <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="/office/chicago/" class="show-post-modal" data-id="<?= $chicago_id ?>" data-modal-type="office">Chicago</a> / <a href="/office/san-francisco/" class="show-post-modal" data-id="<?= $san_francisco_id ?>" data-modal-type="office">San Francisco</a></p>
+          <p class="stat-link"><a href="/office/chicago/" class="show-post-modal" data-id="<?= $chicago_id ?>" data-url="<?= get_permalink($chicago_id) ?>" data-modal-type="office">Chicago</a> / <a href="/office/san-francisco/" class="show-post-modal" data-id="<?= $san_francisco_id ?>"  data-url="<?= get_permalink($chicago_id) ?>" data-modal-type="office">San Francisco</a></p>
         </div>
       </div>
       <div class="stat long-stat">
@@ -86,7 +86,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <div class="wrap">
           <p class="stat-number"><?= $num_internships ?></p>
           <p class="stat-label">Interns This Year</p>
-          <p class="stat-link"><a href="/careers/internships/" class="show-post-modal" data-id="<?= $internships_id ?>" data-modal-type="office internships">Intern Program</a></p>
+          <p class="stat-link"><a href="/careers/internships/" class="show-post-modal" data-id="<?= $internships_id ?>" data-url="<?= get_permalink($internships_id) ?>" data-modal-type="position">Intern Program</a></p>
         </div>
       </div>
     </div>
@@ -109,7 +109,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
   <div class="-bottom grid">
     <div class="positions -left" id="positions">
 
-      <?php 
+      <?php
       $offices = Firebelly\PostTypes\Office\get_offices();
       foreach($offices as $office) {
         echo '<div class="positions-list" id="'.$office->slug.'-positions"><h2>'.$office->post_title.'</h2>';

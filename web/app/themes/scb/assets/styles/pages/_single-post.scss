@@ -42,7 +42,7 @@ body.single-post main,
     span {
       display: block;
     }
-    
+
     @include min-screen($breakpoint-medium) {
       left: 0;
       top: 22px;
@@ -116,7 +116,7 @@ body.single-post {
     width: calc(50% + 82px);
 
     .modal-content {
-      padding-left: 52px; 
+      padding-left: 52px;
     }
     .hide-modal {
       left: -8px;

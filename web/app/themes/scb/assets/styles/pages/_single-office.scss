@@ -1,6 +1,12 @@
 // Single Office
 
 .single.single-office {
+  .image-wrap {
+    margin-bottom: 20px;
+    @include min-screen($breakpoint-medium) {
+      margin-bottom: 40px;
+    }
+  }
   article {
     padding: 20px;
 
@@ -9,8 +15,8 @@
     }
   }
   .article-header {
-    padding: 20px 0;
-    
+    padding: 0 0 20px;
+
     h1 {
       @include h1();
       margin-bottom: 20px;
@@ -21,7 +27,7 @@
     }
 
     @include min-screen($breakpoint-medium) {
-      padding: 40px 0;
+      padding: 0 0 40px;
 
       h1 {
         margin-bottom: 40px;
@@ -37,7 +43,7 @@
     @include min-screen($breakpoint-medium) {
       padding: 40px;
     }
-    
+
     .positions {
       &::before {
         display: none;
