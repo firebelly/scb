@@ -388,35 +388,6 @@ var SCB = (function($) {
     });
   }
 
-  // Everybody loves a modal!
-  function _showModal() {
-    if (modal_timer) { clearTimeout(modal_timer); }
-    _hideCollection();
-    _showPageOverlay();
-    $body.addClass('modal-active');
-    // Offset body for scrollbar width
-    $('body, .site-header').css('margin-right', scrollbar_width);
-    $modal.addClass('active');
-    $modal.find('.modal-content').scrollTop(0);
-    if ($modal.find('.modal-content').is(':empty')) {
-      $modal.addClass('empty');
-    } else {
-      $modal.removeClass('empty');
-    }
-  }
-  function _hideModal() {
-    modal_animating = true;
-    _hidePageOverlay();
-    $('body, .site-header').css('margin-right', 0);
-    $body.removeClass('modal-active');
-    $modal.removeClass('active');
-    if (modal_timer) { clearTimeout(modal_timer); }
-    modal_timer = setTimeout(function() {
-      modal_animating = false;
-      $modal.removeClass('news-modal post-modal office-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
-    }, 750);
-  }
-
   // Show Collection modal
   function _showCollection() {
     _hideModal();
@@ -767,6 +738,35 @@ var SCB = (function($) {
     _trackPage();
     _showModal();
     _updateTitle();
+  }
+
+  // Everybody loves a modal!
+  function _showModal() {
+    if (modal_timer) { clearTimeout(modal_timer); }
+    _hideCollection();
+    _showPageOverlay();
+    $body.addClass('modal-active');
+    // Offset body for scrollbar width
+    $('body, .site-header').css('margin-right', scrollbar_width);
+    $modal.addClass('active');
+    $modal.find('.modal-content').scrollTop(0);
+    if ($modal.find('.modal-content').is(':empty')) {
+      $modal.addClass('empty');
+    } else {
+      $modal.removeClass('empty');
+    }
+  }
+  function _hideModal() {
+    modal_animating = true;
+    _hidePageOverlay();
+    $('body, .site-header').css('margin-right', 0);
+    $body.removeClass('modal-active');
+    $modal.removeClass('active').find('.collection-action-clone').remove();
+    if (modal_timer) { clearTimeout(modal_timer); }
+    modal_timer = setTimeout(function() {
+      modal_animating = false;
+      $modal.removeClass('news-modal post-modal office-modal project-modal person-modal application-modal position-modal'); // clear out section-specific styles
+    }, 750);
   }
 
   // Load AJAX content for projects (triggered when clicking category nav)
