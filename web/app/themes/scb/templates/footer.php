@@ -17,7 +17,7 @@
     </div>
 
     <div class="grid grid-item one-half -right">
-      <div class="contact-group">
+      <div class="contact-group" id="contact">
         <h3>Chicago</h3>
         <ul>
           <li class="address">

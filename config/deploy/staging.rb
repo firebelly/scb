@@ -1,7 +1,8 @@
+set :application, 'scb_staging'
 set :stage, :staging
-set :domain, 'scb.firebelly.co'
-set :php, 'php54'
-set :login, 'firebelly'
+set :domain, 'stage.scb.com'
+set :php, 'php70'
+set :login, 'scbmarketing'
 
 # Simple Role Syntax
 # ==================
