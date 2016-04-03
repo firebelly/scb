@@ -804,7 +804,9 @@ var SCB = (function($) {
     });
 
     // Set initial active state (if on category page)
-    _updateProjectCategoryNavByURL();
+    $(window).load(function() {
+      _updateProjectCategoryNavByURL();
+    });
 
     // Category nav scrolling behavior
     _checkCatScrollPos();
