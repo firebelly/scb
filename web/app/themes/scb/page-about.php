@@ -35,7 +35,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
         <div class="wrap">
           <p class="stat-number"><?= $num_design_professionals ?></p>
           <p class="stat-label">Design Professionals</p>
-          <p class="stat-link"><a href="people">Meet our people</a></p>
+          <p class="stat-link"><a href="/people/">Meet our people</a></p>
         </div>
       </div>
       <div class="stat long-stat">
