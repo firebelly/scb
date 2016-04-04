@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ff333df6cb6f8c7f380928f4590ab96",
-    "content-hash": "fb4aefb1fc24255b3be897765e3d03fd",
+    "hash": "900aba6a895602777f491ed7bba253d3",
+    "content-hash": "13f8246ef57f8dfb65f6422442cb4406",
     "packages": [
         {
             "name": "composer/installers",
@@ -546,6 +546,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/category-checklist-tree/"
+        },
+        {
+            "name": "wpackagist-plugin/google-sitemap-generator",
+            "version": "4.0.8",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/google-sitemap-generator/",
+                "reference": "tags/4.0.8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/google-sitemap-generator.4.0.8.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/google-sitemap-generator/"
         },
         {
             "name": "wpackagist-plugin/intuitive-custom-post-order",
