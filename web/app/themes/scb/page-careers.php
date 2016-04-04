@@ -79,7 +79,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <div class="wrap">
           <p class="stat-number"><?= $num_design_professionals ?></p>
           <p class="stat-label">Design Professionals</p>
-          <p class="stat-link"><a href="people">Meet our people</a></p>
+          <p class="stat-link"><a href="/people/">Meet our people</a></p>
         </div>
       </div>
       <div class="stat long-stat">

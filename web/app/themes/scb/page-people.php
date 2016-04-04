@@ -9,7 +9,7 @@ $person_categories = get_terms('person_category');
 <div class="grid">
 
   <section class="page-content grid-item one-half">
-    <?= $post->post_content ?>
+    <?= apply_filters('the_content', $post->post_content) ?>
     <div class="stat">
       <div class="stat-number">77</div>
       <div class="stat-label">Universities Represented</div>

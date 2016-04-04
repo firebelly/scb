@@ -1,5 +1,5 @@
 set :stage, :production
-set :domain, 'scb.com'
+set :domain, 'www.scb.com'
 set :php, 'php70'
 set :login, 'scbmarketing'
 

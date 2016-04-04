@@ -1,13 +1,36 @@
+# Splits "foo.firebelly.co" -> { domain: firebelly.co, subdomain: foo }
+def split_domain(host)
+  domain = host.sub(/.*?([^.]+\.(com|co|net|org))$/, '\\1')
+  subdomain = host.sub(domain,'').chomp('.')
+  { domain: domain, subdomain: subdomain }
+end
+
+# Test if a WebFaction object exists
 def wf_obj_exists(type, check, value)
   objs = @wf_server.call("list_#{type}", @wf_session);
   objs.each do |obj|
     if obj[check] == value
-      return true 
+      return true
     end
   end
   return false
 end
 
+# Test if a domain/subdomain exists in WebFaction account
+def wf_domain_exists(domain)
+  domain_split = split_domain(domain)
+  objs = @wf_server.call('list_domains', @wf_session);
+  objs.each do |obj|
+    if obj['domain'] == domain_split[:domain]
+      if domain_split[:subdomain].empty? || obj['subdomains'].include?(domain_split[:subdomain])
+        return true
+      end
+    end
+  end
+  return false
+end
+
+# Get the main IP address
 def wf_get_ip_address
   puts "Getting IP addresses..."
   @wf_ip_address = ''
@@ -20,13 +43,16 @@ def wf_get_ip_address
   puts "Main IP: #{@wf_ip_address}"
 end
 
+# Connect to WebFaction API
 def wf_api_connect
   @wf_server = XMLRPC::Client.new2('https://api.webfaction.com/')
   @wf_session, @wf_account = @wf_server.call('login', ENV['WF_USER'], ENV['WF_PASSWORD'])
   puts "Connected to WebFaction API: #{@wf_session}, #{@wf_account}"
 end
 
+# WebFaction deploy tasks
 namespace :deploy do
+  # Delete db, db_user, apps, and website entry
   task :wf_delete do
     require 'xmlrpc/client'
     require 'dotenv'
@@ -53,15 +79,15 @@ namespace :deploy do
     end
   end
 
+  # Set up bedrock/sage installation on WebFaction via API
   task :wf_setup do
     require 'xmlrpc/client'
     require 'dotenv'
     Dotenv.load(".env.#{fetch(:stage)}")
-
     wf_api_connect
     wf_get_ip_address
 
-    # delete default app and website
+    # Delete default app and website
     if wf_obj_exists('websites', 'name', fetch(:login))
       begin
         puts "Deleting default htdocs app and '#{fetch(:login)}' website..."
@@ -74,7 +100,7 @@ namespace :deploy do
       end
     end
 
-    # create db_user
+    # Create db_user
     if !wf_obj_exists('db_users', 'username', ENV['DB_USER'])
       begin
         puts "Creating db_user #{ENV['DB_USER']}..."
@@ -85,7 +111,7 @@ namespace :deploy do
       end
     end
 
-    # create db & assign db_user
+    # Create db & assign db_user
     if !wf_obj_exists('dbs', 'name', ENV['DB_NAME'])
       begin
         puts "Creating db #{ENV['DB_NAME']}..."
@@ -96,7 +122,7 @@ namespace :deploy do
       end
     end
 
-    # create static PHP app
+    # Create static PHP app
     if !wf_obj_exists('apps', 'name', fetch(:application))
       begin
         puts "Creating static app #{fetch(:application)}..."
@@ -107,13 +133,29 @@ namespace :deploy do
       end
     end
 
-    # create dirs for app
-    puts "Creating /shared/web/app/uploads directories..."
-    on roles :web do
-      execute :mkdir, "-p #{release_path.join('../shared/web/app/uploads')}"
+    # Add domain/subdomain (This doesn't really make sense unless you manually edit your /etc/hosts with the new domain + IP)
+    if !wf_domain_exists(fetch(:domain))
+      begin
+        domain_split = split_domain(fetch(:domain))
+        puts "Creating domain #{fetch(:domain)}..."
+        ret = @wf_server.call('create_domain', @wf_session, domain_split[:domain], domain_split[:subdomain] );
+        puts ret
+      rescue Exception => e
+        puts "Unable to create domain #{fetch(:domain)}: #{e.message}"
+      end
     end
 
-    # install Composer for deploys
+    # Create dirs for app
+    puts "Creating #{release_path.join('../shared/web/app/uploads')}..."
+    on roles :web do
+      if test("[ -d #{release_path.join('../shared/web/app/uploads')} ]")
+        puts "Directories already exist."
+      else
+        execute :mkdir, "-p #{release_path.join('../shared/web/app/uploads')}"
+      end
+    end
+
+    # Install Composer for deploys
     puts "Installing Composer..."
     on roles :web do
       if test("[ -f /home/#{fetch(:login)}/bin/composer.phar ]")
@@ -121,17 +163,17 @@ namespace :deploy do
       else
         within "/home/#{fetch(:login)}/bin" do
           execute :curl, "-sS https://getcomposer.org/installer | #{fetch(:php)}"
-          execute :echo, "-e \"\n# Composer\nalias composer=\\\"#{fetch(:php)} \$HOME/bin/composer.phar\\\"\" >> $HOME/.bash_profile"
+          execute :echo, "-e \"\n# COMPOSER\nalias composer=\\\"#{fetch(:php)} \$HOME/bin/composer.phar\\\"\" >> $HOME/.bash_profile"
         end
       end
     end
 
-    # delete default index.html file if it exists
+    # Delete default index.html file if it exists
     on roles :web do
       execute :rm, "-f #{release_path.join('../index.html')}"
     end
 
-    # scp .env and .htaccess
+    # Scp .env and .htaccess
     puts "Uploading /shared/.env and /shared/web/.htaccess..."
     on roles :web do
       if test("[ -f #{release_path.join('../shared/.env')} ]")
@@ -147,7 +189,7 @@ namespace :deploy do
       end
     end
 
-    # create symbolic PHP app pointing to current dir
+    # Create symbolic PHP app pointing to current dir
     if !wf_obj_exists('apps', 'name', "#{fetch(:application)}_web")
       begin
         puts "Creating symbolic app '#{fetch(:application)}_web' of type 'symlink#{fetch(:php).gsub(/php/,'')}'..."
@@ -158,6 +200,7 @@ namespace :deploy do
       end
     end
 
+    # Create website and assign domain + application
     if !wf_obj_exists('websites', 'name', "#{fetch(:application)}")
       begin
         puts "Creating website #{fetch(:application)}..."

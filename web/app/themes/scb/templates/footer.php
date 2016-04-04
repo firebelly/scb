@@ -17,7 +17,7 @@
     </div>
 
     <div class="grid grid-item one-half -right">
-      <div class="contact-group">
+      <div class="contact-group" id="contact">
         <h3>Chicago</h3>
         <ul>
           <li class="address">
@@ -54,15 +54,15 @@
       <div class="contact-group">
         <h3>Media</h3>
         <ul>
-          <li class="address">
-            <span>Rebekah Cole</span>
+          <li class="address hide">
+            <span></span>
             <span>Public Relations</span>
             <span>Manager</span>
           </li>
           <li class="contact">
-            <span class="tel"><b>T</b> +1 312 896 1129</span>
-            <span class="tel"><b>F</b> +1 708 595 9099</span>
-            <span class="email"><b>E</b> <a href="mailto:rebekah.cole@scb.com">rebekah.cole@scb.com</a></span>
+            <span class="tel"><b>T</b> +1 312 896 1164</span>
+            <span class="tel"><b>M</b> +1 312 697 9292</span>
+            <span class="email"><b>E</b> <a href="mailto:vickie@scb.com">vickie@scb.com</a></span>
           </li>
         </ul>
       </div>
