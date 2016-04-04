@@ -135,6 +135,7 @@ class FbSiteOptions {
 		$cmb->add_field( array(
 			'name' => __( 'Contact Email', 'firebelly' ),
 			'id'   => 'contact_email',
+			'desc' => __( 'Email shown in the footer'),
 			'type' => 'text_email',
 		) );
 
@@ -177,14 +178,14 @@ class FbSiteOptions {
 			'name'    => __( 'Portfolio submission email notifications', 'firebelly' ),
 			'desc'    => __( 'If set, emails will be sent here when a new portfolio is submitted', 'firebelly' ),
 			'id'      => 'portfolio_notification_email',
-			'type'    => 'text_email',
+			'type'    => 'text',
 		) );
 
 		$cmb->add_field( array(
 			'name'    => __( 'Internship submission email notifications', 'firebelly' ),
 			'desc'    => __( 'If set, emails will be sent here when a new internship is submitted', 'firebelly' ),
 			'id'      => 'internship_notification_email',
-			'type'    => 'text_email',
+			'type'    => 'text',
 		) );
 
 		$cmb->add_field( array(
