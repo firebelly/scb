@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "91343cbcb69269613362ed3db33f4bb2",
-    "content-hash": "798f2e1b9b35af09f73bfd25c1f90a38",
+    "hash": "2ff333df6cb6f8c7f380928f4590ab96",
+    "content-hash": "fb4aefb1fc24255b3be897765e3d03fd",
     "packages": [
         {
             "name": "composer/installers",
@@ -509,15 +509,15 @@
         },
         {
             "name": "wpackagist-plugin/akismet",
-            "version": "3.1.8",
+            "version": "3.1.10",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/akismet/",
-                "reference": "tags/3.1.8"
+                "reference": "tags/3.1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/akismet.3.1.8.zip",
+                "url": "https://downloads.wordpress.org/plugin/akismet.3.1.10.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -588,26 +588,6 @@
             "homepage": "https://wordpress.org/plugins/limit-login-attempts/"
         },
         {
-            "name": "wpackagist-plugin/multiple-content-blocks",
-            "version": "3.2.2",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/multiple-content-blocks/",
-                "reference": "trunk"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/multiple-content-blocks.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/multiple-content-blocks/"
-        },
-        {
             "name": "wpackagist-plugin/parent-category-toggler",
             "version": "1.3.3",
             "source": {
@@ -666,26 +646,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/redirection/"
-        },
-        {
-            "name": "wpackagist-plugin/regenerate-thumbnails",
-            "version": "2.2.6",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/regenerate-thumbnails/",
-                "reference": "tags/2.2.6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.2.2.6.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/regenerate-thumbnails/"
         },
         {
             "name": "wpackagist-plugin/update-from-bottom",
