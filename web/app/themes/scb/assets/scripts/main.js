@@ -512,7 +512,7 @@ var SCB = (function($) {
 
         // If add/remove, repopulate collection & reinit behavior
         if (action.match(/add|remove/)) {
-
+          // Adjust all add/remove from collection links in page_cache
           _updatePostCollectionLinks(id,action);
           // Repopulate all collections
           $('section.collection').html(response.data.collection_html);
@@ -520,6 +520,8 @@ var SCB = (function($) {
           // Just show empty message if removing last item to avoid confusing, stacked feedback
           if (!$collection.hasClass('active') && !response.data.collection_html.match(/empty/)) {
             _feedbackMessage(action);
+          } else {
+            $collection.toggleClass('empty', !$collection.find('article').length);
           }
           // Push /collection/ to History to trigger opening Collection
           History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
