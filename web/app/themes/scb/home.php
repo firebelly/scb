@@ -23,7 +23,8 @@ $page = get_page_by_path('/news'); // may use this down the line to pull editabl
       $news_post = $post;
       $i++;
       include(locate_template('templates/article-news-excerpt.php'));
-      if ($total_posts>=6 && $i===6) {
+      // Hiding these white pages / product brochures for now until (if?) they get content
+      if (0 && $total_posts>=6 && $i===6) {
         echo '<article class="resource-list">
           <div class="background-image-wrap">
             <div class="article-inner">
@@ -37,7 +38,7 @@ $page = get_page_by_path('/news'); // may use this down the line to pull editabl
             </div>
           </div>
         </article>';
-      } elseif ($total_posts>=6 && $i===7) {
+      } elseif (0 && $total_posts>=6 && $i===7) {
         echo '<article class="resource-list">
           <div class="background-image-wrap">
             <div class="article-inner">
