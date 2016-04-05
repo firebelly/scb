@@ -69,7 +69,7 @@ input[type=file]::after {
   font-size: 8px;
   color: $gray-dark;
   line-height: 1.25em;
-  content: 'Upload cover page, resume, portfolio — 300mb max size';
+  content: 'Upload cover page, resume, portfolio — 50mb max size';
 }
 input[type=file]:hover::before {
   border-color: black;
@@ -78,7 +78,7 @@ input[type=file]:active {
   outline: 0;
 }
 input[type=file]:active::before {
-  
+
 }
 
 // Form feedback

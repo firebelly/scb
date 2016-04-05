@@ -23,7 +23,7 @@ if (empty($application_type)) {
     <input type="hidden" name="application_type" value="<?= $application_type ?>">
     <input name="action" type="hidden" value="application_submission">
 
-    <input type="file" name="application_files[]" multiple>
+    <input type="file" name="application_files[]" multiple required>
     <?php wp_nonce_field( 'application_form', 'application_form_nonce' ); ?>
   </fieldset>
 

@@ -307,10 +307,11 @@ var SCB = (function($) {
 
       $form.validate({
         messages: {
-          application_first_name: "Please leave us your first name",
-          application_last_name: "Please leave us your last name",
-          application_email: "We will need a valid email to contact you at",
-          application_phone: "In case we need to call you"
+          application_first_name: 'Please leave us your first name',
+          application_last_name: 'Please leave us your last name',
+          application_email: 'We will need a valid email to contact you at',
+          application_phone: 'In case we need to call you',
+          'application_files[]': 'Please attach your resume or portfolio as a PDF'
         },
         submitHandler: function(form) {
           // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
