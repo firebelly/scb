@@ -5,7 +5,7 @@
         "scripts/main.js"
       ],
       "vendor": [
-        "bower_components/history.js/scripts/bundled-uncompressed/html5/jquery.history.js"
+        "bower_components/history.js/scripts/bundled-uncompressed/html4+html5/jquery.history.js"
       ],
       "main": true,
       "exclude": {
