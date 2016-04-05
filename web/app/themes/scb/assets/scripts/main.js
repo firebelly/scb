@@ -331,11 +331,12 @@ var SCB = (function($) {
                   _feedbackMessage('Your application was submitted successfully!');
                   form.reset();
                 } else {
-                  _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
+                  _feedbackMessage(response.data.message);
                 }
               },
               error: function(response) {
-                _feedbackMessage('Sorry, there was an error submitting your application: ' + response.data.message);
+                var message = response.data ? response.data.message : 'Unable to upload.';
+                _feedbackMessage(message);
               }
             });
           } else {

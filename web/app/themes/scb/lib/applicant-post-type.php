@@ -201,11 +201,42 @@ function metaboxes( array $meta_boxes ) {
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
+function has_applied($email, $application_type='portfolio', $position_id='') {
+  $args = [
+    'post_status' => 'all',
+    'post_type' => 'applicant',
+    'meta_query' => [
+      [
+        'key' => '_cmb2_email',
+        'value' => $email,
+        'compare' => '='
+      ],
+      [
+        'key' => '_cmb2_application_type',
+        'value' => $application_type,
+        'compare' => '='
+      ]
+    ]
+  ];
+  if (!empty($position_id) && is_numeric($position_id)) {
+    $args['meta_query'][] = [
+      'key' => '_cmb2_related_position',
+      'value' => $position_id,
+      'compare' => '='
+    ];
+  }
+  return get_posts($args);
+}
+
 function new_applicant() {
   $errors = [];
-  $attachments = [];
+  $attachments = $attachments_size = [];
   $notification_email = false;
   $name = $_POST['application_first_name'] .' '. $_POST['application_last_name'];
+
+  if ( has_applied($_POST['application_email'], $_POST['application_type'], (!empty($_POST['position_id']) ? $_POST['position_id'] : '')) ) {
+    return ["We've already received your application."];
+  }
 
   $applicant_post = array(
     'post_title'    => 'Application from ' . $name,
@@ -245,6 +276,7 @@ function new_applicant() {
           } else {
             $attachment_url = wp_get_attachment_url($attachment_id);
             $attachments[$attachment_id] = $attachment_url;
+            $attachments_size[$attachment_id] = $files['size'][$key];
             // if Enhanced Media Library is installed, set category
             if (function_exists('wpuxss_eml_enqueue_media')) {
               wp_set_object_terms($attachment_id, 'applications', 'media_category');
@@ -279,14 +311,25 @@ function new_applicant() {
 
     // Send email if notification_email was set for position or in site_options for internships/portfolio
     if ($notification_email) {
-      $headers = ['From: SCB <www-data@scb.org>'];
+      $headers = ['From: Nate Beaty <nate@clixel.com>'];
+      // $headers = ['From: SCB <www-data@scb.org>'];
       $message .= $_POST['application_first_name'] . ' ' . $_POST['application_last_name'] . "\n";
       $message .= 'Email: ' . $_POST['application_email'] . "\n";
       $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
       $message .= get_edit_post_link($post_id, 'email');
-      if (!empty($attachment_id)) {
-        $attachment_path = get_attached_file($attachment_id);
-        wp_mail($notification_email, $subject, $message, $headers, [$attachment_path]);
+      if (!empty($attachments)) {
+        $attachment_paths = [];
+        $size = 0;
+        foreach ($attachments as $attachment_id => $attachment_url) {
+          $size += $attachments_size[$attachment_id];
+          $attachment_paths[] = get_attached_file($attachment_id);
+        }
+        if ($size >= 8000000) {
+          $message .= "\n\n** Attachments exceeded 8mb, please see WP admin link above to review attached PDFs. **";
+          wp_mail($notification_email, $subject, $message, $headers);
+        } else {
+          wp_mail($notification_email, $subject, $message, $headers, $attachment_paths);
+        }
       } else {
         wp_mail($notification_email, $subject, $message, $headers);
       }
@@ -332,7 +375,7 @@ function application_submission() {
         // Try to save new Applicant post
         $return = new_applicant();
         if (is_array($return)) {
-          wp_send_json_error(['message' => 'Error saving application: '.implode("\n", $return)]);
+          wp_send_json_error(['message' => 'There was an error: '.implode("\n", $return)]);
         } else {
           wp_send_json_success(['message' => 'Application was saved OK']);
         }
