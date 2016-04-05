@@ -40,6 +40,10 @@ var SCB = (function($) {
     $collection = $('.collection.mini');
     $modal = $('.global-modal');
 
+    // ie10
+    var doc = document.documentElement;
+    doc.setAttribute('data-useragent', navigator.userAgent);
+
     // Highly questionable disabling of default browser behavior to avoid "stealing" images
     $body.on('contextmenu', '.modal-content img, main img', function(e) { e.preventDefault(); });
     $body.on('dragstart', '.modal-content img, main img', function(e) { e.preventDefault(); });
@@ -100,6 +104,7 @@ var SCB = (function($) {
     _initCollectionBehavior();
     _plusButtons();
     _shrinkHeader();
+    _oldPlaceholderSupport();
 
     // Init state
     State = History.getState();
@@ -1142,6 +1147,33 @@ var SCB = (function($) {
     breakpoint_small = (screenWidth > breakpoint_array[0]);
     breakpoint_medium = (screenWidth > breakpoint_array[1]);
     breakpoint_large = (screenWidth > breakpoint_array[2]);
+  }
+
+  // Placeholder fallback for IE9
+  function _oldPlaceholderSupport() {
+    if(!Modernizr.input.placeholder){
+      $('[placeholder]').focus(function() {
+        var input = $(this);
+        if (input.val() == input.attr('placeholder')) {
+          input.val('');
+          input.removeClass('placeholder');
+        }
+      }).blur(function() {
+        var input = $(this);
+        if (input.val() == '' || input.val() == input.attr('placeholder')) {
+          input.addClass('placeholder');
+          input.val(input.attr('placeholder'));
+        }
+      }).blur();
+      $('[placeholder]').parents('form').submit(function() {
+        $(this).find('[placeholder]').each(function() {
+          var input = $(this);
+          if (input.val() == input.attr('placeholder')) {
+            input.val('');
+          }
+        })
+      });
+    }
   }
 
   // Public functions
