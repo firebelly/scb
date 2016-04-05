@@ -340,7 +340,12 @@ var SCB = (function($) {
                 }
               },
               error: function(response) {
-                var message = response.data ? response.data.message : 'Unable to upload.';
+                var message;
+                if (!respond.data && response.responseText.match(/exceeds the limit/)) {
+                  message = 'There was an error: files are larger than the accepted limit (100mb).';
+                } else {
+                  message = response.data ? response.data.message : 'There was an error uploading.';
+                }
                 _feedbackMessage(message);
               }
             });
