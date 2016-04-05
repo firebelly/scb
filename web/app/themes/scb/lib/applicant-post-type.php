@@ -316,23 +316,14 @@ function new_applicant() {
       $message .= $_POST['application_first_name'] . ' ' . $_POST['application_last_name'] . "\n";
       $message .= 'Email: ' . $_POST['application_email'] . "\n";
       $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
-      $message .= get_edit_post_link($post_id, 'email');
+      $message .= "Edit in WordPress:\n" . get_edit_post_link($post_id, 'email') . "\n";
       if (!empty($attachments)) {
-        $attachment_paths = [];
-        $size = 0;
+        $message .= "\nFiles uploaded:\n";
         foreach ($attachments as $attachment_id => $attachment_url) {
-          $size += $attachments_size[$attachment_id];
-          $attachment_paths[] = get_attached_file($attachment_id);
+          $message .= $attachment_url . "\n";
         }
-        if ($size >= 8000000) {
-          $message .= "\n\n** Attachments exceeded 8mb, please see WP admin link above to review attached PDFs. **";
-          wp_mail($notification_email, $subject, $message, $headers);
-        } else {
-          wp_mail($notification_email, $subject, $message, $headers, $attachment_paths);
-        }
-      } else {
-        wp_mail($notification_email, $subject, $message, $headers);
       }
+      wp_mail($notification_email, $subject, $message, $headers);
     }
 
   } else {
