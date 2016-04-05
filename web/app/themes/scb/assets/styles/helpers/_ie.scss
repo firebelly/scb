@@ -1,4 +1,8 @@
 // IE fixes
 
-.lt-ie10 {
+// show label on IE9 & IE10 (from http://www.impressivewebs.com/ie10-css-hacks/)
+@media screen and (min-width:0\0) {
+  label.ie-help {
+    display: block;
+  }
 }

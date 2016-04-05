@@ -245,6 +245,10 @@ function new_applicant() {
           } else {
             $attachment_url = wp_get_attachment_url($attachment_id);
             $attachments[$attachment_id] = $attachment_url;
+            // if Enhanced Media Library is installed, set category
+            if (function_exists('wpuxss_eml_enqueue_media')) {
+              wp_set_object_terms($attachment_id, 'applications', 'media_category');
+            }
           }
         }
       }

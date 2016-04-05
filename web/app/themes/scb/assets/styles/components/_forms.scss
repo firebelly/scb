@@ -4,7 +4,8 @@ input:not([type=checkbox]), textarea {
   -webkit-appearance: none;
 }
 
-input:not([type=submit]):not([type=checkbox]), textarea {
+input:not([type=submit]):not([type=checkbox]),
+textarea {
   width: 100%;
   padding: 20px;
   display: block;
@@ -23,6 +24,11 @@ input:not([type=submit]):not([type=checkbox]), textarea {
     outline: none;
     border-color: $gray-dark;
   }
+}
+label.ie-help {
+  display: none;
+  font-size: 13px;
+  margin: 20px;
 }
 
 input[type=search] {

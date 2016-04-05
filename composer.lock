@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "900aba6a895602777f491ed7bba253d3",
-    "content-hash": "13f8246ef57f8dfb65f6422442cb4406",
+    "hash": "2f39397b37d7d820ad59274afd03034e",
+    "content-hash": "c0cad0f4591cf48667ea13e6ffaf8c87",
     "packages": [
         {
             "name": "composer/installers",
@@ -546,6 +546,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/category-checklist-tree/"
+        },
+        {
+            "name": "wpackagist-plugin/enhanced-media-library",
+            "version": "2.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/enhanced-media-library/",
+                "reference": "tags/2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/enhanced-media-library/"
         },
         {
             "name": "wpackagist-plugin/google-sitemap-generator",
