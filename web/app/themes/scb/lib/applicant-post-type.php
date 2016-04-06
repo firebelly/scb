@@ -311,8 +311,7 @@ function new_applicant() {
 
     // Send email if notification_email was set for position or in site_options for internships/portfolio
     if ($notification_email) {
-      $headers = ['From: Nate Beaty <nate@clixel.com>'];
-      // $headers = ['From: SCB <www-data@scb.org>'];
+      $headers = ['From: SCB <www-data@scb.org>'];
       $message .= $_POST['application_first_name'] . ' ' . $_POST['application_last_name'] . "\n";
       $message .= 'Email: ' . $_POST['application_email'] . "\n";
       $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
