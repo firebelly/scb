@@ -16,13 +16,13 @@ add_filter( 'wp_session_expiration', function() { return 24 * 60 * 60; } );
 function new_collection() {
   global $wpdb;
 
-  $wpdb->insert( 
-    $wpdb->prefix.'collections', 
-    [ 
+  $wpdb->insert(
+    $wpdb->prefix.'collections',
+    [
       'created_at' => current_time('mysql'),
       'session_id' => get_session_id(),
       'user_id' => get_current_user_id(),
-    ] 
+    ]
   );
   return $wpdb->insert_id;
 }
@@ -38,7 +38,7 @@ function add_post_to_collection($collection_id, $post_id) {
   if (!$post_in_collection && $post = get_post($post_id)) {
     $max_pos = $wpdb->get_var($wpdb->prepare("SELECT MAX(position) FROM {$wpdb->prefix}collection_posts WHERE collection_id=%d", $collection_id));
     $res = $wpdb->insert(
-      $wpdb->prefix.'collection_posts', 
+      $wpdb->prefix.'collection_posts',
       [
         'collection_id' => $collection_id,
         'post_type' => $post->post_type,
@@ -67,7 +67,7 @@ function remove_post_from_collection($collection_id, $post_id) {
 function get_active_collection() {
   global $wpdb;
 
-  $active_collection = $wpdb->get_row( 
+  $active_collection = $wpdb->get_row(
     $wpdb->prepare("SELECT * FROM {$wpdb->prefix}collections WHERE session_id = %s", get_session_id())
   );
   if ($active_collection) {
@@ -90,14 +90,14 @@ function get_active_or_new_collection() {
     $id = new_collection();
     return get_collection($id);
   }
- } 
+ }
 
 /**
  * Get a collection object given id
  */
 function get_collection($collection_id) {
   global $wpdb;
-  $collection = $wpdb->get_row( 
+  $collection = $wpdb->get_row(
     $wpdb->prepare("SELECT * FROM {$wpdb->prefix}collections WHERE ID = %d", $collection_id)
   );
 
@@ -186,7 +186,7 @@ function email_collection() {
   } else {
     $subject = !empty($_REQUEST['subject']) ? stripslashes($_REQUEST['subject']) : 'A collection of projects from SCB';
     $message = !empty($_REQUEST['message']) ? stripslashes($_REQUEST['message']) : 'Please see attached PDF.';
-    $headers = ['From: SCB <hello@scb.org>'];
+    $headers = ['From: SCB <hello@scb.com>'];
     // Add Reply-to header?
     if (!empty($_REQUEST['replyto_email']) && is_email($_REQUEST['replyto_email'])) {
       // Send user email?
@@ -240,7 +240,7 @@ function collection_rewrites() {
   add_rewrite_rule(
     'collection/(\d+)/?$',
     'index.php?pagename=collection&collection_id=$matches[1]',
-    'top' 
+    'top'
   );
 }
 add_action('init', __NAMESPACE__.'\collection_rewrites');
@@ -333,7 +333,7 @@ function collection_clean_cron() {
  );
  foreach($moldy_collections as $row) {
     $wpdb->delete( $wpdb->prefix.'collections', [ 'ID' => $row['ID'] ] );
-  }  
+  }
 }
 
 /**

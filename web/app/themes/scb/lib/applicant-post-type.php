@@ -300,6 +300,11 @@ function new_applicant() {
         $subject = 'New application for ' . $position->post_title . ' from ' . $_POST['application_first_name'] . ' ' . $_POST['application_last_name'];
         $message = 'A new application was received for ' . $position->post_title . ":\n\n";
       }
+
+      // Send quick receipt email to applicant
+      $applicant_message = "Thank you for your interest in SCB. This note is to inform you that we have received your email and attachments. We will contact you if our current needs meet your qualifications.\n\n";
+      $applicant_message .= "Best Regards,\nSolomon Cordwell Buenz";
+      wp_mail($_POST['application_email'], 'Thank you for your interest in SCB', $applicant_message, ['From: SCB <reception@scb.com>']);
     }
 
     if (preg_match('/(internship|portfolio)/',$_POST['application_type'])) {
@@ -311,7 +316,7 @@ function new_applicant() {
 
     // Send email if notification_email was set for position or in site_options for internships/portfolio
     if ($notification_email) {
-      $headers = ['From: SCB <www-data@scb.org>'];
+      $headers = ['From: SCB <www-data@scb.com>'];
       $message .= $_POST['application_first_name'] . ' ' . $_POST['application_last_name'] . "\n";
       $message .= 'Email: ' . $_POST['application_email'] . "\n";
       $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
