@@ -22,7 +22,7 @@
         <ul>
           <li class="address">
             <address class="vcard"> 
-              <span class="street-address">625 N Michigan Ave <span>Suite 800</span></span>
+              <span class="street-address">625 N. Michigan Avenue <span>Suite 800</span></span>
               <span class="locality">Chicago, IL</span>
               <span class="postal-code">60611 USA</span>
             </address>
