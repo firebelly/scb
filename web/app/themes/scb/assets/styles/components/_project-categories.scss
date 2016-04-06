@@ -29,7 +29,7 @@
     @include min-screen($breakpoint-medium) {
       left: 0;
       z-index: 2;
-      top: 126px;
+      top: 96px;
       opacity: 0;
       width: 100%;
       position: fixed;
@@ -44,10 +44,6 @@
       .-inner {
         padding-left: 10px;
       }
-    }
-
-    @include min-screen($breakpoint-nav) {
-      top: 96px;
     }
   }
 
