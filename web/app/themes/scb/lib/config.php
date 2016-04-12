@@ -12,7 +12,7 @@ add_theme_support('soil-nav-walker');       // Enable cleaner nav walker from So
 add_theme_support('soil-relative-urls');    // Enable relative URLs from Soil
 add_theme_support('soil-nice-search');      // Enable nice search from Soil
 add_theme_support('soil-jquery-cdn');       // Enable to load jQuery from the Google CDN
-add_theme_support('soil-google-analytics', 'UA-3849171-6');
+add_theme_support('soil-google-analytics', 'UA-70032124-1');
 
 /**
  * Configuration values
@@ -33,7 +33,7 @@ if (!defined('DIST_DIR')) {
  */
 function display_sidebar() {
   static $display;
-  
+
   // no sidebars
   return false;
 
