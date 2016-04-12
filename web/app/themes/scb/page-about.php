@@ -174,7 +174,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
         <div class="stat">
           <div class="wrap">
             <p class="stat-number">'01</p>
-            <p class="stat-label">Sun Wall</p>
+            <p class="stat-label">US Department of Energy<br> Sun Wall</p>
           </div>
         </div>
       </div>
