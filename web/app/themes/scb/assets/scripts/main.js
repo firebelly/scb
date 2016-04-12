@@ -144,7 +144,7 @@ var SCB = (function($) {
 
   } // end init()
 
-  // Bind to state changes and handle back/next
+  // Bind to state changes and handle back/forward
   function _initStateHandling() {
     $(window).bind('statechange',function(){
       State = History.getState();
@@ -855,7 +855,7 @@ var SCB = (function($) {
 
   // Populate Project grid with category output
   function _updateProjects() {
-    var $data = $(page_cache[encodeURIComponent(State.url)]),
+    var $data = $(page_cache[encodeURIComponent(State.url)]).clone(),
         $category_link = $('.project-categories a[href="' + relative_url + '"]');
 
     // Show active category in nav
