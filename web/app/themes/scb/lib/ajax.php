@@ -35,6 +35,7 @@ function load_more_posts() {
   $args = [
     'offset' => $offset,
     'posts_per_page' => $per_page,
+    'no_found_rows' => true,
   ];
 
   // Show private posts if logged in
@@ -70,7 +71,9 @@ function load_more_posts() {
     }
   }
 
-  $posts = get_posts($args);
+  // $posts = wp_cache_get( 'my_result' );
+  // if ( false === $result ) {
+    $posts = get_posts($args);
 
   if ($posts):
     foreach ($posts as $post) {
@@ -87,8 +90,8 @@ function load_more_posts() {
 
   if (is_ajax()) die();
 }
-add_action( 'wp_ajax_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
-add_action( 'wp_ajax_nopriv_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
+add_action( 'FB_AJAX_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
+add_action( 'FB_AJAX_nopriv_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
 
 
 /**
@@ -108,6 +111,7 @@ function load_more_projects() {
   $args = [
     'offset' => $offset,
     'posts_per_page' => $per_page,
+    'no_found_rows' => true,
   ];
   $args['post_type'] = 'project';
 
@@ -135,8 +139,8 @@ function load_more_projects() {
 
   if (is_ajax()) die();
 }
-add_action( 'wp_ajax_load_more_projects', __NAMESPACE__ . '\\load_more_projects' );
-add_action( 'wp_ajax_nopriv_load_more_projects', __NAMESPACE__ . '\\load_more_projects' );
+add_action( 'FB_AJAX_load_more_projects', __NAMESPACE__ . '\\load_more_projects' );
+add_action( 'FB_AJAX_nopriv_load_more_projects', __NAMESPACE__ . '\\load_more_projects' );
 
 
 /**
@@ -149,8 +153,8 @@ function load_post_modal() {
     $collection = \Firebelly\Collections\get_active_collection();
   }
 
-  if(!empty($_POST['post_url'])) {
-    $post_id = url_to_postid($_POST['post_url']);
+  if(!empty($_REQUEST['post_url'])) {
+    $post_id = url_to_postid($_REQUEST['post_url']);
     if ($post_id) {
       $post = get_post($post_id);
       $post_type = get_post_type($post);
@@ -173,5 +177,5 @@ function load_post_modal() {
 
   if (is_ajax()) die();
 }
-add_action( 'wp_ajax_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );
-add_action( 'wp_ajax_nopriv_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );
+add_action( 'FB_AJAX_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );
+add_action( 'FB_AJAX_nopriv_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );

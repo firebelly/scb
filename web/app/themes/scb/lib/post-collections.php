@@ -8,7 +8,7 @@
 namespace Firebelly\Collections;
 
 // Set WP_Session expiration to 24 hours
-add_filter( 'wp_session_expiration', function() { return 24 * 60 * 60; } );
+add_filter('wp_session_expiration', function() { return 24 * 60 * 60; });
 
 /**
  * Create a new collection

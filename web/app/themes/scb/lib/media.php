@@ -5,8 +5,11 @@
 
 namespace Firebelly\Media;
 
-// image size for popout thumbs
-add_image_size( 'popout-thumb', 250, 300, ['center', 'top'] );
+// Image size for popout thumbs
+function add_image_sizes() {
+	add_image_size( 'popout-thumb', 250, 300, ['center', 'top'] );
+}
+add_action('after_setup_theme', __NAMESPACE__.'\add_image_sizes');
 
 /**
  * Get thumbnail image for post

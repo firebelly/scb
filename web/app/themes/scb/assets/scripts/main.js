@@ -25,7 +25,8 @@ var SCB = (function($) {
       original_url,
       page_cache = {},
       modal_timer,
-      collection_message_timer;
+      collection_message_timer,
+      ajax_handler_url = '/app/themes/scb/lib/ajax-handler.php';
 
   function _init() {
     // Touch-friendly fast clicks
@@ -323,8 +324,8 @@ var SCB = (function($) {
           if( window.FormData !== undefined ) {
             var formData = new FormData(form);
             $.ajax({
-              url: wp_ajax_url,
-              method: 'POST',
+              url: ajax_handler_url,
+              method: 'get',
               data: formData,
               dataType: 'json',
               mimeType: 'multipart/form-data',
@@ -511,8 +512,8 @@ var SCB = (function($) {
       }
 
       $.ajax({
-        url: wp_ajax_url,
-        method: 'post',
+        url: ajax_handler_url,
+        method: 'get',
         dataType: 'json',
         data: {
           action: 'collection_action',
@@ -585,8 +586,8 @@ var SCB = (function($) {
     $('#email-collection-form form').validate({
       submitHandler: function(form) {
           $.ajax({
-              url: wp_ajax_url,
-              method: 'post',
+              url: ajax_handler_url,
+              method: 'get',
               dataType: 'json',
               data: $(form).serialize()
           }).done(function(response) {
@@ -615,8 +616,8 @@ var SCB = (function($) {
       var title = $('.collection-title').text();
       var collection_id = $('.collection-title').attr('data-id');
       $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
+          url: ajax_handler_url,
+          method: 'get',
           dataType: 'json',
           data: {
             action: 'collection_action',
@@ -660,8 +661,8 @@ var SCB = (function($) {
           var data = collection_sort.sortable('serialize').get();
           var collection_id = $(container.el[0]).attr('data-id');
           $.ajax({
-              url: wp_ajax_url,
-              method: 'post',
+              url: ajax_handler_url,
+              method: 'get',
               dataType: 'json',
               data: {
                 action: 'collection_sort',
@@ -725,8 +726,8 @@ var SCB = (function($) {
   // Load AJAX content to show in a modal & store in page_cache array
   function _loadModal() {
     $.ajax({
-      url: wp_ajax_url,
-      method: 'post',
+      url: ajax_handler_url,
+      method: 'get',
       dataType: 'html',
       data: {
         'action': 'load_post_modal',
@@ -791,8 +792,8 @@ var SCB = (function($) {
     }
 
     $.ajax({
-        url: wp_ajax_url,
-        method: 'post',
+        url: ajax_handler_url,
+        method: 'get',
         data: {
             action: 'load_more_projects',
             page: 1,
@@ -1112,8 +1113,8 @@ var SCB = (function($) {
       var more_container = $load_more.parents('section,main').find('.load-more-container');
 
       $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
+          url: ajax_handler_url,
+          method: 'get',
           data: {
               action: 'load_more_posts',
               post_type: post_type,

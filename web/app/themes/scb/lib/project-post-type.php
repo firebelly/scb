@@ -5,8 +5,11 @@
 
 namespace Firebelly\PostTypes\Project;
 
-// Custom image size for post type?
-add_image_size( 'project-large', 1600, 1200 );
+// Custom image size for post type
+function add_image_sizes() {
+  add_image_size('project-large', 1600, 1200);
+}
+add_action('after_setup_theme', __NAMESPACE__.'\add_image_sizes');
 
 // Register Custom Post Type
 function post_type() {
@@ -103,7 +106,7 @@ function custom_columns($column){
       echo the_post_thumbnail('thumbnail');
     elseif ( $column == '_cmb2_pdf' ) {
       $custom = get_post_custom();
-      echo array_key_exists($column, $custom) ? '&#9989;' : ''; 
+      echo array_key_exists($column, $custom) ? '&#9989;' : '';
     }
     else {
       $custom = get_post_custom();
@@ -238,11 +241,11 @@ function metaboxes( array $meta_boxes ) {
     'type' => 'radio_inline',
     'description' => __( 'If you have added images you <strong>must</strong> select an image layout to ensure proper formatting', 'cmb' ),
     'options' => [
-      1 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-1.png">', 
-      2 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-2.png">', 
-      3 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-3.png">', 
-      4 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-4.png">', 
-      5 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-5.png">', 
+      1 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-1.png">',
+      2 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-2.png">',
+      3 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-3.png">',
+      4 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-4.png">',
+      5 => '<img style="vertical-align: middle" src="/app/themes/scb/dist/images/image-layout-5.png">',
     ]
   ) );
 
@@ -454,14 +457,14 @@ function sort_projects_form() {
     <div id="sort-projects-form">
     <select name="category_id" class="filter-projects">
     <option value=''>All Categories</option>
-    <?php 
+    <?php
     $project_cats = get_terms('project_category', [ 'parent' => 0 ]);
     foreach ($project_cats as $cat)
       echo '<option value="'.$cat->slug.'" '.($_GET['category_name']==$cat->slug ? 'selected' : '').'>'.$cat->name.'</option>';
     ?>
     </select>
       <ul>
-      <?php 
+      <?php
       $category = !empty($_GET['category_name']) ? $_GET['category_name'] : '';
       $projects = \Firebelly\PostTypes\Project\get_projects(['category' => $category]);
       foreach ($projects as $project_post):
