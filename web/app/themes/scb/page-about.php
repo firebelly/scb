@@ -17,7 +17,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
 <div class="top-section page-content grid wrap">
 
   <div class="page-intro grid-item one-half -left">
-    <div class="-top">    
+    <div class="-top">
       <?= apply_filters('the_content', $post->post_content) ?>
     </div>
   </div>
@@ -62,9 +62,9 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
 
 <section class="firm-history page-content wrap" id="firm-history">
   <h2>Firm History</h2>
-  
+
   <div class="section -top grid">
-    
+
     <div class="grid-item -left">
       <h3>Since its inception in 1931, SCB has embraced a future-oriented design ethos that places inventiveness and innovation at the firm’s core.</h3>
       <p>As the economy improved after the Great Depression, Lou and Irving Solomon saw an opportunity for growth by expanding the firm’s work into the residential market. Lou began acquiring properties along Chicago’s Lake Shore Drive and designing high-rise rental apartment communities. Meanwhile, Irving was the contractor and their sister Sylvia managed the projects. Through his foresight, Lou created a unique end-to-end business model for successful buildings that still stand today. Although now solely a design firm, the legacy of a design-build-operate approach laid the foundation for a design culture that understands and addresses all aspects a building’s needs for marketability, constructability, and operations.</p>
@@ -82,7 +82,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
     </div>
 
   </div>
-  
+
   <div class="section -second grid">
 
     <div class="image-with-stat -left">
@@ -91,13 +91,13 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
       <div class="stat">
         <div class="wrap">
           <p class="stat-number">'64</p>
-          <p class="stat-label">Winning citywide competition to<br> design Carl Sandburg Village</p>
+          <p class="stat-label">Won citywide competition to<br> design Carl Sandburg Village</p>
         </div>
       </div>
     </div>
 
   </div>
-  
+
   <div class="section -third grid">
 
     <div class="grid-item -right">
@@ -109,7 +109,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
   </div>
 
   <div class="section -fourth grid">
-    
+
     <div class="grid-item -left">
       <div class="image-with-stat">
         <img src="<?= Roots\Sage\Assets\asset_path('images/about-1970_EdgewaterPlaza_bw.jpg') ?>" alt="Edgewater Plaza">
@@ -146,7 +146,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
   </div>
 
   <div class="section -fifth grid">
-    
+
     <div class="grid-item -left">
       <div class="image-with-stat">
         <img src="<?= Roots\Sage\Assets\asset_path('images/about-Crate&Barrel.jpg') ?>" alt="Crate &amp; Barrel Flagship store on Chicago’s Magnificent Mile">
@@ -162,7 +162,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
       <div class="section-text">
         <p>SCB continues to build on this legacy, boasting a staff of over 240 design professionals with more than 650 completed projects across a wide range of building types. In 2007, the firm opened an office in San Francisco, and since then has made extensive contributions to the city’s skyline and neighborhoods. The firm’s first project in San Francisco, One Rincon Hill, follows in the SCB tradition of using creative design tactics to deliver unique solutions. Designed as a catalyst for urban renewal, the slender tower’s 60-story height was made possible by integrating unique architectural and structural solutions for building in an active seismic zone.</p>
 
-        <p>Today we honor the spirit of our founders in projects all over the country that push the boundaries of design to deliver innovative, effective solutions ranging from architecture to planning to interior design. At 83, John Buenz still stops in to visit from time to time. When he does, he urges us to think outside the box and keep looking to the future by reminding us of the advice Lou Solomon once gave him: “You’ve got to think laterally!” </p>
+        <p>Today we honor the spirit of our founders in projects all over the country that push the boundaries of design to deliver innovative, effective solutions ranging from architecture to planning to interior design. At 83, John Buenz still stops in to visit from time to time. When he does, he urges us to think outside the box and keep looking to the future by reminding us of the advice John Cordwell once gave him: “You’ve got to think laterally!” </p>
 
       </div>
     </div>
