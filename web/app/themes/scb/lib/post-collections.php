@@ -209,8 +209,8 @@ function email_collection() {
     }
   }
 }
-add_action('wp_ajax_email_collection', __NAMESPACE__ . '\\email_collection');
-add_action('wp_ajax_nopriv_email_collection', __NAMESPACE__ . '\\email_collection');
+add_action('FB_AJAX_email_collection', __NAMESPACE__ . '\\email_collection');
+add_action('FB_AJAX_nopriv_email_collection', __NAMESPACE__ . '\\email_collection');
 
 /**
  * Sort a collection after dragged around
@@ -230,8 +230,8 @@ function collection_sort() {
     wp_send_json_error(['message' => 'Unable to get collection']);
   }
 }
-add_action('wp_ajax_collection_sort', __NAMESPACE__ . '\\collection_sort');
-add_action('wp_ajax_nopriv_collection_sort', __NAMESPACE__ . '\\collection_sort');
+add_action('FB_AJAX_collection_sort', __NAMESPACE__ . '\\collection_sort');
+add_action('FB_AJAX_nopriv_collection_sort', __NAMESPACE__ . '\\collection_sort');
 
 /**
  * Collection page URLs

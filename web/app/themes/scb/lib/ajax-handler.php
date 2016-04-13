@@ -24,6 +24,7 @@ $allowed_actions = array(
     'collection_sort',
     'collection_action',
     'application_submission',
+    'email_collection',
 );
 if (in_array($action, $allowed_actions)){
     if(is_user_logged_in())

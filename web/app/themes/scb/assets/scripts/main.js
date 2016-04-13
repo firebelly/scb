@@ -325,7 +325,7 @@ var SCB = (function($) {
             var formData = new FormData(form);
             $.ajax({
               url: ajax_handler_url,
-              method: 'get',
+              method: 'post',
               data: formData,
               dataType: 'json',
               mimeType: 'multipart/form-data',
