@@ -170,8 +170,8 @@ function collection_action() {
 
   wp_send_json_success(['collection_html' => $collection_html]);
 }
-add_action('wp_ajax_collection_action', __NAMESPACE__ . '\\collection_action');
-add_action('wp_ajax_nopriv_collection_action', __NAMESPACE__ . '\\collection_action');
+add_action('FB_AJAX_collection_action', __NAMESPACE__ . '\\collection_action');
+add_action('FB_AJAX_nopriv_collection_action', __NAMESPACE__ . '\\collection_action');
 
 /**
  * Send an email with collection PDF attached
