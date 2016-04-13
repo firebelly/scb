@@ -301,10 +301,6 @@ function new_applicant() {
         $message = 'A new application was received for ' . $position->post_title . ":\n\n";
       }
 
-      // Send quick receipt email to applicant
-      $applicant_message = "Thank you for your interest in SCB. This note is to inform you that we have received your email and attachments. We will contact you if our current needs meet your qualifications.\n\n";
-      $applicant_message .= "Best Regards,\nSolomon Cordwell Buenz";
-      wp_mail($_POST['application_email'], 'Thank you for your interest in SCB', $applicant_message, ['From: SCB <reception@scb.com>']);
     }
 
     if (preg_match('/(internship|portfolio)/',$_POST['application_type'])) {
@@ -329,6 +325,11 @@ function new_applicant() {
       }
       wp_mail($notification_email, $subject, $message, $headers);
     }
+
+    // Send quick receipt email to applicant
+    $applicant_message = "Thank you for your interest in SCB. This note is to inform you that we have received your email and attachments. We will contact you if your qualifications meet our current needs.\n\n";
+    $applicant_message .= "Best Regards,\nSolomon Cordwell Buenz";
+    wp_mail($_POST['application_email'], 'Thank you for your interest in SCB', $applicant_message, ['From: SCB <reception@scb.com>']);
 
   } else {
     $errors[] = 'Error inserting post';
