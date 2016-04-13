@@ -383,8 +383,8 @@ function application_submission() {
   }
   wp_send_json_error(['message' => 'Invalid post']);
 }
-add_action('wp_ajax_application_submission', __NAMESPACE__ . '\\application_submission');
-add_action('wp_ajax_nopriv_application_submission', __NAMESPACE__ . '\\application_submission');
+add_action('FB_AJAX_application_submission', __NAMESPACE__ . '\\application_submission');
+add_action('FB_AJAX_nopriv_application_submission', __NAMESPACE__ . '\\application_submission');
 
 // Inject application form in footer if on career page
 function application_form() {

@@ -23,6 +23,7 @@ $allowed_actions = array(
     'load_more_projects',
     'collection_sort',
     'collection_action',
+    'application_submission',
 );
 if (in_array($action, $allowed_actions)){
     if(is_user_logged_in())
