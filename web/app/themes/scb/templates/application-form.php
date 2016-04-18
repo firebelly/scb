@@ -25,6 +25,7 @@ if (empty($application_type)) {
 
     <label class="ie-help">Upload cover page, resume, portfolio:</label>
     <input type="file" name="application_files[]" multiple required>
+    <div class="files-attached"></div>
     <?php wp_nonce_field( 'application_form', 'application_form_nonce' ); ?>
   </fieldset>
 

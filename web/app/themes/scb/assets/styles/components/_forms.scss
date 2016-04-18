@@ -86,6 +86,12 @@ input[type=file]:active {
 input[type=file]:active::before {
 
 }
+.files-attached {
+  color: $gray-dark;
+  p {
+    margin: 20px;
+  }
+}
 
 // Form feedback
 label.error {

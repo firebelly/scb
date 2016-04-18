@@ -307,6 +307,16 @@ var SCB = (function($) {
       e.preventDefault();
       History.pushState({ modal: true }, 'Submit Portfolio – SCB', '/careers/submit-portfolio/');
     });
+    $document.on('change', '.application-form input[type=file]', function(e) {
+      var files = $(this).prop('files');
+      var files_attached = $(this).closest('form').find('.files-attached');
+      if (files.length) {
+        files_attached.html('<p>'+files.length + ' file(s) attached</p>');
+      } else {
+        files_attached.html('');
+      }
+    });
+    
     // Handle application form submissions
     $document.on('click', '.application-form input[type=submit]', function(e) {
       var $form = $(this).closest('form');

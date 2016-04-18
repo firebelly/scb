@@ -320,6 +320,10 @@ function new_applicant() {
       if (!empty($attachments)) {
         $message .= "\nFiles uploaded:\n";
         foreach ($attachments as $attachment_id => $attachment_url) {
+          // Add home_url (if not there) to make these links
+          if (strpos($attachment_url, get_home_url())===false) {
+            $attachment_url = get_home_url().$attachment_url;
+          }
           $message .= $attachment_url . "\n";
         }
       }
