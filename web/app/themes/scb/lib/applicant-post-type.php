@@ -316,7 +316,7 @@ function new_applicant() {
       $message .= $_POST['application_first_name'] . ' ' . $_POST['application_last_name'] . "\n";
       $message .= 'Email: ' . $_POST['application_email'] . "\n";
       $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
-      $message .= "Edit in WordPress:\n" . get_edit_post_link($post_id, 'email') . "\n";
+      $message .= "Edit in WordPress:\n" . admin_url('post.php?post='.$post_id.'&action=edit') . "\n";
       if (!empty($attachments)) {
         $message .= "\nFiles uploaded:\n";
         foreach ($attachments as $attachment_id => $attachment_url) {
