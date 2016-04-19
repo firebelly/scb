@@ -1,6 +1,7 @@
 // IE fixes
 
-// show file label on IE9 & IE10
+// show file label on IE9 & IE10 ... and Firefox
+html[data-useragent*='Firefox'],
 html[data-useragent*='MSIE 9.0'],
 html[data-useragent*='MSIE 10.0'] {
   label.ie-help {
