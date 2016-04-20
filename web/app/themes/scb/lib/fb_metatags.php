@@ -50,7 +50,7 @@ function build_tags() {
     if (has_excerpt($post->ID)) {
       $metatag_description = strip_tags(get_the_excerpt());
     } else {
-      $metatag_description = str_replace("\r\n", ' ' , substr(strip_tags(strip_shortcodes($post->post_content)), 0, 160));
+      $metatag_description = str_replace("\r\n", ' ' , substr(strip_tags(strip_shortcodes($post->post_content)), 0, 300));
     }
   } else {
     $metatag_description = get_bloginfo('description');
