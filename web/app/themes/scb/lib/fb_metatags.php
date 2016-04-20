@@ -56,6 +56,7 @@ function build_tags() {
     $metatag_description = get_bloginfo('description');
   }
   echo '<meta property="og:description" content="' . esc_attr(apply_filters('fb_metatag_description', $metatag_description)) . '"/>' . "\n";
+  echo '<meta name="description" content="' . esc_attr(apply_filters('fb_metatag_description', $metatag_description)) . '"/>' . "\n";
 
   // Page type
   if (is_single()) {
