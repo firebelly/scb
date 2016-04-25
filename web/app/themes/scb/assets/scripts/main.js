@@ -316,7 +316,7 @@ var SCB = (function($) {
         files_attached.html('');
       }
     });
-    
+
     // Handle application form submissions
     $document.on('click', '.application-form input[type=submit]', function(e) {
       var $form = $(this).closest('form');
@@ -513,7 +513,7 @@ var SCB = (function($) {
       e.preventDefault();
       var $link = $(this);
       var id = $link.attr('data-id') || '';
-      var collection_id = $link.parents('section.collection:first').attr('data-id');
+      var collection_id = $('section.collection:first').attr('data-id');
       var action = $link.attr('data-action');
 
       // Add action class to article for styling perposes
