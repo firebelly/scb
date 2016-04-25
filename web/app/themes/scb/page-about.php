@@ -123,7 +123,7 @@ $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_pro
       </div>
 
       <div class="section-text">
-        <p>In 1963, John Cordwell hired the firm’s third partner, John Buenz. An apprentice under Eero Saarinen and Harry Weese, Buenz started as a design architect and was surprised when his name was added to the letterhead just five years later. Together, the three men built a powerful high-rise residential practice that still thrives today.</p>
+        <p>In 1963, John Cordwell hired the firm’s third partner, John Buenz. An apprentice under Eero Saarinen and Harry Weese, Buenz started as a design architect and was surprised when his name was added to the letterhead just five years later. Together, the three men set the foundation for what would become a powerful high-rise residential practice, one that still thrives today.</p>
 
         <p>In the 70s, Solomon Cordwell Buenz expanded once more to begin working in the hospitality, office, and retail markets. The firm created inventive spaces that shifted market paradigms, as with the Crate & Barrel Flagship store on Chicago’s Magnificent Mile, whose design by Buenz redefined the character of this renowned retail thoroughfare.</p>
       </div>
