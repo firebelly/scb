@@ -51,8 +51,8 @@ $post_type_plurals = [
 
       </div>
       <div class="collection-actions"><a href="#" class="button email-collection" data-action="email">Email</a>
-      <a href="#" target="_blank" class="button collection-action" data-action="pdf">Save as pdf</a>
-      <a href="#" class="button collection-action" data-action="pdf">print</a></div>
+      <a href="/app/themes/scb/lib/ajax-handler.php?action=collection_action&do=pdf" target="_blank" class="button collection-action" data-action="pdf">Save as PDF</a>
+      <a href="/app/themes/scb/lib/ajax-handler.php?action=collection_action&do=pdf" target="_blank" class="button collection-action" data-action="pdf">Print</a></div>
 
       <div id="email-collection-form">
         <form action="<?= admin_url('admin-ajax.php') ?>" method="post" novalidate>

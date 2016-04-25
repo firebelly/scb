@@ -510,11 +510,15 @@ var SCB = (function($) {
 
     // Add/Remove from collection links
     $document.on('click', '.collection-action', function(e) {
-      e.preventDefault();
       var $link = $(this);
       var id = $link.attr('data-id') || '';
       var collection_id = $('section.collection:first').attr('data-id');
       var action = $link.attr('data-action');
+      // For Save as PDF on old browsers or IE, just open link which PHP handles as a download
+      if (action === 'pdf' && !$(e.target).text().toLowerCase().match('print') && !Modernizr.adownload) {
+        return true;
+      }
+      e.preventDefault();
 
       // Add action class to article for styling perposes
       if ($link.parents('section.collection').length) {
@@ -553,7 +557,7 @@ var SCB = (function($) {
 
           var buttonText = $(e.target).text();
           if (response.success) {
-            if (buttonText.match('print')) {
+            if (buttonText.toLowerCase().match('print')) {
               // Make tmp iframe with PDF and trigger print()
               $('<iframe id="pdf-print"></iframe>').appendTo('body')
                 .attr('src', response.data.pdf.url)
@@ -563,19 +567,14 @@ var SCB = (function($) {
                   setTimeout(function() {
                     frm.focus();
                     frm.print();
-                  }, 500);
+                  }, 125);
                  });
             } else {
               // Make tmp link to trigger download of PDF (from http://stackoverflow.com/a/27563953/1001675)
-              if (!Modernizr.adownload) {
-                // Old browsers just open the pdf in a new window
-                window.open(response.data.pdf.url);
-              } else {
-                var link = document.createElement('a');
-                link.href = response.data.pdf.url;
-                link.download = response.data.pdf.name;
-                link.click();
-              }
+              var link = document.createElement('a');
+              link.href = response.data.pdf.url;
+              link.download = response.data.pdf.name;
+              link.click();
             }
           } else {
             _feedbackMessage(response.data.message);

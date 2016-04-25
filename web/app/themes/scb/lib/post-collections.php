@@ -306,7 +306,22 @@ function collection_to_pdf($id) {
   }
   if ($num_pdfs>0) {
     file_put_contents($collection_pdf['abspath'], $pdf_merge->merge());
-    return $collection_pdf;
+    if (!\Firebelly\Ajax\is_ajax()) {
+      header('Pragma: public');
+      header('Expires: 0');
+      header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+      header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime($collection_pdf['abspath'])).' GMT');
+      header('Cache-Control: private', false);
+      header('Content-Type: application/pdf');
+      header('Content-Disposition: attachment; filename="'.basename($collection_pdf['abspath']).'"');
+      header('Content-Transfer-Encoding: binary');
+      header('Content-Length: '.filesize($collection_pdf['abspath']));  // provide file size
+      header('Connection: close');
+      readfile($collection_pdf['abspath']);
+      exit();
+    } else {
+      return $collection_pdf;
+    }
   } else {
     return false;
   }
