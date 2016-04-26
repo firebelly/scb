@@ -107,6 +107,7 @@ var SCB = (function($) {
     _plusButtons();
     _shrinkHeader();
     _oldPlaceholderSupport();
+    _checkLoadMore();
 
     // Init state
     State = History.getState();
