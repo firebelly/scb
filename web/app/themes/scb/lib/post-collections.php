@@ -165,7 +165,7 @@ function collection_action() {
 
   // Capture template output to return with AJAX call
   ob_start();
-  $collection_html = include(locate_template('templates/collection.php'));;
+  include(locate_template('templates/collection.php'));
   $collection_html = ob_get_clean();
 
   wp_send_json_success(['collection_html' => $collection_html]);
