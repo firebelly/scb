@@ -113,9 +113,11 @@ var SCB = (function($) {
     relative_url = '/' + State.url.replace(root_url,'');
     original_url = State.url;
 
-    // Cache initial project grid to avoid flash of loading class after closing first project modal
-    if (relative_url==='/') {
+    // If homepage or category page, store current_category
+    if (relative_url==='/' || relative_url.match(/^\/projects\//)) {
+      // Cache initial project grid to avoid flash of loading class after closing first project modal
       page_cache[encodeURIComponent(State.url)] = $('section.main-project-grid').clone()[0];
+      current_category = State.url;
     }
 
     // Single pages with forms: inject .feedback-container at top for non-modal feedback messages
