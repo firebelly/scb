@@ -23,9 +23,10 @@ var SCB = (function($) {
       root_url = History.getRootUrl(),
       relative_url,
       original_url,
+      current_category,
       page_cache = {},
       modal_timer,
-      collection_message_timer,
+      feedback_message_timer,
       ajax_handler_url = '/app/themes/scb/lib/ajax-handler.php';
 
   function _init() {
@@ -294,7 +295,7 @@ var SCB = (function($) {
       duration: 250,
       delay: 0
     });
-    _scrollBody($('.collection .collection-actions'), 250, 0, 0, $('.overflow-wrapper'));
+    // _scrollBody($('.collection .collection-actions'), 250, 0, 0, $('.overflow-wrapper'));
   }
   function _hideEmailForm() {
     $('#email-collection-form').removeClass('active');
@@ -475,18 +476,18 @@ var SCB = (function($) {
       $('.feedback-container').addClass('show-feedback');
     }, 250);
 
-    if (collection_message_timer) { clearTimeout(collection_message_timer); }
-    collection_message_timer = setTimeout(_hideCollectionMessage, 3000);
+    if (feedback_message_timer) { clearTimeout(feedback_message_timer); }
+    feedback_message_timer = setTimeout(_hideFeedbackMessage, 3000);
 
     $('.feedback-container').on('mouseenter', function() {
-      if (collection_message_timer) { clearTimeout(collection_message_timer); }
+      if (feedback_message_timer) { clearTimeout(feedback_message_timer); }
     }).on('mouseleave', function() {
-      if (collection_message_timer) { clearTimeout(collection_message_timer); }
-      collection_message_timer = setTimeout(_hideCollectionMessage, 1000);
+      if (feedback_message_timer) { clearTimeout(feedback_message_timer); }
+      feedback_message_timer = setTimeout(_hideFeedbackMessage, 1000);
     });
 
   }
-  function _hideCollectionMessage() {
+  function _hideFeedbackMessage() {
     $('.feedback-container').removeClass('show-feedback');
     setTimeout(function() { $('.feedback-container .feedback p').text(''); }, 250);
   }
@@ -544,14 +545,18 @@ var SCB = (function($) {
           // Repopulate all collections
           $('section.collection').html(response.data.collection_html);
           _initCollectionBehavior();
+
+          var collection_was_active = $collection.hasClass('active');
+
+          // Push /collection/ to History to trigger opening Collection
+          History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
+
           // Just show empty message if removing last item to avoid confusing, stacked feedback
-          if (!$collection.hasClass('active') && !response.data.collection_html.match(/empty/)) {
+          if (!collection_was_active && !response.data.collection_html.match(/empty/)) {
             _feedbackMessage(action);
           } else {
             $collection.toggleClass('empty', !$collection.find('article').length);
           }
-          // Push /collection/ to History to trigger opening Collection
-          History.pushState({ modal: true }, 'Collection – SCB', '/collection/');
 
         } else if (action.match(/pdf/)) {
 
@@ -868,6 +873,11 @@ var SCB = (function($) {
     var $data = $(page_cache[encodeURIComponent(State.url)]).clone(),
         $category_link = $('.project-categories a[href="' + relative_url + '"]');
 
+    // Category is already loaded (user is closing a modal and returning to previous state), just return
+    if (current_category === State.url) {
+      return;
+    }
+
     // Show active category in nav
     _updateProjectCategoryNavByURL();
 
@@ -902,6 +912,9 @@ var SCB = (function($) {
     $('.page-intro').html( $data.find('.page-intro').html() );
 
     $('.page-intro,.projects').removeClass('loading');
+
+    // Set current_category to avoid reloading projects and losing Load More state after closing project modal
+    current_category = State.url;
 
     _checkLoadMore();
   }
