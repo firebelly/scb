@@ -330,9 +330,9 @@ function collection_to_pdf($id) {
 /**
  * Daily cronjob to clean out old, empty collections
  */
-if (WP_ENV === 'production') {
-  add_action('wp', __NAMESPACE__ . '\activate_collection_clean_cron');
-}
+// if (WP_ENV === 'production') {
+//   add_action('wp', __NAMESPACE__ . '\activate_collection_clean_cron');
+// }
 function activate_collection_clean_cron() {
   if (!wp_next_scheduled('collection_clean_cron')) {
     wp_schedule_event(current_time('timestamp'), 'daily', 'collection_clean_cron');
