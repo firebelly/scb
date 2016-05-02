@@ -41,7 +41,6 @@ textarea {
 
 input[type=submit],
 button[type=submit] {
-  @extend .btn;
   border: none;
   border-radius: 0;
   &:focus,
