@@ -6,7 +6,7 @@
   p {
     position: relative;
   }
-  a {
+  .info a {
     color: #ccc;
     text-decoration: none;
   }
@@ -155,7 +155,7 @@ body.people {
     margin: 40px 0;
     font-size: 70px;
 
-    @include min-screen($breakpoint-medium) {    
+    @include min-screen($breakpoint-medium) {
       margin: -1em 0 0;
       .stat-number {
         font-size: 16vw;

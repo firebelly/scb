@@ -262,7 +262,7 @@ var SCB = (function($) {
   function _updateOGTags() {
     $('meta[property="og:url"]').attr('content', State.url);
     $('meta[property="og:title"]').attr('content', document.title);
-    $('meta[property="og:type"]').attr('content', ($body.is('.moda-active') ? 'article' : 'website') );
+    $('meta[property="og:type"]').attr('content', ($body.is('.modal-active') ? 'article' : 'website') );
     if ($('#og-updates').length) {
       $('meta[property="og:description"]').attr('content', $('#og-updates').attr('data-description'));
       $('meta[property="og:image"]').attr('content', $('#og-updates').attr('data-image'));
