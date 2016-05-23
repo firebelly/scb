@@ -13,11 +13,11 @@ if ($project_images) {
     $i++;
   }
 }
-$middle_column_1 = get_post_meta($post->ID, '_cmb2_middle_column_1', true);
-$middle_column_2 = get_post_meta($post->ID, '_cmb2_middle_column_2', true);
-$middle_column_3 = get_post_meta($post->ID, '_cmb2_middle_column_3', true);
-$terms_left = get_post_meta($post->ID, '_cmb2_terms_left', true);
-$terms_right = get_post_meta($post->ID, '_cmb2_terms_right', true);
+$middle_column_1 = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_middle_column_1', true));
+$middle_column_2 = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_middle_column_2', true));
+$middle_column_3 = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_middle_column_3', true));
+$terms_left = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_terms_left', true));
+$terms_right = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_terms_right', true));
 
 $chicago_id = url_to_postid('/office/chicago/');
 $san_francisco_id = url_to_postid('/office/san-francisco/');
