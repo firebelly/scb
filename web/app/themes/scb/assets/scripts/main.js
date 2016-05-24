@@ -769,6 +769,7 @@ var SCB = (function($) {
     }
     _trackPage();
     _showModal();
+    $modal.fitVids();
     _updateTitle();
   }
 

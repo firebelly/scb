@@ -148,7 +148,7 @@ add_action( 'FB_AJAX_nopriv_load_more_projects', __NAMESPACE__ . '\\load_more_pr
  */
 function load_post_modal() {
 
-  global $collection;
+  global $collection,$post;
   if (!isset($collection)) {
     $collection = \Firebelly\Collections\get_active_collection();
   }

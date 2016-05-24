@@ -124,6 +124,15 @@ function metaboxes( array $meta_boxes ) {
         ),
       ),
       array(
+        'name' => 'Extra Info',
+        'desc' => 'Shows in left hand column on single office page, can add videos here',
+        'id'   => $prefix . 'extra_info',
+        'type' => 'wysiwyg',
+        'options' => array(
+          'textarea_rows' => 8,
+        ),
+      ),
+      array(
         'name' => 'Submit Portfolio Call',
         'desc' => 'e.g. We are always in search of bright, talented, dynamic professionals.',
         'id'   => $prefix . 'submit_portfolio_call',

@@ -1,7 +1,8 @@
-<?php 
+<?php
 $intro = get_post_meta($post->ID, '_cmb2_intro', true);
 $address = get_post_meta($post->ID, '_cmb2_address', true);
-$submitPortfolioCall = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', true);
+$submit_portfolio_call = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', true);
+$extra_info = get_post_meta($post->ID, '_cmb2_extra_info', true);
 ?>
 <article class="single single-office" data-id="<?= $post->ID ?>" data-page-title="<?= $post->post_title ?>" data-page-url="<?= get_permalink($post) ?>" data-modal-type="office">
   <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID)): ?>
@@ -12,13 +13,13 @@ $submitPortfolioCall = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', t
     <a href="/about/" class="plus-button close single-close"><div class="plus"></div></a>
   </div>
 
-  <header class="article-header">    
+  <header class="article-header">
     <h1 class="article-title"><?= !empty($display_title) ? $display_title : $post->post_title ?></h1>
     <?php if (!empty($intro)): ?>
       <h2><?= $intro ?></h2>
     <?php endif; ?>
   </header>
-  
+
   <div class="article-body -two-column">
 
     <div class="info -left">
@@ -32,7 +33,13 @@ $submitPortfolioCall = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', t
         <br><?= $address['city'] ?>, <?= $address['state'] ?> <?= $address['zip'] ?>
         </p>
       </div>
-      
+
+      <?php if ($extra_info): ?>
+      <div class="info-section office-details">
+        <?= apply_filters('the_content', $extra_info); ?>
+      </div>
+      <?php endif; ?>
+
       <?php
         $office = $post->post_name;
         if ($positions = Firebelly\PostTypes\Position\get_positions()) {
@@ -51,9 +58,9 @@ $submitPortfolioCall = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', t
         }
       ?>
 
-      <?php if ($submitPortfolioCall) { ?>
+      <?php if ($submit_portfolio_call) { ?>
         <div class="info-section portfolio-submission">
-          <p><?= $submitPortfolioCall ?></p>    
+          <p><?= $submit_portfolio_call ?></p>
           <a href="#" class="button submit-portfolio">Submit your portfolio</a>
         </div>
       <?php } ?>
@@ -61,7 +68,7 @@ $submitPortfolioCall = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', t
 
     <div class="content user-content -right">
       <?= apply_filters('the_content', $post->post_content) ?>
-    </div>  
+    </div>
 
   </div>
 
