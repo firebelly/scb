@@ -7,8 +7,9 @@
 
 namespace Firebelly\Collections;
 
-// Set WP_Session expiration to 24 hours
-add_filter('wp_session_expiration', function() { return 24 * 60 * 60; });
+// Set WP_Session expiration to 12 hours
+add_filter('wp_session_expiration', function() { return 12 * 60 * 60; });
+add_filter('wp_session_expiration_variant', function() { return 10 * 60; });
 
 /**
  * Create a new collection
@@ -355,8 +356,11 @@ function collection_clean_cron() {
 }
 
 /**
- * Kludgy way to get session_id (from https://github.com/ericmann/wp-session-manager/issues/24)
+ * Return session_id initiated by WP_Session (only thing we're using WP_Session plugin for currently)
  */
 function get_session_id() {
-  return substr( filter_input( INPUT_COOKIE, WP_SESSION_COOKIE, FILTER_SANITIZE_STRING ), 0, 32 );
+  $wp_session = \WP_Session::get_instance();
+  return $wp_session->session_id;
+  // old kludgy way to get session_id (from https://github.com/ericmann/wp-session-manager/issues/24)
+  // return substr( filter_input( INPUT_COOKIE, WP_SESSION_COOKIE, FILTER_SANITIZE_STRING ), 0, 32 );
 }
