@@ -62,7 +62,7 @@ define('NONCE_SALT', getenv('NONCE_SALT'));
 /**
  * Custom Settings
  */
-define('AUTOMATIC_UPDATER_DISABLED', true);
+// define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', true);
 define('DISALLOW_FILE_EDIT', true);
 
