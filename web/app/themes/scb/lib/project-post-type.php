@@ -11,7 +11,9 @@ function add_image_sizes() {
 }
 add_action('after_setup_theme', __NAMESPACE__.'\add_image_sizes');
 
-// Register Custom Post Type
+/**
+ * Register Custom Post Type
+ */
 function post_type() {
 
   $labels = array(
@@ -83,7 +85,9 @@ function add_capabilities() {
 }
 add_action('switch_theme', __NAMESPACE__ . '\add_capabilities');
 
-// Custom admin columns for post type
+/**
+ * Custom admin columns for post type
+ */
 function edit_columns($columns){
   $columns = array(
     'cb' => '<input type="checkbox" />',
@@ -117,7 +121,30 @@ function custom_columns($column){
 }
 add_action('manage_posts_custom_column',  __NAMESPACE__ . '\custom_columns');
 
-// Custom CMB2 fields for post type
+/**
+ * Add sorting by custom columns
+ */
+add_action('pre_get_posts', __NAMESPACE__.'\custom_admin_sort', 1);
+function custom_admin_sort( $query ) {
+   if ( $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
+      switch( $orderby ) {
+         case '_cmb2_pdf':
+            $query->set( 'meta_key', '_cmb2_pdf' );
+            $query->set( 'orderby', 'meta_value' );
+            break;
+      }
+   }
+}
+add_filter( 'manage_edit-project_sortable_columns', __NAMESPACE__.'\custom_sortable_columns' );
+function custom_sortable_columns( $sortable_columns ) {
+  $sortable_columns[ '_cmb2_pdf' ] = 'PDF';
+  return $sortable_columns;
+}
+
+
+/**
+ * Custom CMB2 fields for post type
+ */
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
@@ -344,7 +371,6 @@ function get_projects($filters=[]) {
   return $project_posts;
 }
 
-
 /**
  * Get Project Blocks
  */
@@ -418,16 +444,6 @@ function get_project_blocks($post) {
   return $output;
 }
 
-
-add_action( 'wp_ajax_sort_projects', __NAMESPACE__ . '\sort_projects' );
-function sort_projects() {
-  global $wpdb;
-
-
-  // Spits out json-encoded $return & die()s
-  wp_send_json($return);
-}
-
 /**
  * Show link to Sort Projects page
  */
@@ -436,6 +452,9 @@ function sort_projects_admin_menu() {
   add_submenu_page('edit.php?post_type=project', 'Sort Projects', 'Sort Projects', 'manage_options', 'sort_projects', __NAMESPACE__ . '\sort_projects_form');
 }
 
+/**
+ * Hook into FB metatag for this post type
+ */
 function project_metatag_description($string) {
   global $post;
   $intro = get_post_meta($post->ID, '_cmb2_intro', true);
