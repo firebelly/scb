@@ -336,7 +336,8 @@ function collection_to_pdf($id) {
 /**
  * Daily cronjob to clean out old, empty collections
  */
-function activate_collection_clean_cron() {
+add_action('wp', __NAMESPACE__ . '\init_collection_clean_cron');
+function init_collection_clean_cron() {
   if (!wp_next_scheduled('collection_clean_cron')) {
     wp_schedule_event(current_time('timestamp'), 'daily', 'collection_clean_cron');
   }
@@ -365,4 +366,47 @@ function get_session_id() {
   return $wp_session->session_id;
   // old kludgy way to get session_id (from https://github.com/ericmann/wp-session-manager/issues/24)
   // return substr( filter_input( INPUT_COOKIE, WP_SESSION_COOKIE, FILTER_SANITIZE_STRING ), 0, 32 );
+}
+
+/**
+ * Manual cronjob to clean out old wp_sessions as it doesn't seem to be running from WP Sessions
+ */
+add_action('wp', __NAMESPACE__ . '\init_delete_old_wp_sessions_cron');
+function init_delete_old_wp_sessions_cron() {
+  if (!wp_next_scheduled('delete_old_wp_sessions_cron')) {
+    wp_schedule_event(current_time('timestamp'), 'hourly', 'delete_old_wp_sessions_cron');
+  }
+}
+add_action( 'delete_old_wp_sessions_cron', __NAMESPACE__ . '\delete_old_wp_sessions_cron' );
+function delete_old_wp_sessions_cron( $limit = 1000 ) {
+  global $wpdb;
+
+  $limit = absint( $limit );
+  $keys = $wpdb->get_results( "SELECT option_name, option_value FROM $wpdb->options WHERE option_name LIKE '_wp_session_expires_%' ORDER BY option_value ASC LIMIT 0, {$limit}" );
+
+  $now = time();
+  $expired = array();
+  $count = 0;
+
+  foreach( $keys as $expiration ) {
+    $key = $expiration->option_name;
+    $expires = $expiration->option_value;
+
+    if ( $now > $expires ) {
+      $session_id = addslashes( substr( $key, 20 ) );
+
+      $expired[] = $key;
+      $expired[] = "_wp_session_{$session_id}";
+
+      $count += 1;
+    }
+  }
+
+  // Delete expired sessions
+  if ( ! empty( $expired ) ) {
+    $names = implode( "','", $expired );
+    $wpdb->query( "DELETE FROM $wpdb->options WHERE option_name IN ('{$names}')" );
+  }
+
+  return $count;
 }
