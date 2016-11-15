@@ -7,9 +7,12 @@
 
 namespace Firebelly\Collections;
 
-// Set WP_Session expiration to 12 hours
-add_filter('wp_session_expiration', function() { return 12 * 60 * 60; });
-add_filter('wp_session_expiration_variant', function() { return 10 * 60; });
+// Set WP_Session expiration to 24 hours
+add_action( 'plugins_loaded', __NAMESPACE__ . '\\set_session_vars' );
+function set_session_vars() {
+  add_filter('wp_session_expiration', function() { return 24 * 60 * 60; });
+  add_filter('wp_session_expiration_variant', function() { return 20 * 60 * 60; });
+}
 
 /**
  * Create a new collection
@@ -333,9 +336,6 @@ function collection_to_pdf($id) {
 /**
  * Daily cronjob to clean out old, empty collections
  */
-// if (WP_ENV === 'production') {
-//   add_action('wp', __NAMESPACE__ . '\activate_collection_clean_cron');
-// }
 function activate_collection_clean_cron() {
   if (!wp_next_scheduled('collection_clean_cron')) {
     wp_schedule_event(current_time('timestamp'), 'daily', 'collection_clean_cron');
@@ -346,7 +346,7 @@ function collection_clean_cron() {
   global $wpdb;
   $moldy_collections = $wpdb->get_results(
     "
-    SELECT ID FROM {$wpdb->prefix}collections c
+    SELECT c.ID FROM {$wpdb->prefix}collections c
     LEFT JOIN {$wpdb->prefix}collection_posts cp ON cp.collection_id = c.ID
     WHERE c.created_at < NOW() - INTERVAL 30 DAY
     AND cp.collection_id IS NULL
