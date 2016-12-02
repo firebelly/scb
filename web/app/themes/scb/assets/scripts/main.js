@@ -4,8 +4,7 @@
 // Good Design for Good Reason for Good Namespace
 var SCB = (function($) {
 
-  var screen_width = 0,
-      breakpoint_small = false,
+  var breakpoint_small = false,
       breakpoint_medium = false,
       breakpoint_large = false,
       breakpoint_array = [480,1000,1200],
@@ -941,7 +940,7 @@ var SCB = (function($) {
       $category_nav.find('.-inner').outerHeight($category_nav.find('li.active:last ul:first,ul.active').maxHeight() + 20);
     } else {
       $('.bar.-one').addClass('active');
-      $category_nav.find('.-inner').outerHeight($category_nav.find('ul.categories-parent') .outerHeight() + 20);
+      $category_nav.find('.-inner').outerHeight($category_nav.find('ul.categories-parent').outerHeight() + 20);
     }
     _setCategoryPageClass();
   }

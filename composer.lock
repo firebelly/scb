@@ -564,15 +564,15 @@
         },
         {
             "name": "wpackagist-plugin/enhanced-media-library",
-            "version": "2.3.3",
+            "version": "2.3.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/enhanced-media-library/",
-                "reference": "tags/2.3.3"
+                "reference": "tags/2.3.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.3.3.zip",
+                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.3.5.zip",
                 "reference": null,
                 "shasum": null
             },
