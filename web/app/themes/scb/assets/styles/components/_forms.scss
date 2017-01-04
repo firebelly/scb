@@ -25,11 +25,6 @@ textarea {
     border-color: $gray-dark;
   }
 }
-label.ie-help {
-  display: none;
-  font-size: 13px;
-  margin: 20px;
-}
 
 input[type=search] {
   box-sizing: border-box;
@@ -60,7 +55,7 @@ input[type=file]::-webkit-file-upload-button {
 input[type=file]::before,
 input[type=file]::after {
   outline: none;
-  display: block;
+  display: inline-block;
   color: $gray-dark;
   -webkit-user-select: none;
 }
@@ -70,11 +65,6 @@ input[type=file]::before {
   text-decoration: underline;
 }
 input[type=file]::after {
-  @include sc();
-  font-size: 8px;
-  color: $gray-dark;
-  line-height: 1.25em;
-  content: 'Upload cover page, resume, portfolio — 50mb max size — Use Ctrl key (Cmd on Mac) to select multiple files';
 }
 input[type=file]:hover::before {
   border-color: black;
@@ -85,10 +75,18 @@ input[type=file]:active {
 input[type=file]:active::before {
 
 }
+.attach-files-label {
+  padding: 20px;
+  display: block;
+  @include sc();
+  font-size: 8px;
+  color: $gray-dark;
+  line-height: 1.25em;
+}
 .files-attached {
   color: $gray-dark;
   p {
-    margin: 20px 20px 0;
+    margin: 0 20px;
   }
 }
 

@@ -23,8 +23,8 @@ if (empty($application_type)) {
     <input type="hidden" name="application_type" value="<?= $application_type ?>">
     <input name="action" type="hidden" value="application_submission">
 
-    <label class="ie-help">Upload cover page, resume, portfolio:</label>
-    <input type="file" name="application_files[]" multiple required>
+    <input type="file" id="attach-files" name="application_files[]" multiple required>
+    <label class="attach-files-label" for="attach-files"><?php echo \Firebelly\SiteOptions\get_option( 'attach_files_label', 'Upload cover page, resume, portfolio — 50mb max size — Use Ctrl key (Cmd on Mac) to select multiple files' ); ?></label>
     <div class="files-attached"></div>
     <?php wp_nonce_field( 'application_form', 'application_form_nonce' ); ?>
   </fieldset>
