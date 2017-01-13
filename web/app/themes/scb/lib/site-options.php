@@ -115,14 +115,20 @@ class FbSiteOptions {
 		// Set our CMB2 fields
 
 		$cmb->add_field( array(
+			'name' => __( 'Facebook ID', 'firebelly' ),
+			'id'   => 'facebook_id',
+			'type' => 'text',
+		) );
+
+		$cmb->add_field( array(
 			'name' => __( 'Twitter ID', 'firebelly' ),
 			'id'   => 'twitter_id',
 			'type' => 'text',
 		) );
 
 		$cmb->add_field( array(
-			'name' => __( 'Facebook ID', 'firebelly' ),
-			'id'   => 'facebook_id',
+			'name' => __( 'Instagram ID', 'firebelly' ),
+			'id'   => 'instagram_id',
 			'type' => 'text',
 		) );
 
