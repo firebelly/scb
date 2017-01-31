@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f3bf9d3d3b1ae68e321529ef17169333",
-    "content-hash": "478e34908de0bd7838b7723fc118c794",
+    "hash": "1c47379069e0dd2de18dfdf6658c5c89",
+    "content-hash": "23aab863bc9f20463fa1cf21a76aeb55",
     "packages": [
         {
             "name": "composer/installers",
@@ -650,26 +650,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/parent-category-toggler/"
-        },
-        {
-            "name": "wpackagist-plugin/quick-navigation-interface",
-            "version": "0.6",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/quick-navigation-interface/",
-                "reference": "tags/0.6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/quick-navigation-interface.0.6.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/quick-navigation-interface/"
         },
         {
             "name": "wpackagist-plugin/redirection",
