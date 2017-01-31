@@ -43,10 +43,10 @@ add_action('admin_enqueue_scripts', __NAMESPACE__ . '\admin_scripts');
 function admin_scripts_inline() {
   ?>
   <script type='text/javascript'>
-  // jQuery(document).ready(function($) {
-  //    $('#_cmb2_related_program').select2();
-  // });
+    jQuery(document).ready(function($) {
+       $('#_cmb2_related_program').select2();
+    });
   </script>
   <?php
 }
-add_action( 'admin_head', __NAMESPACE__ . '\admin_scripts_inline' );
+// add_action( 'admin_head', __NAMESPACE__ . '\admin_scripts_inline' );
