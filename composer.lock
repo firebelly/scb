@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "329de968ecbd078846a14944d9b8c9fa",
-    "content-hash": "0a6d47beb5fd8d7e8504c0fd98a02451",
+    "hash": "f3bf9d3d3b1ae68e321529ef17169333",
+    "content-hash": "478e34908de0bd7838b7723fc118c794",
     "packages": [
         {
             "name": "composer/installers",
@@ -108,17 +108,6 @@
             "time": "2016-04-13 19:46:30"
         },
         {
-            "name": "ericmann/wp-session-manager",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ericmann/wp-session-manager",
-                "reference": "0bcf6aad0fc762bcf2d328792436bcc339a0e6c5"
-            },
-            "type": "wordpress-plugin",
-            "time": "2016-05-31 18:34:25"
-        },
-        {
             "name": "iio/libmergepdf",
             "version": "3.0.0",
             "source": {
@@ -170,16 +159,16 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.6.1",
+            "version": "4.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3"
+                "reference": "ac7b1792641d1fb61cb2901db292903b31694057"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3",
-                "reference": "aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/ac7b1792641d1fb61cb2901db292903b31694057",
+                "reference": "ac7b1792641d1fb61cb2901db292903b31694057",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +192,7 @@
                 "blog",
                 "cms"
             ],
-            "time": "2016-09-07 15:01:47"
+            "time": "2017-01-26 18:32:19"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -564,15 +553,15 @@
         },
         {
             "name": "wpackagist-plugin/enhanced-media-library",
-            "version": "2.3.5",
+            "version": "2.4.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/enhanced-media-library/",
-                "reference": "tags/2.3.5"
+                "reference": "tags/2.4.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.3.5.zip",
+                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.4.3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -684,15 +673,15 @@
         },
         {
             "name": "wpackagist-plugin/redirection",
-            "version": "2.4.5",
+            "version": "2.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/2.4.5"
+                "reference": "tags/2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.2.4.5.zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.2.5.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -727,8 +716,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "webdevstudios/cmb2": 20,
-        "ericmann/wp-session-manager": 20
+        "webdevstudios/cmb2": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

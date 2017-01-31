@@ -7,13 +7,6 @@
 
 namespace Firebelly\Collections;
 
-// Set WP_Session expiration to 24 hours
-add_action( 'plugins_loaded', __NAMESPACE__ . '\\set_session_vars' );
-function set_session_vars() {
-  add_filter('wp_session_expiration', function() { return 24 * 60 * 60; });
-  add_filter('wp_session_expiration_variant', function() { return 20 * 60 * 60; });
-}
-
 /**
  * Create a new collection
  */
@@ -24,7 +17,7 @@ function new_collection() {
     $wpdb->prefix.'collections',
     [
       'created_at' => current_time('mysql'),
-      'session_id' => get_session_id(),
+      'session_id' => session_id(),
       'user_id' => get_current_user_id(),
     ]
   );
@@ -72,7 +65,7 @@ function get_active_collection() {
   global $wpdb;
 
   $active_collection = $wpdb->get_row(
-    $wpdb->prepare("SELECT * FROM {$wpdb->prefix}collections WHERE session_id = %s", get_session_id())
+    $wpdb->prepare("SELECT * FROM {$wpdb->prefix}collections WHERE session_id = %s", session_id())
   );
   if ($active_collection) {
     return get_collection($active_collection->ID);
@@ -240,16 +233,22 @@ add_action('FB_AJAX_collection_sort', __NAMESPACE__ . '\\collection_sort');
 add_action('FB_AJAX_nopriv_collection_sort', __NAMESPACE__ . '\\collection_sort');
 
 /**
- * Collection page URLs
+ * Collection inits
  */
-function collection_rewrites() {
+function post_collection_init() {
+  // Init PHP sessions
+  if(!session_id()) {
+    session_start();
+  }
+
+  // Add rewrite rule for /collection/XX (not used currently)
   add_rewrite_rule(
     'collection/(\d+)/?$',
     'index.php?pagename=collection&collection_id=$matches[1]',
     'top'
   );
 }
-add_action('init', __NAMESPACE__.'\collection_rewrites');
+add_action('init', __NAMESPACE__.'\post_collection_init', 1);
 
 /**
  * Add query var collection_id
@@ -356,14 +355,4 @@ function collection_clean_cron() {
   foreach($moldy_collections as $row) {
     $wpdb->delete( $wpdb->prefix.'collections', [ 'ID' => $row->ID ] );
   }
-}
-
-/**
- * Return session_id initiated by WP_Session (only thing we're using WP_Session plugin for currently)
- */
-function get_session_id() {
-  $wp_session = \WP_Session::get_instance();
-  return $wp_session->session_id;
-  // old kludgy way to get session_id (from https://github.com/ericmann/wp-session-manager/issues/24)
-  // return substr( filter_input( INPUT_COOKIE, WP_SESSION_COOKIE, FILTER_SANITIZE_STRING ), 0, 32 );
 }
