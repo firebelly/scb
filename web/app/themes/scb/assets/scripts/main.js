@@ -317,16 +317,18 @@ var SCB = (function($) {
       var files_attached = $(this).closest('form').find('.files-attached');
       if (files.length) {
         files_attached.html('<p>'+files.length + ' file(s) attached</p>');
-        $('#attach-files').valid();
+        // Hide file error only if form has been validated already
+        if ($('#attach-files-error').length) {
+          $('#attach-files').valid();
+        }
       } else {
         files_attached.html('');
       }
     });
 
     // Handle application form submissions
-    $document.on('click', '.application-form [type=submit]', function(e) {
+    $document.on('click', '.application-form button[type=submit]', function(e) {
       var $form = $(this).closest('form');
-
       $form.validate({
         messages: {
           application_first_name: 'Please leave us your first name',
