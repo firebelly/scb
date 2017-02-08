@@ -310,18 +310,21 @@ var SCB = (function($) {
       e.preventDefault();
       History.pushState({ modal: true }, 'Submit Portfolio – SCB', '/careers/submit-portfolio/');
     });
+
+    // Show number of files attached
     $document.on('change', '.application-form input[type=file]', function(e) {
       var files = $(this).prop('files');
       var files_attached = $(this).closest('form').find('.files-attached');
       if (files.length) {
         files_attached.html('<p>'+files.length + ' file(s) attached</p>');
+        $('#attach-files').valid();
       } else {
         files_attached.html('');
       }
     });
 
     // Handle application form submissions
-    $document.on('click', '.application-form input[type=submit]', function(e) {
+    $document.on('click', '.application-form [type=submit]', function(e) {
       var $form = $(this).closest('form');
 
       $form.validate({
@@ -336,6 +339,8 @@ var SCB = (function($) {
           // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
           if( window.FormData !== undefined ) {
             var formData = new FormData(form);
+            // Show working state, disable submit button
+            $form.addClass('working').find('button[type=submit]').prop('disabled', true).html('<span>Working</span>');
             $.ajax({
               url: ajax_handler_url,
               method: 'post',
@@ -347,8 +352,9 @@ var SCB = (function($) {
               cache: false,
               success: function(response) {
                 if (response.success) {
-                  _feedbackMessage('Your application was submitted successfully!');
+                  _feedbackMessage('Your application was submitted successfully!', 1);
                   form.reset();
+                  $form.find('.files-attached').html('');
                 } else {
                   _feedbackMessage(response.data.message);
                 }
@@ -358,10 +364,13 @@ var SCB = (function($) {
                 if (!respond.data && response.responseText.match(/exceeds the limit/)) {
                   message = 'There was an error: files are larger than the accepted limit (100mb).';
                 } else {
-                  message = response.data ? response.data.message : 'There was an error uploading.';
+                  message = response.data ? response.data.message : 'There was an error uploading. Please try again.';
                 }
                 _feedbackMessage(message);
               }
+            }).always(function() {
+              // Re-enable form
+              $form.removeClass('working').find('button[type=submit]').prop('disabled', false).html('<span>Submit</span>');
             });
           } else {
             form.submit();
@@ -453,7 +462,7 @@ var SCB = (function($) {
   }
 
   // Show collection message dialog
-  function _feedbackMessage(messageType) {
+  function _feedbackMessage(messageType, keepVisible) {
     var message;
 
     if ($collection.is('.active')) {
@@ -479,7 +488,10 @@ var SCB = (function($) {
     }, 250);
 
     if (feedback_message_timer) { clearTimeout(feedback_message_timer); }
-    feedback_message_timer = setTimeout(_hideFeedbackMessage, 3000);
+    // Don't hide if keepVisible is specified
+    if (typeof keepVisible === 'undefined') {
+      feedback_message_timer = setTimeout(_hideFeedbackMessage, 5000);
+    }
 
     $('.feedback-container').on('mouseenter', function() {
       if (feedback_message_timer) { clearTimeout(feedback_message_timer); }

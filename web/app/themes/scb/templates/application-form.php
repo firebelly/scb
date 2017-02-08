@@ -29,5 +29,5 @@ if (empty($application_type)) {
     <?php wp_nonce_field( 'application_form', 'application_form_nonce' ); ?>
   </fieldset>
 
-  <input type="submit" value="submit" class="button">
+  <button type="submit" class="button"><span>Submit</span></button>
 </form>
