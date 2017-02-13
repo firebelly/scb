@@ -98,3 +98,20 @@ label.error {
   background: $brand-primary;
   line-height: 1.428571429em;
 }
+
+// Working state of forms
+form {
+  &.working {
+    opacity: .5;
+    button[type=submit] {
+      background: #ccc;
+      span:after {
+        display: inline-block;
+        animation: dotty steps(1,end) 1s infinite;
+        content: '';
+        width: 15px;
+        text-align: left;
+      }
+    }
+  }
+}

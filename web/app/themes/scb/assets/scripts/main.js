@@ -606,31 +606,36 @@ var SCB = (function($) {
     });
   }
 
-  // Init collection sorting, title editing, etc
+  // Init collection sorting, title editing, email form, etc
   function _initCollectionBehavior() {
     // Email collection
     $('.email-collection').on('click', function(e) {
       e.preventDefault();
       _showEmailForm();
     });
+    var $form = $('#email-collection-form form');
     $('#email-collection-form form').validate({
       submitHandler: function(form) {
-          $.ajax({
-              url: ajax_handler_url,
-              method: 'get',
-              dataType: 'json',
-              data: $(form).serialize()
-          }).done(function(response) {
-            if (response.success) {
-              _hideEmailForm();
-              _feedbackMessage('Your email was sent successfully!');
-            } else {
-              _feedbackMessage('Sorry, there was an error sending your email: ' + response.data.message);
-            }
-          }).fail(function(response) {
-            _feedbackMessage('Sorry, there was an error sending your email.');
-          });
-        }
+        $form.addClass('working').find('button[type=submit]').prop('disabled', true).html('<span>Working</span>');
+        $.ajax({
+            url: ajax_handler_url,
+            method: 'get',
+            dataType: 'json',
+            data: $(form).serialize()
+        }).done(function(response) {
+          if (response.success) {
+            _hideEmailForm();
+            _feedbackMessage('Your email was sent successfully!');
+          } else {
+            _feedbackMessage('Sorry, there was an error sending your email: ' + response.data.message);
+          }
+        }).fail(function(response) {
+          _feedbackMessage('Sorry, there was an error sending your email.');
+        }).always(function() {
+          // Re-enable form
+          $form.removeClass('working').find('button[type=submit]').prop('disabled', false).html('<span>Submit</span>');
+        });
+      }
     });
 
     // Check for pressing enter, blur to update collection-title

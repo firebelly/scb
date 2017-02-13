@@ -64,7 +64,7 @@ $post_type_plurals = [
           <input name="action" type="hidden" value="email_collection">
           <label><input id="cc_me" name="cc_me" type="checkbox" value="1"> Send me a copy</label>
           <div>
-            <input type="submit" class="button">
+            <button type="submit" class="button"><span>Submit</span></button>
           </div>
         </form>
       </div>

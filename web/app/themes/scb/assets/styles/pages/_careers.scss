@@ -18,27 +18,6 @@
     margin: 0 0 20px;
   }
   transition: opacity .5s;
-  &.working {
-    opacity: .5;
-    button[type=submit] {
-      background: #ccc;
-      span:after {
-        display: inline-block;
-        animation: dotty steps(1,end) 1s infinite;
-        content: '';
-        width: 15px;
-        text-align: left;
-      }
-    }
-  }
-}
-
-@keyframes dotty {
-    0%   { content: ''; }
-    25%  { content: '.'; }
-    50%  { content: '..'; }
-    75%  { content: '...'; }
-    100% { content: ''; }
 }
 
 // Application Modal styles
