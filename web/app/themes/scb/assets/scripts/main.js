@@ -672,9 +672,9 @@ var SCB = (function($) {
     $('.sortable').each(function() {
       var collection_sort = $(this).sortable({
         containerSelector: 'div.sortable',
+        handle: '.drag-handle',
         itemSelector: 'article',
         placeholder: '<article class="placeholder"><div class="placeholder-inner"></div></article>',
-        // vertical: false,
         onDragStart: function ($item, container, _super) {
           var offset = $item.offset(),
               pointer = container.rootGroup.pointer;

@@ -30,6 +30,7 @@ endif;
         <?php endif; ?>
       </p>
       <div class="big-plus"><a href="<?= get_permalink($project_post) ?>"><span class="sr-only">view project</span></a></div>
+      <div class="drag-handle collection-action"><span class="icon icon-drag-handle"><?php include(get_template_directory().'/assets/svgs/icon-drag-handle.svg'); ?></span></div>
     </div>
   </div>
 </article>
