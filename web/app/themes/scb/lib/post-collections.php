@@ -204,7 +204,7 @@ function email_collection() {
     } else {
       // debug email
       wp_mail('nate@firebellydesign.com', 'SCB debug sending email', print_r($_REQUEST,1) . "\nCollection_pdf:\n" . print_r($collection_pdf,1));
-      wp_send_json_error(['message' => 'Error sending email']);
+      wp_send_json_error(['message' => 'Unable to send. Please double-check the email address.']);
     }
   }
 }
