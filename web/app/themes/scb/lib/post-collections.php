@@ -7,6 +7,9 @@
 
 namespace Firebelly\Collections;
 
+use rcamposp\tcpdi_merger\MyTCPDI;
+use rcamposp\tcpdi_merger\Merger;
+
 /**
  * Create a new collection
  */
@@ -284,7 +287,7 @@ function collection_to_pdf($id) {
     mkdir($base_dir . '/collections/');
   }
 
-  $pdf_merge = new \iio\libmergepdf\Merger();
+  $pdf_merge = new Merger();
   $num_pdfs = 0;
 
   // Check if there's a cover PDF specified in Site Options
@@ -310,7 +313,8 @@ function collection_to_pdf($id) {
 
   }
   if ($num_pdfs>0) {
-    file_put_contents($collection_pdf['abspath'], $pdf_merge->merge());
+    $pdf_merge->merge();
+    $pdf_merge->save($collection_pdf['abspath']);
     if (!\Firebelly\Ajax\is_ajax()) {
       header('Pragma: public');
       header('Expires: 0');

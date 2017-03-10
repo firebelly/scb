@@ -49,11 +49,12 @@
     "wpackagist-plugin/redirection": ">=2.3.16",
     "wpackagist-plugin/update-from-bottom": ">=1.0.3",
     "wpackagist-plugin/parent-category-toggler": ">=1.3.2",
-    "iio/libmergepdf": ">=2.4",
     "wpackagist-plugin/category-checklist-tree": ">=1.3.2",
     "wpackagist-plugin/google-sitemap-generator": ">=4.0.8",
     "wpackagist-plugin/enhanced-media-library": ">=2.2",
-    "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6"
+    "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6",
+    "iio/libmergepdf": "~3.0",
+    "rcamposp/tcpdi-merger": "^0.3.0"
   },
   "extra": {
     "installer-paths": {
