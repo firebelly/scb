@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd1b381aa65aeace32ce598680a159cd",
+    "content-hash": "1e43f18766e453dfe4fbd2b2199b9fc4",
     "packages": [
         {
             "name": "composer/installers",
@@ -243,17 +243,11 @@
         },
         {
             "name": "rcamposp/tcpdi-merger",
-            "version": "0.3",
+            "version": "dev-fix_pdf_size",
             "source": {
                 "type": "git",
-                "url": "https://github.com/rcamposp/tcpdi-merger.git",
-                "reference": "99b5c29875b1c806e926f050686f207babd736cc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rcamposp/tcpdi-merger/zipball/99b5c29875b1c806e926f050686f207babd736cc",
-                "reference": "99b5c29875b1c806e926f050686f207babd736cc",
-                "shasum": ""
+                "url": "https://github.com/firebelly/tcpdi-merger",
+                "reference": "89f84e4159da0c9467fbe592e4a5d1449106b18f"
             },
             "require": {
                 "php": ">=5.3.0",
@@ -265,7 +259,6 @@
                     "rcamposp\\tcpdi_merger\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "WTFPL"
             ],
@@ -282,7 +275,7 @@
                 "merge",
                 "pdf"
             ],
-            "time": "2016-12-15T13:30:49+00:00"
+            "time": "2017-03-13 17:10:26"
         },
         {
             "name": "roots/soil",
@@ -821,7 +814,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "webdevstudios/cmb2": 20
+        "webdevstudios/cmb2": 20,
+        "rcamposp/tcpdi-merger": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

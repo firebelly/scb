@@ -32,6 +32,10 @@
       "url": "https://wpackagist.org"
     },
     {
+        "type": "git",
+        "url": "https://github.com/firebelly/tcpdi-merger"
+    },
+    {
       "type": "git",
       "url": "https://github.com/firebelly/CMB2"
     }
@@ -54,7 +58,7 @@
     "wpackagist-plugin/enhanced-media-library": ">=2.2",
     "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6",
     "iio/libmergepdf": "~3.0",
-    "rcamposp/tcpdi-merger": "^0.3.0"
+    "rcamposp/tcpdi-merger": "dev-fix_pdf_size"
   },
   "extra": {
     "installer-paths": {
