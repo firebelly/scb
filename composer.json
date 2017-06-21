@@ -34,21 +34,16 @@
     {
         "type": "git",
         "url": "https://github.com/firebelly/tcpdi-merger"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/firebelly/CMB2"
     }
   ],
   "require": {
     "php": ">=5.4",
     "composer/installers": "~1.0.12",
     "vlucas/phpdotenv": "^2.0.1",
-    "johnpbloch/wordpress": "~4.3",
     "roots/soil": ">=3.0.0",
+    "johnpbloch/wordpress": ">=4.8",
     "wpackagist-plugin/limit-login-attempts" : "*",
     "wpackagist-plugin/intuitive-custom-post-order": "*",
-    "webdevstudios/cmb2": "dev-master",
     "wpackagist-plugin/akismet": ">=3.1.1",
     "wpackagist-plugin/redirection": ">=2.3.16",
     "wpackagist-plugin/update-from-bottom": ">=1.0.3",
@@ -58,7 +53,8 @@
     "wpackagist-plugin/enhanced-media-library": ">=2.2",
     "wpackagist-plugin/regenerate-thumbnails": ">=2.2.6",
     "iio/libmergepdf": "~3.0",
-    "rcamposp/tcpdi-merger": "dev-fix_pdf_size"
+    "rcamposp/tcpdi-merger": "dev-fix_pdf_size",
+    "wpackagist-plugin/cmb2": ">=2.2"
   },
   "extra": {
     "installer-paths": {
