@@ -102,7 +102,7 @@ function custom_columns($column){
       echo the_post_thumbnail('thumbnail');
     } elseif ( $column == '_cmb2_pdf' ) {
       $custom = get_post_custom();
-      echo array_key_exists($column, $custom) ? '&#9989;' : ''; 
+      echo array_key_exists($column, $custom) ? '&#9989;' : '';
     } elseif ( $column == 'related_office' ) {
       if ($office = \Firebelly\Utils\get_office($post)) {
         echo $office->post_title;
@@ -155,6 +155,21 @@ function metaboxes( array $meta_boxes ) {
         ),
      ),
       array(
+          'name'    => 'vCard',
+          'id'      => $prefix . 'vcard',
+          'type'    => 'file',
+          'options' => array(
+              'url' => false,
+          ),
+          'text'    => array(
+              'add_upload_file_text' => 'Select or Upload vCard'
+          ),
+          'query_args' => array(
+            'type' => 'text/x-vcard',
+          ),
+      ),
+
+      array(
         'name' => 'Education',
         'id'   => $prefix . 'education',
         'type' => 'wysiwyg',
@@ -196,8 +211,8 @@ function metaboxes( array $meta_boxes ) {
           'id'       => $prefix . 'related_office',
           'type'     => 'select',
           'show_option_none' => true,
-          // 'type'     => 'pw_multiselect', // currently multiple=true is causing issues with pw_multiselect -nate 4/30/15 
-          // 'multiple' => true, 
+          // 'type'     => 'pw_multiselect', // currently multiple=true is causing issues with pw_multiselect -nate 4/30/15
+          // 'multiple' => true,
           'options'  => \Firebelly\CMB2\get_post_options(['post_type' => 'office', 'numberposts' => -1]),
       ),
     ),

@@ -1,5 +1,6 @@
 <?php
 $contact = get_post_meta($post->ID, '_cmb2_contact', true);
+$vcard = get_post_meta($post->ID, '_cmb2_vcard', true);
 $display_title = get_post_meta($post->ID, '_cmb2_display_title', true);
 $subtitle = get_post_meta($post->ID, '_cmb2_subtitle', true);
 $education = get_post_meta($post->ID, '_cmb2_education', true);
@@ -42,6 +43,9 @@ $office = \Firebelly\Utils\get_office($post);
         <div class="info-section">
           <h3 class="contact">Contact</h3>
           <?= apply_filters('the_content', $contact) ?>
+          <?php if ($vcard): ?>
+            <p><a href="<?= $vcard ?>" download="<?= basename($vcard) ?>">Download vCard</a></p>
+          <?php endif; ?>
         </div>
       <?php endif ?>
 
