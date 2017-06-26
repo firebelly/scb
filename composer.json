@@ -58,7 +58,7 @@
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "webdevstudios/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/parent-category-toggler", "wpackagist-plugin/category-checklist-tree"],
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet", "wpackagist-plugin/parent-category-toggler", "wpackagist-plugin/category-checklist-tree"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },
