@@ -58,17 +58,13 @@ require "#{fetch(:local_abs_path)}/config/webfaction.rb"
 namespace :deploy do
   task :compile_assets do
     run_locally do
-      within fetch(:local_theme_path) do
-        execute :gulp, '--production'
-      end
+      execute "cd #{fetch(:local_theme_path)} && ./node_modules/.bin/gulp --production"
     end
   end
 
   task :ungulp do
     run_locally do
-      within fetch(:local_theme_path) do
-        execute :gulp, '--development'
-      end
+      execute "cd #{fetch(:local_theme_path)} && ./node_modules/.bin/gulp --development"
     end
   end
 
