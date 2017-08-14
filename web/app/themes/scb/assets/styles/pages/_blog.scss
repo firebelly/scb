@@ -127,7 +127,7 @@ body.blog {
         float: left;
         margin-bottom: 0;
 
-        .background-image-wrap {          
+        .background-image-wrap {
           height: 0;
           margin: 0 10px 20px;
           padding-bottom: calc(117.242% + 40px);
@@ -136,21 +136,6 @@ body.blog {
 
       @include min-screen(1000px) {
         width: 25%;
-
-        &:nth-of-type(3) {
-          .background-image-wrap {
-            margin-top: 10px;
-          }
-        }
-
-        &:nth-of-type(3),
-        &:nth-of-type(4) {
-          .background-image-wrap {
-            margin-top: 10px;
-            padding-bottom: 117.242%;
-          }
-        }
-
         .background-image-wrap {
           padding-bottom: 128.5714286%;
         }
@@ -212,11 +197,11 @@ body.blog {
           width: 50%;
           padding-left: 0;
 
-          .article-inner { 
+          .article-inner {
             max-width: 280px;
           }
 
-          .background-image-wrap {        
+          .background-image-wrap {
             height: 0;
             overflow: hidden;
             margin-bottom: 10px;
@@ -245,6 +230,20 @@ body.blog {
             padding-bottom: calc(117.242% + 40px);
           }
         }
+
+        article:nth-of-type(3) {
+          .background-image-wrap {
+            margin-top: 10px;
+          }
+        }
+
+        article:nth-of-type(3),
+        article:nth-of-type(4) {
+          .background-image-wrap {
+            margin-top: 10px;
+            padding-bottom: 117.242%;
+          }
+        }
       }
     }
   }
@@ -255,7 +254,7 @@ body.blog {
   .article-list {
     article:not(.resource-list) {
       cursor: pointer;
-      
+
       @include min-screen($breakpoint-medium) {
         .background-image-wrap {
           overflow: hidden;
