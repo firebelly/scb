@@ -11,7 +11,7 @@ $person_categories = get_terms('person_category');
   <section class="page-content grid-item one-half">
     <?= apply_filters('the_content', $post->post_content) ?>
     <div class="stat">
-      <div class="stat-number">77</div>
+      <div class="stat-number"><?= \Firebelly\SiteOptions\get_option('num_universities_represented'); ?></div>
       <div class="stat-label">Universities Represented</div>
     </div>
   </section>

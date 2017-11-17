@@ -222,6 +222,13 @@ class FbSiteOptions {
 			'type'    => 'text_small',
 		) );
 
+		$cmb->add_field( array(
+			'name'    => __( 'Number of Universities Represented', 'firebelly' ),
+			'desc'    => __( 'This number shows on People page', 'firebelly' ),
+			'id'      => 'num_universities_represented',
+			'type'    => 'text_small',
+		) );
+
 	}
 
 	/**
