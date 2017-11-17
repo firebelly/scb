@@ -1,5 +1,5 @@
 /*
- * SCB admin - Firebelly 2015
+ * SCB admin - Firebelly
  */
 
 // Good design for good reason for good namespace
@@ -8,18 +8,19 @@ var SCB_admin = (function($) {
   var _updateTimer;
 
   function _init() {
-    // hack the update from bottom plugin to show it earlier
+    // Hack the update from bottom plugin to show it earlier
+    _updateTimer = setTimeout(function() {
     $(window).scroll(function(){
-      _updateTimer = setTimeout(function() {
         clearTimeout(_updateTimer);
         if($(window).scrollTop() > $('#submitdiv').height()) {
           $('#updatefrombottom').show();
         } else {
           $('#updatefrombottom').hide();
         }
-      }, 250);
+      }, 150);
     });
 
+    // Behavior for custom Sort Projects admin page
     if($('#sort-projects-form').length) {
       $('#sort-projects-form ul').sortable({
         'update' : function(e, ui) {
@@ -35,10 +36,8 @@ var SCB_admin = (function($) {
       });
 
     }
-
-
   }
-  // public functions
+
   return {
     init: _init
   };
