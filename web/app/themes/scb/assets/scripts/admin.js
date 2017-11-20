@@ -9,8 +9,9 @@ var SCB_admin = (function($) {
   _submitDivHeight;
 
   function _init() {
+
     // Hack the update from bottom plugin to show it earlier
-    _submitDivHeight = $('#submitdiv').height()
+    _submitDivHeight = $('#submitdiv').height();
     $(window).scroll(function(){
       clearTimeout(_updateTimer);
       _updateTimer = setTimeout(function() {
