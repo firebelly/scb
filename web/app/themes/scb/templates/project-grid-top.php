@@ -18,24 +18,8 @@ if (!empty($term)) {
   if (!$grid_news_posts) {
     $grid_news_posts = get_posts(['numberposts' => 3, 'suppress_filters' => false]);
   }
-  // Does this term have a description set?
-  if (!empty($term->description)) {
-    $grid_description = '<h2>'.$term->description.'</h2>';
-  } else {
-    global $wpdb;
-    if ($parent = $wpdb->get_var("SELECT parent FROM ".$wpdb->prefix."term_taxonomy WHERE term_id = ".$term->term_id)) {
-      $parent_term = get_term($parent, 'project_category');
-      if (!empty($parent_term->description)) {
-        // Parent_description?
-        $grid_description = '<h2>'.$parent_term->description.'</h2>';
-      } else if ($grandparent = $wpdb->get_var("SELECT parent FROM ".$wpdb->prefix."term_taxonomy WHERE term_id = ".$parent)) {
-        // grandparent description?
-        $grandparent_term = get_term($grandparent, 'project_category');
-        if (!empty($grandparent_term->description))
-          $grid_description = '<h2>'.$grandparent_term->description.'</h2>';
-      }
-    }
-  }
+
+  $grid_description = \Firebelly\PostTypes\ProjectCategory\get_description($term);
 
 } else {
 

@@ -457,12 +457,13 @@ function sort_projects_admin_menu() {
  */
 function project_metatag_description($string) {
   global $post;
-  $intro = get_post_meta($post->ID, '_cmb2_intro', true);
-  if ($intro) {
-    return $intro;
-  } else {
-    return $string;
+  if (is_singular()) {
+    $intro = get_post_meta($post->ID, '_cmb2_intro', true);
+    if ($intro) {
+      $string = $intro;
+    }
   }
+  return $string;
 }
 add_filter('fb_metatag_description', __NAMESPACE__ . '\project_metatag_description');
 

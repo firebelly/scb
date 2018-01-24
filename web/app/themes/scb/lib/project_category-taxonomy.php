@@ -18,7 +18,7 @@ function add_capabilities() {
 add_action('switch_theme', __NAMESPACE__ . '\add_capabilities');
 
 // Custom taxonomy Project Categories
-register_taxonomy( 'project_category', 
+register_taxonomy( 'project_category',
   array('project', 'person', 'position', 'post', ),
   array('hierarchical' => true, // if this is true, it acts like categories
     'labels' => array(
@@ -42,9 +42,59 @@ register_taxonomy( 'project_category',
         'delete_terms' => 'delete_project_category',
         'assign_terms' => 'assign_project_category'
     ),
-    'rewrite' => array( 
+    'rewrite' => array(
       'slug' => 'projects',
-      'with_front' => false 
+      'with_front' => false
     ),
   )
 );
+
+function get_description($term) {
+  global $wpdb;
+  $description = '';
+  if (!is_object($term)) {
+    return '';
+  }
+  // Does this term have a description set?
+  if (!empty($term->description)) {
+    $description = '<h2>'.$term->description.'</h2>';
+  } else {
+    // Try to find description from parent/grandparent
+    if ($parent = $wpdb->get_var("SELECT parent FROM ".$wpdb->prefix."term_taxonomy WHERE term_id = ".$term->term_id)) {
+      $parent_term = get_term($parent, 'project_category');
+      if (!empty($parent_term->description)) {
+        // Parent description?
+        $description = '<h2>'.$parent_term->description.'</h2>';
+      } else if ($grandparent = $wpdb->get_var("SELECT parent FROM ".$wpdb->prefix."term_taxonomy WHERE term_id = ".$parent)) {
+        // Grandparent description?
+        $grandparent_term = get_term($grandparent, 'project_category');
+        if (!empty($grandparent_term->description))
+          $description = '<h2>'.$grandparent_term->description.'</h2>';
+      }
+    }
+  }
+  return $description;
+}
+
+/**
+ * Hook into FB metatag for this taxonomy type
+ */
+function metatag_description($string) {
+  global $term;
+  if (is_tax('project_category') && !empty($term)) {
+    $description = \Firebelly\PostTypes\ProjectCategory\get_description($term);
+    if (!empty($description)) {
+      $string = strip_tags($description);
+    }
+  }
+  return $string;
+}
+add_filter('fb_metatag_description', __NAMESPACE__ . '\metatag_description');
+function metatag_title($string) {
+  global $term;
+  if (is_tax('project_category') && !empty($term)) {
+    $string = $term->name;
+  }
+  return $string;
+}
+add_filter('fb_metatag_title', __NAMESPACE__ . '\metatag_title');
