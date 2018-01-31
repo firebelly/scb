@@ -785,7 +785,6 @@ var SCB = (function($) {
       $modal.find('.collection-action-clone').remove();
       $modal.find('.modal-content .collection-action').clone().prependTo($modal).addClass('collection-action-clone');
     }
-    _trackPage();
     _showModal();
     $modal.fitVids();
     _updateTitle();
