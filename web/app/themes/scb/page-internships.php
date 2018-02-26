@@ -26,8 +26,8 @@ $san_francisco_id = url_to_postid('/office/san-francisco');
     <div class="info -left">
       <div class="info-section locations">
         <h3>Locations</h3>
-        <p><a href="/office/chicago" class="show-post-modal" data-id="<?= $chicago_id ?>" data-modal-type="office">Chicago</a></p>
-        <p><a href="/office/san-francisco" class="show-post-modal" data-id="<?= $san_francisco_id ?>" data-modal-type="office">San Francisco</a></p>
+        <p><a href="/office/chicago" class="show-post-modal">Chicago</a></p>
+        <p><a href="/office/san-francisco" class="show-post-modal">San Francisco</a></p>
       </div>
 
       <div class="info-section duration">

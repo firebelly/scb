@@ -94,6 +94,9 @@ address {
 .clearfix {
   @include clearfix();
 }
+.nobreak {
+  white-space: nowrap;
+}
 
 // Page overlay active
 #page-overlay {

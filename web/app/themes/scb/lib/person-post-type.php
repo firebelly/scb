@@ -257,7 +257,7 @@ function get_people_category($person_category) {
     $output .= '<ul>';
     foreach($people_posts as $people_post) {
       if (!empty($people_post->post_content))
-        $output .= '<li><a href="'.get_permalink($people_post).'" data-id="'.$people_post->ID.'" data-modal-type="person-modal" class="show-post-modal">'.$people_post->post_title.'</a></li>';
+        $output .= '<li><a href="'.get_permalink($people_post).'" class="show-post-modal">'.$people_post->post_title.'</a></li>';
       else
         $output .= '<li>'.$people_post->post_title.'</li>';
     }

@@ -48,8 +48,8 @@ $extra_info = get_post_meta($post->ID, '_cmb2_extra_info', true);
             $related_office = Firebelly\Utils\get_office($position);
             if ($related_office->post_name == $office) {
               if (!empty($position->post_content))
-                echo '<li><h3><a href="'.get_permalink($position).'" data-id="'.$position->ID.'" data-modal-type="position-modal" class="show-post-modal">'.$position->post_title.'</a></h3>
-              <a href="'.get_permalink($position).'" class="show-post-modal read-more-link" data-modal-type="position-modal" data-id="'.$position->ID.'"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
+                echo '<li><h3><a href="'.get_permalink($position).'" class="show-post-modal">'.$position->post_title.'</a></h3>
+              <a href="'.get_permalink($position).'" class="show-post-modal read-more-link"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
               else
                 echo '<li>'.$position->post_title.'</li>';
             }

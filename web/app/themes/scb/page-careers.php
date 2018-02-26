@@ -19,10 +19,6 @@ $middle_column_3 = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_
 $terms_left = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_terms_left', true));
 $terms_right = apply_filters('the_content', get_post_meta($post->ID, '_cmb2_terms_right', true));
 
-$chicago_id = url_to_postid('/office/chicago/');
-$san_francisco_id = url_to_postid('/office/san-francisco/');
-$internships_id = url_to_postid('/careers/internships/');
-
 $num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 $num_design_professionals = \Firebelly\SiteOptions\get_option('num_design_professionals');
 $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
@@ -31,7 +27,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
 <div class="grid wrap -top">
   <div class="page-intro grid-item one-half -left">
     <?= $post->post_content ?>
-    <p class="careers-actions"><a href="/careers/submit-portfolio/" rel="nofollow" class="button submit-portfolio">Submit your portfolio</a> <span class="slash">/</span> <a href="#positions" class="view-positions smoothscroll">View open positions</a></p>
+    <p class="careers-actions"><a href="#positions" class="button view-positions smoothscroll">View open positions</a></p>
   </div>
 
   <div class="page-intro grid-item one-half -right">
@@ -72,7 +68,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <div class="wrap">
           <p class="stat-number"><?= $num_offices ?></p>
           <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="/office/chicago/" class="show-post-modal" data-id="<?= $chicago_id ?>" data-url="<?= get_permalink($chicago_id) ?>" data-modal-type="office">Chicago</a> / <a href="/office/san-francisco/" class="show-post-modal" data-id="<?= $san_francisco_id ?>"  data-url="<?= get_permalink($chicago_id) ?>" data-modal-type="office">San Francisco</a></p>
+          <p class="stat-link"><a href="/office/chicago/" class="show-post-modal">Chicago</a> / <a href="/office/san-francisco/" class="show-post-modal">San Francisco</a></p>
         </div>
       </div>
       <div class="stat long-stat">
@@ -86,7 +82,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <div class="wrap">
           <p class="stat-number"><?= $num_internships ?></p>
           <p class="stat-label">Interns This Year</p>
-          <p class="stat-link"><a href="/careers/internships/" class="show-post-modal" data-id="<?= $internships_id ?>" data-url="<?= get_permalink($internships_id) ?>" data-modal-type="position">Intern Program</a></p>
+          <p class="stat-link"><a href="/careers/internships/" class="show-post-modal">Intern Program</a></p>
         </div>
       </div>
     </div>
@@ -119,8 +115,8 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
             $related_office = Firebelly\Utils\get_office($position);
             if ($related_office == $office) {
               if (!empty($position->post_content))
-                echo '<li><h3><a href="'.get_permalink($position).'" data-page-title="'.$position->post_title.'" data-url="'.get_permalink($position).'" data-id="'.$position->ID.'" data-modal-type="position" class="show-post-modal">'.$position->post_title.'</a></h3>
-              <a href="'.get_permalink($position).'" class="show-post-modal read-more-link" data-modal-type="position" data-page-title="'.$position->post_title.'" data-url="'.get_permalink($position).'" data-id="'.$position->ID.'"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
+                echo '<li><h3><a href="'.get_permalink($position).'" class="show-post-modal">'.$position->post_title.'</a></h3>
+              <a href="'.get_permalink($position).'" class="show-post-modal read-more-link"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
               else
                 echo '<li>'.$position->post_title.'</li>';
             }
@@ -129,6 +125,9 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         }
       }
       ?>
+      <div class="submit-portfolio-link">
+        <p>Don’t see what you’re looking for listed here? We’re always looking for creative, dynamic individuals to join our team. <a href="/careers/submit-portfolio/" rel="nofollow" class="submit-portfolio nobreak">Submit your portfolio</a></p>
+      </div>
     </div>
     <div class="positions-image -right">
     <?php if (!empty($project_images[4])): ?>

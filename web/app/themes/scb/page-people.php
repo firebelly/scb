@@ -6,7 +6,6 @@
 $person_categories = get_terms('person_category');
 $associates_category = get_term_by('slug', 'associates', 'person_category');
 $associate_principles_category = get_term_by('slug', 'associate-principals', 'person_category');
-$universitiesId = url_to_postid('/people/universities-represented/');
 ?>
 
 <div class="grid">
@@ -15,7 +14,7 @@ $universitiesId = url_to_postid('/people/universities-represented/');
     <?= apply_filters('the_content', $post->post_content) ?>
     <div class="stat">
       <div class="stat-number"><?= \Firebelly\SiteOptions\get_option('num_universities_represented'); ?></div>
-      <div class="stat-label"><a href="<?= get_permalink($universitiesId) ?>" class="show-post-modal" data-id="<?= $universitiesId ?>" data-modal-type="page">Universities Represented</a></div>
+      <div class="stat-label"><a href="/people/universities-represented/">Universities Represented</a></div>
     </div>
   </section>
 

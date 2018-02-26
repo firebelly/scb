@@ -52,10 +52,6 @@
       a {
         display: block;
       }
-      .view-positions {
-        padding: 20px;
-        margin-top: 10px;
-      }
       .slash {
         display: none;
         padding: 0 20px;
@@ -63,18 +59,11 @@
 
       @include min-screen($breakpoint-medium) {
         text-align: left;
-        .view-positions {
-          padding: 20px 0;
-        }
       }
 
       @include min-screen($breakpoint-nav) {
         a {
           display: inline-block;
-        }
-        .view-positions {
-          padding: 0;
-          margin-top: 0;
         }
         .slash {
           display: inline-block;
@@ -290,6 +279,9 @@
         left: 10px;
         right: 20px;
       }
+    }
+    .submit-portfolio-link {
+      margin-top: 40px;
     }
   }
 

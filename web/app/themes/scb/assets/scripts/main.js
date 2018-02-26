@@ -159,7 +159,6 @@ var SCB = (function($) {
       }
 
       if (State.url !== original_url && relative_url.match(/^\/(project|person|position|office|\d{0,4}|careers\/internships|people\/universities\-represented)\//)) {
-        console.log(relative_url);
 
         // Standard post modals
         if (page_cache[encodeURIComponent(State.url)]) {

@@ -5,7 +5,7 @@
   @include min-screen($breakpoint-medium) {
     padding: 140px 10px 40px;
   }
-  
+
   > .wrap > .one-half.-left {
     padding-top: 20px;
     .container {
@@ -68,6 +68,9 @@
 
     a {
       color: $black;
+    }
+    h3 a {
+      text-decoration: none;
     }
 
     .address, .contact {

@@ -3,7 +3,7 @@
     <div class="container">
       <?php dynamic_sidebar('sidebar-footer'); ?>
     </div>
-    
+
     <div class="grid-item one-half -left">
       <div class="container">
         <p class="email-link"><a href="mailto:<?= \Firebelly\SiteOptions\get_option( 'contact_email', 'hello@scb.com' ); ?>" class="highlight-hover"><?= \Firebelly\SiteOptions\get_option( 'contact_email', 'hello@scb.com' ); ?></a></p>
@@ -19,10 +19,10 @@
 
     <div class="grid grid-item one-half -right">
       <div class="contact-group" id="contact">
-        <h3>Chicago</h3>
+        <h3><a href="/office/chicago/"  class="show-post-modal">Chicago</a></h3>
         <ul>
           <li class="address">
-            <address class="vcard"> 
+            <address class="vcard">
               <span class="street-address">625 N. Michigan Avenue <span>Suite 800</span></span>
               <span class="locality">Chicago, IL</span>
               <span class="postal-code">60611 USA</span>
@@ -36,10 +36,10 @@
       </div>
 
       <div class="contact-group">
-        <h3>San Francisco</h3>
+        <h3><a href="/office/san-francisco/"  class="show-post-modal">San Francisco</a></h3>
         <ul>
           <li class="address">
-            <address class="vcard"> 
+            <address class="vcard">
               <span class="street-address">255 California Street <span>3rd Floor</span></span>
               <span class="locality">San Francisco, CA</span>
               <span class="postal-code">94111 USA</span>
