@@ -94,6 +94,9 @@
   }
   .stat-label {
     @include sc();
+    a {
+      color: $black;
+    }
   }
   .stat-link {
     @include sc();
