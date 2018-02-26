@@ -159,20 +159,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.9.2",
+            "version": "4.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "34627d0b992bbe9ed909c73b27307297fb21f2a4"
+                "reference": "5394373d26a8e304eb293c2a9359701a7ab03131"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/34627d0b992bbe9ed909c73b27307297fb21f2a4",
-                "reference": "34627d0b992bbe9ed909c73b27307297fb21f2a4",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/5394373d26a8e304eb293c2a9359701a7ab03131",
+                "reference": "5394373d26a8e304eb293c2a9359701a7ab03131",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "4.9.2",
+                "johnpbloch/wordpress-core": "4.9.4",
                 "johnpbloch/wordpress-core-installer": "^1.0",
                 "php": ">=5.3.2"
             },
@@ -194,32 +194,32 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2018-01-16T23:12:18+00:00"
+            "time": "2018-02-06T16:42:18+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "4.9.2",
+            "version": "4.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "59292fac30315323ce99e1a1d362015581e5d8e6"
+                "reference": "eef672cdb4ae9e846c464d4d03684b43d4108eda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/59292fac30315323ce99e1a1d362015581e5d8e6",
-                "reference": "59292fac30315323ce99e1a1d362015581e5d8e6",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/eef672cdb4ae9e846c464d4d03684b43d4108eda",
+                "reference": "eef672cdb4ae9e846c464d4d03684b43d4108eda",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
             "provide": {
-                "wordpress/core-implementation": "4.9.2"
+                "wordpress/core-implementation": "4.9.4"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -234,20 +234,20 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2018-01-16T23:12:12+00:00"
+            "time": "2018-02-06T16:42:13+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
-            "version": "1.0.0",
+            "version": "1.0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core-installer.git",
-                "reference": "e9e767f2d9f994f358c34b41def2c410ad8717f2"
+                "reference": "7941acd71725710a789daabe0557429da63e7ac6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/e9e767f2d9f994f358c34b41def2c410ad8717f2",
-                "reference": "e9e767f2d9f994f358c34b41def2c410ad8717f2",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/7941acd71725710a789daabe0557429da63e7ac6",
+                "reference": "7941acd71725710a789daabe0557429da63e7ac6",
                 "shasum": ""
             },
             "require": {
@@ -283,7 +283,7 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2017-05-31T18:42:33+00:00"
+            "time": "2018-01-29T14:49:29+00:00"
         },
         {
             "name": "rcamposp/tcpdi-merger",
@@ -407,16 +407,16 @@
         },
         {
             "name": "setasign/fpdi",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDI.git",
-                "reference": "879dd95cd6b258ba5b062624723ef16c954f2b17"
+                "reference": "a1016049c50bdb571a1bdcacac896be14dbb1179"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/879dd95cd6b258ba5b062624723ef16c954f2b17",
-                "reference": "879dd95cd6b258ba5b062624723ef16c954f2b17",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/a1016049c50bdb571a1bdcacac896be14dbb1179",
+                "reference": "a1016049c50bdb571a1bdcacac896be14dbb1179",
                 "shasum": ""
             },
             "require": {
@@ -462,7 +462,7 @@
                 "fpdi",
                 "pdf"
             ],
-            "time": "2017-11-13T15:12:36+00:00"
+            "time": "2018-02-21T09:12:37+00:00"
         },
         {
             "name": "setasign/fpdi-fpdf",
@@ -505,16 +505,16 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.2.13",
+            "version": "6.2.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "95c5938aafe4b20df1454dbddb3e5005c0b26f64"
+                "reference": "64fc19439863e1b1314487a72a74d9bfd0b55a53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/95c5938aafe4b20df1454dbddb3e5005c0b26f64",
-                "reference": "95c5938aafe4b20df1454dbddb3e5005c0b26f64",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/64fc19439863e1b1314487a72a74d9bfd0b55a53",
+                "reference": "64fc19439863e1b1314487a72a74d9bfd0b55a53",
                 "shasum": ""
             },
             "require": {
@@ -543,13 +543,13 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPLv3"
+                "LGPL-3.0"
             ],
             "authors": [
                 {
                     "name": "Nicola Asuni",
                     "email": "info@tecnick.com",
-                    "homepage": "http://nicolaasuni.tecnick.com"
+                    "role": "lead"
                 }
             ],
             "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",
@@ -563,7 +563,7 @@
                 "pdf417",
                 "qrcode"
             ],
-            "time": "2017-04-26T08:14:48+00:00"
+            "time": "2018-02-24T11:48:20+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -617,15 +617,15 @@
         },
         {
             "name": "wpackagist-plugin/akismet",
-            "version": "4.0.2",
+            "version": "4.0.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/akismet/",
-                "reference": "tags/4.0.2"
+                "reference": "tags/4.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/akismet.4.0.2.zip",
+                "url": "https://downloads.wordpress.org/plugin/akismet.4.0.3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -677,16 +677,16 @@
         },
         {
             "name": "wpackagist-plugin/enhanced-media-library",
-            "version": "2.4.5",
+            "version": "2.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/enhanced-media-library/",
-                "reference": "tags/2.4.5"
+                "reference": "tags/2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.4.5.zip",
-                "reference": "tags/2.4.5",
+                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.5.zip",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -717,15 +717,15 @@
         },
         {
             "name": "wpackagist-plugin/intuitive-custom-post-order",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/intuitive-custom-post-order/",
-                "reference": "tags/3.1.0"
+                "reference": "tags/3.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/intuitive-custom-post-order.3.1.0.zip",
+                "url": "https://downloads.wordpress.org/plugin/intuitive-custom-post-order.3.1.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -777,15 +777,15 @@
         },
         {
             "name": "wpackagist-plugin/redirection",
-            "version": "3.0.1",
+            "version": "3.2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/3.0.1"
+                "reference": "tags/3.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.3.0.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.3.2.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -797,15 +797,15 @@
         },
         {
             "name": "wpackagist-plugin/regenerate-thumbnails",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/regenerate-thumbnails/",
-                "reference": "tags/3.0.1"
+                "reference": "tags/3.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.3.0.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.3.0.2.zip",
                 "reference": null,
                 "shasum": null
             },
