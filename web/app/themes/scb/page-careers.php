@@ -45,17 +45,17 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
       <img src="<?= $project_images[0] ?>" alt="Careers at SCB">
     <?php endif; ?>
     <div class="text-grid">
-      <div class="one-third">
+      <div class="column one-third">
         <div class="-inner">
           <?= $middle_column_1 ?>
         </div>
       </div>
-      <div class="one-third">
+      <div class="column one-third">
         <div class="-inner">
           <?= $middle_column_2 ?>
         </div>
       </div>
-      <div class="one-third">
+      <div class="column one-third">
         <div class="-inner">
           <?= $middle_column_3 ?>
         </div>

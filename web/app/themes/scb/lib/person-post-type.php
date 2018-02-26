@@ -247,6 +247,26 @@ function get_people($filters=[]) {
 }
 
 /**
+ * People category column
+ */
+function get_people_category($person_category) {
+  if (!is_object($person_category)) return '';
+  $output = '';
+  if ($people_posts = get_people(['person_category' => $person_category->slug])) {
+    $output .= '<div class="category-group"><h2>'.$person_category->name.'</h2>';
+    $output .= '<ul>';
+    foreach($people_posts as $people_post) {
+      if (!empty($people_post->post_content))
+        $output .= '<li><a href="'.get_permalink($people_post).'" data-id="'.$people_post->ID.'" data-modal-type="person-modal" class="show-post-modal">'.$people_post->post_title.'</a></li>';
+      else
+        $output .= '<li>'.$people_post->post_title.'</li>';
+    }
+    $output .= '</ul></div>';
+  }
+  return $output;
+}
+
+/**
  * Get num active People
  */
 function get_num_people() {

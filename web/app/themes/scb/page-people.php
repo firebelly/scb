@@ -4,6 +4,8 @@
  */
 
 $person_categories = get_terms('person_category');
+$associates_category = get_term_by('slug', 'associates', 'person_category');
+$associate_principles_category = get_term_by('slug', 'associate-principals', 'person_category');
 ?>
 
 <div class="grid">
@@ -17,21 +19,23 @@ $person_categories = get_terms('person_category');
   </section>
 
   <section class="people-section grid-item one-half">
-    <?php
-    foreach($person_categories as $person_category) {
-    	echo '<div class="category-group"><h2>'.$person_category->name.'</h2>';
-    	if ($people_posts = Firebelly\PostTypes\Person\get_people(['person_category' => $person_category->slug])) {
-    		echo '<ul>';
-    		foreach($people_posts as $people_post) {
-    			if (!empty($people_post->post_content))
-  	  			echo '<li><a href="'.get_permalink($people_post).'" data-id="'.$people_post->ID.'" data-modal-type="person-modal" class="show-post-modal">'.$people_post->post_title.'</a></li>';
-  	  		else
-  	  			echo '<li>'.$people_post->post_title.'</li>';
-    		}
-    		echo '</ul></div>';
-    	}
-    }
-    ?>
+    <div class="text-grid">
+      <div class="column one-third"><div class="-inner">
+      <?php
+      foreach($person_categories as $person_category) {
+        if (!preg_match('/(associates|associate-principals)/',$person_category->slug)) {
+          echo Firebelly\PostTypes\Person\get_people_category($person_category);
+        }
+      }
+      ?>
+      </div></div>
+      <div class="column one-third"><div class="-inner">
+      <?= Firebelly\PostTypes\Person\get_people_category($associates_category); ?>
+      </div></div>
+      <div class="column one-third"><div class="-inner">
+      <?= Firebelly\PostTypes\Person\get_people_category($associate_principles_category); ?>
+      </div></div>
+    </div>
   </section>
 
 </div>

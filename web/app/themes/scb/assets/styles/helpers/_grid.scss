@@ -35,3 +35,18 @@ $column: 100% * (1 / 12);
     width: 100% * (2/3);
   }
 }
+
+.text-grid {
+  @include clearfix();
+
+  @include min-screen($breakpoint-medium) {
+    margin-left: -10px;
+    width: calc(100% + 20px);
+  }
+
+  .column {
+    @include min-screen($breakpoint-medium) {
+      padding: 0 10px;
+    }
+  }
+}

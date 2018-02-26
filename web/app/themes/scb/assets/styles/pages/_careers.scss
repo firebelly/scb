@@ -112,19 +112,12 @@
     }
 
     .text-grid {
-      @include clearfix();
-
-      @include min-screen($breakpoint-medium) {
-        margin-left: -10px;
-        width: calc(100% + 20px);
-      }
-
       h3 {
         @include sc();
         color: $gray-dark;
       }
 
-      .one-third {
+      .column {
         h3 {
           position: relative;
           padding-top: 24px;
@@ -154,8 +147,6 @@
         }
 
         @include min-screen($breakpoint-medium) {
-          float: left;
-          padding: 0 10px;
           .-inner {
             position: relative;
             padding-bottom: 14px;
@@ -169,7 +160,6 @@
               position: absolute;
               width: 100%;
             }
-
           }
         }
       }
