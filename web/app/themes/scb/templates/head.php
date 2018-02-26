@@ -5,6 +5,7 @@
   <meta name="google-site-verification" content="PyphqoxtKzqR2DEtVOLTrlmjAXUIARNbqf1DbVcVFxQ" />
   <link rel="icon" type="image/png" href="<?= Roots\Sage\Assets\asset_path('images/favicon.png') ?>" />
   <?php wp_head(); ?>
+  <?php if (!is_user_logged_in()): ?>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -13,6 +14,6 @@
 
     ga('create', 'UA-70032124-1', 'auto');
     ga('send', 'pageview');
-
   </script>
+  <?php endif; ?>
 </head>
