@@ -17,7 +17,7 @@ function metaboxes( array $meta_boxes ) {
   //   'priority'      => 'high',
   //   'show_names'    => true, // Show field names on the left
   //   'fields'        => array(
-      
+
   //     // General page fields
   //     array(
   //       'name' => 'Secondary Content',
@@ -36,12 +36,18 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
-      
+
       // General page fields
       array(
         'name' => 'Secondary Content',
         'id'   => $prefix . 'secondary_content',
         'type' => 'wysiwyg',
+      ),
+      array(
+        'name' => 'Slideshow',
+        'id'   => $prefix . 'careers_slideshow_images',
+        'type' => 'file_list',
+        'description' => 'If populated, this will replace Image 1 below',
       ),
       array(
         'name' => 'Career page images',
@@ -86,7 +92,7 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
-      
+
       // General page fields
       array(
         'name' => 'Intro Content',

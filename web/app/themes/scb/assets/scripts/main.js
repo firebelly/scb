@@ -99,6 +99,7 @@ var SCB = (function($) {
     _initPostModals();
     _initBigClicky();
     _initMasonryGrid();
+    _initSliders();
     _injectSvgSprite();
     _initApplicationForms();
     _initCollectionLinks();
@@ -1013,6 +1014,17 @@ var SCB = (function($) {
     });
   }
 
+  function _initSliders() {
+    // Slideshows
+    $('.slider-mini').slick({
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      adaptiveHeight: true
+    });
+
+  }
+
   // Scroll to location in body or container element
   function _scrollBody(element, duration, delay, offset, container) {
     if (typeof container === 'undefined' && $('#wpadminbar').length) {
@@ -1089,7 +1101,6 @@ var SCB = (function($) {
       $image_modal.imagesLoaded(function() {
         _showImageModal();
       });
-      // History.replaceState({ previousTitle: document.title, previousURL: location.href }, $postData.attr('data-page-title') + ' – SCB', $postData.attr('data-page-url'));
     });
 
     // Close it

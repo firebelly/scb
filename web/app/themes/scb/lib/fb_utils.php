@@ -63,7 +63,7 @@ function get_top_ancestor($post){
  * Get top parent cat slug
  */
 function get_top_parent_cat($post){
-  $return = false; 
+  $return = false;
   $categories = wp_get_post_terms($post->ID, 'project_category');
   if ($categories) {
     $parent_cat = $categories[0];
@@ -227,3 +227,22 @@ function get_page_blocks($post) {
  * Remove p tags around category description
  */
 remove_filter('term_description','wpautop');
+
+/**
+ * Spit out image slideshow
+ */
+function image_slideshow($image_slideshow) {
+  $output = '';
+  if ($image_slideshow) {
+    $output .= '<div class="images slider-mini">';
+    foreach ((array)$image_slideshow as $attachment_id => $attachment_url) {
+      $large = wp_get_attachment_image_src($attachment_id, 'large');
+      if ($large) {
+        $title = get_post_field('post_excerpt', $attachment_id);
+        $output .= '<div class="slide-item"><img src="'.$large[0].'" title="'.$title.'"></div>';
+      }
+    }
+    $output .= '</div>';
+  }
+  return $output;
+}

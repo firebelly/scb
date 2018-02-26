@@ -1,7 +1,8 @@
+
 // About Page
 
 body.about {
-  
+
   main {
     .grid {
 
@@ -92,14 +93,14 @@ body.about {
       &:first-of-type {
         margin-top: 0;
       }
-      
+
       h3, .dash {
         @include h2();
       }
 
       h3 {
         display: inline-block;
-        @include min-screen($breakpoint-medium) {        
+        @include min-screen($breakpoint-medium) {
           width: 100%;
           max-width: 130px;
           flex-basis: 130px;

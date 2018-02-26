@@ -4,6 +4,7 @@
  */
 
 $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
+$slideshow_images = get_post_meta($post->ID, '_cmb2_careers_slideshow_images', true);
 $project_images = get_post_meta($post->ID, '_cmb2_careers_images', true);
 if ($project_images) {
   $i = 0;
@@ -30,14 +31,38 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
     <p class="careers-actions"><a href="#positions" class="button view-positions smoothscroll">View open positions</a></p>
   </div>
 
-  <div class="page-intro grid-item one-half -right">
-    <?= apply_filters('the_content', $secondary_content); ?>
+  <div class="grid-item one-half -right">
+    <div class="stats">
+      <div class="stat long-stat">
+        <div class="wrap">
+          <p class="stat-number"><?= $num_offices ?></p>
+          <p class="stat-label">Offices</p>
+          <p class="stat-link"><a href="/office/chicago" class="show-post-modal">Chicago</a> / <a href="/office/san-francisco" class="show-post-modal">San Francisco</a></p>
+        </div>
+      </div>
+      <div class="stat long-stat">
+        <div class="wrap">
+          <p class="stat-number"><?= $num_design_professionals ?></p>
+          <p class="stat-label">Design Professionals</p>
+          <p class="stat-link"><a href="/people/">Meet our people</a></p>
+        </div>
+      </div>
+      <div class="stat long-stat">
+        <div class="wrap">
+          <p class="stat-number"><?= $num_internships ?></p>
+          <p class="stat-label">Interns This Year</p>
+          <p class="stat-link"><a href="/careers/internships/" class="show-post-modal">Intern Program</a></p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="grid wrap middle-section">
   <div class="grid-item -left">
-    <?php if (!empty($project_images[0])): ?>
+    <?php if (!empty($slideshow_images)): ?>
+      <?= \Firebelly\Utils\image_slideshow($slideshow_images); ?>
+    <?php elseif (!empty($project_images[0])): ?>
       <img src="<?= $project_images[0] ?>" alt="Careers at SCB">
     <?php endif; ?>
     <div class="text-grid">
@@ -63,29 +88,6 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
     <?php if (!empty($project_images[1])): ?>
       <img src="<?= $project_images[1] ?>" alt="Careers at SCB">
     <?php endif; ?>
-    <div class="stats">
-      <div class="stat">
-        <div class="wrap">
-          <p class="stat-number"><?= $num_offices ?></p>
-          <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="/office/chicago/" class="show-post-modal">Chicago</a> / <a href="/office/san-francisco/" class="show-post-modal">San Francisco</a></p>
-        </div>
-      </div>
-      <div class="stat long-stat">
-        <div class="wrap">
-          <p class="stat-number"><?= $num_design_professionals ?></p>
-          <p class="stat-label">Design Professionals</p>
-          <p class="stat-link"><a href="/people/">Meet our people</a></p>
-        </div>
-      </div>
-      <div class="stat long-stat">
-        <div class="wrap">
-          <p class="stat-number"><?= $num_internships ?></p>
-          <p class="stat-label">Interns This Year</p>
-          <p class="stat-link"><a href="/careers/internships/" class="show-post-modal">Intern Program</a></p>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 

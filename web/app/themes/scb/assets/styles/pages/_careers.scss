@@ -31,6 +31,30 @@
 }
 
 .page.careers {
+
+  .stats {
+    @include clearfix();
+    padding: 40px 0 80px;
+
+    .stat {
+      margin-bottom: 40px;
+      .stat-number {
+        margin-bottom: 20px;
+      }
+    }
+
+    @include min-screen($breakpoint-medium) {
+      .stat {
+        float: left;
+        padding: 0 10px;
+        width: 100% * 1 / 3;
+        .stat-number {
+          margin-bottom: 40px;
+        }
+      }
+    }
+  }
+
   .page-intro {
     &.-left {
       h3 {
@@ -155,30 +179,30 @@
     }
 
     .-right {
-      .stats {
-        margin-top: 60px;
-      }
-      .stat {
-        margin-bottom: 60px;
-        .stat-number {
-          font-size: 52px;
-        }
-      }
+      // .stats {
+      //   margin-top: 60px;
+      // }
+      // .stat {
+      //   margin-bottom: 60px;
+      //   .stat-number {
+      //     font-size: 52px;
+      //   }
+      // }
 
       @include min-screen($breakpoint-medium) {
         float: left;
         padding-left: 20px;
         width: $column * 3;
 
-        .stats {
-          margin-top: -100px;
-        }
+        // .stats {
+        //   margin-top: -100px;
+        // }
 
-        .stat:not(.long-stat) {
-          .stat-number {
-            font-size: 16vw;
-          }
-        }
+        // .stat:not(.long-stat) {
+        //   .stat-number {
+        //     font-size: 16vw;
+        //   }
+        // }
       }
     }
   }
