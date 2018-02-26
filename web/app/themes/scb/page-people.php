@@ -14,7 +14,7 @@ $associate_principles_category = get_term_by('slug', 'associate-principals', 'pe
     <?= apply_filters('the_content', $post->post_content) ?>
     <div class="stat">
       <div class="stat-number"><?= \Firebelly\SiteOptions\get_option('num_universities_represented'); ?></div>
-      <div class="stat-label"><a href="/people/universities-represented/">Universities Represented</a></div>
+      <div class="stat-label"><a href="/people/universities-represented/" class="show-post-modal">Universities Represented</a></div>
     </div>
   </section>
 
