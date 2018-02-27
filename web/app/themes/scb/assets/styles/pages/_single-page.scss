@@ -154,15 +154,7 @@ body.single-person {
         padding-bottom: 2px;
         text-decoration: none;
         transition: color .2s ease-out;
-        &::after {
-          left: 0;
-          right: 0;
-          bottom: 0;
-          content: '';
-          height: 1px;
-          background: black;
-          position: absolute;
-        }
+        border-bottom: 1px solid $black;
         &:hover {
           color: $black;
         }
