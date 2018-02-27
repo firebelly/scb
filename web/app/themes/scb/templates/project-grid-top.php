@@ -5,6 +5,7 @@
 
 $is_homepage = false;
 $per_page = get_option('posts_per_page');
+$completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_projects_map_image');
 
 if (!empty($term)) {
   // Taxonomy filtered
@@ -119,7 +120,7 @@ if (empty($grid_description)) {
                 <p class="stat-number"><?= $num_active_projects ?></p>
                 <div class="stat-meta">
                   <?php if ($is_homepage): ?>
-                    <p class="stat-label">Active Projects</p>
+                    <p class="stat-label"><a href="<?= $completed_projects_map_image ?>" class="show-image-modal">Active Projects</a></p>
                     <?php if ($projects_map_image): ?>
                       <p class="stat-link"><a href="<?= $projects_map_image ?>" class="show-image-modal">View on map</a></p>
                     <?php endif; ?>
