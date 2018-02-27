@@ -6,12 +6,18 @@
 $person_categories = get_terms('person_category');
 $associates_category = get_term_by('slug', 'associates', 'person_category');
 $associate_principles_category = get_term_by('slug', 'associate-principals', 'person_category');
+$slideshow_images = get_post_meta($post->ID, '_cmb2_slideshow_images', true);
 ?>
 
 <div class="grid">
 
   <section class="page-content grid-item one-half">
     <?= apply_filters('the_content', $post->post_content) ?>
+
+    <?php if (!empty($slideshow_images)): ?>
+      <?= \Firebelly\Utils\image_slideshow($slideshow_images); ?>
+    <?php endif; ?>
+
     <div class="stat">
       <div class="stat-number"><?= \Firebelly\SiteOptions\get_option('num_universities_represented'); ?></div>
       <div class="stat-label"><a href="/people/universities-represented/" class="show-post-modal">Universities Represented</a></div>

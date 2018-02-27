@@ -27,11 +27,29 @@ function metaboxes( array $meta_boxes ) {
   //   ),
   // );
 
+  $meta_boxes['people_content'] = array(
+    'id'            => 'people_content',
+    'title'         => __( 'Secondary content areas', 'cmb2' ),
+    'object_types'  => array( 'page', ), // Post type
+    'show_on'       => array( 'key' => 'id', 'value' => 9 ), // Only show on 'People' page
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+        'name' => 'Slideshow',
+        'id'   => $prefix . 'slideshow_images',
+        'type' => 'file_list',
+        'description' => 'If populated, shows between body content and Universities Represented stat',
+      ),
+    )
+  );
+
   $meta_boxes['careers_content'] = array(
     'id'            => 'careers_content',
     'title'         => __( 'Secondary content areas', 'cmb2' ),
     'object_types'  => array( 'page', ), // Post type
-    'show_on'       => array( 'key' => 'id', 'value' => 11 ), // Only show on 'Who We Are' page
+    'show_on'       => array( 'key' => 'id', 'value' => 11 ), // Only show on 'Careers' page
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
@@ -45,7 +63,7 @@ function metaboxes( array $meta_boxes ) {
       ),
       array(
         'name' => 'Slideshow',
-        'id'   => $prefix . 'careers_slideshow_images',
+        'id'   => $prefix . 'slideshow_images',
         'type' => 'file_list',
         'description' => 'If populated, this will replace Image 1 below',
       ),
