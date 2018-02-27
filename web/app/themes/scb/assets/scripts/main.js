@@ -1019,7 +1019,7 @@ var SCB = (function($) {
     $('.slider-mini').slick({
       arrows: false,
       autoplay: true,
-      autoplaySpeed: 5000,
+      autoplaySpeed: 3000,
       adaptiveHeight: true
     });
 
