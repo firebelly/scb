@@ -9,29 +9,11 @@ namespace Firebelly\PostTypes\Pages;
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-  // $meta_boxes['page_metabox'] = array(
-  //   'id'            => 'page_metabox',
-  //   'title'         => __( 'Extra Fields', 'cmb2' ),
-  //   'object_types'  => array( 'page', ), // Post type
-  //   'context'       => 'normal',
-  //   'priority'      => 'high',
-  //   'show_names'    => true, // Show field names on the left
-  //   'fields'        => array(
-
-  //     // General page fields
-  //     array(
-  //       'name' => 'Secondary Content',
-  //       'id'   => $prefix . 'secondary_content',
-  //       'type' => 'wysiwyg',
-  //     ),
-  //   ),
-  // );
-
-  $meta_boxes['people_content'] = array(
-    'id'            => 'people_content',
+  $meta_boxes['extra_content'] = array(
+    'id'            => 'extra_content',
     'title'         => __( 'Secondary content areas', 'cmb2' ),
     'object_types'  => array( 'page', ), // Post type
-    'show_on'       => array( 'key' => 'id', 'value' => 9 ), // Only show on 'People' page
+    'show_on'       => array( 'key' => 'id', 'value' => [7,9] ), // Only show on 'About' and 'People' page
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
@@ -40,7 +22,13 @@ function metaboxes( array $meta_boxes ) {
         'name' => 'Slideshow',
         'id'   => $prefix . 'slideshow_images',
         'type' => 'file_list',
-        'description' => 'If populated, shows between body content and Universities Represented stat',
+        'description' => 'If populated, shows below body content',
+      ),
+      array(
+        'name' => 'Secondary Content',
+        'id'   => $prefix . 'secondary_content',
+        'type' => 'wysiwyg',
+        'description' => 'If populated, shows below body content and slideshow',
       ),
     )
   );
@@ -56,11 +44,6 @@ function metaboxes( array $meta_boxes ) {
     'fields'        => array(
 
       // General page fields
-      array(
-        'name' => 'Secondary Content',
-        'id'   => $prefix . 'secondary_content',
-        'type' => 'wysiwyg',
-      ),
       array(
         'name' => 'Slideshow',
         'id'   => $prefix . 'slideshow_images',

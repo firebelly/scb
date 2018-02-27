@@ -7,14 +7,21 @@ $num_design_professionals = \Firebelly\SiteOptions\get_option('num_design_profes
 $num_completed_projects = \Firebelly\SiteOptions\get_option('num_completed_projects');
 $num_offices = \Firebelly\PostTypes\Office\get_num_offices();
 $completed_projects_map_image = \Firebelly\SiteOptions\get_option('completed_projects_map_image');
+$slideshow_images = get_post_meta($post->ID, '_cmb2_slideshow_images', true);
+$secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 ?>
-
 
 <div class="top-section page-content grid wrap">
 
   <div class="page-intro grid-item one-half -left">
     <div class="-top">
       <?= apply_filters('the_content', $post->post_content) ?>
+
+      <?php if (!empty($slideshow_images)): ?>
+        <?= \Firebelly\Utils\image_slideshow($slideshow_images); ?>
+      <?php endif; ?>
+
+      <?= !empty($secondary_content) ? apply_filters('the_content', $secondary_content) : '' ?>
     </div>
   </div>
 

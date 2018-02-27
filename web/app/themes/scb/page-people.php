@@ -5,8 +5,9 @@
 
 $person_categories = get_terms('person_category');
 $associates_category = get_term_by('slug', 'associates', 'person_category');
-$associate_principles_category = get_term_by('slug', 'associate-principals', 'person_category');
+$associate_principals_category = get_term_by('slug', 'associate-principals', 'person_category');
 $slideshow_images = get_post_meta($post->ID, '_cmb2_slideshow_images', true);
+$secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 ?>
 
 <div class="grid">
@@ -17,6 +18,8 @@ $slideshow_images = get_post_meta($post->ID, '_cmb2_slideshow_images', true);
     <?php if (!empty($slideshow_images)): ?>
       <?= \Firebelly\Utils\image_slideshow($slideshow_images); ?>
     <?php endif; ?>
+
+    <?= !empty($secondary_content) ? apply_filters('the_content', $secondary_content) : '' ?>
 
     <div class="stat">
       <div class="stat-number"><?= \Firebelly\SiteOptions\get_option('num_universities_represented'); ?></div>
@@ -36,7 +39,7 @@ $slideshow_images = get_post_meta($post->ID, '_cmb2_slideshow_images', true);
       ?>
       </div></div>
       <div class="column one-third"><div class="-inner">
-        <?= Firebelly\PostTypes\Person\get_people_category($associate_principles_category); ?>
+        <?= Firebelly\PostTypes\Person\get_people_category($associate_principals_category); ?>
       </div></div>
       <div class="column one-third"><div class="-inner">
         <?= Firebelly\PostTypes\Person\get_people_category($associates_category); ?>

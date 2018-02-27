@@ -3,7 +3,6 @@
  * Template Name: Careers
  */
 
-$secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 $slideshow_images = get_post_meta($post->ID, '_cmb2_slideshow_images', true);
 $project_images = get_post_meta($post->ID, '_cmb2_careers_images', true);
 if ($project_images) {
