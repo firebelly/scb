@@ -98,7 +98,7 @@ function custom_columns($column){
       echo the_post_thumbnail('thumbnail');
     } elseif ( $column == '_cmb2_open_for_applications' ) {
       $custom = get_post_custom();
-      echo array_key_exists($column, $custom) ? '&#9989;' : ''; 
+      echo array_key_exists($column, $custom) ? '&#9989;' : '';
     } elseif ( $column == 'related_office' ) {
       if ($office = \Firebelly\Utils\get_office($post)) {
         echo $office->post_title;
@@ -155,11 +155,11 @@ function get_positions($filters=[]) {
     'orderby' => ['date' => 'ASC'],
     );
   if (!empty($filters['office'])) {
-    $args['tax_query'] = array(
+    $args['meta_query'] = array(
       array(
-        'taxonomy' => 'office',
-        'field' => 'slug',
-        'terms' => $filters['office']
+        'key' => '_cmb2_related_office',
+        'value' => $filters['office'],
+        'compare' => '=',
       )
     );
   }

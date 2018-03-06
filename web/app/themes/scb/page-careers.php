@@ -84,22 +84,19 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
   </div>
 
   <div class="grid-item -right">
-    <?php if (!empty($project_images[1])): ?>
-      <img src="<?= $project_images[1] ?>" alt="Careers at SCB">
-    <?php endif; ?>
   </div>
 </div>
 
 <div class="grid wrap bottom-section">
   <div class="-top grid">
     <div class="image-wrap image-left">
-      <?php if (!empty($project_images[2])): ?>
-        <div class="image" style="background-image: url('<?= $project_images[2] ?>');"></div>
+      <?php if (!empty($project_images[1])): ?>
+        <div class="image" style="background-image: url('<?= $project_images[1] ?>');"></div>
       <?php endif; ?>
     </div>
     <div class="image-wrap image-right">
-      <?php if (!empty($project_images[3])): ?>
-        <div class="image" style="background-image: url('<?= $project_images[3] ?>');"></div>
+      <?php if (!empty($project_images[2])): ?>
+        <div class="image" style="background-image: url('<?= $project_images[2] ?>');"></div>
       <?php endif; ?>
     </div>
   </div>
@@ -109,18 +106,15 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
       <?php
       $offices = Firebelly\PostTypes\Office\get_offices();
       foreach($offices as $office) {
-        echo '<div class="positions-list" id="'.$office->slug.'-positions"><h2>'.$office->post_title.'</h2>';
-        if ($positions = Firebelly\PostTypes\Position\get_positions()) {
+        echo '<div class="positions-list" id="'.$office->post_name.'-positions"><h2>'.$office->post_name.'</h2>';
+        if ($positions = Firebelly\PostTypes\Position\get_positions(['office' => $office->ID])) {
           echo '<ul>';
           foreach($positions as $position) {
-            $related_office = Firebelly\Utils\get_office($position);
-            if ($related_office == $office) {
-              if (!empty($position->post_content))
-                echo '<li><h3><a href="'.get_permalink($position).'" class="show-post-modal">'.$position->post_title.'</a></h3>
-              <a href="'.get_permalink($position).'" class="show-post-modal read-more-link"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
-              else
-                echo '<li>'.$position->post_title.'</li>';
-            }
+            if (!empty($position->post_content))
+              echo '<li><h3><a href="'.get_permalink($position).'" class="show-post-modal">'.$position->post_title.'</a></h3>
+            <a href="'.get_permalink($position).'" class="show-post-modal read-more-link"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
+            else
+              echo '<li>'.$position->post_title.'</li>';
           }
           echo '</ul></div>';
         }
@@ -131,8 +125,8 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
       </div>
     </div>
     <div class="positions-image -right">
-    <?php if (!empty($project_images[4])): ?>
-      <img src="<?= $project_images[4] ?>" alt="Open positions at SCB">
+    <?php if (!empty($project_images[3])): ?>
+      <img src="<?= $project_images[3] ?>" alt="Open positions at SCB">
     <?php endif; ?>
     </div>
   </div>
