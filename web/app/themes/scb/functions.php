@@ -36,6 +36,7 @@ $firebelly_includes = [
   'lib/position-post-type.php',        // Position post type
   'lib/applicant-post-type.php',       // Applicant post type
   'lib/stat-post-type.php',            // Stat post type
+  'lib/day-post-type.php',            // Stat post type
   'lib/post-collections.php',          // Post collections
   'lib/project_category-taxonomy.php', // Project Categories
   'lib/person_category-taxonomy.php',  // Person Categories

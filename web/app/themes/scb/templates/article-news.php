@@ -12,13 +12,13 @@ $featured_class = get_post_meta($news_post->ID, '_featured', true) ? ' featured-
   <div class="background-image-wrap" <?php if ($thumb) { echo 'style="background-image:url('.$thumb.');"'; } ?>>
     <time class="article-date" datetime="<?= date('c', $post_date_timestamp); ?>"><span><?= date('m/', $post_date_timestamp); ?></span><span><?= date('d/', $post_date_timestamp); ?></span><span><?= date('y', $post_date_timestamp); ?></span></time>
   </div>
-    <div class="article-body">
-      <header>
-        <?php if ($category): ?><div class="article-category"><?= $category->name; ?></div><?php endif; ?>
-        <h1 class="article-title"><?= $news_post->post_title ?></h1>
-      </header>
-      <div class="entry-content">
-        <?= apply_filters('the_content', $news_post->post_content) ?>
-      </div>
+  <div class="article-body">
+    <header>
+      <?php if ($category): ?><div class="article-category"><?= $category->name; ?></div><?php endif; ?>
+      <h1 class="article-title"><?= $news_post->post_title ?></h1>
+    </header>
+    <div class="entry-content">
+      <?= apply_filters('the_content', $news_post->post_content) ?>
     </div>
+  </div>
 </article>

@@ -1,0 +1,46 @@
+// Days (in the life)
+
+// Modal & single page shared styles
+.day.single {
+  .image-wrap {
+    margin-bottom: 20px;
+    @include min-screen($breakpoint-medium) {
+      margin-bottom: 40px;
+    }
+  }
+  .article-header {
+    padding: 0 60px 20px 0;
+    @include min-screen($breakpoint-medium) {
+      padding: 0 80px 40px 0;
+    }
+  }
+  .entry-content {
+    > p {
+      margin-top: 0;
+    }
+  }
+}
+
+// Modal
+.modal.day-modal {
+  .modal-content {
+    padding: 20px;
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
+  }
+  .article-body {
+    padding-top: 0;
+    @include clearfix();
+  }
+}
+
+// Single day page
+body.single-day {
+  article {
+    padding: 20px;
+    @include min-screen($breakpoint-medium) {
+      padding: 40px;
+    }
+  }
+}

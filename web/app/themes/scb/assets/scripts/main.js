@@ -159,7 +159,7 @@ var SCB = (function($) {
         return;
       }
 
-      if (State.url !== original_url && relative_url.match(/^\/(project|person|position|office|\d{0,4}|careers\/internships|people\/universities\-represented)\//)) {
+      if (State.url !== original_url && relative_url.match(/^\/(project|days|person|position|office|\d{0,4}|careers\/internships|people\/universities\-represented)\//)) {
 
         // Standard post modals
         if (page_cache[encodeURIComponent(State.url)]) {
