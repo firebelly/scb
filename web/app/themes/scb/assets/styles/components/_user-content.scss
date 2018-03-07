@@ -5,10 +5,14 @@
   h4 {
     @include sc();
   }
+  // H4 + P q/a styles for Days
   p + h4 {
     margin-top: 20px;
   }
   h4 + p {
+    margin-top: 0;
+  }
+  > p {
     margin-top: 0;
   }
   ol,
