@@ -1,0 +1,50 @@
+# BEGIN redirects
+RewriteEngine On
+RewriteBase /
+
+# Collection page redirect to homepage + modal
+RewriteRule ^collection/?$ /#collection [R=302,NE,L]
+
+# Submit Portfolio page redirect to /careers/ + modal
+RewriteRule ^careers/submit-portfolio/?$ /careers/#submit-portfolio [R=302,NE,L]
+
+# Old files
+RewriteRule ^sites/default/files/(.*)? - [R=404,L]
+
+# Redirect old news URLs
+RewriteRule ^([0-9]+)/([0-9]+)/([0-9]+)/(.*)/?$ /$1/$2/$4/ [R=301,L]
+
+# Ensure www.scb.com
+RewriteCond %{HTTP_HOST} !^www.scb.com$ [NC]
+RewriteCond %{HTTP_HOST} !^stage.scb.com$ [NC]
+RewriteCond %{HTTP_HOST} !^scb.localhost$ [NC]
+RewriteRule ^(.*)$ http://www.scb.com/$1 [R=301,L]
+# END redirects
+
+# BEGIN speedups
+FileETag none
+<IfModule mod_expires.c>
+ExpiresActive on
+ExpiresByType application/javascript "access plus 6 months"
+ExpiresByType image/jpg "access plus 6 months"
+ExpiresByType image/jpeg "access plus 6 months"
+ExpiresByType image/gif "access plus 6 months"
+ExpiresByType image/png "access plus 6 months"
+ExpiresByType image/svg+xml "access plus 6 months"
+ExpiresByType text/css "access plus 6 months"
+</IfModule>
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+</IfModule>
+# END speedups
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
