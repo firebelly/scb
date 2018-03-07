@@ -4,20 +4,27 @@
 .day.single {
   .image-wrap {
     margin-bottom: 20px;
-    @include min-screen($breakpoint-medium) {
-      margin-bottom: 40px;
-    }
   }
   .article-header {
     padding: 0 60px 20px 0;
-    @include min-screen($breakpoint-medium) {
-      padding: 0 80px 40px 0;
-    }
   }
   h3.h1 {
-    font: 500 56px/1 $sans-medium;
+    font: 500 42px/1 $sans-medium;
     color: $green;
-    margin: 0 0 40px;
+    margin: 0 0 20px;
+  }
+
+  @include min-screen($breakpoint-medium) {
+    .image-wrap {
+      margin-bottom: 40px;
+    }
+    .article-header {
+      padding: 0 80px 40px 0;
+    }
+    h3.h1 {
+      margin: 0 0 40px;
+      font: 500 56px/1 $sans-medium;
+    }
   }
 }
 
