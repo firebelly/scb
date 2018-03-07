@@ -10,9 +10,10 @@
 
   <div class="article-body">
     <header class="article-header">
+      <h3 class="h1">SCB Life</h3>
       <h1 class="article-title"><?= $post->post_title ?></h1>
     </header>
-    <div class="entry-content">
+    <div class="user-content">
       <?= apply_filters('the_content', $post->post_content) ?>
     </div>
   </div>

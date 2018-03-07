@@ -14,10 +14,10 @@
       padding: 0 80px 40px 0;
     }
   }
-  .entry-content {
-    > p {
-      margin-top: 0;
-    }
+  h3.h1 {
+    font: 500 56px/1 $sans-medium;
+    color: $green;
+    margin: 0 0 40px;
   }
 }
 

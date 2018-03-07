@@ -17,7 +17,7 @@ $featured_class = get_post_meta($news_post->ID, '_featured', true) ? ' featured-
       <?php if ($category): ?><div class="article-category"><?= $category->name; ?></div><?php endif; ?>
       <h1 class="article-title"><?= $news_post->post_title ?></h1>
     </header>
-    <div class="entry-content">
+    <div class="user-content">
       <?= apply_filters('the_content', $news_post->post_content) ?>
     </div>
   </div>

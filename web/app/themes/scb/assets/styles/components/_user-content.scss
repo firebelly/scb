@@ -1,9 +1,15 @@
 // Styling of content that is editable in wysiwyg
 
 .user-content {
-  // Designated as Small Caps
+  // Designated as "Small Caps" in style dropdown
   h4 {
     @include sc();
+  }
+  p + h4 {
+    margin-top: 20px;
+  }
+  h4 + p {
+    margin-top: 0;
   }
   ol,
   ul {
@@ -14,14 +20,25 @@
       &:first-of-type {
         margin-top: 0;
       }
+      // Nested
+      ol,
+      ul {
+        margin: 1em 0 0 0;
+      }
+    }
+  }
+  ol {
+    padding-left: 1em;
+    li {
+      padding-left: 1em;
+    }
+  }
+  ul {
+    li {
       &:before {
         left: -2em;
         content: '·';
         position: absolute;
-      }
-      ol,
-      ul {
-
       }
     }
   }
