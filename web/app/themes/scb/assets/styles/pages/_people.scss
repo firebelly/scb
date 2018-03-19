@@ -70,6 +70,16 @@
 
 }
 
+@include max-screen($breakpoint-medium) {
+  .single-page {
+    &[data-page-title="Universities Represented"] {
+      .article-header h1 {
+        font-size: 46px;
+      }
+    }
+  }
+}
+
 // Single Person in modal
 .modal.person-modal {
 
@@ -200,5 +210,4 @@ body.people {
       }
     }
   }
-
 }

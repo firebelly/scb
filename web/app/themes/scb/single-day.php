@@ -10,7 +10,7 @@
 
   <div class="article-body">
     <header class="article-header">
-      <h3 class="h1">SCB Life</h3>
+      <h3 class="h1">We Are SCB</h3>
       <h1 class="article-title"><?= $post->post_title ?></h1>
     </header>
     <div class="user-content">

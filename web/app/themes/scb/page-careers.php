@@ -85,7 +85,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
 
   <div class="grid-item -right">
     <?php
-    echo '<div class="positions positions-list days"><h2>SCB Life</h2>';
+    echo '<div class="positions positions-list days"><h2>We Are SCB</h2>';
     if ($days = Firebelly\PostTypes\Day\get_days()) {
       echo '<ul>';
       foreach($days as $day) {
