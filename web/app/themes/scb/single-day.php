@@ -10,8 +10,11 @@
 
   <div class="article-body">
     <header class="article-header">
-      <h3 class="h1">We Are SCB</h3>
+      <h3 class="h1">We are SCB</h3>
       <h1 class="article-title"><?= $post->post_title ?></h1>
+      <?php if ($person_title = get_post_meta($post->ID, '_cmb2_day_person_title', true)): ?>
+        <h4><?= $person_title ?></h4>
+      <?php endif; ?>
     </header>
     <div class="user-content">
       <?= apply_filters('the_content', $post->post_content) ?>

@@ -26,6 +26,16 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $day_info->add_field([
+    'name'      => 'Person Title',
+    'id'        => $prefix . 'day_person_title',
+    'type'      => 'text',
+    'desc'      => 'Shown below person name',
+    'column'    => [
+      'position' => 2,
+      'name'     => 'Title',
+    ],
+  ]);
+  $day_info->add_field([
     'name'      => 'Archived',
     'id'        => $prefix . 'archived',
     'type'      => 'checkbox',
