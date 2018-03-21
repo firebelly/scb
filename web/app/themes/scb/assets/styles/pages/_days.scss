@@ -7,18 +7,18 @@
   }
   .article-header {
     padding: 0 60px 20px 0;
-  }
-  h3.h1 {
-    font: 500 42px/1 $sans-medium;
-    color: $green;
-    margin: 0 0 20px;
-  }
-  h4 {
-    font-size: 14px;
-    font-weight: 200;
-    color: $gray-dark;
-    line-height: 1.5em;
-    -webkit-font-smoothing: antialiased;
+    h3.h1 {
+      font: 500 42px/1 $sans-medium;
+      color: $green;
+      margin: 0 0 20px;
+    }
+    h4 {
+      font-size: 14px;
+      font-weight: 200;
+      color: $gray-dark;
+      line-height: 1.5em;
+      -webkit-font-smoothing: antialiased;
+    }
   }
 
   @include min-screen($breakpoint-medium) {
