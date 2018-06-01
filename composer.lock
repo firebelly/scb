@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "3d6efbf7b25fc65b5d810d0155fc9683",
@@ -159,20 +159,20 @@
         },
         {
             "name": "jjgrainger/posttypes",
-            "version": "2.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jjgrainger/PostTypes.git",
-                "reference": "9fa23e785f213f89b3bcd85d6b938c0262ea9dcf"
+                "reference": "04525d30d30ec19fef3478676b4f27aa405ac3a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjgrainger/PostTypes/zipball/9fa23e785f213f89b3bcd85d6b938c0262ea9dcf",
-                "reference": "9fa23e785f213f89b3bcd85d6b938c0262ea9dcf",
+                "url": "https://api.github.com/repos/jjgrainger/PostTypes/zipball/04525d30d30ec19fef3478676b4f27aa405ac3a6",
+                "reference": "04525d30d30ec19fef3478676b4f27aa405ac3a6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.6"
             },
             "require-dev": {
                 "phpunit/phpunit": "5.7",
@@ -197,24 +197,24 @@
             ],
             "description": "Simple WordPress custom post types.",
             "homepage": "https://github.com/jjgrainger/posttype",
-            "time": "2017-10-24T20:26:49+00:00"
+            "time": "2018-03-27T18:30:06+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.9.4",
+            "version": "4.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "5394373d26a8e304eb293c2a9359701a7ab03131"
+                "reference": "ecca35c283591e3f40732522334415521f5aa4b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/5394373d26a8e304eb293c2a9359701a7ab03131",
-                "reference": "5394373d26a8e304eb293c2a9359701a7ab03131",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/ecca35c283591e3f40732522334415521f5aa4b7",
+                "reference": "ecca35c283591e3f40732522334415521f5aa4b7",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "4.9.4",
+                "johnpbloch/wordpress-core": "4.9.6",
                 "johnpbloch/wordpress-core-installer": "^1.0",
                 "php": ">=5.3.2"
             },
@@ -236,27 +236,27 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2018-02-06T16:42:18+00:00"
+            "time": "2018-05-17T20:03:03+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "4.9.4",
+            "version": "4.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "eef672cdb4ae9e846c464d4d03684b43d4108eda"
+                "reference": "6ff81eb3d93d326b78a8bc0f120e72c161ec58c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/eef672cdb4ae9e846c464d4d03684b43d4108eda",
-                "reference": "eef672cdb4ae9e846c464d4d03684b43d4108eda",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/6ff81eb3d93d326b78a8bc0f120e72c161ec58c8",
+                "reference": "6ff81eb3d93d326b78a8bc0f120e72c161ec58c8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
             "provide": {
-                "wordpress/core-implementation": "4.9.4"
+                "wordpress/core-implementation": "4.9.6"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -276,7 +276,7 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2018-02-06T16:42:13+00:00"
+            "time": "2018-05-17T20:02:55+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -449,16 +449,16 @@
         },
         {
             "name": "setasign/fpdi",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDI.git",
-                "reference": "a1016049c50bdb571a1bdcacac896be14dbb1179"
+                "reference": "5998a2f81ae5b4a59eb75ed65e6ec0518163de8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/a1016049c50bdb571a1bdcacac896be14dbb1179",
-                "reference": "a1016049c50bdb571a1bdcacac896be14dbb1179",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/5998a2f81ae5b4a59eb75ed65e6ec0518163de8d",
+                "reference": "5998a2f81ae5b4a59eb75ed65e6ec0518163de8d",
                 "shasum": ""
             },
             "require": {
@@ -504,7 +504,7 @@
                 "fpdi",
                 "pdf"
             ],
-            "time": "2018-02-21T09:12:37+00:00"
+            "time": "2018-04-18T13:00:41+00:00"
         },
         {
             "name": "setasign/fpdi-fpdf",
@@ -659,15 +659,15 @@
         },
         {
             "name": "wpackagist-plugin/akismet",
-            "version": "4.0.3",
+            "version": "4.0.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/akismet/",
-                "reference": "tags/4.0.3"
+                "reference": "tags/4.0.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/akismet.4.0.3.zip",
+                "url": "https://downloads.wordpress.org/plugin/akismet.4.0.7.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -699,7 +699,7 @@
         },
         {
             "name": "wpackagist-plugin/cmb2",
-            "version": "2.3.0",
+            "version": "2.4.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cmb2/",
@@ -707,7 +707,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cmb2.zip?timestamp=1513780345",
+                "url": "https://downloads.wordpress.org/plugin/cmb2.zip?timestamp=1527604966",
                 "reference": null,
                 "shasum": null
             },
@@ -719,15 +719,15 @@
         },
         {
             "name": "wpackagist-plugin/enhanced-media-library",
-            "version": "2.5",
+            "version": "2.6.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/enhanced-media-library/",
-                "reference": "tags/2.5"
+                "reference": "tags/2.6.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.5.zip",
+                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.6.4.zip",
                 "reference": null,
                 "shasum": null
             },
