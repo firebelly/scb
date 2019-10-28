@@ -38,7 +38,7 @@
   ],
   "require": {
     "php": ">=5.4",
-    "johnpbloch/wordpress": ">=4.8",
+    "johnpbloch/wordpress": ">=5.0",
     "composer/installers": "~1.0.12",
     "vlucas/phpdotenv": "^2.0.1",
     "roots/soil": ">=3.0.0",
@@ -51,10 +51,12 @@
     "wpackagist-plugin/category-checklist-tree": ">=1.3.2",
     "wpackagist-plugin/google-sitemap-generator": ">=4.0.8",
     "wpackagist-plugin/enhanced-media-library": ">=2.2",
+    "wpackagist-plugin/disable-gutenberg": "^1.5",
     "iio/libmergepdf": "~3.0",
     "rcamposp/tcpdi-merger": "dev-fix_pdf_size",
     "wpackagist-plugin/cmb2": ">=2.2",
-    "jjgrainger/posttypes": "^2.0"
+    "jjgrainger/posttypes": "^2.0",
+    "wpackagist-plugin/better-search-replace": "^1.3"
   },
   "extra": {
     "installer-paths": {
