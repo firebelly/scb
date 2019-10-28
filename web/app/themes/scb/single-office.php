@@ -1,6 +1,8 @@
 <?php
 $intro = get_post_meta($post->ID, '_cmb2_intro', true);
 $address = get_post_meta($post->ID, '_cmb2_address', true);
+$phone = get_post_meta($post->ID, '_cmb2_phone', true);
+$fax = get_post_meta($post->ID, '_cmb2_fax', true);
 $submit_portfolio_call = get_post_meta($post->ID, '_cmb2_submit_portfolio_call', true);
 $extra_info = get_post_meta($post->ID, '_cmb2_extra_info', true);
 ?>
@@ -31,6 +33,8 @@ $extra_info = get_post_meta($post->ID, '_cmb2_extra_info', true);
           <br><?= $address['address-2'] ?>
         <?php endif; ?>
         <br><?= $address['city'] ?>, <?= $address['state'] ?> <?= $address['zip'] ?>
+        <?= $phone ? '<br>T: '.$phone : '' ?>
+        <?= $fax ? '<br>F: '.$fax : '' ?>
         </p>
       </div>
 
