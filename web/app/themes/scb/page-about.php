@@ -31,7 +31,14 @@ $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
         <div class="wrap">
           <p class="stat-number"><?= $num_offices ?></p>
           <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="/office/chicago" class="show-post-modal">Chicago</a> / <a href="/office/san-francisco" class="show-post-modal">San Francisco</a></p>
+          <?php
+          $offices = Firebelly\PostTypes\Office\get_offices();
+          $officeLinks = [];
+          foreach($offices as $office) {
+            $officeLinks[] = sprintf('<a href="/office/%s" class="show-post-modal">%s</a>', $office->post_name, $office->post_title);
+          }
+          ?>
+          <p class="stat-link"><?= implode('<br>', $officeLinks) ?></p>
         </div>
       </div>
       <div class="stat long-stat">

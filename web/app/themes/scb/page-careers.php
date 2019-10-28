@@ -36,7 +36,14 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <div class="wrap">
           <p class="stat-number"><?= $num_offices ?></p>
           <p class="stat-label">Offices</p>
-          <p class="stat-link"><a href="/office/chicago" class="show-post-modal">Chicago</a> / <a href="/office/san-francisco" class="show-post-modal">San Francisco</a></p>
+          <?php
+          $offices = Firebelly\PostTypes\Office\get_offices();
+          $officeLinks = [];
+          foreach($offices as $office) {
+            $officeLinks[] = sprintf('<a href="/office/%s" class="show-post-modal">%s</a>', $office->post_name, $office->post_title);
+          }
+          ?>
+          <p class="stat-link"><?= implode('<br>', $officeLinks) ?></p>
         </div>
       </div>
       <div class="stat long-stat">
@@ -112,33 +119,39 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
     </div>
   </div>
   <div class="-bottom grid">
-    <div class="positions -left" id="positions">
+    <div class="positions" id="positions">
 
-      <?php
-      $offices = Firebelly\PostTypes\Office\get_offices();
-      foreach($offices as $office) {
-        echo '<div class="positions-list" id="'.$office->post_name.'-positions"><h2>'.$office->post_name.'</h2>';
-        if ($positions = Firebelly\PostTypes\Position\get_positions(['office' => $office->ID])) {
-          echo '<ul>';
-          foreach($positions as $position) {
-            if (!empty($position->post_content))
-              echo '<li><h3><a href="'.get_permalink($position).'" class="show-post-modal">'.$position->post_title.'</a></h3>
-            <a href="'.get_permalink($position).'" class="show-post-modal read-more-link"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
-            else
-              echo '<li>'.$position->post_title.'</li>';
+      <div class="text-grid">
+        <?php
+        $offices = Firebelly\PostTypes\Office\get_offices();
+        foreach($offices as $office) {
+          echo '<div class="column one-fourth positions-list" id="'.$office->post_name.'-positions"><div class="-inner"><h2>'.$office->post_title.'</h2>';
+          if ($positions = Firebelly\PostTypes\Position\get_positions(['office' => $office->ID])) {
+            echo '<ul>';
+            foreach($positions as $position) {
+              if (!empty($position->post_content))
+                echo '<li><h3><a href="'.get_permalink($position).'" class="show-post-modal">'.$position->post_title.'</a></h3>
+              <a href="'.get_permalink($position).'" class="show-post-modal read-more-link"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
+              else
+                echo '<li>'.$position->post_title.'</li>';
+            }
+            echo '</ul>';
+          } else {
+            echo '<p>No current positions</p>';
           }
-          echo '</ul></div>';
+          echo '</div></div>';
         }
-      }
-      ?>
+        // Empty columns if < 4 offices
+        for ($i=0; $i < 4 - count($offices); $i++) {
+          echo '<div class="column one-fourth">&nbsp;</div>';
+        }
+        ?>
+      </div>
+
       <div class="submit-portfolio-link">
         <p>Don’t see what you’re looking for listed here? We’re always looking for creative, dynamic individuals to join our team. <a href="/careers/submit-portfolio/" rel="nofollow" class="submit-portfolio nobreak">Submit your portfolio</a></p>
       </div>
-    </div>
-    <div class="positions-image -right">
-    <?php if (!empty($project_images[3])): ?>
-      <img src="<?= $project_images[3] ?>" alt="Open positions at SCB">
-    <?php endif; ?>
+
     </div>
   </div>
   <div class="terms grid">
