@@ -17,53 +17,56 @@
       </div>
     </div>
 
-    <div class="grid grid-item one-half -right">
-      <div class="contact-group" id="contact">
-        <h3><a href="/office/chicago/"  class="show-post-modal">Chicago</a></h3>
+    <?php
+    $offices = Firebelly\PostTypes\Office\get_offices();
+    $officeBlocks = [];
+    foreach($offices as $office):
+      $address = get_post_meta($office->ID, '_cmb2_address', true);
+      $phone = get_post_meta($office->ID, '_cmb2_phone', true);
+      $fax = get_post_meta($office->ID, '_cmb2_fax', true);
+      $officeBlock = '';
+      ob_start();
+      ?>
+      <div class="footer-office">
+        <h3><a href="<?= get_permalink($office) ?>" class="show-post-modal"><?= $office->post_title ?></a></h3>
         <ul>
           <li class="address">
             <address class="vcard">
-              <span class="street-address">625 N. Michigan Avenue <span>Suite 800</span></span>
-              <span class="locality">Chicago, IL</span>
-              <span class="postal-code">60611 USA</span>
+              <span class="street-address"><?= $address['address-1'] ?><?= !empty($address['address-2']) ? '<span>'.$address['address-2'].'</span>' : '' ?></span>
+              <span class="locality"><?= $address['city'] ?>, <?= $address['state'] ?></span>
+              <span class="postal-code"><?= $address['zip'] ?> USA</span>
             </address>
           </li>
           <li class="contact">
-            <span class="tel"><b>T</b> +1 312 896 1100</span>
-            <span class="tel"><b>F</b> +1 312 896 1200</span>
+            <?php if (!empty($phone)): ?>
+              <span class="tel"><b>T</b> <?= $phone ?></span>
+            <?php endif; ?>
+            <?php if (!empty($fax)): ?>
+              <span class="tel"><b>F</b> <?= $fax ?></span>
+            <?php endif; ?>
           </li>
         </ul>
       </div>
+      <?php $officeBlocks[] = ob_get_clean(); ?>
+
+    <?php endforeach; ?>
+
+    <div class="grid grid-item one-half -right">
+      <div class="contact-group" id="contact">
+        <?= $officeBlocks[0] ?>
+        <?= !empty($officeBlocks[2]) ? $officeBlocks[2] : '' ?>
+      </div>
 
       <div class="contact-group">
-        <h3><a href="/office/san-francisco/"  class="show-post-modal">San Francisco</a></h3>
-        <ul>
-          <li class="address">
-            <address class="vcard">
-              <span class="street-address">255 California Street <span>3rd Floor</span></span>
-              <span class="locality">San Francisco, CA</span>
-              <span class="postal-code">94111 USA</span>
-            </address>
-          </li>
-          <li class="contact">
-            <span class="tel"><b>T</b> +1 415 216 2450</span>
-            <span class="tel"><b>F</b> +1 415 216 2451</span>
-          </li>
-        </ul>
+        <?= $officeBlocks[1] ?>
+        <?= !empty($officeBlocks[3]) ? $officeBlocks[3] : '' ?>
       </div>
 
       <div class="contact-group">
         <h3>Media</h3>
         <ul>
-          <li class="address hide">
-            <span></span>
-            <span>Public Relations</span>
-            <span>Manager</span>
-          </li>
           <li class="contact">
-            <span class="tel"><b>T</b> +1 312 896 1164</span>
-            <span class="tel"><b>M</b> +1 312 697 9292</span>
-            <span class="email"><b>E</b> <a href="mailto:vickie@scb.com">vickie@scb.com</a></span>
+            <?= \Firebelly\SiteOptions\get_option( 'media_contact', '' ); ?>
           </li>
         </ul>
       </div>

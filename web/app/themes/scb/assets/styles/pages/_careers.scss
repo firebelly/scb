@@ -327,13 +327,13 @@
   }
 
   .positions-list {
-    &:first-of-type {
-      margin-bottom: 30px;
+    // &:first-of-type {
+    //   margin-bottom: 30px;
 
-      @include min-screen($breakpoint-medium) {
-        margin-bottom: 60px;
-      }
-    }
+    //   @include min-screen($breakpoint-medium) {
+    //     margin-bottom: 60px;
+    //   }
+    // }
   }
 
   h2 {
