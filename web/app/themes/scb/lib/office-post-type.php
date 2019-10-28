@@ -146,6 +146,17 @@ function metaboxes( array $meta_boxes ) {
         'id'      => $prefix . 'address',
         'type'    => 'address',
       ),
+      array(
+        'name' => 'Phone',
+        'id'   => $prefix . 'phone',
+        'type' => 'text',
+      ),
+      array(
+        'name' => 'Fax',
+        'id'   => $prefix . 'fax',
+        'type' => 'text',
+      ),
+
     ),
   );
 
@@ -166,7 +177,6 @@ function get_offices() {
   $args = array(
     'numberposts' => -1,
     'post_type' => 'office',
-    'orderby' => ['date' => 'ASC'],
     );
 
   $offices = get_posts($args);
