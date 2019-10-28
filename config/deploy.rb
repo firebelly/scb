@@ -6,7 +6,7 @@ set :repo_url, 'git@github.com:firebelly/scb.git'
 set :php, 'php72'
 
 # For wpcli db command search-replace
-set :wpcli_remote_url, "http://#{fetch(:domain)}"
+set :wpcli_remote_url, "https://#{fetch(:domain)}"
 set :wpcli_local_url, "http://#{fetch(:theme)}.localhost"
 
 # Hardcodes branch to always be master

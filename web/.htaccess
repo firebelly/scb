@@ -17,15 +17,14 @@ RewriteRule ^([0-9]+)/([0-9]+)/([0-9]+)/(.*)/?$ /$1/$2/$4/ [R=301,L]
 # Force SSL
 RewriteCond %{HTTP:X-Forwarded-SSL} !on
 RewriteCond %{REQUEST_URI} !\.well-known/acme-challenge
-RewriteCond %{HTTP_HOST} !^stage\.scb.com [NC]
 RewriteCond %{HTTP_HOST} !^scb\.localhost [NC]
-RewriteRule ^(.*)$ https://www.scb.com/$1 [R=301,L]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Force www
 RewriteCond %{HTTP_HOST} !^www\.scb\.com$ [NC]
 RewriteCond %{HTTP_HOST} !^stage\.scb\.com$ [NC]
 RewriteCond %{HTTP_HOST} !^scb\.localhost$ [NC]
-RewriteRule ^(.*)$ https://www.scb.com/$1 [R=301,L]
+RewriteRule ^(.*)$ https://www.scb.com%{REQUEST_URI} [R=301,L]
 # END redirects
 
 # BEGIN speedups
