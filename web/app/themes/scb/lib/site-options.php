@@ -146,6 +146,16 @@ class FbSiteOptions {
 		) );
 
 		$cmb->add_field( array(
+			'name' => __( 'Media Contact', 'firebelly' ),
+			'id'   => 'media_contact',
+			'desc' => __( 'Media contact details shown at end of footer'),
+			'type' => 'wysiwyg',
+			'options' => array(
+			  'textarea_rows' => 4,
+			),
+		) );
+
+		$cmb->add_field( array(
 			'name' => __( 'Facebook App ID', 'firebelly' ),
 			'desc'    => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'firebelly' ),
 			'id'   => 'facebook_app_id',
