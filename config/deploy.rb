@@ -1,9 +1,13 @@
 set :application, 'scb'
-set :domain, 'scb.firebelly.co'
+set :domain, 'stage.scb.com'
+set :login, 'scbmarketing'
 set :theme, 'scb'
-set :login, 'firebelly'
 set :repo_url, 'git@github.com:firebelly/scb.git'
-set :php, 'php54'
+set :php, 'php72'
+
+# For wpcli db command search-replace
+set :wpcli_remote_url, "http://#{fetch(:domain)}"
+set :wpcli_local_url, "http://#{fetch(:theme)}.localhost"
 
 # Hardcodes branch to always be master
 # This could be overridden in a stage config file
@@ -38,9 +42,14 @@ end
 # Set path to Composer on WebFaction
 namespace :deploy do
   before :starting, :map_composer_command do
-      on roles(:app) do |server|
-          SSHKit.config.command_map[:composer] = "#{fetch(:php)} /home/#{fetch(:login)}/bin/composer.phar"
+    on roles(:app) do |server|
+      # set previous_release to current_path for use below
+      if ENV['NOASSETS'] != nil
+        set :previous_release, capture("readlink #{current_path}")
       end
+      SSHKit.config.command_map[:wp] = "/home/#{fetch(:login)}/bin/wp"
+      SSHKit.config.command_map[:composer] = "#{fetch(:php)} /home/#{fetch(:login)}/bin/composer.phar"
+    end
   end
 end
 
@@ -62,21 +71,21 @@ namespace :deploy do
     end
   end
 
-  task :ungulp do
-    run_locally do
-      execute "cd #{fetch(:local_theme_path)} && npx gulp --development"
-    end
-  end
-
   task :copy_assets do
-    invoke 'deploy:compile_assets'
+    # `NOASSETS=1 cap staging deploy` to skip compiling & uploading assets, and instead copy previous dist dir
+    if ENV['NOASSETS'] == nil
+      invoke 'deploy:compile_assets'
 
-    on roles(:web) do
-      upload! fetch(:local_theme_path).join('dist').to_s, release_path.join(fetch(:theme_path)), recursive: true
+      on roles(:web) do
+        upload! fetch(:local_theme_path).join('dist').to_s, release_path.join(fetch(:theme_path)), recursive: true
+      end
+    else
+      # just copy dist dir
+      on roles(:app) do
+        execute "cp -R #{Pathname.new(fetch(:previous_release)).join(fetch(:theme_path)).join('dist')} #{release_path.join(fetch(:theme_path))}/"
+      end
     end
-
-    invoke 'deploy:ungulp'
   end
 end
 
-before "deploy:updated", "deploy:copy_assets"
+before 'deploy:updated', 'deploy:copy_assets'

@@ -1,8 +1,5 @@
-set :application, 'scb_staging'
 set :stage, :staging
-set :domain, 'stage.scb.com'
-set :php, 'php70'
-set :login, 'scbmarketing'
+set :application, 'scb_staging'
 
 # Simple Role Syntax
 # ==================

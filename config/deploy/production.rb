@@ -1,7 +1,8 @@
 set :stage, :production
 set :domain, 'www.scb.com'
-set :php, 'php70'
+set :php, 'php72'
 set :login, 'scbmarketing'
+set :wpcli_remote_url, "https://#{fetch(:domain)}"
 
 # Simple Role Syntax
 # ==================

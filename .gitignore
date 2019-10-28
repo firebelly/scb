@@ -37,3 +37,7 @@ bin
 
 # Mac
 .DS_Store
+
+# Capistrano
+log/
+config/backup
