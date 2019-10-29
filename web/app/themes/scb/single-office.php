@@ -46,17 +46,15 @@ $extra_info = get_post_meta($post->ID, '_cmb2_extra_info', true);
 
       <?php
         $office = $post->post_name;
-        if ($positions = Firebelly\PostTypes\Position\get_positions()) {
+        $positions = Firebelly\PostTypes\Position\get_positions(['office' => $office]);
+        if (!empty($positions)) {
           echo '<div class="info-section positions"><h3>Open Positions</h3><ul>';
           foreach($positions as $position) {
-            $related_office = Firebelly\Utils\get_office($position);
-            if ($related_office->post_name == $office) {
-              if (!empty($position->post_content))
-                echo '<li><h3><a href="'.get_permalink($position).'" class="show-post-modal">'.$position->post_title.'</a></h3>
-              <a href="'.get_permalink($position).'" class="show-post-modal read-more-link"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
-              else
-                echo '<li>'.$position->post_title.'</li>';
-            }
+            if (!empty($position->post_content))
+              echo '<li><h3><a href="'.get_permalink($position).'" class="show-post-modal">'.$position->post_title.'</a></h3>
+            <a href="'.get_permalink($position).'" class="show-post-modal read-more-link"><button class="plus-button"><div class="plus"></div></button> <span class="sr-only">Continued</span></a></li>';
+            else
+              echo '<li>'.$position->post_title.'</li>';
           }
           echo '</ul></div>';
         }
