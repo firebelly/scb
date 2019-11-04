@@ -126,7 +126,7 @@ class FbSiteOptions {
 			'id'   => 'social_links',
 			'type' => 'wysiwyg',
 			'options' => array(
-			  'textarea_rows' => 6,
+			  'textarea_rows' => 4,
 			),
 		) );
 
