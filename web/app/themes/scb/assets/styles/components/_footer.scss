@@ -28,9 +28,11 @@
     }
   }
 
-  .social {
-    margin: 0;
-    padding: 0;
+  .social-links {
+    ul {
+      margin: 0 0 20px;
+      padding: 0;
+    }
     a {
       color: $black;
       @include sc();

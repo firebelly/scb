@@ -115,34 +115,19 @@ class FbSiteOptions {
 		// Set our CMB2 fields
 
 		$cmb->add_field( array(
-			'name' => __( 'Facebook ID', 'firebelly' ),
-			'id'   => 'facebook_id',
-			'type' => 'text',
-		) );
-
-		$cmb->add_field( array(
-			'name' => __( 'Twitter ID', 'firebelly' ),
-			'id'   => 'twitter_id',
-			'type' => 'text',
-		) );
-
-		$cmb->add_field( array(
-			'name' => __( 'Instagram ID', 'firebelly' ),
-			'id'   => 'instagram_id',
-			'type' => 'text',
-		) );
-
-		$cmb->add_field( array(
-			'name' => __( 'LinkedIn ID', 'firebelly' ),
-			'id'   => 'linkedin_id',
-			'type' => 'text',
-		) );
-
-		$cmb->add_field( array(
 			'name' => __( 'Contact Email', 'firebelly' ),
 			'id'   => 'contact_email',
 			'desc' => __( 'Email shown in the footer'),
 			'type' => 'text_email',
+		) );
+
+		$cmb->add_field( array(
+			'name' => __('Social Links', 'firebelly'),
+			'id'   => 'social_links',
+			'type' => 'wysiwyg',
+			'options' => array(
+			  'textarea_rows' => 6,
+			),
 		) );
 
 		$cmb->add_field( array(

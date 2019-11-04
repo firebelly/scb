@@ -6,14 +6,11 @@
 
     <div class="grid-item one-half -left">
       <div class="container">
-        <p class="email-link"><a href="mailto:<?= \Firebelly\SiteOptions\get_option( 'contact_email', 'hello@scb.com' ); ?>" class="highlight-hover"><?= \Firebelly\SiteOptions\get_option( 'contact_email', 'hello@scb.com' ); ?></a></p>
+        <p class="email-link"><a href="mailto:<?= \Firebelly\SiteOptions\get_option( 'contact_email', 'hello@scb.com' ); ?>" class="highlight-hover"><?= \Firebelly\SiteOptions\get_option('contact_email', 'hello@scb.com'); ?></a></p>
 
-        <ul class="social">
-          <li><a target="_blank" href="https://www.facebook.com/<?php echo \Firebelly\SiteOptions\get_option( 'facebook_id', 'SolomonCordwellBuenz' ); ?>">Facebook</a></li>
-          <li><a target="_blank" href="https://twitter.com/<?php echo \Firebelly\SiteOptions\get_option( 'twitter_id', 'SoloCordBuenz' ); ?>">Twitter</a></li>
-          <li><a target="_blank" href="https://instagram.com/<?php echo \Firebelly\SiteOptions\get_option( 'instagram_id', 'solomoncordwellbuenz' ); ?>">Instagram</a></li>
-          <li><a target="_blank" href="http://linkedin.com/company/<?php echo \Firebelly\SiteOptions\get_option( 'linkedin_id', 'solomon-cordwell-buenz' ); ?>">LinkedIn</a></li>
-        </ul>
+        <div class="social-links">
+          <?= apply_filters('the_content', \Firebelly\SiteOptions\get_option('social_links')) ?>
+        </div>
       </div>
     </div>
 
