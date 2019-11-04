@@ -326,18 +326,13 @@
     position: absolute;
   }
 
-  .positions-list {
-    // &:first-of-type {
-    //   margin-bottom: 30px;
-
-    //   @include min-screen($breakpoint-medium) {
-    //     margin-bottom: 60px;
-    //   }
-    // }
-  }
-
   h2 {
     @include sc();
+    a {
+      text-decoration: none;
+      color: $black;
+      @include coloredHover();
+    }
     margin-bottom: 20px;
   }
 
@@ -345,7 +340,7 @@
     margin-bottom: 14px;
   }
 
-  a:not(.read-more-link) {
+  ul a:not(.read-more-link) {
     color: $gray-dark;
     padding-bottom: 2px;
     text-decoration: none;

@@ -141,23 +141,7 @@
   .contact .email a {
     font-size: 10px;
     text-decoration: none;
-    position: relative;
-    &:hover, &:focus {
-      &:before {
-        height: 1.1em;
-      }
-    }
-    &:before {
-      left: 0;
-      height: 0;
-      z-index: -1;
-      bottom: 2px;
-      content: '';
-      width: 100%;
-      position: absolute;
-      background: $brand-primary;
-      transition: height .1s ease-out;
-    }
+    @include coloredHover();
 
     @include min-screen($breakpoint-small) {
       .email a {

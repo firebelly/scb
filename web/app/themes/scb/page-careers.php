@@ -125,7 +125,7 @@ $num_internships = \Firebelly\SiteOptions\get_option('num_internships');
         <?php
         $offices = Firebelly\PostTypes\Office\get_offices();
         foreach($offices as $office) {
-          echo '<div class="column one-fourth positions-list" id="'.$office->post_name.'-positions"><div class="-inner"><h2>'.$office->post_title.'</h2>';
+          echo '<div class="column one-fourth positions-list" id="'.$office->post_name.'-positions"><div class="-inner"><h2><a href="' . get_permalink($office) . '" class="show-post-modal">'.$office->post_title.'</a></h2>';
           if ($positions = Firebelly\PostTypes\Position\get_positions(['office' => $office->ID])) {
             echo '<ul>';
             foreach($positions as $position) {

@@ -292,7 +292,8 @@ gulp.task('watch', ['build'], function() {
 
 // ### Build
 gulp.task('build', function(callback) {
-  runSequence('styles',
+  runSequence('clean',
+              'styles',
               'scripts',
               ['fonts', 'images'],
               callback);
@@ -313,6 +314,6 @@ gulp.task('wiredep', function() {
 
 // ### Gulp
 // `gulp` - Run a complete build. To compile for production run `gulp --production`.
-gulp.task('default', ['clean'], function() {
+gulp.task('default', function() {
   gulp.start('build');
 });
