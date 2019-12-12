@@ -26,8 +26,13 @@ $san_francisco_id = url_to_postid('/office/san-francisco');
     <div class="info -left">
       <div class="info-section locations">
         <h3>Locations</h3>
-        <p><a href="/office/chicago" class="show-post-modal">Chicago</a></p>
-        <p><a href="/office/san-francisco" class="show-post-modal">San Francisco</a></p>
+        <?php
+        $offices = Firebelly\PostTypes\Office\get_offices();
+        $officeLinks = [];
+        foreach($offices as $office) {
+          echo sprintf('<p><a href="/office/%s" class="show-post-modal">%s</a></p>', $office->post_name, $office->post_title);
+        }
+        ?>
       </div>
 
       <div class="info-section duration">
