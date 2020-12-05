@@ -1,9 +1,9 @@
 set :application, 'scb'
 set :domain, 'stage.scb.com'
-set :login, 'scbmarketing'
+set :login, 'scb'
 set :theme, 'scb'
 set :repo_url, 'git@github.com:firebelly/scb.git'
-set :php, 'php72'
+set :php, 'php74'
 
 # For wpcli db command search-replace
 set :wpcli_remote_url, "https://#{fetch(:domain)}"
@@ -13,7 +13,7 @@ set :wpcli_local_url, "http://#{fetch(:theme)}.localhost"
 # This could be overridden in a stage config file
 set :branch, :master
 
-set :deploy_to, -> { "/home/#{fetch(:login)}/webapps/#{fetch(:application)}" }
+set :deploy_to, -> { "/home/#{fetch(:login)}/apps/#{fetch(:application)}" }
 
 set :tmp_dir, -> { "/home/#{fetch(:login)}/tmp" }
 
