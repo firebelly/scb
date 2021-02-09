@@ -22,7 +22,7 @@ set :log_level, :info
 
 # Apache users with .htaccess files:
 # it needs to be added to linked_files so it persists across deploys:
-set :linked_files, fetch(:linked_files, []).push('.env', 'web/.htaccess', 'web/php.ini', 'web/robots.txt')
+set :linked_files, fetch(:linked_files, []).push('.env', 'web/.htaccess', 'web/php.ini', 'web/robots.txt', 'web/d5fb22e7b8d0a6beae8941f892b0dc1e.txt')
 set :linked_dirs, fetch(:linked_dirs, []).push('web/app/uploads', 'web/autodiscover')
 
 namespace :deploy do
