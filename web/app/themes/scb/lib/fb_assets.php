@@ -55,5 +55,6 @@ function admin_scripts_inline() {
 add_filter('upload_mimes', __NAMESPACE__ . '\allow_vcard_upload');
 function allow_vcard_upload ( $mimes=array() ){
   $mimes['vcf'] = 'text/x-vcard';
+  $mimes['vcard'] = 'text/vcard';
   return $mimes;
 }
