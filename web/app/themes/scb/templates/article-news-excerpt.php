@@ -4,7 +4,7 @@ $category = Utils\get_category($news_post);
 $thumb = \Firebelly\Media\get_post_thumbnail($news_post->ID);
 $featured_class = get_post_meta($news_post->ID, '_featured', true) ? ' featured-post' : '';
 ?>
-<article <?php post_class("article show-post-modal".$featured_class, $news_post->ID); ?> data-id="<?= $news_post->ID; ?>" data-page-title="<?= $news_post->post_title ?>" data-page-url="<?= get_permalink($news_post) ?>" data-pageClass="<?= $parent_cat ?>" data-modal-type="news">
+<article <?php post_class("article show-post-modal".$featured_class, $news_post->ID); ?> data-id="<?= $news_post->ID; ?>" data-page-title="<?= $news_post->post_title ?>" data-page-url="<?= get_permalink($news_post) ?>" data-pageClass="<?= !empty($parent_cat) ? $parent_cat : '' ?>" data-modal-type="news">
   <div class="background-image-wrap">
     <div class="background-image" <?php if ($thumb) { echo 'style="background-image:url('.$thumb.');"'; } ?>></div>
     <div class="article-inner">
