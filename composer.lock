@@ -8,20 +8,17 @@
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.25",
+            "version": "v1.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "36e5b5843203d7f1cf6ffb0305a97e014387bd8e"
+                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/36e5b5843203d7f1cf6ffb0305a97e014387bd8e",
-                "reference": "36e5b5843203d7f1cf6ffb0305a97e014387bd8e",
+                "url": "https://api.github.com/repos/composer/installers/zipball/d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
+                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
                 "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.0"
             },
             "replace": {
                 "roundcube/plugin-installer": "*",
@@ -31,16 +28,16 @@
                 "composer/composer": "1.0.*@dev",
                 "phpunit/phpunit": "4.1.*"
             },
-            "type": "composer-plugin",
+            "type": "composer-installer",
             "extra": {
-                "class": "Composer\\Installers\\Plugin",
+                "class": "Composer\\Installers\\Installer",
                 "branch-alias": {
                     "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Composer\\Installers\\": "src/Composer/Installers"
+                "psr-0": {
+                    "Composer\\Installers\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -55,14 +52,12 @@
                 }
             ],
             "description": "A multi-framework Composer library installer",
-            "homepage": "https://composer.github.io/installers/",
+            "homepage": "http://composer.github.com/installers/",
             "keywords": [
                 "Craft",
                 "Dolibarr",
                 "Hurad",
-                "ImageCMS",
                 "MODX Evo",
-                "Mautic",
                 "OXID",
                 "SMF",
                 "Thelia",
@@ -104,7 +99,11 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-04-13T19:46:30+00:00"
+            "support": {
+                "issues": "https://github.com/composer/installers/issues",
+                "source": "https://github.com/composer/installers/tree/master"
+            },
+            "time": "2015-02-18T17:17:01+00:00"
         },
         {
             "name": "iio/libmergepdf",
@@ -155,28 +154,32 @@
                 "merge",
                 "pdf"
             ],
+            "support": {
+                "issues": "https://github.com/hanneskod/libmergepdf/issues",
+                "source": "https://github.com/hanneskod/libmergepdf/tree/master"
+            },
             "time": "2017-12-11T20:42:07+00:00"
         },
         {
             "name": "jjgrainger/posttypes",
-            "version": "2.0.1",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jjgrainger/PostTypes.git",
-                "reference": "04525d30d30ec19fef3478676b4f27aa405ac3a6"
+                "reference": "a87584606e9ef726f7621c1d71a184fdf7282172"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjgrainger/PostTypes/zipball/04525d30d30ec19fef3478676b4f27aa405ac3a6",
-                "reference": "04525d30d30ec19fef3478676b4f27aa405ac3a6",
+                "url": "https://api.github.com/repos/jjgrainger/PostTypes/zipball/a87584606e9ef726f7621c1d71a184fdf7282172",
+                "reference": "a87584606e9ef726f7621c1d71a184fdf7282172",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": ">=7.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "5.7",
-                "squizlabs/php_codesniffer": "^2.8"
+                "phpunit/phpunit": "8.*",
+                "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
             "autoload": {
@@ -192,30 +195,34 @@
                 {
                     "name": "Joe Grainger",
                     "email": "hello@jjgrainger.co.uk",
-                    "homepage": "http://jjgrainger.co.uk"
+                    "homepage": "https://jjgrainger.co.uk"
                 }
             ],
             "description": "Simple WordPress custom post types.",
             "homepage": "https://github.com/jjgrainger/posttype",
-            "time": "2018-03-27T18:30:06+00:00"
+            "support": {
+                "issues": "https://github.com/jjgrainger/PostTypes/issues",
+                "source": "https://github.com/jjgrainger/PostTypes/tree/v2.1"
+            },
+            "time": "2020-04-12T13:01:12+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "5.2.4",
+            "version": "5.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "33fca34d16818a8d893d374eecd5c8c46cab6e88"
+                "reference": "22ea3c6aa631e296c528f58a67371fb2a5e674f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/33fca34d16818a8d893d374eecd5c8c46cab6e88",
-                "reference": "33fca34d16818a8d893d374eecd5c8c46cab6e88",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/22ea3c6aa631e296c528f58a67371fb2a5e674f2",
+                "reference": "22ea3c6aa631e296c528f58a67371fb2a5e674f2",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.2.4",
-                "johnpbloch/wordpress-core-installer": "^1.0",
+                "johnpbloch/wordpress-core": "5.7.0",
+                "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=5.6.20"
             },
             "type": "package",
@@ -236,27 +243,35 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2019-10-14T20:47:31+00:00"
+            "support": {
+                "forum": "http://wordpress.org/support/",
+                "irc": "irc://irc.freenode.net/wordpress",
+                "issues": "http://core.trac.wordpress.org/",
+                "source": "http://core.trac.wordpress.org/browser",
+                "wiki": "http://codex.wordpress.org/"
+            },
+            "time": "2021-03-09T20:32:28+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.2.4",
+            "version": "5.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "01530fea56649a4040971fc614baa546273d964c"
+                "reference": "8b057056692ca196aaa7a7ddd915f29426922c6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/01530fea56649a4040971fc614baa546273d964c",
-                "reference": "01530fea56649a4040971fc614baa546273d964c",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/8b057056692ca196aaa7a7ddd915f29426922c6d",
+                "reference": "8b057056692ca196aaa7a7ddd915f29426922c6d",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.2.4"
+                "wordpress/core-implementation": "5.7.0"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -266,41 +281,49 @@
             "authors": [
                 {
                     "name": "WordPress Community",
-                    "homepage": "http://wordpress.org/about/"
+                    "homepage": "https://wordpress.org/about/"
                 }
             ],
             "description": "WordPress is open source software you can use to create a beautiful website, blog, or app.",
-            "homepage": "http://wordpress.org/",
+            "homepage": "https://wordpress.org/",
             "keywords": [
                 "blog",
                 "cms",
                 "wordpress"
             ],
-            "time": "2019-10-14T20:47:26+00:00"
+            "support": {
+                "forum": "https://wordpress.org/support/",
+                "irc": "irc://irc.freenode.net/wordpress",
+                "issues": "https://core.trac.wordpress.org/",
+                "source": "https://core.trac.wordpress.org/browser",
+                "wiki": "https://codex.wordpress.org/"
+            },
+            "time": "2021-03-09T20:32:23+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
-            "version": "1.0.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core-installer.git",
-                "reference": "fd12f5cfe27223b92b0f4bbc097059eb23cc56c4"
+                "reference": "237faae9a60a4a2e1d45dce1a5836ffa616de63e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/fd12f5cfe27223b92b0f4bbc097059eb23cc56c4",
-                "reference": "fd12f5cfe27223b92b0f4bbc097059eb23cc56c4",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/237faae9a60a4a2e1d45dce1a5836ffa616de63e",
+                "reference": "237faae9a60a4a2e1d45dce1a5836ffa616de63e",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0"
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">=5.6.0"
             },
             "conflict": {
                 "composer/installers": "<1.0.6"
             },
             "require-dev": {
-                "composer/composer": "^1.0",
-                "phpunit/phpunit": ">=4.8.35"
+                "composer/composer": "^1.0 || ^2.0",
+                "phpunit/phpunit": ">=5.7.27"
             },
             "type": "composer-plugin",
             "extra": {
@@ -325,7 +348,11 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2018-11-09T20:10:38+00:00"
+            "support": {
+                "issues": "https://github.com/johnpbloch/wordpress-core-installer/issues",
+                "source": "https://github.com/johnpbloch/wordpress-core-installer/tree/master"
+            },
+            "time": "2020-04-16T21:44:57+00:00"
         },
         {
             "name": "rcamposp/tcpdi-merger",
@@ -365,40 +392,57 @@
         },
         {
             "name": "roots/soil",
-            "version": "3.8.1",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/soil.git",
-                "reference": "7920eb22bb434c1b86ff3d4d7dc318498de0c675"
+                "reference": "6b3aab8ea41877136f53757ef85449f2484bfd83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roots/soil/zipball/7920eb22bb434c1b86ff3d4d7dc318498de0c675",
-                "reference": "7920eb22bb434c1b86ff3d4d7dc318498de0c675",
+                "url": "https://api.github.com/repos/roots/soil/zipball/6b3aab8ea41877136f53757ef85449f2484bfd83",
+                "reference": "6b3aab8ea41877136f53757ef85449f2484bfd83",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "~1.0",
-                "php": ">=5.4.0"
+                "php": ">=5.6.0"
             },
             "require-dev": {
-                "squizlabs/php_codesniffer": "^2.5.1"
+                "brain/monkey": "^2.4",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "mockery/mockery": "^1.3 | ^1.4",
+                "phpcompatibility/php-compatibility": "^9.3",
+                "phpunit/phpunit": "<= 9.3",
+                "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "wordpress-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Roots\\Soil\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
+                    "name": "Ben Word",
+                    "email": "ben@benword.com",
+                    "homepage": "https://github.com/retlehs"
+                },
+                {
                     "name": "Scott Walkinshaw",
                     "email": "scott.walkinshaw@gmail.com",
                     "homepage": "https://github.com/swalkinshaw"
                 },
                 {
-                    "name": "Ben Word",
-                    "email": "ben@benword.com",
-                    "homepage": "https://github.com/retlehs"
+                    "name": "QWp6t",
+                    "email": "craig@roots.io",
+                    "homepage": "https://github.com/qwp6t"
                 }
             ],
             "description": "A WordPress plugin which contains a collection of modules to apply theme-agnostic front-end modifications",
@@ -406,20 +450,35 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2019-05-23T21:45:50+00:00"
+            "support": {
+                "forum": "https://discourse.roots.io/",
+                "issues": "https://github.com/roots/soil/issues",
+                "source": "https://github.com/roots/soil/tree/4.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://roots.io/plugins/soil/",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/rootsdev",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-09-11T00:46:10+00:00"
         },
         {
             "name": "setasign/fpdf",
-            "version": "1.8.1",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDF.git",
-                "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1"
+                "reference": "d77904018090c17dc9f3ab6e944679a7a47e710a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/2c68c9e6c034ac3187d25968790139a73184cdb1",
-                "reference": "2c68c9e6c034ac3187d25968790139a73184cdb1",
+                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/d77904018090c17dc9f3ab6e944679a7a47e710a",
+                "reference": "d77904018090c17dc9f3ab6e944679a7a47e710a",
                 "shasum": ""
             },
             "type": "library",
@@ -430,7 +489,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "no usage restriction"
+                "MIT"
             ],
             "authors": [
                 {
@@ -445,37 +504,41 @@
                 "fpdf",
                 "pdf"
             ],
-            "time": "2016-01-01T17:47:15+00:00"
+            "support": {
+                "source": "https://github.com/Setasign/FPDF/tree/1.8.2"
+            },
+            "time": "2019-12-08T10:32:10+00:00"
         },
         {
             "name": "setasign/fpdi",
-            "version": "v2.2.0",
+            "version": "v2.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDI.git",
-                "reference": "3c266002f8044f61b17329f7cd702d44d73f0f7f"
+                "reference": "6231e315f73e4f62d72b73f3d6d78ff0eed93c31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/3c266002f8044f61b17329f7cd702d44d73f0f7f",
-                "reference": "3c266002f8044f61b17329f7cd702d44d73f0f7f",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/6231e315f73e4f62d72b73f3d6d78ff0eed93c31",
+                "reference": "6231e315f73e4f62d72b73f3d6d78ff0eed93c31",
                 "shasum": ""
             },
             "require": {
                 "ext-zlib": "*",
-                "php": "^5.6 || ^7.0"
+                "php": "^5.6 || ^7.0 || ^8.0"
+            },
+            "conflict": {
+                "setasign/tfpdf": "<1.31"
             },
             "require-dev": {
                 "phpunit/phpunit": "~5.7",
                 "setasign/fpdf": "~1.8",
-                "setasign/tfpdf": "1.25",
+                "setasign/tfpdf": "1.31",
+                "squizlabs/php_codesniffer": "^3.5",
                 "tecnickcom/tcpdf": "~6.2"
             },
             "suggest": {
-                "setasign/fpdf": "FPDI will extend this class but as it is also possible to use TCPDF or tFPDF as an alternative. There's no fixed dependency configured.",
-                "setasign/fpdi-fpdf": "Use this package to automatically evaluate dependencies to FPDF.",
-                "setasign/fpdi-tcpdf": "Use this package to automatically evaluate dependencies to TCPDF.",
-                "setasign/fpdi-tfpdf": "Use this package to automatically evaluate dependencies to tFPDF."
+                "setasign/fpdf": "FPDI will extend this class but as it is also possible to use TCPDF or tFPDF as an alternative. There's no fixed dependency configured."
             },
             "type": "library",
             "autoload": {
@@ -506,25 +569,35 @@
                 "fpdi",
                 "pdf"
             ],
-            "time": "2019-01-30T14:11:19+00:00"
+            "support": {
+                "issues": "https://github.com/Setasign/FPDI/issues",
+                "source": "https://github.com/Setasign/FPDI/tree/v2.3.6"
+            },
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/setasign/fpdi",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-02-11T11:37:01+00:00"
         },
         {
             "name": "setasign/fpdi-fpdf",
-            "version": "v2.2.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDI-FPDF.git",
-                "reference": "e4363ac09e1b766b38ebea1c3cbe82b3480a11e9"
+                "reference": "f2fdc44e4d5247a3bb55ed2c2c1396ef05c02357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI-FPDF/zipball/e4363ac09e1b766b38ebea1c3cbe82b3480a11e9",
-                "reference": "e4363ac09e1b766b38ebea1c3cbe82b3480a11e9",
+                "url": "https://api.github.com/repos/Setasign/FPDI-FPDF/zipball/f2fdc44e4d5247a3bb55ed2c2c1396ef05c02357",
+                "reference": "f2fdc44e4d5247a3bb55ed2c2c1396ef05c02357",
                 "shasum": ""
             },
             "require": {
-                "setasign/fpdf": "^1.8",
-                "setasign/fpdi": "^2.2"
+                "setasign/fpdf": "^1.8.2",
+                "setasign/fpdi": "^2.3"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -545,24 +618,28 @@
                 "fpdi",
                 "pdf"
             ],
-            "time": "2019-01-30T14:38:19+00:00"
+            "support": {
+                "source": "https://github.com/Setasign/FPDI-FPDF/tree/v2.3.0"
+            },
+            "abandoned": true,
+            "time": "2020-02-19T12:21:53+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.12.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "550ebaac289296ce228a706d0867afc34687e3f4"
+                "reference": "c6c942b1ac76c82448322025e084cadc56048b4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/550ebaac289296ce228a706d0867afc34687e3f4",
-                "reference": "550ebaac289296ce228a706d0867afc34687e3f4",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/c6c942b1ac76c82448322025e084cadc56048b4e",
+                "reference": "c6c942b1ac76c82448322025e084cadc56048b4e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
                 "ext-ctype": "For best performance"
@@ -570,7 +647,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.12-dev"
+                    "dev-main": "1.22-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -603,20 +684,37 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-08-06T08:03:45+00:00"
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-01-07T16:49:33+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.3.2",
+            "version": "6.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "9fde7bb9b404b945e7ea88fb7eccd23d9a4e324b"
+                "reference": "19a535eaa7fb1c1cac499109deeb1a7a201b4549"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/9fde7bb9b404b945e7ea88fb7eccd23d9a4e324b",
-                "reference": "9fde7bb9b404b945e7ea88fb7eccd23d9a4e324b",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/19a535eaa7fb1c1cac499109deeb1a7a201b4549",
+                "reference": "19a535eaa7fb1c1cac499109deeb1a7a201b4549",
                 "shasum": ""
             },
             "require": {
@@ -645,7 +743,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-3.0"
+                "LGPL-3.0-only"
             ],
             "authors": [
                 {
@@ -665,28 +763,38 @@
                 "pdf417",
                 "qrcode"
             ],
-            "time": "2019-09-20T09:35:01+00:00"
+            "support": {
+                "issues": "https://github.com/tecnickcom/TCPDF/issues",
+                "source": "https://github.com/tecnickcom/TCPDF/tree/6.3.5"
+            },
+            "time": "2020-02-14T14:20:12+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.6.1",
+            "version": "v2.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5"
+                "reference": "b786088918a884258c9e3e27405c6a4cf2ee246e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
-                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/b786088918a884258c9e3e27405c6a4cf2ee246e",
+                "reference": "b786088918a884258c9e3e27405c6a4cf2ee246e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
-                "symfony/polyfill-ctype": "^1.9"
+                "php": "^5.3.9 || ^7.0 || ^8.0",
+                "symfony/polyfill-ctype": "^1.17"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.0"
+                "ext-filter": "*",
+                "ext-pcre": "*",
+                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20"
+            },
+            "suggest": {
+                "ext-filter": "Required to use the boolean validator.",
+                "ext-pcre": "Required to use most of the library."
             },
             "type": "library",
             "extra": {
@@ -705,9 +813,14 @@
             ],
             "authors": [
                 {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com",
+                    "homepage": "https://gjcampbell.co.uk/"
+                },
+                {
                     "name": "Vance Lucas",
                     "email": "vance@vancelucas.com",
-                    "homepage": "http://www.vancelucas.com"
+                    "homepage": "https://vancelucas.com/"
                 }
             ],
             "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
@@ -716,19 +829,33 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-01-29T11:11:52+00:00"
+            "support": {
+                "issues": "https://github.com/vlucas/phpdotenv/issues",
+                "source": "https://github.com/vlucas/phpdotenv/tree/v2.6.7"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-01-20T14:39:13+00:00"
         },
         {
             "name": "wpackagist-plugin/akismet",
-            "version": "4.1.2",
+            "version": "4.1.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/akismet/",
-                "reference": "tags/4.1.2"
+                "reference": "tags/4.1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/akismet.4.1.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/akismet.4.1.9.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -738,7 +865,7 @@
         },
         {
             "name": "wpackagist-plugin/better-search-replace",
-            "version": "1.3.3",
+            "version": "1.3.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/better-search-replace/",
@@ -746,7 +873,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/better-search-replace.zip?timestamp=1557317815"
+                "url": "https://downloads.wordpress.org/plugin/better-search-replace.zip?timestamp=1607361595"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -764,8 +891,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/category-checklist-tree.1.3.2.zip",
-                "reference": "tags/1.3.2"
+                "url": "https://downloads.wordpress.org/plugin/category-checklist-tree.1.3.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -775,7 +901,7 @@
         },
         {
             "name": "wpackagist-plugin/cmb2",
-            "version": "2.6.0",
+            "version": "2.9.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cmb2/",
@@ -783,7 +909,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cmb2.zip?timestamp=1548045394"
+                "url": "https://downloads.wordpress.org/plugin/cmb2.zip?timestamp=1614826089"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -811,15 +937,15 @@
         },
         {
             "name": "wpackagist-plugin/enhanced-media-library",
-            "version": "2.7.2",
+            "version": "2.8.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/enhanced-media-library/",
-                "reference": "tags/2.7.2"
+                "reference": "tags/2.8.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.7.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.8.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -829,15 +955,15 @@
         },
         {
             "name": "wpackagist-plugin/google-sitemap-generator",
-            "version": "4.1.0",
+            "version": "4.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/google-sitemap-generator/",
-                "reference": "tags/4.1.0"
+                "reference": "tags/4.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/google-sitemap-generator.4.1.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/google-sitemap-generator.4.1.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -847,15 +973,15 @@
         },
         {
             "name": "wpackagist-plugin/intuitive-custom-post-order",
-            "version": "3.1.2",
+            "version": "3.1.2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/intuitive-custom-post-order/",
-                "reference": "tags/3.1.2"
+                "reference": "tags/3.1.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/intuitive-custom-post-order.3.1.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/intuitive-custom-post-order.3.1.2.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -873,8 +999,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/limit-login-attempts.1.7.1.zip",
-                "reference": "tags/1.7.1"
+                "url": "https://downloads.wordpress.org/plugin/limit-login-attempts.1.7.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -892,8 +1017,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/parent-category-toggler.zip?timestamp=1496678496",
-                "reference": "trunk"
+                "url": "https://downloads.wordpress.org/plugin/parent-category-toggler.zip?timestamp=1496678496"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -903,15 +1027,15 @@
         },
         {
             "name": "wpackagist-plugin/redirection",
-            "version": "4.4.2",
+            "version": "5.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/4.4.2"
+                "reference": "tags/5.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.4.4.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/redirection.5.0.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -929,8 +1053,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/update-from-bottom.1.0.3.zip",
-                "reference": "tags/1.0.3"
+                "url": "https://downloads.wordpress.org/plugin/update-from-bottom.1.0.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -950,5 +1073,6 @@
     "platform": {
         "php": ">=5.4"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
