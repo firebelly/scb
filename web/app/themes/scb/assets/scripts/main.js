@@ -893,7 +893,7 @@ var SCB = (function($) {
   // Populate Project grid with category output
   function _updateProjects() {
     var $data = $(page_cache[encodeURIComponent(State.url)]).clone(),
-        $category_link = $('.project-categories a[href="' + relative_url + '"]');
+        $category_link = $('.project-categories a[href="' + location.protocol + "//" + location.hostname + relative_url + '"]');
 
     // Category is already loaded (user is closing a modal and returning to previous state), just return
     if (current_category === State.url) {
@@ -946,7 +946,8 @@ var SCB = (function($) {
     $category_nav.find('ul, li').removeClass('active grandchildren-active');
     $('.bar').removeClass('active');
     if (relative_url !== '/') {
-      var $li = $category_nav.find('a[href="' + relative_url + '"]').parent('li').addClass('active');
+      var $li = $category_nav.find('a[href="' + location.protocol + "//" + location.hostname + relative_url + '"]').parent('li').addClass('active');
+
       $li.parents('ul,li').addClass('active');
 
       // Add grandchildren class if more than one active column
