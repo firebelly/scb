@@ -946,7 +946,7 @@ var SCB = (function($) {
     $category_nav.find('ul, li').removeClass('active grandchildren-active');
     $('.bar').removeClass('active');
     if (relative_url !== '/') {
-      var $li = $category_nav.find('a[href="' + location.protocol + "//" + location.hostname + relative_url + '"]').parent('li').addClass('active');
+      var $li = $category_nav.find('a[href="' + relative_url + '"]').parent('li').addClass('active');
 
       $li.parents('ul,li').addClass('active');
 
