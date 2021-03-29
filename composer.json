@@ -41,7 +41,7 @@
     "johnpbloch/wordpress": ">=5.0",
     "composer/installers": "~1.0.12",
     "vlucas/phpdotenv": "^2.0.1",
-    "roots/soil": ">=3.0.0",
+    "roots/soil": "^3.0.0",
     "wpackagist-plugin/limit-login-attempts" : "*",
     "wpackagist-plugin/intuitive-custom-post-order": "*",
     "wpackagist-plugin/akismet": ">=3.1.1",
